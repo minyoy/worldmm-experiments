@@ -1,0 +1,6 @@
+# large generated artifacts (regenerable from subset.json + videos)
+frames/
+frames16/
+masks/
+masked_frames/
+__pycache__/

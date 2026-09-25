@@ -1,0 +1,40 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "common computer input devices",
+      "retrieved_content": "(I, stares at, computer)\n(Shure, is distinct from, I)\n(Shure, is an instructor and mentor of, I)\n(Shure, checked phone of, I)\n(I, relies on, Shure)\n(I, shops, socializes, and talks with, Shure)\n(I, spends_time_with, Shure)\n(Shure, walks up behind, I)\n(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "common computer input devices",
+      "retrieved_content": "(Alice, is sister of, I)\n(I, reassures, Alice)\n(Alice, delegates household tasks (clearing/organizing) to, I)\n(I, places items from pocket on, table)\n(I, relies on, Lucia)\n(I, lives_with, Lucia)\n(I, works_with, Lucia)\n(Katrina, offers help to, I)\n(I, lives_with, Katrina)\n(I, often taps, keyboard)"
+    },
+    {
+      "round_num": 3,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "common computer input devices",
+      "retrieved_content": "[No results]"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, stares at, computer)\n(Shure, is distinct from, I)\n(Shure, is an instructor and mentor of, I)\n(Shure, checked phone of, I)\n(I, relies on, Shure)\n(I, shops, socializes, and talks with, Shure)\n(I, spends_time_with, Shure)\n(Shure, walks up behind, I)\n(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)",
+      "query": "common computer input devices",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Alice, is sister of, I)\n(I, reassures, Alice)\n(Alice, delegates household tasks (clearing/organizing) to, I)\n(I, places items from pocket on, table)\n(I, relies on, Lucia)\n(I, lives_with, Lucia)\n(I, works_with, Lucia)\n(Katrina, offers help to, I)\n(I, lives_with, Katrina)\n(I, often taps, keyboard)",
+      "query": "common computer input devices",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 4
+}

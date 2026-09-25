@@ -1,0 +1,1753 @@
+{
+  "results_file": "/home/minyoy/WorldMM/experiments/visual_bottleneck/results_robust/E.json",
+  "n_questions": 96,
+  "hipporag_30sec_top10": 34,
+  "dpr_recall_union": {
+    "1": 14,
+    "3": 22,
+    "5": 29,
+    "10": 33,
+    "20": 39,
+    "50": 51,
+    "100": 55
+  },
+  "dpr_recall_first_query": {
+    "1": 12,
+    "3": 21,
+    "5": 28,
+    "10": 32,
+    "20": 38,
+    "50": 49,
+    "100": 52
+  },
+  "per_question": [
+    {
+      "ID": "13",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 171,
+      "first_query_target_rank": 143,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "16",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 204,
+      "first_query_target_rank": 180,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "25",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 320,
+      "first_query_target_rank": 215,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "26",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 329,
+      "first_query_target_rank": 126,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": true
+      }
+    },
+    {
+      "ID": "28",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 336,
+      "first_query_target_rank": 91,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": true
+      }
+    },
+    {
+      "ID": "34",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 379,
+      "first_query_target_rank": 5,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "55",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 632,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "56",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 632,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "65",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 652,
+      "first_query_target_rank": 2,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "67",
+      "type": "EventRecall",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 652,
+      "first_query_target_rank": 5,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "72",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 652,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "74",
+      "type": "HabitInsight",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 652,
+      "first_query_target_rank": 21,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "76",
+      "type": "HabitInsight",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 712,
+      "first_query_target_rank": 337,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "79",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 737,
+      "first_query_target_rank": 176,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "80",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 749,
+      "first_query_target_rank": 2,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "86",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 3,
+      "visible_captions": 763,
+      "first_query_target_rank": 27,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "91",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 763,
+      "first_query_target_rank": 2,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "92",
+      "type": "HabitInsight",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 763,
+      "first_query_target_rank": 502,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "98",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 777,
+      "first_query_target_rank": 177,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "103",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 809,
+      "first_query_target_rank": 696,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "108",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 867,
+      "first_query_target_rank": 627,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "113",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 959,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "114",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 984,
+      "first_query_target_rank": 3,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "119",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1059,
+      "first_query_target_rank": 371,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "125",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1291,
+      "first_query_target_rank": 126,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "139",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 1490,
+      "first_query_target_rank": 12,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "146",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1535,
+      "first_query_target_rank": 893,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "155",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1587,
+      "first_query_target_rank": 284,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "158",
+      "type": "HabitInsight",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 1616,
+      "first_query_target_rank": 43,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "160",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1632,
+      "first_query_target_rank": 2,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "168",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1742,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "170",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 1759,
+      "first_query_target_rank": 1303,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "172",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 1763,
+      "first_query_target_rank": 17,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "174",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1787,
+      "first_query_target_rank": 45,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "175",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 1826,
+      "first_query_target_rank": 738,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "178",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 1863,
+      "first_query_target_rank": 3,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "193",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2042,
+      "first_query_target_rank": 53,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": true
+      }
+    },
+    {
+      "ID": "194",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 2043,
+      "first_query_target_rank": 45,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "198",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2054,
+      "first_query_target_rank": 23,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "206",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 2109,
+      "first_query_target_rank": 10,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "217",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 2241,
+      "first_query_target_rank": 261,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "224",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 2343,
+      "first_query_target_rank": 5,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "225",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 2346,
+      "first_query_target_rank": 2,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "231",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2417,
+      "first_query_target_rank": 95,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": true
+      }
+    },
+    {
+      "ID": "245",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2561,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "251",
+      "type": "TaskMaster",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2595,
+      "first_query_target_rank": 2,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "254",
+      "type": "TaskMaster",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2621,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "256",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2646,
+      "first_query_target_rank": 4,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "258",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2661,
+      "first_query_target_rank": 116,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "260",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 2665,
+      "first_query_target_rank": 23,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "263",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 2668,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "275",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2799,
+      "first_query_target_rank": 42,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "276",
+      "type": "HabitInsight",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 2799,
+      "first_query_target_rank": 48,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "283",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 2880,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "286",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 2889,
+      "first_query_target_rank": 846,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "293",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 3,
+      "visible_captions": 3001,
+      "first_query_target_rank": 854,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "294",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 3068,
+      "first_query_target_rank": 1376,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "307",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 3261,
+      "first_query_target_rank": 44,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "308",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 3297,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "314",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 3461,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "334",
+      "type": "EventRecall",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 3609,
+      "first_query_target_rank": 8,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "337",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 3674,
+      "first_query_target_rank": 1,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "352",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 3852,
+      "first_query_target_rank": 1239,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "354",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 3854,
+      "first_query_target_rank": 5,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "357",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 3863,
+      "first_query_target_rank": 666,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "360",
+      "type": "RelationMap",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 3871,
+      "first_query_target_rank": 13,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "366",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 3919,
+      "first_query_target_rank": 415,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "369",
+      "type": "HabitInsight",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 3925,
+      "first_query_target_rank": 2148,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "371",
+      "type": "TaskMaster",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 3949,
+      "first_query_target_rank": 690,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "374",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 3953,
+      "first_query_target_rank": 495,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "377",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 4005,
+      "first_query_target_rank": 17,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "380",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 4015,
+      "first_query_target_rank": 630,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "382",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 4,
+      "visible_captions": 4024,
+      "first_query_target_rank": 119,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "383",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 4025,
+      "first_query_target_rank": 4,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "392",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 3,
+      "visible_captions": 4227,
+      "first_query_target_rank": 614,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "393",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 4230,
+      "first_query_target_rank": 2870,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "402",
+      "type": "EventRecall",
+      "evaluate": true,
+      "n_queries": 3,
+      "visible_captions": 4308,
+      "first_query_target_rank": 160,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "409",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 4480,
+      "first_query_target_rank": 6,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "414",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 4494,
+      "first_query_target_rank": 20,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "417",
+      "type": "EntityLog",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 4540,
+      "first_query_target_rank": 270,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "429",
+      "type": "EventRecall",
+      "evaluate": true,
+      "n_queries": 3,
+      "visible_captions": 4836,
+      "first_query_target_rank": 4,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "430",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 4854,
+      "first_query_target_rank": 237,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "438",
+      "type": "EntityLog",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 5065,
+      "first_query_target_rank": 643,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "445",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 5132,
+      "first_query_target_rank": 4793,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "448",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 5227,
+      "first_query_target_rank": 1035,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "459",
+      "type": "RelationMap",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 5377,
+      "first_query_target_rank": 2396,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "465",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 4,
+      "visible_captions": 5377,
+      "first_query_target_rank": 1000,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "469",
+      "type": "HabitInsight",
+      "evaluate": false,
+      "n_queries": 4,
+      "visible_captions": 5496,
+      "first_query_target_rank": 879,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "471",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 2,
+      "visible_captions": 5496,
+      "first_query_target_rank": 170,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "473",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 5508,
+      "first_query_target_rank": 20,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "481",
+      "type": "TaskMaster",
+      "evaluate": false,
+      "n_queries": 3,
+      "visible_captions": 5521,
+      "first_query_target_rank": 43,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "485",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 4,
+      "visible_captions": 5558,
+      "first_query_target_rank": 1881,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "486",
+      "type": "HabitInsight",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 5558,
+      "first_query_target_rank": 1881,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    },
+    {
+      "ID": "493",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 1,
+      "visible_captions": 5858,
+      "first_query_target_rank": 6,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "496",
+      "type": "EventRecall",
+      "evaluate": true,
+      "n_queries": 1,
+      "visible_captions": 5963,
+      "first_query_target_rank": 2,
+      "hippo_hit": true,
+      "dpr_hit": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true,
+        "20": true,
+        "50": true,
+        "100": true
+      }
+    },
+    {
+      "ID": "497",
+      "type": "EventRecall",
+      "evaluate": false,
+      "n_queries": 2,
+      "visible_captions": 5966,
+      "first_query_target_rank": 4344,
+      "hippo_hit": false,
+      "dpr_hit": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false,
+        "20": false,
+        "50": false,
+        "100": false
+      }
+    }
+  ]
+}

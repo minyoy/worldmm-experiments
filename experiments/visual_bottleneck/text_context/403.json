@@ -1,0 +1,46 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha opinion on stewed dishes",
+      "retrieved_content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, plays games with and can hit the target in those games, I)\n(Tasha, hands parts of the narrator's microphone to, I)\n(I, accepts food from, Tasha)\n(Tasha, gives food to, I)\n(I, watches, Tasha)\n(Tasha, gives glasses to, I)\n(Tasha, helps with power/charging, I)\n(Tasha, gives phone to, I)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha dislike reason stewed dishes",
+      "retrieved_content": "(Tasha, helps tidy up with, I)\n(I, is friends with; regularly interacts with; often accompanies (often beside me in the living room), Tasha)\n(I, listens to, Tasha)\n(I, jokes with, Tasha)\n(Tasha, is_friends_with and acts playfully with, Alice)\n(Alice, wants to save food for, Tasha)\n(Tasha, requests, salt)\n(Shure, agrees with, Tasha)\n(Tasha, has_not_eaten, preserved eggs)\n(Tasha, is willing to eat, durian)"
+    },
+    {
+      "round_num": 3,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha reason for not eating stewed dishes",
+      "retrieved_content": "(Katrina, offers to handle rest with, Tasha)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, plays games with and can hit the target in those games, I)\n(Tasha, hands parts of the narrator's microphone to, I)\n(I, accepts food from, Tasha)\n(Tasha, gives food to, I)\n(I, watches, Tasha)\n(Tasha, gives glasses to, I)\n(Tasha, helps with power/charging, I)\n(Tasha, gives phone to, I)",
+      "query": "Tasha opinion on stewed dishes",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Tasha, helps tidy up with, I)\n(I, is friends with; regularly interacts with; often accompanies (often beside me in the living room), Tasha)\n(I, listens to, Tasha)\n(I, jokes with, Tasha)\n(Tasha, is_friends_with and acts playfully with, Alice)\n(Alice, wants to save food for, Tasha)\n(Tasha, requests, salt)\n(Shure, agrees with, Tasha)\n(Tasha, has_not_eaten, preserved eggs)\n(Tasha, is willing to eat, durian)",
+      "query": "Tasha dislike reason stewed dishes",
+      "round_num": 2
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Katrina, offers to handle rest with, Tasha)",
+      "query": "Tasha reason for not eating stewed dishes",
+      "round_num": 3
+    }
+  ],
+  "num_rounds": 4
+}

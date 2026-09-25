@@ -1,0 +1,59 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "hometown of Alice",
+      "retrieved_content": "(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)\n(Alice, is sister of, I)\n(I, reassures, Alice)\n(Alice, delegates household tasks (clearing/organizing) to, I)\n(Alice, converses with, Tasha)\n(Alice, agrees with, Lucia)\n(Alice, recommends, locust flower)\n(Alice, is located in, living room)\n(Alice, does_not_have, charcoal)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "hometown of Shure",
+      "retrieved_content": "(Shure, is distinct from, I)\n(Shure, is an instructor and mentor of, I)\n(Shure, checked phone of, I)\n(I, relies on, Shure)\n(I, shops, socializes, and talks with, Shure)\n(I, spends_time_with, Shure)\n(Shure, walks up behind, I)\n(Shure, mentions_various_restaurants_when_choosing_food, true)\n(Shure, uses phone during gatherings, true)\n(Shure, can_cook, eggs)"
+    },
+    {
+      "round_num": 3,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "hometown of Katrina",
+      "retrieved_content": "(Katrina, offers help to, I)\n(I, lives_with, Katrina)\n(Lucia, assists with preparations and advises on clothing choices for, Katrina)\n(this data, will link actions of, Katrina)\n(this data, was found by, Katrina)\n(Katrina, failed to crack, eggs)\n(Katrina, does not have, charcoal)\n(Katrina, cannot perform, tongue click)\n(Katrina, forbids, tongue click)\n(Katrina, is part of, Everyone)"
+    },
+    {
+      "round_num": 4,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "hometown of Tasha",
+      "retrieved_content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, work with, Tasha)\n(Tasha, is friends with, Lucia)\n(Tasha, remembers the house password, true)\n(Tasha, has_not_eaten, preserved eggs)\n(Tasha, is in, living room)\n(Tasha, declines, KFC)\n(Tasha, arranges, flowers)\n(Tasha, prefers, potato dishes)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)\n(Alice, is sister of, I)\n(I, reassures, Alice)\n(Alice, delegates household tasks (clearing/organizing) to, I)\n(Alice, converses with, Tasha)\n(Alice, agrees with, Lucia)\n(Alice, recommends, locust flower)\n(Alice, is located in, living room)\n(Alice, does_not_have, charcoal)",
+      "query": "hometown of Alice",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Shure, is distinct from, I)\n(Shure, is an instructor and mentor of, I)\n(Shure, checked phone of, I)\n(I, relies on, Shure)\n(I, shops, socializes, and talks with, Shure)\n(I, spends_time_with, Shure)\n(Shure, walks up behind, I)\n(Shure, mentions_various_restaurants_when_choosing_food, true)\n(Shure, uses phone during gatherings, true)\n(Shure, can_cook, eggs)",
+      "query": "hometown of Shure",
+      "round_num": 2
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Katrina, offers help to, I)\n(I, lives_with, Katrina)\n(Lucia, assists with preparations and advises on clothing choices for, Katrina)\n(this data, will link actions of, Katrina)\n(this data, was found by, Katrina)\n(Katrina, failed to crack, eggs)\n(Katrina, does not have, charcoal)\n(Katrina, cannot perform, tongue click)\n(Katrina, forbids, tongue click)\n(Katrina, is part of, Everyone)",
+      "query": "hometown of Katrina",
+      "round_num": 3
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, work with, Tasha)\n(Tasha, is friends with, Lucia)\n(Tasha, remembers the house password, true)\n(Tasha, has_not_eaten, preserved eggs)\n(Tasha, is in, living room)\n(Tasha, declines, KFC)\n(Tasha, arranges, flowers)\n(Tasha, prefers, potato dishes)",
+      "query": "hometown of Tasha",
+      "round_num": 4
+    }
+  ],
+  "num_rounds": 5
+}

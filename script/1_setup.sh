@@ -25,8 +25,8 @@ MAX_JOBS=8 uv sync 2>&1 | tee "$LOG_DIR/uv_sync_$TIMESTAMP.log"
 source .venv/bin/activate
 
 # Download EgoLife dataset
-echo -e "${BLUE}Downloading EgoLife dataset...${NC}"
-hf download lmms-lab/EgoLife --repo-type=dataset --local-dir data/EgoLife 2>&1 | tee "$LOG_DIR/hf_download_egolife_$TIMESTAMP.log"
-unzip data/EgoLife/caption.zip && rm data/EgoLife/caption.zip
+# echo -e "${BLUE}Downloading EgoLife dataset...${NC}"
+# hf download lmms-lab/EgoLife --repo-type=dataset --local-dir data/EgoLife 2>&1 | tee "$LOG_DIR/hf_download_egolife_$TIMESTAMP.log"
+# unzip data/EgoLife/caption.zip && rm data/EgoLife/caption.zip
 
 echo -e "${BLUE}Setup Done! Dependencies installed and data downloaded.${NC}"

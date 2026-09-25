@@ -1,0 +1,33 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "habitual kitchenware drying method",
+      "retrieved_content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, thanks, Tasha)\n(I, wait for, Tasha)\n(Tasha, discusses package delivery with, I)\n(I, is friends with and a colleague of, Tasha)\n(Tasha, gives tissue to, I)\n(I, habitually washes dishes, sometimes together with, Tasha)\n(I, scroll through phone while chatting with (via WeChat; includes answering her questions about scriptwriting), Tasha)\n(Tasha, thanks, I)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "habitual kitchenware drying method",
+      "retrieved_content": "(Shure, is distinct from, I)\n(I, brings food to, Shure)\n(Shure, walks up behind, I)\n(Shure, provides translation help to, I)\n(I, goes upstairs to check on, Shure)\n(I, is friends with and a colleague of, Shure)\n(Shure, taunts, I)\n(Shure, suggests buying a dishwasher for, I)\n(I, turn faucet on/off in presence of, Shure)\n(I, is with, Shure)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, thanks, Tasha)\n(I, wait for, Tasha)\n(Tasha, discusses package delivery with, I)\n(I, is friends with and a colleague of, Tasha)\n(Tasha, gives tissue to, I)\n(I, habitually washes dishes, sometimes together with, Tasha)\n(I, scroll through phone while chatting with (via WeChat; includes answering her questions about scriptwriting), Tasha)\n(Tasha, thanks, I)",
+      "query": "habitual kitchenware drying method",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Shure, is distinct from, I)\n(I, brings food to, Shure)\n(Shure, walks up behind, I)\n(Shure, provides translation help to, I)\n(I, goes upstairs to check on, Shure)\n(I, is friends with and a colleague of, Shure)\n(Shure, taunts, I)\n(Shure, suggests buying a dishwasher for, I)\n(I, turn faucet on/off in presence of, Shure)\n(I, is with, Shure)",
+      "query": "habitual kitchenware drying method",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 3
+}

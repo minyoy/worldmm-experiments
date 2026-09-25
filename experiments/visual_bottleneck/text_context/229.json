@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "popular drink combinations for gatherings",
+      "retrieved_content": "(I, hold recording device with one hand while watching, Lucia)\n(I, gives a bag to, Lucia)\n(Lucia, walks ahead of, I)\n(Lucia, interacts cooperatively with (frequently interacts; smiles and talks; is friends with; receives help/gifts such as water, clothes, guidance), I)\n(I, shares snacks and phone content with, Lucia)\n(I, laugh with, Lucia)\n(I, am friends with, Lucia)\n(Lucia, reassures, I)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, hold recording device with one hand while watching, Lucia)\n(I, gives a bag to, Lucia)\n(Lucia, walks ahead of, I)\n(Lucia, interacts cooperatively with (frequently interacts; smiles and talks; is friends with; receives help/gifts such as water, clothes, guidance), I)\n(I, shares snacks and phone content with, Lucia)\n(I, laugh with, Lucia)\n(I, am friends with, Lucia)\n(Lucia, reassures, I)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)",
+      "query": "popular drink combinations for gatherings",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

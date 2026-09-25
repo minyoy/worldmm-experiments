@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "episodic",
+      "search_query": "scan living room with 3D app on phone",
+      "retrieved_content": "[DAY7 14:37:02 - DAY7 14:37:30]\nI raise my phone and scan the lower-left corner and walls, turn right to scan down the bed and floor, step back, walk forward and scan the luggage along the wall, sweep left across the floor, then scan the doorway, tilt my phone right to capture the ceiling, and scan the bottom-right of the living room wall.\n\n[DAY7 14:40:00 - DAY7 14:40:30]\nI scan the sofa, walk right, and unplug the cord. \"Hello,\" I say. Tasha replies, \"Okay, you're not here, okay, come on.\" \"Hello, I'm here,\" I say. I say, \"Scan the living room floor and move forward.\" I scan the living room floor and ceiling, turning right and left, stand up, and raise my hand and phone to scan the walls. I scan down the living room wall and move forward while scanning, then walk forward, turn right, and enter Lucia's room. I raise my phone to scan the room's ceiling and turn left to finish scanning.\n\n[DAY7 14:37:31 - DAY7 14:37:59]\nI scan the shelves along the wall, crouching and moving right to inspect a stool. I step back and bend to scan the computer in the living-room corner. I stand and raise my phone to scan the living-room wall and light, then turn right and walk forward scanning the kitchen before turning left to scan the living room."
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "episodic",
+      "content": "[DAY7 14:37:02 - DAY7 14:37:30]\nI raise my phone and scan the lower-left corner and walls, turn right to scan down the bed and floor, step back, walk forward and scan the luggage along the wall, sweep left across the floor, then scan the doorway, tilt my phone right to capture the ceiling, and scan the bottom-right of the living room wall.\n\n[DAY7 14:40:00 - DAY7 14:40:30]\nI scan the sofa, walk right, and unplug the cord. \"Hello,\" I say. Tasha replies, \"Okay, you're not here, okay, come on.\" \"Hello, I'm here,\" I say. I say, \"Scan the living room floor and move forward.\" I scan the living room floor and ceiling, turning right and left, stand up, and raise my hand and phone to scan the walls. I scan down the living room wall and move forward while scanning, then walk forward, turn right, and enter Lucia's room. I raise my phone to scan the room's ceiling and turn left to finish scanning.\n\n[DAY7 14:37:31 - DAY7 14:37:59]\nI scan the shelves along the wall, crouching and moving right to inspect a stool. I step back and bend to scan the computer in the living-room corner. I stand and raise my phone to scan the living-room wall and light, then turn right and walk forward scanning the kitchen before turning left to scan the living room.",
+      "query": "scan living room with 3D app on phone",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

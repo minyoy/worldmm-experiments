@@ -1,0 +1,40 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Alice's room decor items",
+      "retrieved_content": "(Lucia, advises, Alice)\n(Lucia, chats_with_and_is_friends_with_and_works_with, Alice)\n(Lucia, brings drink to, Alice)\n(Alice, watches with, Lucia)\n(I, teases, Alice)\n(Alice, talks with, I)\n(Alice, owns, Alice's room)\n(Alice, stands to the right of, Shure)\n(Alice, offers_help_to, Shure)\n(Shure, takes and edits photos of, Alice)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Alice's room decor items",
+      "retrieved_content": "(Alice, device_overheats, true)\n(Alice, feels_carsick_when_sitting_in_the_back, true)\n(Alice, can_only_cut_straight, true)\n(Alice, watches, Katrina)\n(Tasha, is_friends_with and acts playfully with, Alice)\n(Alice, wants to save food for, Tasha)\n(Alice, is located in, living room (first floor))\n(Alice, has, unbloomed flowers)\n(Alice, has, small table)\n(Alice, has, egg)"
+    },
+    {
+      "round_num": 3,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Alice's room decor items",
+      "retrieved_content": "[No results]"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Lucia, advises, Alice)\n(Lucia, chats_with_and_is_friends_with_and_works_with, Alice)\n(Lucia, brings drink to, Alice)\n(Alice, watches with, Lucia)\n(I, teases, Alice)\n(Alice, talks with, I)\n(Alice, owns, Alice's room)\n(Alice, stands to the right of, Shure)\n(Alice, offers_help_to, Shure)\n(Shure, takes and edits photos of, Alice)",
+      "query": "Alice's room decor items",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Alice, device_overheats, true)\n(Alice, feels_carsick_when_sitting_in_the_back, true)\n(Alice, can_only_cut_straight, true)\n(Alice, watches, Katrina)\n(Tasha, is_friends_with and acts playfully with, Alice)\n(Alice, wants to save food for, Tasha)\n(Alice, is located in, living room (first floor))\n(Alice, has, unbloomed flowers)\n(Alice, has, small table)\n(Alice, has, egg)",
+      "query": "Alice's room decor items",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 4
+}

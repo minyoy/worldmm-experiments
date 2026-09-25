@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "episodic",
+      "search_query": "Shure lit fire last time helper",
+      "retrieved_content": "[DAY3 20:11:30 - DAY3 20:12:00]\nI look outside toward the pool and see Shure igniting something. Tasha comes over again and pours milk. Shure: \"Transport the fire source.\" I watch Shure walk out holding a burning piece of cardboard. \"Does it help if I block it for you?\" I ask as I spread my arms to block the flames. \"Does it help a bit?\" I ask. Shure: \"Just walk slowly, it's fine.\" I go outside with them and escort the burning cardboard forward. Shure: \"Just don't let the curtain catch fire.\" Shure: \"It burned out again.\" I keep moving forward. Shure: \"Damn it.\" \"Haha,\" I say.\n\n[DAY3 20:12:30 - DAY3 20:12:59]\nShure says, \"Whoa, just put it in and light it directly.\" I follow Shure cautiously out toward the oven. \"Yeah, yeah, that's right,\" I say. \"Awesome,\" I say. \"Great success,\" I say. I continue walking to the oven. \"Is it a great success?\" I ask. I place the burning cardboard into the oven. \"It should've worked,\" I say. Shure says, \"It should have worked a bit.\"\n\n[DAY3 20:13:00 - DAY3 20:13:27]\nShure: Where's that clip? I observe the combustion and continue monitoring the flames. Shure: Where did the clip go? I turn right and spin around once, continuing to watch the fire. I watch Shure add charcoal to the flames. Shure: What's this fire accelerant, I remember. I watch from the sidelines."
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "episodic",
+      "content": "[DAY3 20:11:30 - DAY3 20:12:00]\nI look outside toward the pool and see Shure igniting something. Tasha comes over again and pours milk. Shure: \"Transport the fire source.\" I watch Shure walk out holding a burning piece of cardboard. \"Does it help if I block it for you?\" I ask as I spread my arms to block the flames. \"Does it help a bit?\" I ask. Shure: \"Just walk slowly, it's fine.\" I go outside with them and escort the burning cardboard forward. Shure: \"Just don't let the curtain catch fire.\" Shure: \"It burned out again.\" I keep moving forward. Shure: \"Damn it.\" \"Haha,\" I say.\n\n[DAY3 20:12:30 - DAY3 20:12:59]\nShure says, \"Whoa, just put it in and light it directly.\" I follow Shure cautiously out toward the oven. \"Yeah, yeah, that's right,\" I say. \"Awesome,\" I say. \"Great success,\" I say. I continue walking to the oven. \"Is it a great success?\" I ask. I place the burning cardboard into the oven. \"It should've worked,\" I say. Shure says, \"It should have worked a bit.\"\n\n[DAY3 20:13:00 - DAY3 20:13:27]\nShure: Where's that clip? I observe the combustion and continue monitoring the flames. Shure: Where did the clip go? I turn right and spin around once, continuing to watch the fire. I watch Shure add charcoal to the flames. Shure: What's this fire accelerant, I remember. I watch from the sidelines.",
+      "query": "Shure lit fire last time helper",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

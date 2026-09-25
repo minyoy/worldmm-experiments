@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "purpose of ego coins",
+      "retrieved_content": "(I, advises others to keep, EGO coin)\n(I, goes upstairs to check on, Shure)\n(Shure, suggests buying a dishwasher for, I)\n(Shure, will_match_instrument_with_bracelet_for, I)\n(Shure, prepares and serves coffee to, I)\n(I, collaborates on cooking tasks with, Shure)\n(I, teases or mocks (causing Shure to feel humiliated and stressed), Shure)\n(Shure, explains lottery rules to, I)\n(Shure, recommends, I)\n(I, walks outside with (forward slowly), Shure)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, advises others to keep, EGO coin)\n(I, goes upstairs to check on, Shure)\n(Shure, suggests buying a dishwasher for, I)\n(Shure, will_match_instrument_with_bracelet_for, I)\n(Shure, prepares and serves coffee to, I)\n(I, collaborates on cooking tasks with, Shure)\n(I, teases or mocks (causing Shure to feel humiliated and stressed), Shure)\n(Shure, explains lottery rules to, I)\n(Shure, recommends, I)\n(I, walks outside with (forward slowly), Shure)",
+      "query": "purpose of ego coins",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

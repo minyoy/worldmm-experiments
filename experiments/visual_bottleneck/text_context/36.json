@@ -1,0 +1,33 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "drinks that mix well with rum",
+      "retrieved_content": "(Lucia, plans cooking with, Tasha)\n(Tasha, speaks with, Lucia)\n(Lucia, tends to take a lot of food at conferences, true)\n(Lucia, has_no_dietary_restrictions, true)\n(Lucia, initially_did_not_know_how_to_order_espresso, true)\n(Lucia, plans cooking with, Katrina)\n(Lucia, suggests, tequila)\n(Lucia, suggests, whiskey)\n(Lucia, plans cooking with, Alice)\n(Shure, is distinct from, I)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "drinks that mix well with rum",
+      "retrieved_content": "(Shure, is an instructor and mentor of, I)\n(I, is_companions_with, Shure)\n(Shure, checked phone of, I)\n(I, smiles and laughs with, Shure)\n(I, averts_gaze_from, Shure)\n(Lucia, suggests, buying cola)\n(Lucia, suggests, mixing cola and whiskey)\n(Lucia, suggests buying, rum)\n(Lucia, recommends, coconut milk)\n(Lucia, suggests_using, pineapple juice)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Lucia, plans cooking with, Tasha)\n(Tasha, speaks with, Lucia)\n(Lucia, tends to take a lot of food at conferences, true)\n(Lucia, has_no_dietary_restrictions, true)\n(Lucia, initially_did_not_know_how_to_order_espresso, true)\n(Lucia, plans cooking with, Katrina)\n(Lucia, suggests, tequila)\n(Lucia, suggests, whiskey)\n(Lucia, plans cooking with, Alice)\n(Shure, is distinct from, I)",
+      "query": "drinks that mix well with rum",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Shure, is an instructor and mentor of, I)\n(I, is_companions_with, Shure)\n(Shure, checked phone of, I)\n(I, smiles and laughs with, Shure)\n(I, averts_gaze_from, Shure)\n(Lucia, suggests, buying cola)\n(Lucia, suggests, mixing cola and whiskey)\n(Lucia, suggests buying, rum)\n(Lucia, recommends, coconut milk)\n(Lucia, suggests_using, pineapple juice)",
+      "query": "drinks that mix well with rum",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 3
+}

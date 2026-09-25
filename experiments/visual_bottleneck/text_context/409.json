@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "episodic",
+      "search_query": "last time I picked up takeout",
+      "retrieved_content": "[DAY4 12:48:00 - DAY4 12:48:30]\nI say, \"Yeah, we didn't know it's this kind of place.\" I pick up two takeout orders and walk straight ahead. I add, \"I've been looking for a while too,\" and then say, \"Bye, thank you.\" I reach the door and say, \"Oh, thanks,\" and then, \"Eat dumplings.\" I see Tasha and hand her a drink. I carry the takeout with both hands and walk into the room. Others: \"Don't touch these.\" Others: \"These are yours, right?\" I murmur, \"Uh...\" and ask, \"Do we need them?\"\n\n[DAY5 11:17:34 - DAY5 11:17:56]\nI browse and select takeout items, add them to my shopping cart, confirm the quantities, and realize I've ordered so many.\n\n[DAY5 11:19:32 - DAY5 11:20:00]\nI open my phone and browse takeout/delivery shops and menus, searching and selecting items; I receive the food delivery, then suddenly turn and walk away."
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "episodic",
+      "content": "[DAY4 12:48:00 - DAY4 12:48:30]\nI say, \"Yeah, we didn't know it's this kind of place.\" I pick up two takeout orders and walk straight ahead. I add, \"I've been looking for a while too,\" and then say, \"Bye, thank you.\" I reach the door and say, \"Oh, thanks,\" and then, \"Eat dumplings.\" I see Tasha and hand her a drink. I carry the takeout with both hands and walk into the room. Others: \"Don't touch these.\" Others: \"These are yours, right?\" I murmur, \"Uh...\" and ask, \"Do we need them?\"\n\n[DAY5 11:17:34 - DAY5 11:17:56]\nI browse and select takeout items, add them to my shopping cart, confirm the quantities, and realize I've ordered so many.\n\n[DAY5 11:19:32 - DAY5 11:20:00]\nI open my phone and browse takeout/delivery shops and menus, searching and selecting items; I receive the food delivery, then suddenly turn and walk away.",
+      "query": "last time I picked up takeout",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

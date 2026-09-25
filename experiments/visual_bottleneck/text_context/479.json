@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "purpose of glasses",
+      "retrieved_content": "(I, goes upstairs to check on, Shure)\n(Shure, suggests buying a dishwasher for, I)\n(Shure, will_match_instrument_with_bracelet_for, I)\n(Shure, prepares and serves coffee to, I)\n(I, collaborates on cooking tasks with, Shure)\n(I, teases or mocks (causing Shure to feel humiliated and stressed), Shure)\n(Shure, explains lottery rules to, I)\n(Shure, recommends, I)\n(I, walks outside with (forward slowly), Shure)\n(Shure, is frequently physically near; paces and chats near, and stands to the left of, I)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, goes upstairs to check on, Shure)\n(Shure, suggests buying a dishwasher for, I)\n(Shure, will_match_instrument_with_bracelet_for, I)\n(Shure, prepares and serves coffee to, I)\n(I, collaborates on cooking tasks with, Shure)\n(I, teases or mocks (causing Shure to feel humiliated and stressed), Shure)\n(Shure, explains lottery rules to, I)\n(Shure, recommends, I)\n(I, walks outside with (forward slowly), Shure)\n(Shure, is frequently physically near; paces and chats near, and stands to the left of, I)",
+      "query": "purpose of glasses",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

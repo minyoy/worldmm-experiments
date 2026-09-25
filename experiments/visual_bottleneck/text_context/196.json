@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "ingredients needed for Dumplings Cake",
+      "retrieved_content": "(Alice, cooperates with, talks with, offers help to and sits with, Tasha)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, thanks, I)\n(Tasha, participates in playing with and follows instructions from, I)\n(I, talks_with, Tasha)\n(I, accompanies (sometimes), Tasha)\n(I, interacts positively with, Tasha)\n(I, gives positive feedback to via singing, Tasha)\n(Lucia, is friends with, considers experienced, and receives cleaning advice from, Tasha)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Alice, cooperates with, talks with, offers help to and sits with, Tasha)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, thanks, I)\n(Tasha, participates in playing with and follows instructions from, I)\n(I, talks_with, Tasha)\n(I, accompanies (sometimes), Tasha)\n(I, interacts positively with, Tasha)\n(I, gives positive feedback to via singing, Tasha)\n(Lucia, is friends with, considers experienced, and receives cleaning advice from, Tasha)",
+      "query": "ingredients needed for Dumplings Cake",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

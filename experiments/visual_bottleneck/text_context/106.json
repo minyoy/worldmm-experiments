@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "main responsibility when shopping in supermarket",
+      "retrieved_content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, lives_with, Lucia)\n(I, watches, Lucia)\n(I, helps, Lucia)\n(I, reassures, Lucia)\n(I, offers my account to, Lucia)\n(Lucia, asks for help from, I)\n(Tasha, is viewed as experienced by, Lucia)\n(Tasha, is upstairs with, Lucia)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, lives_with, Lucia)\n(I, watches, Lucia)\n(I, helps, Lucia)\n(I, reassures, Lucia)\n(I, offers my account to, Lucia)\n(Lucia, asks for help from, I)\n(Tasha, is viewed as experienced by, Lucia)\n(Tasha, is upstairs with, Lucia)",
+      "query": "main responsibility when shopping in supermarket",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

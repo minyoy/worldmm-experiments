@@ -1,0 +1,33 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Alice porridge preference",
+      "retrieved_content": "(Alice, watches, Katrina)\n(Alice, stands to the right of, Shure)\n(Shure, takes and edits photos of, Alice)\n(Shure, frequently gives advice to, Alice)\n(Alice, agrees to sing when asked by, Shure)\n(Lucia, brings drink to, Alice)\n(Alice, watches with, Lucia)\n(Alice, makes_heart_gesture_with, Lucia)\n(Lucia, is friends with, Alice)\n(Alice, feels_carsick_when_sitting_in_the_back, true)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Alice porridge preference",
+      "retrieved_content": "(Alice, can_only_cut_straight, true)\n(Alice, prepares, usually uses, and recommends chopsticks to eat at her small dining table, true)\n(Alice, wants_to_eat, Orleans)\n(Alice, prefers, full and ripe fruit)\n(Alice, prefers, not to eat pork)\n(Alice, has, egg)\n(Alice, dislikes, steamed buns)\n(Alice, orders, pies)\n(Alice, prefers, savory food (including fattier meat; enjoys vinegar))\n(Alice, insults, Nicous)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Alice, watches, Katrina)\n(Alice, stands to the right of, Shure)\n(Shure, takes and edits photos of, Alice)\n(Shure, frequently gives advice to, Alice)\n(Alice, agrees to sing when asked by, Shure)\n(Lucia, brings drink to, Alice)\n(Alice, watches with, Lucia)\n(Alice, makes_heart_gesture_with, Lucia)\n(Lucia, is friends with, Alice)\n(Alice, feels_carsick_when_sitting_in_the_back, true)",
+      "query": "Alice porridge preference",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Alice, can_only_cut_straight, true)\n(Alice, prepares, usually uses, and recommends chopsticks to eat at her small dining table, true)\n(Alice, wants_to_eat, Orleans)\n(Alice, prefers, full and ripe fruit)\n(Alice, prefers, not to eat pork)\n(Alice, has, egg)\n(Alice, dislikes, steamed buns)\n(Alice, orders, pies)\n(Alice, prefers, savory food (including fattier meat; enjoys vinegar))\n(Alice, insults, Nicous)",
+      "query": "Alice porridge preference",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 3
+}

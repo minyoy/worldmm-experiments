@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "episodic",
+      "search_query": "eat green grapes kitchen today",
+      "retrieved_content": "[DAY2 21:42:30 - DAY2 21:42:59]\nI walk into the kitchen and rub my hands. I pick up a grape and take a bite. Choiszt: Aren't you going to wash up? \"It's not a big deal, not a big deal,\" I say, waving my right hand. I watch Choiszt, take grapes from his hand, and briefly adjust my glasses. \"Oh, you want to give me one?\" I ask. \"Thanks,\" I say. \"Hmm,\" I mutter, and \"It's like this,\" I add. I hurry toward Alice's room, knock, open the door, and enter.\n\n[DAY2 22:42:02 - DAY2 22:42:27]\nShure operates his phone and picks up grapes while Nicous grabs his phone. I quietly watch my colleagues, reach out, and grab a grape. \"It has to charge up to around 5%, right?\" I say. I bite the grape—\"10%, hmm,\" I add—and keep eating while looking at them.\n\n[DAY2 22:01:30 - DAY2 22:01:59]\nI look toward the kitchen, then glance at a glass and see my reflection. I pick up a grape and eat it, take a few steps forward, and spot Choiszt. I lean against the doorframe, scanning the room's corners, then bend down to scan the bottom of the whiteboard."
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "episodic",
+      "content": "[DAY2 21:42:30 - DAY2 21:42:59]\nI walk into the kitchen and rub my hands. I pick up a grape and take a bite. Choiszt: Aren't you going to wash up? \"It's not a big deal, not a big deal,\" I say, waving my right hand. I watch Choiszt, take grapes from his hand, and briefly adjust my glasses. \"Oh, you want to give me one?\" I ask. \"Thanks,\" I say. \"Hmm,\" I mutter, and \"It's like this,\" I add. I hurry toward Alice's room, knock, open the door, and enter.\n\n[DAY2 22:42:02 - DAY2 22:42:27]\nShure operates his phone and picks up grapes while Nicous grabs his phone. I quietly watch my colleagues, reach out, and grab a grape. \"It has to charge up to around 5%, right?\" I say. I bite the grape—\"10%, hmm,\" I add—and keep eating while looking at them.\n\n[DAY2 22:01:30 - DAY2 22:01:59]\nI look toward the kitchen, then glance at a glass and see my reflection. I pick up a grape and eat it, take a few steps forward, and spot Choiszt. I lean against the doorframe, scanning the room's corners, then bend down to scan the bottom of the whiteboard.",
+      "query": "eat green grapes kitchen today",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

@@ -1,0 +1,33 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha favorite food",
+      "retrieved_content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, asks for rides from, I)\n(Tasha, has a brother, I)\n(I, shares phone with, Tasha)\n(Tasha, offers sweet drink to, I)\n(Tasha, stands to the right of, I)\n(Tasha, will give a puppy to, I)\n(I, follows instructions of, Tasha)\n(I, coordinates turns and scheduling; regularly interacts; advises about posting deliveries in the group, Tasha)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "episodic",
+      "search_query": "Tasha eats what",
+      "retrieved_content": "[DAY5 20:07:02 - DAY5 20:07:29]\nI see everyone eating hamburgers at the table. I sort through trash on the desk and keep organizing. I watch Jack drink a beverage. \"Hmm,\" I say. I move the fruit to one side and set it aside and notice many cups. Tasha: \"I used to eat at that dumb student place in Shanghai.\" Tasha: \"Isn't it the China headquarters?\" Tasha: \"I ate McDonald's every day.\" Tasha: \"One year, it made me puke.\" Tasha: \"I don't want to eat it at all.\" \"Is it this kind?\" I ask Jack. \"It's the same,\" I say. I notice one more bag of chips with only one bite left.\n\n[DAY6 10:51:30 - DAY6 10:52:00]\nTasha: \"Nobody asked me.\" Tasha steps toward Nicous. Tasha: \"I also brought stomach medicine.\" Nicous comes to our side. Tasha: \"I even dropped my digestive tablets.\" We walk forward. Tasha: \"I'm afraid we ate too much.\" A black car is on my left. I glance at Nicous; he turns around and I look back. We continue walking. \"After meeting you, I basically need to drink 8 every day.\" I make a brief gesture with my right hand. Tasha: \"I thought you were eating.\" Tasha: \"I figured I'd eat without waiting for you.\" A manhole cover is to my left and a green space is to my right. \"Just buy it.\" I glance right at Tasha and Nicous, then look ahead.\n\n[DAY4 21:35:32 - DAY4 21:36:00]\nTasha puts the trash on the table. I pick up the bag on the table and inspect it. I see her still washing and stand next to her. \"Eat bread,\" I say. She finishes washing, puts the food in her mouth, and eats it. She walks to the refrigerator and opens it; I hold the refrigerator door for her. She looks around and takes out a box of mangoes. \"Oh, you're still alive,\" I say. I ask her to pass a mango to me and inspect it, deciding it's still good. I hold a mango and walk toward the kitchen. \"Just leave it, we'll clean it up tonight,\" I say. I put the mango on the kitchen table."
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, asks for rides from, I)\n(Tasha, has a brother, I)\n(I, shares phone with, Tasha)\n(Tasha, offers sweet drink to, I)\n(Tasha, stands to the right of, I)\n(Tasha, will give a puppy to, I)\n(I, follows instructions of, Tasha)\n(I, coordinates turns and scheduling; regularly interacts; advises about posting deliveries in the group, Tasha)",
+      "query": "Tasha favorite food",
+      "round_num": 1
+    },
+    {
+      "memory_type": "episodic",
+      "content": "[DAY5 20:07:02 - DAY5 20:07:29]\nI see everyone eating hamburgers at the table. I sort through trash on the desk and keep organizing. I watch Jack drink a beverage. \"Hmm,\" I say. I move the fruit to one side and set it aside and notice many cups. Tasha: \"I used to eat at that dumb student place in Shanghai.\" Tasha: \"Isn't it the China headquarters?\" Tasha: \"I ate McDonald's every day.\" Tasha: \"One year, it made me puke.\" Tasha: \"I don't want to eat it at all.\" \"Is it this kind?\" I ask Jack. \"It's the same,\" I say. I notice one more bag of chips with only one bite left.\n\n[DAY6 10:51:30 - DAY6 10:52:00]\nTasha: \"Nobody asked me.\" Tasha steps toward Nicous. Tasha: \"I also brought stomach medicine.\" Nicous comes to our side. Tasha: \"I even dropped my digestive tablets.\" We walk forward. Tasha: \"I'm afraid we ate too much.\" A black car is on my left. I glance at Nicous; he turns around and I look back. We continue walking. \"After meeting you, I basically need to drink 8 every day.\" I make a brief gesture with my right hand. Tasha: \"I thought you were eating.\" Tasha: \"I figured I'd eat without waiting for you.\" A manhole cover is to my left and a green space is to my right. \"Just buy it.\" I glance right at Tasha and Nicous, then look ahead.\n\n[DAY4 21:35:32 - DAY4 21:36:00]\nTasha puts the trash on the table. I pick up the bag on the table and inspect it. I see her still washing and stand next to her. \"Eat bread,\" I say. She finishes washing, puts the food in her mouth, and eats it. She walks to the refrigerator and opens it; I hold the refrigerator door for her. She looks around and takes out a box of mangoes. \"Oh, you're still alive,\" I say. I ask her to pass a mango to me and inspect it, deciding it's still good. I hold a mango and walk toward the kitchen. \"Just leave it, we'll clean it up tonight,\" I say. I put the mango on the kitchen table.",
+      "query": "Tasha eats what",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 3
+}

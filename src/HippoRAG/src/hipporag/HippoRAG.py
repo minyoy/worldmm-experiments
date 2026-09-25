@@ -200,13 +200,30 @@ class HippoRAG:
         new_openie_rows = {k : chunk_to_rows[k] for k in chunk_keys_to_process}
 
         if len(chunk_keys_to_process) > 0:
-            new_ner_results_dict, new_triple_results_dict = self.openie.batch_openie(new_openie_rows, output_dir=self.global_config.save_dir)
-            self.merge_openie_results(all_openie_info, new_openie_rows, new_ner_results_dict, new_triple_results_dict)
+            # Process in small batches and checkpoint to disk after each one, instead of running the
+            # whole set through batch_openie() and saving only once at the end. Long OpenIE runs (paid
+            # API, long-running local models) can die mid-way (rate limits, quota, crashes); without
+            # incremental checkpointing every chunk completed in that run is lost since save_openie_results
+            # overwrites the file with only what's in memory.
+            keys_to_process = list(chunk_keys_to_process)
+            checkpoint_batch_size = getattr(self.global_config, 'openie_checkpoint_batch_size', 20)
+            for i in range(0, len(keys_to_process), checkpoint_batch_size):
+                batch_keys = keys_to_process[i:i + checkpoint_batch_size]
+                batch_rows = {k: new_openie_rows[k] for k in batch_keys}
+                new_ner_results_dict, new_triple_results_dict = self.openie.batch_openie(batch_rows, output_dir=self.global_config.save_dir)
+                self.merge_openie_results(all_openie_info, batch_rows, new_ner_results_dict, new_triple_results_dict)
+                if self.global_config.save_openie:
+                    self.save_openie_results(all_openie_info)
+                    logger.info(f"OpenIE checkpoint saved: {i + len(batch_keys)}/{len(keys_to_process)} new chunks processed this run")
 
         if self.global_config.save_openie:
             self.save_openie_results(all_openie_info)
 
-        ner_results_dict, triple_results_dict = reformat_openie_results(all_openie_info)
+        # The OpenIE cache file may hold results for chunks that are not (yet) indexed, e.g. when it was
+        # pre-seeded for a whole corpus while indexing proceeds incrementally over time. Build the graph
+        # from the cached entries that belong to the current chunks only; the full cache is still saved above.
+        openie_info_for_index = [info for info in all_openie_info if info['idx'] in chunk_to_rows]
+        ner_results_dict, triple_results_dict = reformat_openie_results(openie_info_for_index)
 
         assert len(chunk_to_rows) == len(ner_results_dict) == len(triple_results_dict), f"len(chunk_to_rows): {len(chunk_to_rows)}, len(ner_results_dict): {len(ner_results_dict)}, len(triple_results_dict): {len(triple_results_dict)}"
 

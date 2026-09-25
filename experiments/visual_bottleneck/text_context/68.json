@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "reason for not buying chestnut kernels",
+      "retrieved_content": "(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)\n(I, is participant in conversation with, Alice)\n(Alice, is sister of, I)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(Tasha, participates in conversation with (often while washing kitchenware; sometimes laughing), I)\n(I, is friends with, relies on, receives help from, walks with, is in a shopping group with, and does food reviews with, Tasha)\n(Tasha, asks for help from, I)\n(Alice, agrees with, Lucia)\n(I, relies on, Lucia)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)\n(I, is participant in conversation with, Alice)\n(Alice, is sister of, I)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(Tasha, participates in conversation with (often while washing kitchenware; sometimes laughing), I)\n(I, is friends with, relies on, receives help from, walks with, is in a shopping group with, and does food reviews with, Tasha)\n(Tasha, asks for help from, I)\n(Alice, agrees with, Lucia)\n(I, relies on, Lucia)",
+      "query": "reason for not buying chestnut kernels",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

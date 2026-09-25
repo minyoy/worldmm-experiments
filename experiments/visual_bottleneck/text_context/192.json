@@ -1,0 +1,40 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "who usually pays when going out",
+      "retrieved_content": "(Alice, practices quickly with, I)\n(Alice, recommends household items to (friend), Lucia)\n(Alice, is friends with, Lucia)\n(Alice, cooperates with, talks with, offers help to and sits with, Tasha)\n(Alice, stands to the right of, Shure)\n(I, hold recording device with one hand while watching, Lucia)\n(I, helps and is friends with (gives water/clothes and guidance; encourages to start recording; frequently interacts with), Lucia)\n(I, socializes with (smiles and talks with), Lucia)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "who usually pays when going out",
+      "retrieved_content": "(Tasha, thanks, I)\n(Tasha, participates in playing with and follows instructions from, I)\n(I, talks_with, Tasha)\n(I, accompanies (sometimes), Tasha)\n(I, interacts positively with, Tasha)\n(I, gives positive feedback to via singing, Tasha)\n(Alice, says_dedicated_car_is_cheaper_than_train, true)\n(Alice, device_overheats, true)\n(Alice, is_with, Katrina)\n(Alice, charges, phone)"
+    },
+    {
+      "round_num": 3,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "who usually pays when going out",
+      "retrieved_content": "[No results]"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Alice, practices quickly with, I)\n(Alice, recommends household items to (friend), Lucia)\n(Alice, is friends with, Lucia)\n(Alice, cooperates with, talks with, offers help to and sits with, Tasha)\n(Alice, stands to the right of, Shure)\n(I, hold recording device with one hand while watching, Lucia)\n(I, helps and is friends with (gives water/clothes and guidance; encourages to start recording; frequently interacts with), Lucia)\n(I, socializes with (smiles and talks with), Lucia)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)",
+      "query": "who usually pays when going out",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Tasha, thanks, I)\n(Tasha, participates in playing with and follows instructions from, I)\n(I, talks_with, Tasha)\n(I, accompanies (sometimes), Tasha)\n(I, interacts positively with, Tasha)\n(I, gives positive feedback to via singing, Tasha)\n(Alice, says_dedicated_car_is_cheaper_than_train, true)\n(Alice, device_overheats, true)\n(Alice, is_with, Katrina)\n(Alice, charges, phone)",
+      "query": "who usually pays when going out",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 4
+}

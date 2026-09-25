@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "device for scanning house",
+      "retrieved_content": "(Shure, is distinct from, I)\n(I, brings food to, Shure)\n(Shure, walks up behind, I)\n(Shure, provides translation help to, I)\n(I, goes upstairs to check on, Shure)\n(I, is friends with and a colleague of, Shure)\n(Shure, taunts, I)\n(Shure, suggests buying a dishwasher for, I)\n(I, turn faucet on/off in presence of, Shure)\n(I, interact with, Shure)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Shure, is distinct from, I)\n(I, brings food to, Shure)\n(Shure, walks up behind, I)\n(Shure, provides translation help to, I)\n(I, goes upstairs to check on, Shure)\n(I, is friends with and a colleague of, Shure)\n(Shure, taunts, I)\n(Shure, suggests buying a dishwasher for, I)\n(I, turn faucet on/off in presence of, Shure)\n(I, interact with, Shure)",
+      "query": "device for scanning house",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

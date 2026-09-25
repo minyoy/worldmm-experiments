@@ -1,0 +1,3756 @@
+{
+  "seed": 0,
+  "allocation": {
+    "EntityLog": {
+      "False": [
+        7,
+        6,
+        6
+      ],
+      "True": [
+        3,
+        1,
+        1
+      ]
+    },
+    "RelationMap": {
+      "False": [
+        7,
+        4,
+        6
+      ],
+      "True": [
+        5,
+        1,
+        1
+      ]
+    },
+    "EventRecall": {
+      "False": [
+        5,
+        4,
+        4
+      ],
+      "True": [
+        6,
+        3,
+        2
+      ]
+    },
+    "TaskMaster": {
+      "False": [
+        2,
+        1,
+        1
+      ],
+      "True": [
+        10,
+        5,
+        5
+      ]
+    },
+    "HabitInsight": {
+      "False": [
+        8,
+        6,
+        3
+      ],
+      "True": [
+        4,
+        2,
+        1
+      ]
+    }
+  },
+  "masking_allocation": {
+    "EntityLog": 14,
+    "RelationMap": 12,
+    "EventRecall": 9,
+    "HabitInsight": 5
+  },
+  "n_main": 120,
+  "n_masking": 40,
+  "entries": [
+    {
+      "ID": "6",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 111573606,
+      "question": "Who plans to grow flowers",
+      "choices": {
+        "A": "Alice",
+        "B": "Tasha",
+        "C": "Me",
+        "D": "Katrina"
+      },
+      "answer": "D",
+      "keywords": "plan grow flowers",
+      "reason": "Katrina said it wouldn't sprout in seven days, so she just bought flowers",
+      "target_time": {
+        "date": "DAY1",
+        "time": "11344019"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_11343000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 11:34:30 - DAY1 11:34:59"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "13",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 112351415,
+      "question": "Now Lucia asks, \"What is this, is this a hedgehog?\" What were we discussing the last time she asked a question?",
+      "choices": {
+        "A": "Bartender",
+        "B": "Puzzle Board",
+        "C": "Cake Making",
+        "D": "Embossing"
+      },
+      "answer": "C",
+      "keywords": "discuss, Lucia ask question",
+      "reason": "Lucia asked if it was like pudding",
+      "target_time": {
+        "date": "DAY1",
+        "time": "12161808"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_12160000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 12:16:02 - DAY1 12:16:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "16",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 112512802,
+      "question": "Who was the first to move the puzzle board on the table?",
+      "choices": {
+        "A": "Shure",
+        "B": "Alice",
+        "C": "Lucia",
+        "D": "Katrina"
+      },
+      "answer": "B",
+      "keywords": "move puzzle board",
+      "reason": "Saw Alice sorting the puzzle",
+      "target_time": {
+        "date": "DAY1",
+        "time": "12264908"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_12263000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 12:26:30 - DAY1 12:26:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "25",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 113495310,
+      "question": "Who originally used the scissors in my hand?",
+      "choices": {
+        "A": "Alice",
+        "B": "Tasha",
+        "C": "Katrina",
+        "D": "Shure"
+      },
+      "answer": "D",
+      "keywords": "used the scissors",
+      "reason": "Shure used the scissors to cut the box",
+      "target_time": {
+        "date": "DAY1",
+        "time": "12513508"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_12513000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 12:51:31 - DAY1 12:52:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "26",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 113541007,
+      "question": "Who has been assembling the shelf",
+      "choices": {
+        "A": "Alice, Shure",
+        "B": "Alice, Tasha",
+        "C": "Katrina, Shure",
+        "D": "Tasha, Katrina"
+      },
+      "answer": "C",
+      "keywords": "assemble shelf",
+      "reason": "In the video, Katrina and Shure have been assembling the shelf",
+      "target_time": {
+        "date": "DAY1",
+        "time": "13043609"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13043000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:04:30 - DAY1 13:04:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "28",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 113575015,
+      "question": "Who am I always busy with in the kitchen today",
+      "choices": {
+        "A": "Alice",
+        "B": "Lucia",
+        "C": "Tasha",
+        "D": "Shure"
+      },
+      "answer": "C",
+      "keywords": "busy with",
+      "reason": "The first time, Tasha and I rearranged the positions of the microwave and oven; the second time, Tasha and I organized the kitchenware",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "13394908",
+          "13512718"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13393000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13510000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:39:30 - DAY1 13:39:59",
+        "DAY1 13:51:00 - DAY1 13:51:29"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "34",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 115473415,
+      "question": "What do we decide to eat for lunch?",
+      "choices": {
+        "A": "KFC",
+        "B": "Hotpot",
+        "C": "Spicy Soup",
+        "D": "Beef"
+      },
+      "answer": "A",
+      "keywords": "decide eat",
+      "reason": "Because after everyone's discussion, we decided to eat Kfc",
+      "target_time": {
+        "date": "DAY1",
+        "time": "13372812"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13370000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:37:01 - DAY1 13:37:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "36",
+      "type": "TaskMaster",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 117210410,
+      "question": "What other drinks are needed to mix with rum?",
+      "choices": {
+        "A": "Huiyuan Peach Juice, Sprite",
+        "B": "Genki Forest, Fanta",
+        "C": "Vita, Iced Tea",
+        "D": "Yakult, Coconut Milk"
+      },
+      "answer": "D",
+      "keywords": "mix drinks, need rum",
+      "reason": "I saw on the whiteboard that rum is mixed with other drinks",
+      "target_time": {
+        "date": "DAY1",
+        "time": "14065608"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_14063000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 14:06:30 - DAY1 14:07:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "42",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 117463818,
+      "question": "What drinks are you planning to buy?",
+      "choices": {
+        "A": "Sprite",
+        "B": "Coke",
+        "C": "Fanta",
+        "D": "Mineral Water"
+      },
+      "answer": "B",
+      "keywords": "plan buy drinks",
+      "reason": "Lucia said to buy a few bottles of Coke",
+      "target_time": {
+        "date": "DAY1",
+        "time": "13283808"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13283000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:28:31 - DAY1 13:29:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "55",
+      "type": "RelationMap",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 119375108,
+      "question": "Who among us hasn't eaten century eggs",
+      "choices": {
+        "A": "me",
+        "B": "Shure",
+        "C": "Lucia",
+        "D": "Tasha"
+      },
+      "answer": "D",
+      "keywords": "eat century eggs",
+      "reason": "Because Tasha said she hasn't eaten century eggs",
+      "target_time": {
+        "date": "DAY1",
+        "time": "14003400"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_14003000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 14:00:30 - DAY1 14:01:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "56",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 119375109,
+      "question": "While I was cleaning the egg mixer, who joined in to help?",
+      "choices": {
+        "A": "Alice",
+        "B": "Tasha",
+        "C": "Shure",
+        "D": "Lucia"
+      },
+      "answer": "C",
+      "keywords": "clean egg mixer, join help",
+      "reason": "Because Shure took over the egg mixer and started cleaning it",
+      "target_time": {
+        "date": "DAY1",
+        "time": "14012000"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_14010000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 14:01:00 - DAY1 14:01:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "65",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 119473415,
+      "question": "We decided to buy how many boxes of green grapes",
+      "choices": {
+        "A": "2",
+        "B": "3",
+        "C": "1",
+        "D": "4"
+      },
+      "answer": "A",
+      "keywords": "decide buy boxes, buy grapes",
+      "reason": "Because Tasha said to buy two boxes",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17220406"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17220000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:22:01 - DAY1 17:22:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "67",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 119473415,
+      "question": "Why did the clerk not agree when we asked them to cut the pineapple?",
+      "choices": {
+        "A": "Because there were pre-cut ones available, so the clerk didn't agree",
+        "B": "Because the clerk didn't know how to cut it",
+        "C": "Because the clerk found it troublesome",
+        "D": "Because the fruit-cutting clerk was off duty at that time"
+      },
+      "answer": "D",
+      "keywords": "clerk not agree, ask cut pineapple",
+      "reason": "Because the fruit-cutting clerk's working hours are from 7 AM to 5 PM, and it was already past 5 PM at that time",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17261509"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17260000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:26:00 - DAY1 17:26:27"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "68",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 119473415,
+      "question": "Why didn't we buy chestnut kernels",
+      "choices": {
+        "A": "Because they are hard to cook",
+        "B": "Because they are too expensive",
+        "C": "Because there is no need to buy them",
+        "D": "Because Tasha doesn't like to eat them"
+      },
+      "answer": "A",
+      "keywords": "buy chestnut kernels",
+      "reason": "Because chestnut kernels are not easy to cook thoroughly",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17410614"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17410000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:41:00 - DAY1 17:41:08"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "72",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 119473415,
+      "question": "What does Lucia plan to make on World Earth Day?",
+      "choices": {
+        "A": "Jellyfish lamp or cardboard puppy",
+        "B": "Lantern or cardboard puppy",
+        "C": "Greeting card or cardboard puppy",
+        "D": "Video or cardboard puppy"
+      },
+      "answer": "A",
+      "keywords": "Lucia plan make",
+      "reason": "Because Lucia wants to make something environmentally friendly on World Earth Day",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "11391716",
+          "11395913"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_11390000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_11393000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 11:39:00 - DAY1 11:39:30",
+        "DAY1 11:39:30 - DAY1 11:40:00"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "74",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 119473415,
+      "question": "Among us, who often goes out wearing slippers",
+      "choices": {
+        "A": "Me",
+        "B": "Tasha",
+        "C": "Lucia",
+        "D": "Alice"
+      },
+      "answer": "A",
+      "keywords": "go out, wear slippers",
+      "reason": "Because I always wear slippers when I go out",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "14094102",
+          "17125209"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_14093000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17123000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 14:09:30 - DAY1 14:09:58",
+        "DAY1 17:12:32 - DAY1 17:12:58"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "76",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 120321009,
+      "question": "What am I usually doing on the second floor today?",
+      "choices": {
+        "A": "Too hungry, waiting too bored, playing on the phone to divert attention to prevent hunger",
+        "B": "Playing on the phone, slacking off, and resting",
+        "C": "Using the computer to handle my various information",
+        "D": "Using the computer to play online games"
+      },
+      "answer": "C",
+      "keywords": "doing",
+      "reason": "I am on the second floor watching the recorded video from the camera on my laptop: I am using the laptop to send messages and watch videos",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "19512317",
+          "19313500"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19313000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 19:31:31 - DAY1 19:32:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "79",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 120444009,
+      "question": "Previously, Alice couldn't open the can. Who helped Alice open the can?",
+      "choices": {
+        "A": "Lucia",
+        "B": "Me",
+        "C": "Katrina",
+        "D": "Tasha"
+      },
+      "answer": "B",
+      "keywords": "help Alice open can",
+      "reason": "Because when I heard Alice asking for help, I went over and helped her open the can.",
+      "target_time": {
+        "date": "DAY1",
+        "time": "19432118"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19430000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 19:43:00 - DAY1 19:43:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "80",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 121365110,
+      "question": "Who used the kitchen knife on the counter last time?",
+      "choices": {
+        "A": "Lucia",
+        "B": "Alice",
+        "C": "Tasha",
+        "D": "Katrina"
+      },
+      "answer": "B",
+      "keywords": "used kitchen knife",
+      "reason": "Alice was chopping cabbage",
+      "target_time": {
+        "date": "DAY1",
+        "time": "20245013"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20243000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 20:24:30 - DAY1 20:25:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "82",
+      "type": "HabitInsight",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 121435319,
+      "question": "When I usually buy clothes, what type of clothing do I not purchase?",
+      "choices": {
+        "A": "Similar to Hainan Home men's clothing",
+        "B": "Hip-hop trendy men's clothing",
+        "C": "Similar to vacation wear casual clothing",
+        "D": "Similar to Semir's artistic men's clothing"
+      },
+      "answer": "A",
+      "keywords": "buy clothes, not purchase clothing",
+      "reason": "I said I have never bought this type of men's clothing from Hainan Home",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17200819"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17200000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:20:00 - DAY1 17:20:28"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "86",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 121435319,
+      "question": "What do I always do when I go to the supermarket",
+      "choices": {
+        "A": "Hum songs",
+        "B": "Watch videos on my phone",
+        "C": "Read novels on my phone",
+        "D": "Play games on my phone"
+      },
+      "answer": "B",
+      "keywords": "do, go supermarket",
+      "reason": "I always watch videos on my phone",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "17442113",
+          "18002012"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17440000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_18000000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:44:00 - DAY1 17:44:30",
+        "DAY1 18:00:01 - DAY1 18:00:29"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "91",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 121435319,
+      "question": "Who is always the first to get off the car",
+      "choices": {
+        "A": "Alice",
+        "B": "Me",
+        "C": "Lucia",
+        "D": "Tasha"
+      },
+      "answer": "B",
+      "keywords": "get off the car",
+      "reason": "I am always the first to get off",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "19031617",
+          "17125316"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17123000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19030000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:12:32 - DAY1 17:12:58",
+        "DAY1 19:03:00 - DAY1 19:03:29"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "92",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 121435319,
+      "question": "What do I usually use to control the computer when I use it?",
+      "choices": {
+        "A": "Mouse",
+        "B": "Touchpad",
+        "C": "Graphics tablet",
+        "D": "Touchscreen"
+      },
+      "answer": "B",
+      "keywords": "use control computer",
+      "reason": "I always use the touchpad when using the computer",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "19532615",
+          "19564703"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19563000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 19:56:41 - DAY1 19:57:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "94",
+      "type": "RelationMap",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 121435319,
+      "question": "Whose hometown is close to mine",
+      "choices": {
+        "A": "Alice",
+        "B": "Shure",
+        "C": "Katrina",
+        "D": "Tasha"
+      },
+      "answer": "D",
+      "keywords": "hometown close",
+      "reason": "I asked Tasha if her hometown is far from Gaoyou, Tasha said it's not far, I said mine too",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17333416"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17333000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:33:30 - DAY1 17:34:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "98",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 121504104,
+      "question": "Who usually writes the shopping list on the whiteboard?",
+      "choices": {
+        "A": "Lucia",
+        "B": "Katrina",
+        "C": "Shure",
+        "D": "Tasha"
+      },
+      "answer": "B",
+      "keywords": "write shopping list",
+      "reason": "Twice saw Katrina writing the shopping list on the whiteboard",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "13455500",
+          "19214807"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13453000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19213000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:45:30 - DAY1 13:46:00",
+        "DAY1 19:21:30 - DAY1 19:22:00"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "103",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 210443918,
+      "question": "When was the last time items were taken from the refrigerator?",
+      "choices": {
+        "A": "Yesterday morning",
+        "B": "This morning",
+        "C": "Yesterday at noon",
+        "D": "Last night"
+      },
+      "answer": "D",
+      "keywords": "take out from refrigerator",
+      "reason": "Xi is coming to the second-floor living room to take items from the refrigerator",
+      "target_time": {
+        "date": "DAY1",
+        "time": "20045918"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20043000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 20:04:57 - DAY1 20:05:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "106",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 211073011,
+      "question": "What is my main responsibility when shopping in the supermarket?",
+      "choices": {
+        "A": "Select products",
+        "B": "Plan what to buy",
+        "C": "Taste samples",
+        "D": "Push the shopping cart"
+      },
+      "answer": "D",
+      "keywords": "responsibility shopping",
+      "reason": "In the video, when I was shopping in the supermarket, I was constantly pushing the shopping cart",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "17280112",
+          "17323219",
+          "17354712"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17280000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17323000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17353000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:28:00 - DAY1 17:28:27",
+        "DAY1 17:32:30 - DAY1 17:32:59",
+        "DAY1 17:35:31 - DAY1 17:35:55"
+      ],
+      "n_target_clips": 3,
+      "masking": false
+    },
+    {
+      "ID": "108",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 211141803,
+      "question": "Who usually picks up the takeout from the delivery person?",
+      "choices": {
+        "A": "Shure",
+        "B": "Me",
+        "C": "Katrina",
+        "D": "Tasha"
+      },
+      "answer": "B",
+      "keywords": "pick up takeout",
+      "reason": "I picked up the takeout both times",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "13093507",
+          "20204812"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13093000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20204313.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:09:30 - DAY1 13:09:59",
+        "DAY1 20:20:43 - DAY1 20:20:59"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "109",
+      "type": "TaskMaster",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 211151710,
+      "question": "What else do I need to purchase for delivery?",
+      "choices": {
+        "A": "Poster Ice Cube Mold",
+        "B": "Clock Puncher",
+        "C": "Colored Pens Rum",
+        "D": "Milk Pizza"
+      },
+      "answer": "B",
+      "keywords": "purchase for delivery",
+      "reason": "I looked at the delivery purchase list on the whiteboard",
+      "target_time": {
+        "date": "DAY1",
+        "time": "14065508"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_14063000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 14:06:30 - DAY1 14:07:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "113",
+      "type": "RelationMap",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 212002750,
+      "question": "Last night during the chat, I discovered whose glasses were turned off",
+      "choices": {
+        "A": "Tasha",
+        "B": "Alice",
+        "C": "Me",
+        "D": "Lucia"
+      },
+      "answer": "D",
+      "keywords": "discover glasses, turn off glasses",
+      "reason": "Because when I looked at Lucia's glasses, I found her glasses were turned off",
+      "target_time": {
+        "date": "DAY1",
+        "time": "20261406"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20260000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 20:26:00 - DAY1 20:26:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "114",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 212454203,
+      "question": "Who did Tasha take off the headphones for yesterday?",
+      "choices": {
+        "A": "Lucia",
+        "B": "Shure",
+        "C": "Me",
+        "D": "Katrina"
+      },
+      "answer": "C",
+      "keywords": "Tasha take off headphones",
+      "reason": "Because it can be seen in the video that Tasha took off the headphones and handed them to me",
+      "target_time": {
+        "date": "DAY1",
+        "time": "20242511"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20240000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 20:24:00 - DAY1 20:24:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "119",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 213225715,
+      "question": "What do I usually do after picking up glasses that no one is wearing?",
+      "choices": {
+        "A": "Take them back to the workshop and put them back in the glasses case",
+        "B": "Take them back to the workshop to charge the glasses",
+        "C": "Take them back to the workshop to transfer data to the computer",
+        "D": "Put them on everyone"
+      },
+      "answer": "C",
+      "keywords": "pick up glasses",
+      "reason": "Twice I took the glasses back to the workshop to connect to the computer for data transfer",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "20301913",
+          "13051048"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13050000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20300000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:05:02 - DAY1 13:05:30",
+        "DAY1 20:30:00 - DAY1 20:30:30"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "125",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 217105413,
+      "question": "What is the paper boxes will be used for in plan on the last day?",
+      "choices": {
+        "A": "Use the paper boxes for guests to DIY on the last day",
+        "B": "Cut the paper boxes into small paper dogs for the last day's activities",
+        "C": "Use them as garbage bags to hold trash",
+        "D": "Keep the paper boxes to throw away all at once on the last day"
+      },
+      "answer": "B",
+      "keywords": "use paper boxes",
+      "reason": "When we discussed preparations for the last day's activities, Lucia said she planned to make small paper box dogs",
+      "target_time": {
+        "date": "DAY1",
+        "time": "11400900"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_11400000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 11:40:00 - DAY1 11:40:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "139",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 221080700,
+      "question": "Who was beside me helping the last time I washed dishes?",
+      "choices": {
+        "A": "Shure",
+        "B": "Alice",
+        "C": "Katrina",
+        "D": "Lucia"
+      },
+      "answer": "D",
+      "keywords": "help wash dishes",
+      "reason": "I was washing dishes and Lucia was beside me",
+      "target_time": {
+        "date": "DAY1",
+        "time": "20250513"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20250000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 20:25:00 - DAY1 20:25:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "140",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 221290900,
+      "question": "What do I habitually use to wipe after washing kitchenware?",
+      "choices": {
+        "A": "Kitchen wet wipes",
+        "B": "Face towel",
+        "C": "Dry paper towels",
+        "D": "Cloth"
+      },
+      "answer": "A",
+      "keywords": "use wipe, wash kitchenware",
+      "reason": "The first time I used kitchen wet wipes to wipe the plate; the second time I used kitchen wet wipes to wipe the bowl",
+      "target_time": {
+        "date": "DAY1",
+        "time_list": [
+          "19255000",
+          "21093702"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19253000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 19:25:30 - DAY1 19:25:58"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "146",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 221303201,
+      "question": "Who used the computer with me to upload data",
+      "choices": {
+        "A": "Nicous, Alice",
+        "B": "Nicous, Choiszt",
+        "C": "Nicous, Katrina",
+        "D": "Alice, Katrina"
+      },
+      "answer": "B",
+      "keywords": "use computer, upload data",
+      "reason": "Nicous and Choiszt uploaded the data with me",
+      "target_time": {
+        "date": "DAY2",
+        "time": "16150505"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_16150000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 16:15:00 - DAY2 16:15:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "149",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 221453309,
+      "question": "What device should I use to scan the house",
+      "choices": {
+        "A": "Use a special camera",
+        "B": "Use the iPhone along with the action camera on the wall to scan together",
+        "C": "Use the action camera mounted on the wall along with another action camera",
+        "D": "Use my iPhone"
+      },
+      "answer": "D",
+      "keywords": "use device, scan house",
+      "reason": "I said to scan the whole house with the iPhone",
+      "target_time": {
+        "date": "DAY1",
+        "time": "13001600"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_13000000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 13:00:00 - DAY1 13:00:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "155",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 221563610,
+      "question": "Tonight, who is playing the guitar next to me and Nicous",
+      "choices": {
+        "A": "Katrina",
+        "B": "Choiszt",
+        "C": "Shure",
+        "D": "Lucia"
+      },
+      "answer": "B",
+      "keywords": "play guitar",
+      "reason": "Choiszt is playing the guitar next to me and Nicous",
+      "target_time": {
+        "date": "DAY2",
+        "time": "18165414"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_18163000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 18:16:31 - DAY2 18:16:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "156",
+      "type": "HabitInsight",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 222110505,
+      "question": "Among us, who doesn't like eating durian",
+      "choices": {
+        "A": "Me",
+        "B": "Lucia",
+        "C": "Alice",
+        "D": "Tasha"
+      },
+      "answer": "B",
+      "keywords": "like eating durian",
+      "reason": "Because Lucia said she doesn't like eating durian",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17200403"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17200000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:20:00 - DAY1 17:20:28"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "158",
+      "type": "HabitInsight",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 222110508,
+      "question": "What kind of music does Lucia like to dance to?",
+      "choices": {
+        "A": "Fast rhythm",
+        "B": "Slow rhythm",
+        "C": "Lyrical",
+        "D": "With clear drum beats"
+      },
+      "answer": "D",
+      "keywords": "Lucia like music, dance",
+      "reason": "Because Lucia likes music where she can quickly find the rhythm",
+      "target_time": {
+        "date": "DAY2",
+        "time": "11212716"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_11210000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 11:21:00 - DAY2 11:21:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "160",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 222444619,
+      "question": "Who did I eat green grapes with in the kitchen today",
+      "choices": {
+        "A": "Lucia",
+        "B": "Tasha",
+        "C": "Alice",
+        "D": "Choiszt"
+      },
+      "answer": "D",
+      "keywords": "eat grapes",
+      "reason": "I ate green grapes in the kitchen with Choiszt",
+      "target_time": {
+        "date": "DAY2",
+        "time": "21423909"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_21423000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 21:42:30 - DAY2 21:42:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "164",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 311410802,
+      "question": "What does Lucia need to buy for decorating her room?",
+      "choices": {
+        "A": "Photo wall Coasters",
+        "B": "Fishing net Small colorful flags",
+        "C": "Little Pillow",
+        "D": "Shells Miniature landscape"
+      },
+      "answer": "C",
+      "keywords": "Lucia buy, decorate room",
+      "reason": "Lucia is introducing room decorations",
+      "target_time": {
+        "date": "DAY2",
+        "time": "22541816"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_22540000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 22:54:00 - DAY2 22:54:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "168",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 311580956,
+      "question": "Who put the takeout in the microwave the night before last?",
+      "choices": {
+        "A": "Alice",
+        "B": "Me",
+        "C": "Tasha",
+        "D": "Lucia"
+      },
+      "answer": "B",
+      "keywords": "put takeout, microwave",
+      "reason": "Because you can see from the video that I put the takeout in the microwave to keep it warm",
+      "target_time": {
+        "date": "DAY1",
+        "time": "20313411"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20313000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 20:31:30 - DAY1 20:31:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "170",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 312063116,
+      "question": "Who did I sit next to while eating last night?",
+      "choices": {
+        "A": "Tasha and Katrina",
+        "B": "Choiszt and Lucia",
+        "C": "Tasha and Choiszt",
+        "D": "Nicous and Choiszt"
+      },
+      "answer": "A",
+      "keywords": "sit next, eat",
+      "reason": "I sat next to Tasha and Katrina while eating",
+      "target_time": {
+        "date": "DAY2",
+        "time": "18370600"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_18370000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 18:37:01 - DAY2 18:37:14"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "172",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 312085702,
+      "question": "What activities do we have in the afternoon?",
+      "choices": {
+        "A": "Pick up a package",
+        "B": "Go outdoors for photography",
+        "C": "Play with puppies",
+        "D": "Swimming"
+      },
+      "answer": "B",
+      "keywords": "have activities",
+      "reason": "We are sure to go outdoors tomorrow",
+      "target_time": {
+        "date": "DAY2",
+        "time": "21225500"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_21223000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 21:22:31 - DAY2 21:23:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "174",
+      "type": "EntityLog",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 312205419,
+      "question": "What other styles were mentioned the last time we discussed decoration styles?",
+      "choices": {
+        "A": "Forest",
+        "B": "Sky",
+        "C": "Earth",
+        "D": "Ocean"
+      },
+      "answer": "D",
+      "keywords": "mention styles, discuss decoration",
+      "reason": "Lucia suggested buying small pillows shaped like marine creatures",
+      "target_time": {
+        "date": "DAY2",
+        "time": "22540616"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_22540000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 22:54:00 - DAY2 22:54:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "175",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 314501909,
+      "question": "What are we planning to do outdoors?",
+      "choices": {
+        "A": "Find a restaurant outside to eat",
+        "B": "Dance and take photos",
+        "C": "Prepare to buy some fresh meat and vegetables to cook at home",
+        "D": "Prepare to go to Universal Studios"
+      },
+      "answer": "B",
+      "keywords": "plan do",
+      "reason": "I mentioned dancing outside and then taking photos",
+      "target_time": {
+        "date": "DAY3",
+        "time": "12350203"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_12350000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 12:35:01 - DAY3 12:35:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "178",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 315085205,
+      "question": "Alice mentioned whether AI can understand why we take this path, when was the AI topic mentioned before?",
+      "choices": {
+        "A": "About 4 hours ago",
+        "B": "About 2 days ago",
+        "C": "About 8 hours ago",
+        "D": "About 1 day ago"
+      },
+      "answer": "D",
+      "keywords": "mention AI topic",
+      "reason": "Shure mentioned that I think we should add some uncontrollable factors to AI",
+      "target_time": {
+        "date": "DAY2",
+        "time": "21110700"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_21110000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 21:11:00 - DAY2 21:11:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "181",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 315582407,
+      "question": "Who wore a hat while walking in the park?",
+      "choices": {
+        "A": "Lucia, Shure",
+        "B": "Lucia, Katrina",
+        "C": "Lucia, Tasha",
+        "D": "Lucia, Alice"
+      },
+      "answer": "C",
+      "keywords": "wear hat",
+      "reason": "In the video, Tasha and Lucia were the two wearing hats while walking in the park",
+      "target_time": {
+        "date": "DAY3",
+        "time": "14495101"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_14493000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 14:49:32 - DAY3 14:49:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "192",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 316371300,
+      "question": "Who usually pays when going out today?",
+      "choices": {
+        "A": "Shure",
+        "B": "Tasha",
+        "C": "Me",
+        "D": "Lucia"
+      },
+      "answer": "C",
+      "keywords": "pay going out",
+      "reason": "The first time I paid at the convenience store; the second time at the arcade, I also paid.",
+      "target_time": {
+        "date": "DAY3",
+        "time_list": [
+          "15401712",
+          "15401712"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_15400000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 15:40:02 - DAY3 15:40:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "193",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 316381803,
+      "question": "When was the last time you stood on the escalator?",
+      "choices": {
+        "A": "The night before yesterday",
+        "B": "The day before yesterday at noon",
+        "C": "Yesterday afternoon",
+        "D": "Last night"
+      },
+      "answer": "A",
+      "keywords": "stand on escalator",
+      "reason": "We took the moving walkway",
+      "target_time": {
+        "date": "DAY1",
+        "time": "18353416"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_18353000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 18:35:31 - DAY1 18:36:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "194",
+      "type": "TaskMaster",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 316384310,
+      "question": "Which tool was not purchased last time in this shopping plan?",
+      "choices": {
+        "A": "Vita Taro",
+        "B": "Tripe Onion",
+        "C": "Hole punch Clock",
+        "D": "Mint leaves Watermelon"
+      },
+      "answer": "C",
+      "keywords": "purchase tool",
+      "reason": "I saw the need to purchase on the whiteboard",
+      "target_time": {
+        "date": "DAY1",
+        "time": "21391716"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_21390000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 21:39:01 - DAY1 21:39:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "196",
+      "type": "TaskMaster",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 316393510,
+      "question": "What ingredients do we need to buy?",
+      "choices": {
+        "A": "Barbecue Skewers",
+        "B": "Dumplings Cake",
+        "C": "Vita Taro",
+        "D": "Hot Pot Pizza"
+      },
+      "answer": "A",
+      "keywords": "buy ingredients",
+      "reason": "I saw the ingredients to be purchased",
+      "target_time": {
+        "date": "DAY3",
+        "time": "11194202"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_11193000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 11:19:31 - DAY3 11:20:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "198",
+      "type": "EntityLog",
+      "need_audio": true,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 316441707,
+      "question": "When was the last time eggs were bought?",
+      "choices": {
+        "A": "Three hours ago",
+        "B": "One day ago",
+        "C": "Half a day ago",
+        "D": "About two days ago"
+      },
+      "answer": "D",
+      "keywords": "buy eggs",
+      "reason": "I said to buy eggs",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17364516"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17363000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:36:36 - DAY1 17:37:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "206",
+      "type": "HabitInsight",
+      "need_audio": true,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 317113302,
+      "question": "Why did Tasha check out both times at the supermarket",
+      "choices": {
+        "A": "Tasha said she borrowed a membership for discounts",
+        "B": "I didn't have enough balance, so Tasha helped to check out",
+        "C": "Tasha is in charge of accounting",
+        "D": "Because most of the things are used by Tasha"
+      },
+      "answer": "A",
+      "keywords": "Tasha check out, supermarket",
+      "reason": "While shopping at the supermarket, Tasha said she borrowed a membership for discounts",
+      "target_time": {
+        "date": "DAY1",
+        "time": "18123000"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_18120000.mp4",
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_18123000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 18:12:03 - DAY1 18:12:30",
+        "DAY1 18:12:30 - DAY1 18:12:58"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "217",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 319582402,
+      "question": "What task does Tasha have tonight?",
+      "choices": {
+        "A": "Make dessert",
+        "B": "Install hard drive",
+        "C": "Flower arrangement",
+        "D": "Bake bread"
+      },
+      "answer": "A",
+      "keywords": "Tasha have task",
+      "reason": "I assigned Tasha to make dessert",
+      "target_time": {
+        "date": "DAY3",
+        "time": "18101510"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_18100000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 18:10:00 - DAY3 18:10:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "224",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 320490702,
+      "question": "Who helped Shure last time he lit the fire?",
+      "choices": {
+        "A": "Lucia",
+        "B": "Me",
+        "C": "Tasha",
+        "D": "Alice"
+      },
+      "answer": "B",
+      "keywords": "help Shure, light fire",
+      "reason": "I was helping Shure light the fire",
+      "target_time": {
+        "date": "DAY3",
+        "time": "20133902"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_20133000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 20:13:31 - DAY3 20:13:54"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "225",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 321012656,
+      "question": "What do we plan to do with the mangoes",
+      "choices": {
+        "A": "Make dessert",
+        "B": "Make dried mango",
+        "C": "Make mango juice",
+        "D": "Eat directly"
+      },
+      "answer": "A",
+      "keywords": "plan do, mangoes",
+      "reason": "When I asked what the mangoes were for, Tasha said to make dessert",
+      "target_time": {
+        "date": "DAY1",
+        "time": "19123311"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19123000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 19:12:30 - DAY1 19:13:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "229",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 321223302,
+      "question": "What drink combination can we try at this gathering?",
+      "choices": {
+        "A": "Tequila and Yakult",
+        "B": "Tequila and Cola",
+        "C": "Orange Juice and Tequila",
+        "D": "Rum and Sprite"
+      },
+      "answer": "C",
+      "keywords": "try drink combination",
+      "reason": "Lucia said orange juice goes well with tequila.",
+      "target_time": {
+        "date": "DAY2",
+        "time": "22411216"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_22410000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 22:41:01 - DAY2 22:41:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "231",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 321363410,
+      "question": "What other ingredients did I prepare the last time I was chopping vegetables in the kitchen?",
+      "choices": {
+        "A": "Mango",
+        "B": "Konjac",
+        "C": "Cabbage",
+        "D": "Potato"
+      },
+      "answer": "A",
+      "keywords": "prepare ingredients, chop vegetables",
+      "reason": "I was chopping mango",
+      "target_time": {
+        "date": "DAY3",
+        "time": "21035302"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_21033000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 21:03:30 - DAY3 21:04:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "245",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 322483306,
+      "question": "How many times did I protect the fire seed?",
+      "choices": {
+        "A": "6 times",
+        "B": "3 times",
+        "C": "5 times",
+        "D": "4 times"
+      },
+      "answer": "B",
+      "keywords": "protect fire seed",
+      "reason": "I am protecting the fire seed",
+      "target_time": {
+        "date": "DAY3",
+        "time_list": [
+          "20114702",
+          "20100602"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_20100000.mp4",
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_20113000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 20:10:01 - DAY3 20:10:30",
+        "DAY3 20:11:30 - DAY3 20:12:00"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "251",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 411014017,
+      "question": "What is Katrina's room decoration plan?",
+      "choices": {
+        "A": "Roller Painting Small Table",
+        "B": "Flowers Night Light",
+        "C": "Carpet Little Dolls",
+        "D": "Wall Painting Tablecloth"
+      },
+      "answer": "C",
+      "keywords": "Katrina plan",
+      "reason": "Katrina is introducing the decoration of her future room",
+      "target_time": {
+        "date": "DAY2",
+        "time": "22511116"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_22510000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 22:51:00 - DAY2 22:51:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "254",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 411145407,
+      "question": "What does Tasha need to buy to decorate the room?",
+      "choices": {
+        "A": "Seaweed Balls, Aromatherapy",
+        "B": "Bed Sheets, Throw Pillows",
+        "C": "Postcards, Fishing Net",
+        "D": "Carpet, Decorative Painting"
+      },
+      "answer": "D",
+      "keywords": "Tasha buy, decorate room",
+      "reason": "Tasha is introducing the future layout of her room",
+      "target_time": {
+        "date": "DAY2",
+        "time": "22522516"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_22520000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 22:52:00 - DAY2 22:52:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "256",
+      "type": "RelationMap",
+      "need_audio": true,
+      "gap": 3,
+      "gap_bin": "2+",
+      "query_time": 411270750,
+      "question": "On the first day, who did Tasha ask to bring her a cup?",
+      "choices": {
+        "A": "Katrina",
+        "B": "Me",
+        "C": "Lucia",
+        "D": "Alice"
+      },
+      "answer": "D",
+      "keywords": "Tasha ask, bring cup",
+      "reason": "Because Alice was downstairs, Tasha asked Alice to bring her a cup",
+      "target_time": {
+        "date": "DAY1",
+        "time": "20483412"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_20483000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 20:48:30 - DAY1 20:49:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "258",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 411345902,
+      "question": "When were the oysters bought?",
+      "choices": {
+        "A": "Last night",
+        "B": "This morning",
+        "C": "Yesterday afternoon",
+        "D": "Yesterday at noon"
+      },
+      "answer": "C",
+      "keywords": "buy oysters",
+      "reason": "Shure in this bag of oysters",
+      "target_time": {
+        "date": "DAY3",
+        "time": "17012317"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_17010000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 17:01:01 - DAY3 17:01:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "260",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 3,
+      "gap_bin": "2+",
+      "query_time": 411365009,
+      "question": "What did I take out the last time I opened the fridge?",
+      "choices": {
+        "A": "Fruits",
+        "B": "Drinks",
+        "C": "Vegetables",
+        "D": "Ice cream"
+      },
+      "answer": "C",
+      "keywords": "take out, open fridge",
+      "reason": "I took out two plates of vegetables",
+      "target_time": {
+        "date": "DAY1",
+        "time": "19121118"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19120000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 19:12:00 - DAY1 19:12:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "263",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 411381500,
+      "question": "Who navigated and led us all to Hema Fresh?",
+      "choices": {
+        "A": "Shure",
+        "B": "Tasha",
+        "C": "Katrina",
+        "D": "Lucia"
+      },
+      "answer": "C",
+      "keywords": "navigate, lead to Hema Fresh",
+      "reason": "In the video, Katrina was using her phone to navigate and lead us all to Hema Fresh",
+      "target_time": {
+        "date": "DAY3",
+        "time": "15421212"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_15420000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 15:42:01 - DAY3 15:42:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "267",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 411581510,
+      "question": "What activities can we hold in Shure's room?",
+      "choices": {
+        "A": "Pillow fight",
+        "B": "Cat's cradle",
+        "C": "Play games",
+        "D": "Tea party"
+      },
+      "answer": "A",
+      "keywords": "hold activities",
+      "reason": "Lucia mentioned in front of Shure's door that everyone wanting a pillow fight is also possible",
+      "target_time": {
+        "date": "DAY2",
+        "time": "22565113"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_22563000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 22:56:30 - DAY2 22:57:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "275",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 412435200,
+      "question": "Who was next to me the last time I made coffee?",
+      "choices": {
+        "A": "Alice and Shure",
+        "B": "Lucia and Nicous",
+        "C": "Choiszt and Violet",
+        "D": "Tasha and Lucia"
+      },
+      "answer": "D",
+      "keywords": "make coffee",
+      "reason": "I was making coffee",
+      "target_time": {
+        "date": "DAY2",
+        "time": "11290615"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_11290000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 11:29:02 - DAY2 11:29:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "276",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 412435200,
+      "question": "Who was next to me the last time I made coffee?",
+      "choices": {
+        "A": "Tasha and Lucia",
+        "B": "Alice and Shure",
+        "C": "Choiszt and Violet",
+        "D": "Lucia and Nicous"
+      },
+      "answer": "A",
+      "keywords": "make coffee",
+      "reason": "I was making coffee",
+      "target_time": {
+        "date": "DAY2",
+        "time": "11290615"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_11290000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 11:29:02 - DAY2 11:29:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "283",
+      "type": "EntityLog",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 413240213,
+      "question": "Where was the bread found?",
+      "choices": {
+        "A": "Kitchen",
+        "B": "Shopping bag",
+        "C": "Refrigerator",
+        "D": "On the table"
+      },
+      "answer": "C",
+      "keywords": "find bread",
+      "reason": "Because we found the bread in the refrigerator",
+      "target_time": {
+        "date": "DAY4",
+        "time": "11374611"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY4/DAY4_A1_JAKE_11373000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY4 11:37:30 - DAY4 11:37:57"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "286",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 413285000,
+      "question": "Who do I usually sit with during meals?",
+      "choices": {
+        "A": "Lucia and Shure",
+        "B": "Tasha and Alice",
+        "C": "Tasha and Lucia",
+        "D": "Alice and Katrina"
+      },
+      "answer": "C",
+      "keywords": "sit with, during meals",
+      "reason": "We are having a meal",
+      "target_time": {
+        "date": "DAY2",
+        "time": "13395118"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_13393000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 13:39:33 - DAY2 13:39:57"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "293",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 416132300,
+      "question": "What is the first ingredient in the shopping cart yesterday?",
+      "choices": {
+        "A": "Egg",
+        "B": "Durian",
+        "C": "Meat",
+        "D": "Strawberry"
+      },
+      "answer": "C",
+      "keywords": "ingredient in cart",
+      "reason": "Shure put the meat into the shopping cart",
+      "target_time": {
+        "date": "DAY3",
+        "time": "16395710"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_16393000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 16:39:30 - DAY3 16:39:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "294",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 416465813,
+      "question": "When was the last time Lucia took a picture?",
+      "choices": {
+        "A": "About 2 hours ago",
+        "B": "About 19 hours ago",
+        "C": "Two days ago",
+        "D": "Three days ago"
+      },
+      "answer": "C",
+      "keywords": "Lucia take picture",
+      "reason": "Lucia and Shure are both taking pictures",
+      "target_time": {
+        "date": "DAY3",
+        "time": "22072402"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_22070000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 22:07:00 - DAY3 22:07:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "296",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 417045506,
+      "question": "Now Shure is playing the guitar, what was the environment like the last time I saw him playing the guitar?",
+      "choices": {
+        "A": "Noon",
+        "B": "Afternoon",
+        "C": "Morning",
+        "D": "Evening"
+      },
+      "answer": "D",
+      "keywords": "Shure play guitar",
+      "reason": "Shure is playing the guitar",
+      "target_time": {
+        "date": "DAY3",
+        "time": "22481402"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_22480000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 22:48:02 - DAY3 22:48:28"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "307",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 418242219,
+      "question": "What do we plan to eat for lunch?",
+      "choices": {
+        "A": "Dumplings",
+        "B": "Chicken Pot",
+        "C": "Pizza",
+        "D": "Burger"
+      },
+      "answer": "A",
+      "keywords": "plan eat",
+      "reason": "Because Shure suggested dumplings, and everyone agreed",
+      "target_time": {
+        "date": "DAY4",
+        "time": "12010906"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY4/DAY4_A1_JAKE_12010000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY4 12:01:01 - DAY4 12:01:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "308",
+      "type": "RelationMap",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 418422500,
+      "question": "Who usually sings when Shure plays the guitar?",
+      "choices": {
+        "A": "Tasha and Violet",
+        "B": "Me and Alice",
+        "C": "Alice and Choiszt",
+        "D": "Nicous and Katrina"
+      },
+      "answer": "D",
+      "keywords": "sing, Shure play guitar",
+      "reason": "The three of them are still playing guitar and singing",
+      "target_time": {
+        "date": "DAY4",
+        "time": "18174214"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY4/DAY4_A1_JAKE_18173000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY4 18:17:30 - DAY4 18:17:58"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "314",
+      "type": "RelationMap",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 421563804,
+      "question": "Who discussed renting clothes with me at noon today?",
+      "choices": {
+        "A": "Alice, Tasha",
+        "B": "Tasha, Nicous",
+        "C": "Alice, Katrina",
+        "D": "Alice, Lucia"
+      },
+      "answer": "A",
+      "keywords": "discuss renting clothes",
+      "reason": "Alice and Tasha discussed renting clothes with me",
+      "target_time": {
+        "date": "DAY4",
+        "time": "12540612"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY4/DAY4_A1_JAKE_12540000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY4 12:54:01 - DAY4 12:54:28"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "334",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 511464307,
+      "question": "When was the last time I plugged a cable into the power strip?",
+      "choices": {
+        "A": "Yesterday afternoon",
+        "B": "This morning",
+        "C": "Last night",
+        "D": "Yesterday at noon"
+      },
+      "answer": "A",
+      "keywords": "plug cable, power strip",
+      "reason": "I plugged the device's data cable into the power strip",
+      "target_time": {
+        "date": "DAY4",
+        "time": "15562015"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY4/DAY4_A1_JAKE_15560000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY4 15:56:02 - DAY4 15:56:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "335",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 511484717,
+      "question": "What is the milk used for?",
+      "choices": {
+        "A": "Coffee Raw Materials",
+        "B": "Drink directly.",
+        "C": "Cake Ingredients",
+        "D": "Cocktail Ingredients"
+      },
+      "answer": "C",
+      "keywords": "use milk",
+      "reason": "I put cream on the cake",
+      "target_time": {
+        "date": "DAY3",
+        "time": "20114320"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_20113000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 20:11:30 - DAY3 20:12:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "337",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 512190913,
+      "question": "Who gave Tasha the AD calcium milk she is holding?",
+      "choices": {
+        "A": "Alice",
+        "B": "Lucia",
+        "C": "Me",
+        "D": "Shure"
+      },
+      "answer": "C",
+      "keywords": "gave Tasha, hold milk",
+      "reason": "I took the AD calcium milk from the fridge and gave it to Tasha",
+      "target_time": {
+        "date": "DAY5",
+        "time": "12115500"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_12113000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 12:11:30 - DAY5 12:12:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "352",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 516052304,
+      "question": "Who joined the shopping trip this time compared to last time?",
+      "choices": {
+        "A": "Choiszt and Nicous",
+        "B": "Katrina and Shure",
+        "C": "Choiszt and Alice",
+        "D": "Violet and Alice"
+      },
+      "answer": "A",
+      "keywords": "join shopping trip",
+      "reason": "We are shopping",
+      "target_time": {
+        "date": "DAY3",
+        "time": "16413810"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_16413000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 16:41:30 - DAY3 16:42:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "354",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 516062618,
+      "question": "Who was I with the last time I stood on the escalator in the supermarket?",
+      "choices": {
+        "A": "Choiszt and Shure",
+        "B": "Nicous and Choiszt",
+        "C": "Alice and Violet",
+        "D": "Tasha and Shure"
+      },
+      "answer": "D",
+      "keywords": "stand on escalator",
+      "reason": "I stood on the escalator",
+      "target_time": {
+        "date": "DAY3",
+        "time": "17142510"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_17140000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 17:14:00 - DAY3 17:14:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "357",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 4,
+      "gap_bin": "2+",
+      "query_time": 516103904,
+      "question": "Who do I usually shop with?",
+      "choices": {
+        "A": "Alice",
+        "B": "Tasha",
+        "C": "Shure",
+        "D": "Lucia"
+      },
+      "answer": "B",
+      "keywords": "shop with",
+      "reason": "I am with Tasha",
+      "target_time": {
+        "date": "DAY1",
+        "time": "17320116"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_17320000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 17:32:00 - DAY1 17:32:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "360",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 516145504,
+      "question": "Who was next to me the last time I was taste-testing something?",
+      "choices": {
+        "A": "Alice and Violet",
+        "B": "Lucia and Nicous",
+        "C": "Shure and Choiszt",
+        "D": "Tasha and Alice"
+      },
+      "answer": "D",
+      "keywords": "taste-testing",
+      "reason": "I am taste-testing yogurt",
+      "target_time": {
+        "date": "DAY3",
+        "time": "16585610"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_16583000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 16:58:30 - DAY3 16:58:58"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "366",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 516383108,
+      "question": "When was the last time I used the ride-hailing app?",
+      "choices": {
+        "A": "Today at noon",
+        "B": "Yesterday afternoon",
+        "C": "Last night",
+        "D": "The afternoon before yesterday"
+      },
+      "answer": "D",
+      "keywords": "use ride-hailing app",
+      "reason": "I used the ride-hailing app",
+      "target_time": {
+        "date": "DAY3",
+        "time": "17290702"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_17290000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 17:29:00 - DAY3 17:29:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "369",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 4,
+      "gap_bin": "2+",
+      "query_time": 516414404,
+      "question": "How do we get home after shopping?",
+      "choices": {
+        "A": "Walk",
+        "B": "Take a taxi",
+        "C": "Ride a bicycle",
+        "D": "Take a bus"
+      },
+      "answer": "B",
+      "keywords": "get home, after shopping",
+      "reason": "We take a car",
+      "target_time": {
+        "date": "DAY1",
+        "time": "19024218"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY1/DAY1_A1_JAKE_19024118.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY1 19:02:41 - DAY1 19:03:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "371",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 518025517,
+      "question": "What do we plan to eat today?",
+      "choices": {
+        "A": "Pizza",
+        "B": "Burger",
+        "C": "Barbecue",
+        "D": "Fire Burn"
+      },
+      "answer": "D",
+      "keywords": "plan eat",
+      "reason": "Because I suggested eating braised pork",
+      "target_time": {
+        "date": "DAY5",
+        "time": "11141206"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_11140000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 11:14:01 - DAY5 11:14:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "374",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 518045716,
+      "question": "When was the last time the microwave in the kitchen was used?",
+      "choices": {
+        "A": "The night before yesterday",
+        "B": "Yesterday afternoon",
+        "C": "The day before yesterday at noon",
+        "D": "Last night"
+      },
+      "answer": "C",
+      "keywords": "use microwave",
+      "reason": "I opened the microwave",
+      "target_time": {
+        "date": "DAY3",
+        "time": "12182902"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_12180000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 12:18:00 - DAY3 12:18:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "377",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 518303001,
+      "question": "When was the last time the grill in the yard was used?",
+      "choices": {
+        "A": "Last night",
+        "B": "The day before yesterday at noon",
+        "C": "Yesterday afternoon",
+        "D": "The night before yesterday"
+      },
+      "answer": "D",
+      "keywords": "use grill",
+      "reason": "Alice was grilling",
+      "target_time": {
+        "date": "DAY3",
+        "time": "21224402"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_21223000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 21:22:30 - DAY3 21:22:59"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "380",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 518353711,
+      "question": "When was the white microwave in the kitchen last used?",
+      "choices": {
+        "A": "Yesterday afternoon",
+        "B": "Last night",
+        "C": "The night before yesterday",
+        "D": "The day before yesterday at noon"
+      },
+      "answer": "D",
+      "keywords": "use microwave",
+      "reason": "I opened the microwave",
+      "target_time": {
+        "date": "DAY3",
+        "time": "12182902"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_12180000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 12:18:00 - DAY3 12:18:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "382",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 518401702,
+      "question": "When was the last time these oven mitts were used?",
+      "choices": {
+        "A": "This afternoon",
+        "B": "Yesterday afternoon",
+        "C": "Yesterday morning",
+        "D": "Yesterday at noon"
+      },
+      "answer": "B",
+      "keywords": "use oven mitts",
+      "reason": "Tasha picked up the oven mitts",
+      "target_time": {
+        "date": "DAY4",
+        "time": "17313315"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY4/DAY4_A1_JAKE_17313000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY4 17:31:31 - DAY4 17:31:58"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "383",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 518402915,
+      "question": "Who bought the blueberries?",
+      "choices": {
+        "A": "Tasha",
+        "B": "Me",
+        "C": "Lucia",
+        "D": "Alice"
+      },
+      "answer": "C",
+      "keywords": "bought blueberries",
+      "reason": "Lucia was about to put the blueberries she just picked up into the shopping cart",
+      "target_time": {
+        "date": "DAY5",
+        "time": "16095604"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_16093000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 16:09:32 - DAY5 16:10:00"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "392",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 520220710,
+      "question": "Who made the egg tart on the table?",
+      "choices": {
+        "A": "Choiszt and Tasha",
+        "B": "Me and Alice",
+        "C": "Me and Tasha",
+        "D": "Tasha and Katrina"
+      },
+      "answer": "A",
+      "keywords": "made egg tart",
+      "reason": "Choiszt and Tasha were making desserts",
+      "target_time": {
+        "date": "DAY5",
+        "time": "18370700"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_18370000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 18:37:02 - DAY5 18:37:27"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "393",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 520233904,
+      "question": "The last time Choiszt was mixing cream, what were we preparing?",
+      "choices": {
+        "A": "Eat pizza",
+        "B": "Order takeout",
+        "C": "Cleaning",
+        "D": "Shopping"
+      },
+      "answer": "B",
+      "keywords": "Choiszt mix cream, prepare",
+      "reason": "Choiszt was mixing cream",
+      "target_time": {
+        "date": "DAY5",
+        "time": "18231200"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_18230000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 18:23:02 - DAY5 18:23:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "402",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 521025517,
+      "question": "What does Tasha want to drink?",
+      "choices": {
+        "A": "Cola",
+        "B": "Sprite",
+        "C": "Mineral Water",
+        "D": "Wahaha"
+      },
+      "answer": "D",
+      "keywords": "Tasha want drink",
+      "reason": "Because Tasha said she wanted Wahaha",
+      "target_time": {
+        "date": "DAY5",
+        "time": "12111706"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_12110000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 12:11:03 - DAY5 12:11:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "403",
+      "type": "HabitInsight",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 521025517,
+      "question": "Why doesn't Tasha eat stewed dishes?",
+      "choices": {
+        "A": "Because she doesn't like eating stewed dishes",
+        "B": "Because she thinks stewed dishes look too ugly",
+        "C": "Because she tasted the blood flavor",
+        "D": "Because she thinks stewed dishes taste too bad"
+      },
+      "answer": "B",
+      "keywords": "Tasha eat dishes",
+      "reason": "Because Tasha thinks stewed dishes look too ugly",
+      "target_time": {
+        "date": "DAY5",
+        "time": "12134106"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_12133000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 12:13:30 - DAY5 12:13:55"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "408",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 4,
+      "gap_bin": "2+",
+      "query_time": 610010305,
+      "question": "What should be arranged in Alice's room?",
+      "choices": {
+        "A": "Night light, Tablecloth",
+        "B": "Coaster, Throw pillow",
+        "C": "Seaweed ball, Fishing net",
+        "D": "Miniature landscape, Aromatherapy"
+      },
+      "answer": "D",
+      "keywords": "arrange in room",
+      "reason": "Alice is discussing her decoration plans",
+      "target_time": {
+        "date": "DAY2",
+        "time": "22484516"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_22483000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 22:48:30 - DAY2 22:49:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "409",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 610022614,
+      "question": "When did I last pick up the takeout?",
+      "choices": {
+        "A": "Last night",
+        "B": "Yesterday morning",
+        "C": "Yesterday afternoon",
+        "D": "Yesterday at noon"
+      },
+      "answer": "D",
+      "keywords": "pick up takeout",
+      "reason": "I was holding the takeout",
+      "target_time": {
+        "date": "DAY5",
+        "time": "11541700"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_11540000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 11:54:00 - DAY5 11:54:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "414",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 610091303,
+      "question": "Under what circumstances did I last inquire about going to the hospital?",
+      "choices": {
+        "A": "Cut my hand",
+        "B": "Discussing drinking",
+        "C": "Allergy",
+        "D": "Lucia was bitten by a dog"
+      },
+      "answer": "B",
+      "keywords": "inquire going hospital",
+      "reason": "I said why go to the hospital for your birthday, then we talked about drinking",
+      "target_time": {
+        "date": "DAY5",
+        "time": "16033404"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_16033000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 16:03:32 - DAY5 16:03:59"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "417",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 610322302,
+      "question": "Who used the kitchen knife before Nicous?",
+      "choices": {
+        "A": "Alice",
+        "B": "Tasha",
+        "C": "Shure",
+        "D": "Me"
+      },
+      "answer": "D",
+      "keywords": "used the kitchen knife",
+      "reason": "I was cutting mangoes",
+      "target_time": {
+        "date": "DAY5",
+        "time": "11521000"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_11520000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 11:52:01 - DAY5 11:52:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "429",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 613001417,
+      "question": "Now that I have opened the red refrigerator on the right side of the kitchen, what did I put in the last time I opened it?",
+      "choices": {
+        "A": "Burger",
+        "B": "Yogurt",
+        "C": "Pizza",
+        "D": "Ice cream"
+      },
+      "answer": "D",
+      "keywords": "put in refrigerator",
+      "reason": "Alice was grilling",
+      "target_time": {
+        "date": "DAY5",
+        "time": "20002300"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_20000000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 20:00:01 - DAY5 20:00:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "430",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 613091804,
+      "question": "Now I am lying in bed, what was I doing the last time I used my laptop in bed?",
+      "choices": {
+        "A": "Watching videos",
+        "B": "Using the browser",
+        "C": "Listening to music",
+        "D": "Exporting data"
+      },
+      "answer": "B",
+      "keywords": "use laptop",
+      "reason": "I opened the refrigerator door",
+      "target_time": {
+        "date": "DAY6",
+        "time": "12272218"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_12270000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 12:27:01 - DAY6 12:27:29"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "438",
+      "type": "EntityLog",
+      "need_audio": false,
+      "gap": 3,
+      "gap_bin": "2+",
+      "query_time": 616384716,
+      "question": "When was the last time the microwave in the kitchen was used?",
+      "choices": {
+        "A": "The night before yesterday",
+        "B": "The afternoon before yesterday",
+        "C": "Three days ago at night",
+        "D": "Three days ago at noon"
+      },
+      "answer": "D",
+      "keywords": "use microwave",
+      "reason": "Nicous was playing the keyboard",
+      "target_time": {
+        "date": "DAY3",
+        "time": "12182902"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY3/DAY3_A1_JAKE_12180000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY3 12:18:00 - DAY3 12:18:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "445",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 617170912,
+      "question": "When was the last time Alice made this puppy?",
+      "choices": {
+        "A": "The day before yesterday",
+        "B": "Today",
+        "C": "Two days ago",
+        "D": "Yesterday"
+      },
+      "answer": "A",
+      "keywords": "Alice made puppy?",
+      "reason": "Because we want to eat bibimbap",
+      "target_time": {
+        "date": "DAY4",
+        "time": "17470815"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY4/DAY4_A1_JAKE_17470000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY4 17:47:00 - DAY4 17:47:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "448",
+      "type": "RelationMap",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 619494312,
+      "question": "Shure is playing guitar, who else can play guitar?",
+      "choices": {
+        "A": "Lucia and Alice",
+        "B": "Me and Tasha",
+        "C": "Nicous and Choiszt",
+        "D": "Alice and Nicous"
+      },
+      "answer": "C",
+      "keywords": "play guitar",
+      "reason": "Choiszt is dragging the keyboard",
+      "target_time": {
+        "date": "DAY6",
+        "time": "12062602"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_12060000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 12:06:01 - DAY6 12:06:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "459",
+      "type": "RelationMap",
+      "need_audio": false,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 621044820,
+      "question": "Who was listening nearby when Choiszt was playing the piano?",
+      "choices": {
+        "A": "Nicous and Violet and Shure",
+        "B": "Nicous and Shure and Tasha",
+        "C": "Me and Shure and Alice",
+        "D": "Nicous and Shure and Alice"
+      },
+      "answer": "A",
+      "keywords": "listen nearby, Choiszt play piano",
+      "reason": "Because Tasha and I didn't finish the leftover porridge, fried dough sticks, and burgers",
+      "target_time": {
+        "date": "DAY6",
+        "time": "12062113"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_12060000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 12:06:01 - DAY6 12:06:30"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    },
+    {
+      "ID": "465",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 621044825,
+      "question": "Who introduced the product 'Cardboard Puppy' to everyone?",
+      "choices": {
+        "A": "Me",
+        "B": "Shure",
+        "C": "Katrina",
+        "D": "Lucia"
+      },
+      "answer": "D",
+      "keywords": "introduce product, Cardboard Puppy",
+      "reason": "Because when I asked how many minutes until the snacks could be taken up, Tasha answered me that it would be five more minutes",
+      "target_time": {
+        "date": "DAY6",
+        "time": "16425118"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_16423000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 16:42:30 - DAY6 16:43:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "469",
+      "type": "HabitInsight",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 622042507,
+      "question": "What does Tasha like to eat?",
+      "choices": {
+        "A": "Steamed buns",
+        "B": "Hamburger",
+        "C": "Dumplings",
+        "D": "Noodles"
+      },
+      "answer": "A",
+      "keywords": "Tasha like eat",
+      "reason": "Because Alice said she doesn't like to eat steamed buns",
+      "target_time": {
+        "date": "DAY5",
+        "time": "12284809"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_12283000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 12:28:30 - DAY5 12:29:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "471",
+      "type": "HabitInsight",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 622042509,
+      "question": "What flavor of porridge does Alice like?",
+      "choices": {
+        "A": "Salty",
+        "B": "Thinner",
+        "C": "Thicker",
+        "D": "Sweet"
+      },
+      "answer": "A",
+      "keywords": "like porridge, Alice",
+      "reason": "Because when I mentioned Tremella soup, Katrina said it was delicious",
+      "target_time": {
+        "date": "DAY6",
+        "time": "10192213"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_10190000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 10:19:00 - DAY6 10:19:29"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "473",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 622101420,
+      "question": "Why do we conduct the QA activity first during the party?",
+      "choices": {
+        "A": "Because Lucia is not ready",
+        "B": "Because this is according to the plan",
+        "C": "Because everyone wants to conduct the QA activity first",
+        "D": "Because I want to conduct the QA activity first"
+      },
+      "answer": "A",
+      "keywords": "conduct QA activity",
+      "reason": "Because Choiszt plans to cut with scissors",
+      "target_time": {
+        "date": "DAY6",
+        "time": "16091800"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_16090000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 16:09:00 - DAY6 16:09:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "476",
+      "type": "EntityLog",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 622164902,
+      "question": "What is the purpose of ego coins?",
+      "choices": {
+        "A": "Exchange for cash",
+        "B": "Auction",
+        "C": "Collection",
+        "D": "Commemoration"
+      },
+      "answer": "B",
+      "keywords": "purpose ego coins",
+      "reason": "Because after the opening speech, I played the documentary",
+      "target_time": {
+        "date": "DAY6",
+        "time": "16080304"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_16080000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 16:08:00 - DAY6 16:08:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "479",
+      "type": "EntityLog",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 622164902,
+      "question": "What is the purpose of the glasses we wear?",
+      "choices": {
+        "A": "Allows us to see clearly",
+        "B": "Stylish and fashionable",
+        "C": "Provide AI assistance",
+        "D": "Collect first-person perspective data"
+      },
+      "answer": "D",
+      "keywords": "wear glasses",
+      "reason": "Because ego coins can be used for auctions",
+      "target_time": {
+        "date": "DAY6",
+        "time_list": [
+          "16020003",
+          "16020217"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_16020000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 16:02:02 - DAY6 16:02:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "481",
+      "type": "TaskMaster",
+      "need_audio": true,
+      "gap": 0,
+      "gap_bin": "0",
+      "query_time": 622164902,
+      "question": "What song does Jack plan to sing?",
+      "choices": {
+        "A": "Hate Dream of the Red Chamber",
+        "B": "Love Me or Him",
+        "C": "Su San Says",
+        "D": "Ordinary Friends"
+      },
+      "answer": "D",
+      "keywords": "Jack plan sing",
+      "reason": "Because Nicous suggested he plays the piano and Shure sings",
+      "target_time": {
+        "date": "DAY6",
+        "time": "15255211"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_15253000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 15:25:30 - DAY6 15:26:00"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "485",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 712141402,
+      "question": "Who fidgets with items the most during discussions?",
+      "choices": {
+        "A": "Me",
+        "B": "Lucia",
+        "C": "Tasha",
+        "D": "Alice"
+      },
+      "answer": "A",
+      "keywords": "fidget items, during discussions",
+      "reason": "We ate in the yard 7 times",
+      "target_time": {
+        "date": "DAY6",
+        "time_list": [
+          "17073200",
+          "17074101"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_17073000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 17:07:30 - DAY6 17:07:59"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "486",
+      "type": "HabitInsight",
+      "need_audio": false,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 712141402,
+      "question": "Who fidgets with items the most during discussions?",
+      "choices": {
+        "A": "Lucia",
+        "B": "Me",
+        "C": "Tasha",
+        "D": "Alice"
+      },
+      "answer": "B",
+      "keywords": "fidget items",
+      "reason": "We ate in the yard 7 times",
+      "target_time": {
+        "date": "DAY6",
+        "time_list": [
+          "17073200",
+          "17074101"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_17073000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 17:07:30 - DAY6 17:07:59"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "493",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 5,
+      "gap_bin": "2+",
+      "query_time": 715132705,
+      "question": "When was the last time I used my phone to scan the living room with 3D app?",
+      "choices": {
+        "A": "Six days ago",
+        "B": "Four days ago",
+        "C": "Five days ago",
+        "D": "Two days ago"
+      },
+      "answer": "C",
+      "keywords": "use phone, scan living room",
+      "reason": "I turned on the faucet to rinse the dishes",
+      "target_time": {
+        "date": "DAY2",
+        "time": "21501300"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_21500000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 21:50:02 - DAY2 21:50:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "495",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 5,
+      "gap_bin": "2+",
+      "query_time": 717395355,
+      "question": "Why do I label the SD cards?",
+      "choices": {
+        "A": "Only for sorting by date",
+        "B": "Sort memory cards used by different action cameras",
+        "C": "Label the size of different memory cards",
+        "D": "Classify different memory cards by date and different machines"
+      },
+      "answer": "D",
+      "keywords": "label SD cards",
+      "reason": "We were scratching lottery tickets",
+      "target_time": {
+        "date": "DAY2",
+        "time_list": [
+          "13011707",
+          "13082007"
+        ]
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_13010000.mp4",
+        "data/EgoLife/A1_JAKE/DAY2/DAY2_A1_JAKE_13080000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY2 13:01:01 - DAY2 13:01:29",
+        "DAY2 13:08:01 - DAY2 13:08:28"
+      ],
+      "n_target_clips": 2,
+      "masking": false
+    },
+    {
+      "ID": "496",
+      "type": "EventRecall",
+      "need_audio": true,
+      "gap": 1,
+      "gap_bin": "1",
+      "query_time": 718045007,
+      "question": "What song did Shure suggest we sing together?",
+      "choices": {
+        "A": "Boundless Oceans, Vast Skies",
+        "B": "Unforgettable Tonight",
+        "C": "Seven Mile Fragrance",
+        "D": "Sunny Day"
+      },
+      "answer": "B",
+      "keywords": "Shure suggest song, sing together",
+      "reason": "I opened the microwave",
+      "target_time": {
+        "date": "DAY6",
+        "time": "20012017"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY6/DAY6_A1_JAKE_20010000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY6 20:01:00 - DAY6 20:01:30"
+      ],
+      "n_target_clips": 1,
+      "masking": false
+    },
+    {
+      "ID": "497",
+      "type": "EventRecall",
+      "need_audio": false,
+      "gap": 2,
+      "gap_bin": "2+",
+      "query_time": 718060700,
+      "question": "When was the last time I paid via phone?",
+      "choices": {
+        "A": "This afternoon",
+        "B": "Yesterday afternoon",
+        "C": "Last night",
+        "D": "The night before yesterday"
+      },
+      "answer": "D",
+      "keywords": "pay via phone",
+      "reason": "Because Shure said we should sing this song together",
+      "target_time": {
+        "date": "DAY5",
+        "time": "19210108"
+      },
+      "target_clips": [
+        "data/EgoLife/A1_JAKE/DAY5/DAY5_A1_JAKE_19210000.mp4"
+      ],
+      "target_clip_keys": [
+        "DAY5 19:21:01 - DAY5 19:21:27"
+      ],
+      "n_target_clips": 1,
+      "masking": true
+    }
+  ]
+}

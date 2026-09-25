@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "clothing types I usually avoid buying",
+      "retrieved_content": "(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)\n(Alice, is sister of, I)\n(I, reassures, Alice)\n(Alice, delegates household tasks (clearing/organizing) to, I)\n(I, relies on, Lucia)\n(I, lives_with, Lucia)\n(I, works_with, Lucia)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, lowers head in presence of, Alice)\n(Alice, gives_or_hands_device_to, I)\n(Alice, is sister of, I)\n(I, reassures, Alice)\n(Alice, delegates household tasks (clearing/organizing) to, I)\n(I, relies on, Lucia)\n(I, lives_with, Lucia)\n(I, works_with, Lucia)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)",
+      "query": "clothing types I usually avoid buying",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

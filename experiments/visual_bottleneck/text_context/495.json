@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "reason for labeling SD cards",
+      "retrieved_content": "(I, is friends with (frequently chats with; enjoys interacting with; shops online with; coworker; frequent interactions: share snacks, laugh, exchange items, provide mutual help; helps, trusts and reassures me), Lucia)\n(Lucia, teaches and demonstrates movements and spatial concepts to, I)\n(I, helps Lucia open and prepare disposable cups for serving drinks, Lucia)\n(Lucia, is classmates with, I)\n(Lucia, eats during interactions with, I)\n(I, regularly talks and smiles with, Lucia)\n(Others, compliment, I)\n(I, gives labels to (labels written with a pen; pinched with left hand), Nicous)\n(I, coordinates_with and is_friends_with and frequently_accompanies_and_waits_with, Nicous)\n(Nicous, sits next to, I)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, is friends with (frequently chats with; enjoys interacting with; shops online with; coworker; frequent interactions: share snacks, laugh, exchange items, provide mutual help; helps, trusts and reassures me), Lucia)\n(Lucia, teaches and demonstrates movements and spatial concepts to, I)\n(I, helps Lucia open and prepare disposable cups for serving drinks, Lucia)\n(Lucia, is classmates with, I)\n(Lucia, eats during interactions with, I)\n(I, regularly talks and smiles with, Lucia)\n(Others, compliment, I)\n(I, gives labels to (labels written with a pen; pinched with left hand), Nicous)\n(I, coordinates_with and is_friends_with and frequently_accompanies_and_waits_with, Nicous)\n(Nicous, sits next to, I)",
+      "query": "reason for labeling SD cards",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

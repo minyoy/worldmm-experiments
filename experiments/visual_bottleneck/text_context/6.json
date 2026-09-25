@@ -1,0 +1,53 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "who plans to grow flowers",
+      "retrieved_content": "(I, holds morning meetings with, Tasha)\n(I, gives instructions to, Tasha)\n(I, holds morning meetings with, Katrina)\n(petals, can be used for, pressed flowers)\n(pressed flowers, need care for, two to three days)\n(Tasha, marks, phone when asked)\n(Tasha, designed, seed paper)\n(Tasha, suggests using, Petri dish for hydroponics and germination)\n(Tasha, made, multiple kinds of seed paper)\n(Tasha, suggests, planting pea shoots)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha plans to grow flowers",
+      "retrieved_content": "(Tasha, sometimes has hair that blocks the camera and can fix it when asked, camera)\n(Tasha, will invite, one person)\n(Tasha, recommends, bringing eggs)\n(Tasha, says, the packages are not hers)\n(Tasha, arranges, props for the planning group)\n(Tasha, instructs, me to take out the Petri dish)\n(Tasha, is auctioning, an item)\n(Alice, marks, phone when asked)\n(Alice, offers to buy, narcissus bulbs)\n(Alice, knows place that sells, narcissus bulbs)"
+    },
+    {
+      "round_num": 3,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha plans to grow flowers",
+      "retrieved_content": "(Tasha's seed paper designs, are perceived as, original and impressive)\n(Daffodil bulb, blooms into, beautiful flower)"
+    },
+    {
+      "round_num": 4,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha plans to grow flowers",
+      "retrieved_content": "[No results]"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(I, holds morning meetings with, Tasha)\n(I, gives instructions to, Tasha)\n(I, holds morning meetings with, Katrina)\n(petals, can be used for, pressed flowers)\n(pressed flowers, need care for, two to three days)\n(Tasha, marks, phone when asked)\n(Tasha, designed, seed paper)\n(Tasha, suggests using, Petri dish for hydroponics and germination)\n(Tasha, made, multiple kinds of seed paper)\n(Tasha, suggests, planting pea shoots)",
+      "query": "who plans to grow flowers",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Tasha, sometimes has hair that blocks the camera and can fix it when asked, camera)\n(Tasha, will invite, one person)\n(Tasha, recommends, bringing eggs)\n(Tasha, says, the packages are not hers)\n(Tasha, arranges, props for the planning group)\n(Tasha, instructs, me to take out the Petri dish)\n(Tasha, is auctioning, an item)\n(Alice, marks, phone when asked)\n(Alice, offers to buy, narcissus bulbs)\n(Alice, knows place that sells, narcissus bulbs)",
+      "query": "Tasha plans to grow flowers",
+      "round_num": 2
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Tasha's seed paper designs, are perceived as, original and impressive)\n(Daffodil bulb, blooms into, beautiful flower)",
+      "query": "Tasha plans to grow flowers",
+      "round_num": 3
+    }
+  ],
+  "num_rounds": 5
+}

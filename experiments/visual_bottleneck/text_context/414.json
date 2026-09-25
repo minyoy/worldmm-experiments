@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "episodic",
+      "search_query": "last time I asked about going to the hospital",
+      "retrieved_content": "[DAY4 21:53:00 - DAY4 21:53:30]\nI turn off the faucet and shake the water off, turn around holding chopsticks, walk from the first-floor living room up to the second floor, arrange the chopsticks, and start handing them out. \"Everyone, twist one,\" I say. Lucia: \"I'll wash my hands.\" Lucia and Alice decline; Lucia adds, \"I just came back from the hospital\" and \"I don't dare to touch the food directly.\" Tasha looks concerned. Katrina says, \"Try it.\"\n\n[DAY4 20:43:30 - DAY4 20:43:59]\nShe hasn't replied to me, so I start a WeChat video call. I click the call, turn on my earpiece, and hold my phone with the WeChat call screen. \"Hey, hello, hello,\" I say, then ask, \"Where are you?\" The lighting is a bit dim. Lucia: \"Ah, I'm outside, I mean I'm at... this health clinic here. Because this afternoon, the puppy... it scratched my hand a bit. My family wasn't too sure, so they wanted me to get a vaccine.\" \"Oh,\" I say. \"Oh, that's why,\" I add as I walk toward the door, open it, and walk into the yard. Lucia: \"And, and also, I checked...\"\n\n[DAY4 20:44:31 - DAY4 20:45:00]\nNighttime lights reflect on my phone screen as I hold it and walk to the side of the table on a WeChat call. I ask, \"So, did you get it done or are you still waiting?\" and \"Or are you still in line or what?\" Lucia replies, \"Just finished consulting the doctor, and I think it's better to get it done now.\" I pick up a toy from the table. \"Oh, okay,\" I say. \"Got it, got it,\" I say. \"Alright, don't rush,\" I say. \"Okay, let's leave it at that,\" I say. Lucia replies, \"Alright, bye-bye.\" I end the WeChat call. \"Okay, bye-bye,\" I say. I laugh. I walk toward Nicous, step into the foyer, shake the toy in my hand, and step toward the stairs."
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "episodic",
+      "content": "[DAY4 21:53:00 - DAY4 21:53:30]\nI turn off the faucet and shake the water off, turn around holding chopsticks, walk from the first-floor living room up to the second floor, arrange the chopsticks, and start handing them out. \"Everyone, twist one,\" I say. Lucia: \"I'll wash my hands.\" Lucia and Alice decline; Lucia adds, \"I just came back from the hospital\" and \"I don't dare to touch the food directly.\" Tasha looks concerned. Katrina says, \"Try it.\"\n\n[DAY4 20:43:30 - DAY4 20:43:59]\nShe hasn't replied to me, so I start a WeChat video call. I click the call, turn on my earpiece, and hold my phone with the WeChat call screen. \"Hey, hello, hello,\" I say, then ask, \"Where are you?\" The lighting is a bit dim. Lucia: \"Ah, I'm outside, I mean I'm at... this health clinic here. Because this afternoon, the puppy... it scratched my hand a bit. My family wasn't too sure, so they wanted me to get a vaccine.\" \"Oh,\" I say. \"Oh, that's why,\" I add as I walk toward the door, open it, and walk into the yard. Lucia: \"And, and also, I checked...\"\n\n[DAY4 20:44:31 - DAY4 20:45:00]\nNighttime lights reflect on my phone screen as I hold it and walk to the side of the table on a WeChat call. I ask, \"So, did you get it done or are you still waiting?\" and \"Or are you still in line or what?\" Lucia replies, \"Just finished consulting the doctor, and I think it's better to get it done now.\" I pick up a toy from the table. \"Oh, okay,\" I say. \"Got it, got it,\" I say. \"Alright, don't rush,\" I say. \"Okay, let's leave it at that,\" I say. Lucia replies, \"Alright, bye-bye.\" I end the WeChat call. \"Okay, bye-bye,\" I say. I laugh. I walk toward Nicous, step into the foyer, shake the toy in my hand, and step toward the stairs.",
+      "query": "last time I asked about going to the hospital",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

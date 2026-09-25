@@ -1,0 +1,20 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "episodic",
+      "search_query": "microwave in kitchen last used",
+      "retrieved_content": "[DAY1 20:31:30 - DAY1 20:31:59]\nI put the takeout into the microwave. \"I'll throw it in the microwave,\" I say. I turn off the microwave and head to the living room. \"Strong insulation, hmm,\" I say. I talk with Lucia. Lucia: \"Uh, which microwave are you using?\" I ask, \"How is it strong insulation?\" Katrina: \"What's up?\" Lucia: \"Nothing, just our takeout arrived.\" Katrina comes over and I look at her. We discuss it together. Lucia: \"Haha, so we often just leave it in the microwave to keep warm.\" \"Yeah, but this one doesn't,\" I say. I notice a rice cooker, take a bag, and put it into the rice cooker by the kitchen. Lucia: \"Make the most of it, really.\"\n\n[DAY1 20:32:00 - DAY1 20:32:29]\nI can't get it in. Lucia asks, \"Can it fit?\" \"Go in,\" I say. \"It doesn't fit,\" I say and take it out. \"But it's not a big problem,\" I add. \"We have another one upstairs,\" I say. Lucia replies, \"Oh, makes sense.\" I pick up a few things for tonight, then slowly walk up to the second floor, move to the corner, reach the living room doorway and walk in. I head to the kitchen, open the microwave, put a bag of food inside, close it, and turn toward the living room.\n\n[DAY1 13:40:00 - DAY1 13:40:30]\nI place the microwave on top of the oven and turn my head to the right. Tasha: Actually, we could roast some chicken too. I lower my head and search for the microwave's power cord, then fiddle with the microwave to find the cable jack and cables. Brilliant. Lucia: Let's leave the piping bag for later. Lucia: Otherwise, it might spill everywhere. Tasha picks up the microwave cord; I take the microwave's power cord and tinker with the oven. Tasha: These are all ingredients. I plug the cable into the wiring panel and tap the plug. Tasha: Just put them together. Tasha: Put the powders together. Tasha: Keep the ingredients together."
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "episodic",
+      "content": "[DAY1 20:31:30 - DAY1 20:31:59]\nI put the takeout into the microwave. \"I'll throw it in the microwave,\" I say. I turn off the microwave and head to the living room. \"Strong insulation, hmm,\" I say. I talk with Lucia. Lucia: \"Uh, which microwave are you using?\" I ask, \"How is it strong insulation?\" Katrina: \"What's up?\" Lucia: \"Nothing, just our takeout arrived.\" Katrina comes over and I look at her. We discuss it together. Lucia: \"Haha, so we often just leave it in the microwave to keep warm.\" \"Yeah, but this one doesn't,\" I say. I notice a rice cooker, take a bag, and put it into the rice cooker by the kitchen. Lucia: \"Make the most of it, really.\"\n\n[DAY1 20:32:00 - DAY1 20:32:29]\nI can't get it in. Lucia asks, \"Can it fit?\" \"Go in,\" I say. \"It doesn't fit,\" I say and take it out. \"But it's not a big problem,\" I add. \"We have another one upstairs,\" I say. Lucia replies, \"Oh, makes sense.\" I pick up a few things for tonight, then slowly walk up to the second floor, move to the corner, reach the living room doorway and walk in. I head to the kitchen, open the microwave, put a bag of food inside, close it, and turn toward the living room.\n\n[DAY1 13:40:00 - DAY1 13:40:30]\nI place the microwave on top of the oven and turn my head to the right. Tasha: Actually, we could roast some chicken too. I lower my head and search for the microwave's power cord, then fiddle with the microwave to find the cable jack and cables. Brilliant. Lucia: Let's leave the piping bag for later. Lucia: Otherwise, it might spill everywhere. Tasha picks up the microwave cord; I take the microwave's power cord and tinker with the oven. Tasha: These are all ingredients. I plug the cable into the wiring panel and tap the plug. Tasha: Just put them together. Tasha: Put the powders together. Tasha: Keep the ingredients together.",
+      "query": "microwave in kitchen last used",
+      "round_num": 1
+    }
+  ],
+  "num_rounds": 2
+}

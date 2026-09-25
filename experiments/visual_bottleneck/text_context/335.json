@@ -1,0 +1,33 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "milk uses",
+      "retrieved_content": "(Shure, is distinct from, I)\n(I, goes upstairs to check on, Shure)\n(Shure, suggests buying a dishwasher for, I)\n(Shure, will_match_instrument_with_bracelet_for, I)\n(Shure, prepares and serves coffee to, I)\n(Shure, paces and chats near and stands to the left of, I)\n(I, discusses and selects music tracks with (uses Siri on iPhone to search and select music), Shure)\n(Shure, expresses_affection_to, I)\n(I, sits adjacent to and sways with, Shure)\n(Shure, laughs with, I)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "milk uses",
+      "retrieved_content": "(I, talks with, Shure)\n(I, often smile while watching, Shure)\n(Shure, gives instructions to, I)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, plays games with and can hit the target in those games, I)\n(Tasha, hands parts of the narrator's microphone to, I)\n(Tasha, asks about purchases from, I)\n(I, accepts food from, Tasha)\n(Tasha, helps with power/charging, I)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Shure, is distinct from, I)\n(I, goes upstairs to check on, Shure)\n(Shure, suggests buying a dishwasher for, I)\n(Shure, will_match_instrument_with_bracelet_for, I)\n(Shure, prepares and serves coffee to, I)\n(Shure, paces and chats near and stands to the left of, I)\n(I, discusses and selects music tracks with (uses Siri on iPhone to search and select music), Shure)\n(Shure, expresses_affection_to, I)\n(I, sits adjacent to and sways with, Shure)\n(Shure, laughs with, I)",
+      "query": "milk uses",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(I, talks with, Shure)\n(I, often smile while watching, Shure)\n(Shure, gives instructions to, I)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(Tasha, plays games with and can hit the target in those games, I)\n(Tasha, hands parts of the narrator's microphone to, I)\n(Tasha, asks about purchases from, I)\n(I, accepts food from, Tasha)\n(Tasha, helps with power/charging, I)",
+      "query": "milk uses",
+      "round_num": 2
+    }
+  ],
+  "num_rounds": 3
+}

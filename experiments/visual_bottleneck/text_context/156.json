@@ -1,0 +1,72 @@
+{
+  "round_history": [
+    {
+      "round_num": 1,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "who doesn't like durian among Me, Lucia, Alice, Tasha",
+      "retrieved_content": "(Lucia, is friends with, considers experienced, and receives cleaning advice from, Tasha)\n(Lucia, coordinates with (in acting and dancing activities), Tasha)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, thanks, Tasha)\n(I, wait for, Tasha)\n(Tasha, discusses package delivery with, I)\n(Tasha, gives tissue to, I)\n(I, scroll through phone while chatting with (via WeChat; includes answering her questions about scriptwriting), Tasha)\n(Tasha, thanks, I)"
+    },
+    {
+      "round_num": 2,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Lucia opinion on durian",
+      "retrieved_content": "(Lucia, adds extra work for, I)\n(I, interacts socially with (is friends with, frequently chats with, and receives guidance from), Lucia)\n(Lucia, is friends with, Alice)\n(Lucia, tends to take a lot of food at conferences, true)\n(Lucia, has_no_dietary_restrictions, true)\n(Lucia, agrees to group suggestions about clothing (e.g., buying head covers) and prefers similar clothing styles rather than strict uniformity, true)\n(Lucia, is open to fitness activities, true)\n(Lucia, requests notification before sweeping and recommends knocking before entering bathroom, true)\n(Lucia, can come on, weekends)\n(Lucia, eats, cake)"
+    },
+    {
+      "round_num": 3,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Alice opinion on durian",
+      "retrieved_content": "(Alice, cooperates with, talks with, offers help to and sits with, Tasha)\n(Alice, is colleague of, Shure)\n(Katrina, talks_with, Alice)\n(Alice, is colleague of, Katrina)\n(Alice, says_dedicated_car_is_cheaper_than_train, true)\n(Alice, prefers, iodized salt)\n(Alice, recommends, locust flower)\n(Alice, prefers, not to eat pork)\n(Alice, mentions, Asian dark arts)\n(Alice, prefers, full and ripe fruit)"
+    },
+    {
+      "round_num": 4,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Tasha opinion on durian",
+      "retrieved_content": "(Tasha, collaborates with, Shure)\n(Tasha, offers to teach, Shure)\n(Tasha, talks_with and is colleague of, Katrina)\n(Katrina, assigns tasks to, Tasha)\n(Tasha, has_not_eaten, preserved eggs)\n(Tasha, prefers, potato dishes)\n(Tasha, declines, KFC)\n(Tasha, often eats, strawberries)\n(Tasha, declines, beef burger)"
+    },
+    {
+      "round_num": 5,
+      "decision": "search",
+      "memory_type": "semantic",
+      "search_query": "Me opinion on durian",
+      "retrieved_content": "(Shure, is distinct from, I)\n(I, brings food to, Shure)\n(Shure, walks up behind, I)\n(Shure, provides translation help to, I)\n(I, goes upstairs to check on, Shure)\n(Shure, taunts, I)\n(Shure, suggests buying a dishwasher for, I)\n(I, turn faucet on/off in presence of, Shure)\n(I, interact with, Shure)"
+    }
+  ],
+  "retrieved_items": [
+    {
+      "memory_type": "semantic",
+      "content": "(Lucia, is friends with, considers experienced, and receives cleaning advice from, Tasha)\n(Lucia, coordinates with (in acting and dancing activities), Tasha)\n(I, interacts with (chats; offers and physically assists with shopping; encourages to try preserved eggs), Tasha)\n(I, works with; frequently interacts with; lives with; is friends with; relies on; receives help from; walks with; is in a shopping group with; does food reviews with, Tasha)\n(I, thanks, Tasha)\n(I, wait for, Tasha)\n(Tasha, discusses package delivery with, I)\n(Tasha, gives tissue to, I)\n(I, scroll through phone while chatting with (via WeChat; includes answering her questions about scriptwriting), Tasha)\n(Tasha, thanks, I)",
+      "query": "who doesn't like durian among Me, Lucia, Alice, Tasha",
+      "round_num": 1
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Lucia, adds extra work for, I)\n(I, interacts socially with (is friends with, frequently chats with, and receives guidance from), Lucia)\n(Lucia, is friends with, Alice)\n(Lucia, tends to take a lot of food at conferences, true)\n(Lucia, has_no_dietary_restrictions, true)\n(Lucia, agrees to group suggestions about clothing (e.g., buying head covers) and prefers similar clothing styles rather than strict uniformity, true)\n(Lucia, is open to fitness activities, true)\n(Lucia, requests notification before sweeping and recommends knocking before entering bathroom, true)\n(Lucia, can come on, weekends)\n(Lucia, eats, cake)",
+      "query": "Lucia opinion on durian",
+      "round_num": 2
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Alice, cooperates with, talks with, offers help to and sits with, Tasha)\n(Alice, is colleague of, Shure)\n(Katrina, talks_with, Alice)\n(Alice, is colleague of, Katrina)\n(Alice, says_dedicated_car_is_cheaper_than_train, true)\n(Alice, prefers, iodized salt)\n(Alice, recommends, locust flower)\n(Alice, prefers, not to eat pork)\n(Alice, mentions, Asian dark arts)\n(Alice, prefers, full and ripe fruit)",
+      "query": "Alice opinion on durian",
+      "round_num": 3
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Tasha, collaborates with, Shure)\n(Tasha, offers to teach, Shure)\n(Tasha, talks_with and is colleague of, Katrina)\n(Katrina, assigns tasks to, Tasha)\n(Tasha, has_not_eaten, preserved eggs)\n(Tasha, prefers, potato dishes)\n(Tasha, declines, KFC)\n(Tasha, often eats, strawberries)\n(Tasha, declines, beef burger)",
+      "query": "Tasha opinion on durian",
+      "round_num": 4
+    },
+    {
+      "memory_type": "semantic",
+      "content": "(Shure, is distinct from, I)\n(I, brings food to, Shure)\n(Shure, walks up behind, I)\n(Shure, provides translation help to, I)\n(I, goes upstairs to check on, Shure)\n(Shure, taunts, I)\n(Shure, suggests buying a dishwasher for, I)\n(I, turn faucet on/off in presence of, Shure)\n(I, interact with, Shure)",
+      "query": "Me opinion on durian",
+      "round_num": 5
+    }
+  ],
+  "num_rounds": 5
+}

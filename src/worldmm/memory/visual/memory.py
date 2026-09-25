@@ -394,12 +394,16 @@ class VisualMemory:
             # Extract frames from all retrieved clips, organized by clip
             frames_by_clip: Dict[str, List[FrameEntry]] = {}
             for clip in results:
+                # clip_start_sec/clip_end_sec are seconds since midnight (derived from
+                # HHMMSS timestamps), not offsets inside the clip file. Passing them as
+                # offsets clamps both to the clip duration and yields zero frames.
+                # Each clip is its own file, so extract the whole clip.
                 frames = self._extract_frames(
                     clip.video_path,
                     fps=fps,
                     max_frames=None,
-                    start_sec=clip.clip_start_sec,
-                    end_sec=clip.clip_end_sec,
+                    start_sec=None,
+                    end_sec=None,
                 )
                 display_key = clip.to_display_str()
                 frames_by_clip[display_key] = frames
