@@ -80,6 +80,7 @@ from prepare_gaze import (  # noqa: E402
 
 DEFAULT_CANDIDATES = ("none", "flipx", "flipy", "flipx+flipy", "rot90cw", "rot90ccw")
 ROTATIONS = ("rot90cw", "rot90ccw")
+MIN_CLIPS_FOR_CI = 10      # below this the bootstrap CI is an artefact, not a measurement
 
 
 def point_offset(p: Tuple[float, float], axis: str) -> float:
@@ -277,12 +278,22 @@ def main() -> None:
         print(f"{n:>14} | {m:9.4f} | {m - full_mean:+8.4f} | {votes[n]:>9}")
     print(f"{'full (ref)':>14} | {full_mean:9.4f} |")
 
-    separated = bool(ci and ci[0] > 0)
+    # A bootstrap over a handful of clips resamples the same few numbers, so its interval collapses
+    # towards a point and clears 0 on width alone. At n=1 it IS a point: CI = [d, d], "separated"
+    # for free. Refuse to call that a separation -- too few clips is a reason to widen the filter,
+    # not a result.
+    too_few = len(rows) < MIN_CLIPS_FOR_CI
+    separated = bool(ci and ci[0] > 0 and not too_few)
     print(f"\nThe score is evidence, not a decision. Top row '{top}'"
           + (f" is separated from '{second}' (95% CI of the gap "
              f"{ci[0]:+.4f}..{ci[1]:+.4f})." if separated else
              f" is NOT separated from '{second}' (95% CI {ci[0]:+.4f}..{ci[1]:+.4f}) -- the score "
              f"cannot tell them apart."))
+    if too_few:
+        print(f"  ...and that CI is not usable anyway: only {len(rows)} clip(s) survived "
+              f"--min-offset {args.min_offset} on --axis {args.axis} "
+              f"({skipped_flat}/{len(offsets)} skipped), under the {MIN_CLIPS_FOR_CI} this needs. "
+              f"Lower --min-offset or raise --n-clips and run it again.")
 
     save_json({
         "n_clips": len(rows), "ratio": args.ratio, "frame_size": [w, h],
@@ -294,6 +305,7 @@ def main() -> None:
         "scores": {n: float(scores[n].mean()) for n in names},
         "ranked": ranked, "suggested": top, "runner_up": second, "votes": votes,
         "gap_ci95": list(ci) if ci else None,
+        "ci_usable": not too_few,
         "separated": separated, "chosen_by": "human",
     }, args.out)
     print(f"wrote {args.out}")
