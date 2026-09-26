@@ -46,8 +46,8 @@ from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import (  # noqa: E402
-    GAZE_PATH, GAZE_ROOT, POOL_PATH, VIDEO_ROOT, clip_start_sec, load_json, resolve_video_path,
-    save_json,
+    GAZE_PATH, GAZE_ROOT, POOL_PATH, VIDEO_ROOT, clip_start_sec, decord_threads, load_json,
+    resolve_video_path, save_json,
 )
 
 # Aria RGB at its native 1408x1408. Scaled by the decoded frame's width.
@@ -339,7 +339,7 @@ def frame_size(pool: Dict[str, Any], video_root: str) -> Optional[Tuple[int, int
         p = resolve_video_path(r["video_path"], video_root)
         if os.path.exists(p):
             try:
-                vr = VideoReader(p, ctx=cpu(0))
+                vr = VideoReader(p, ctx=cpu(0), num_threads=decord_threads())
                 h, w = vr[0].shape[:2]
                 return int(w), int(h)
             except Exception:
@@ -576,7 +576,7 @@ def _mid_frame(video_path: str, video_root: str):
     p = resolve_video_path(video_path, video_root)
     if not os.path.exists(p):
         return None
-    vr = VideoReader(p, ctx=cpu(0))
+    vr = VideoReader(p, ctx=cpu(0), num_threads=decord_threads())
     return Image.fromarray(vr[len(vr) // 2].asnumpy())
 
 
