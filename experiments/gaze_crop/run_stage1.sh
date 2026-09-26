@@ -1,0 +1,127 @@
+#!/usr/bin/env bash
+# Stage 1: visual retrieval recall on the 623-clip pool. No LLM, no answer generation.
+# Run from the repo root, in the environment with torch + decord + the VLM2Vec weights.
+#
+#   bash experiments/gaze_crop/run_stage1.sh                  # 1st pass: renders the transform
+#                                                             #   candidates and stops for your call
+#   GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/run_stage1.sh   # 2nd pass: the real run, ~30 min
+#   nohup GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/run_stage1.sh > /dev/null 2>&1 &
+#
+# Knobs: VIDEO_ROOT, GAZE_ROOT (default data/EgoLife/EyeGaze/A1_JAKE), RATIO (0.5),
+#        GAZE_TRANSFORM (required for the real run), N_DISTRACTORS (500),
+#        SKIP_CONTROLS=1 (drop the pkl and random-crop arms),
+#        NO_GAZE=1 (run full vs centre crop only, on purpose)
+#
+# Ends by printing whether the gaze arms beat `full`, which is what decides stage 2.
+# It never starts stage 2 itself -- that is run_stage2.sh, and it costs 3-4 hours.
+set -uo pipefail          # NOT -e: a late failure must still reach the digest
+
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO="$(cd "$HERE/../.." && pwd)"
+VIDEO_ROOT="${VIDEO_ROOT:-${WORLDMM_VIDEO_ROOT:-/datasets/EgoLife}}"
+GAZE_ROOT="${GAZE_ROOT:-$REPO/data/EgoLife/EyeGaze/A1_JAKE}"
+RATIO="${RATIO:-0.5}"
+GAZE_TRANSFORM="${GAZE_TRANSFORM:-}"
+N_DISTRACTORS="${N_DISTRACTORS:-500}"
+SKIP_CONTROLS="${SKIP_CONTROLS:-0}"
+PY="${PY:-python}"
+
+GAZE_ARM="gaze@$RATIO"        # one box per clip, at the clip's median gaze point
+GAZEF_ARM="gazef@$RATIO"      # the box follows the gaze frame by frame
+mkdir -p "$HERE/logs"
+LOG="$HERE/logs/stage1_$(date +%Y%m%d_%H%M%S).log"
+exec > >(tee -a "$LOG") 2>&1
+cd "$REPO" || exit 1
+
+say() { echo; echo "=== $* ==================================================" ; }
+
+say "$(date '+%F %T')  stage 1: retrieval recall"
+echo "video root: $VIDEO_ROOT"
+echo "gaze root : $GAZE_ROOT"
+echo "ratio     : $RATIO"
+echo "log       : $LOG"
+
+say "0. preflight"
+[ -d "$VIDEO_ROOT" ] || { echo "FATAL: video root missing: $VIDEO_ROOT"; exit 1; }
+HAS_GAZE=0
+"$PY" "$HERE/check_gaze.py" --gaze-root "$GAZE_ROOT" && HAS_GAZE=1 || true
+if [ "$HAS_GAZE" != "1" ] && [ "${NO_GAZE:-0}" != "1" ]; then
+  echo
+  echo "FATAL: no gaze data found, so the gaze arms cannot be built."
+  echo "       Looked in: $GAZE_ROOT"
+  echo "       Download it there, or point GAZE_ROOT elsewhere:"
+  echo "           huggingface-cli download Wangtwohappy/EgoLife_EyeTracking_EyeGaze \\"
+  echo "               --repo-type dataset --include \"EyeGaze/A1_JAKE/*\" --local-dir data/EgoLife"
+  echo "       Deliberately measuring full vs centre crop only? Rerun with NO_GAZE=1."
+  exit 1
+fi
+
+say "1. pool (623 clips)"
+"$PY" "$HERE/build_pool.py" --n-distractors "$N_DISTRACTORS" || exit 1
+
+say "2. gaze"
+ARMS="full center@$RATIO"
+if [ "$HAS_GAZE" = "1" ] && [ -z "$GAZE_TRANSFORM" ]; then
+  # The gaze CSVs hold yaw/pitch, not pixels, so the sign/rotation mapping to EgoLife's re-exported
+  # video has to be settled before any embedding. It is settled by looking, not by a score: this
+  # renders the candidates and stops.
+  "$PY" "$HERE/compare_transforms.py" --gaze-root "$GAZE_ROOT" --video-root "$VIDEO_ROOT" \
+      --ratio "$RATIO" || exit 1
+  cat <<'MSG'
+
+--------------------------------------------------------------------------
+Stopping here on purpose: the gaze->image transform is yours to choose.
+
+Open the variants/*_variants.jpg listed above. Pick the tile whose crop box is on what the wearer
+was plainly looking at, then rerun with that label:
+
+    GAZE_TRANSFORM=<label> bash experiments/gaze_crop/run_stage1.sh
+
+If no tile looks right, the projection itself may be off -- try
+    python experiments/gaze_crop/compare_transforms.py --gaze-root ... --projection pinhole
+or a different --focal-px, and look again.
+--------------------------------------------------------------------------
+MSG
+  exit 0
+fi
+
+if [ "$HAS_GAZE" = "1" ]; then
+  echo "transform: $GAZE_TRANSFORM  (chosen by you)"
+  "$PY" "$HERE/prepare_gaze.py" --gaze-root "$GAZE_ROOT" --video-root "$VIDEO_ROOT" \
+      --transform "$GAZE_TRANSFORM" --dump-overlay 6 || exit 1
+  echo ">>> overlay/*.jpg is the receipt for this transform -- keep it with the results."
+  ARMS="$ARMS $GAZE_ARM $GAZEF_ARM"
+  if [ "$SKIP_CONTROLS" != "1" ]; then
+    "$PY" "$HERE/prepare_gaze.py" --pseudo random --out "$HERE/gaze_random.json"
+  fi
+else
+  echo "no gaze -> full vs centre crop only"
+fi
+
+say "3. embeddings: $ARMS"
+# shellcheck disable=SC2086
+"$PY" "$HERE/embed_arms.py" --arms $ARMS --video-root "$VIDEO_ROOT" || exit 1
+if [ "$SKIP_CONTROLS" != "1" ]; then
+  "$PY" "$HERE/embed_arms.py" --arms pkl
+  [ "$HAS_GAZE" = "1" ] && "$PY" "$HERE/embed_arms.py" --arms "$GAZEF_ARM" \
+      --gaze "$HERE/gaze_random.json" --arm-suffix _rand --video-root "$VIDEO_ROOT"
+fi
+
+say "4. recall"
+"$PY" "$HERE/recall_eval.py" --query-source question || exit 1
+"$PY" "$HERE/recall_eval.py" --query-source keywords
+
+say "5. verdict"
+"$PY" "$HERE/gate.py" --results "$HERE/results/recall_question.json" --arms "$GAZE_ARM" "$GAZEF_ARM"
+VERDICT=$?
+"$PY" "$HERE/digest.py"
+say "$(date '+%F %T')  stage 1 done. log: $LOG"
+if [ "$VERDICT" = "0" ]; then
+  echo
+  echo "A gaze arm beat full. Stage 2 (answer accuracy, 3-4 h) is worth running:"
+  echo "    bash experiments/gaze_crop/run_stage2.sh"
+else
+  echo
+  echo "No gaze arm beat full. Read analysis/DIGEST.md before spending 4 hours on stage 2."
+  echo "Force it anyway with:  FORCE=1 bash experiments/gaze_crop/run_stage2.sh"
+fi

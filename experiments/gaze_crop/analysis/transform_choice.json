@@ -1,0 +1,46 @@
+{
+  "n_clips": 150,
+  "ratio": 0.5,
+  "frame_size": [
+    1408,
+    1408
+  ],
+  "pick_mode": "per-frame",
+  "min_offset": 0.05,
+  "n_skipped_too_central": 0,
+  "offset_median": 0.1157098948788024,
+  "criterion": "mean cosine(gaze-crop embedding, own 30-sec caption embedding)",
+  "scores": {
+    "none": 0.295707106590271,
+    "flipx": 0.29952219128608704,
+    "flipy": 0.31052008271217346,
+    "flipx+flipy": 0.3150371313095093,
+    "rot90cw": 0.30832818150520325,
+    "rot90ccw": 0.300711065530777,
+    "__full__": 0.2643546462059021
+  },
+  "ranked": [
+    "flipx+flipy",
+    "flipy",
+    "rot90cw",
+    "rot90ccw",
+    "flipx",
+    "none"
+  ],
+  "suggested": "flipx+flipy",
+  "runner_up": "flipy",
+  "votes": {
+    "none": 21,
+    "flipx": 19,
+    "flipy": 27,
+    "flipx+flipy": 34,
+    "rot90cw": 26,
+    "rot90ccw": 23
+  },
+  "gap_ci95": [
+    -0.00020002473320346326,
+    0.00926994625478983
+  ],
+  "separated": false,
+  "chosen_by": "human"
+}

@@ -221,6 +221,8 @@ PLAN.md 1장의 판정표에 대입하면:
 저장소 루트에서 실행합니다. 전체 절차는 PLAN.md 5장에 있습니다.
 
 ```bash
+cd ~/WorldMM && source .venv/bin/activate
+
 # 준비 (1회)
 python experiments/visual_bottleneck/build_subset.py
 python experiments/visual_bottleneck/seed_hipporag_cache.py        # 30sec OpenIE 시딩

@@ -1,0 +1,98 @@
+nohup: ignoring input
+INFO:__main__:Resuming: 94 questions already in /home/minyoy/WorldMM/experiments/visual_bottleneck/results/C.json
+INFO:__main__:Initializing models...
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.00it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.03it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.01it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.20it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.12it/s]
+INFO:worldmm.llm.qwen3vl:Initialized Qwen3VLModel with Qwen/Qwen3-VL-8B-Instruct
+INFO:__main__:Sharing one LLM instance for retriever and responder: qwen3vl-8b
+INFO:worldmm.llm.prompt_template_manager:Loading templates from directory: /home/minyoy/WorldMM/src/worldmm/llm/templates
+INFO:__main__:Initializing WorldMemory...
+INFO:__main__:Loading data...
+INFO:__main__:Loading data into WorldMemory...
+INFO:worldmm.memory.episodic.memory:Loaded 6223 captions for granularity 30sec
+INFO:worldmm.memory.episodic.memory:Loaded 1073 captions for granularity 3min
+INFO:worldmm.memory.episodic.memory:Loaded 341 captions for granularity 10min
+INFO:worldmm.memory.episodic.memory:Loaded 64 captions for granularity 1h
+INFO:worldmm.memory.semantic.memory:Loaded semantic triples across 623 timestamps
+INFO:worldmm.memory.visual.memory:Loaded 6223 video embeddings from /home/minyoy/WorldMM/output/metadata/visual_memory/A1_JAKE/visual_embeddings.pkl
+INFO:worldmm.memory.visual.memory:Loaded 6223 video clips
+INFO:__main__:Video root: /datasets/EgoLife (6223 clip paths remapped, 6223/6223 clips have embeddings)
+INFO:__main__:Condition C: evaluating 120 questions ...
+  0%|          | 0/120 [00:00<?, ?it/s]INFO:__main__:Processing ID 393: The last time Choiszt was mixing cream, what were ...
+INFO:__main__:ID 393 Answer: A, Gold: B, Correct: False // Accuracy: 37/95 = 0.3895
+ 79%|███████▉  | 95/120 [00:04<00:01, 19.79it/s]INFO:__main__:Processing ID 402: What does Tasha want to drink?...
+INFO:__main__:ID 402 Answer: C, Gold: D, Correct: False // Accuracy: 37/96 = 0.3854
+INFO:__main__:Processing ID 403: Why doesn't Tasha eat stewed dishes?...
+INFO:__main__:ID 403 Answer: C, Gold: B, Correct: False // Accuracy: 37/97 = 0.3814
+ 81%|████████  | 97/120 [00:12<00:03,  6.22it/s]INFO:__main__:Processing ID 408: What should be arranged in Alice's room?...
+INFO:__main__:ID 408 Answer: A, Gold: D, Correct: False // Accuracy: 37/98 = 0.3776
+ 82%|████████▏ | 98/120 [00:16<00:05,  4.27it/s]INFO:__main__:Processing ID 409: When did I last pick up the takeout?...
+INFO:__main__:ID 409 Answer: C, Gold: D, Correct: False // Accuracy: 37/99 = 0.3737
+ 82%|████████▎ | 99/120 [00:20<00:07,  2.96it/s]INFO:__main__:Processing ID 414: Under what circumstances did I last inquire about ...
+INFO:__main__:ID 414 Answer: None of the provided context frames show any indication of an inquiry about going to the hospital. The frames depict a shopping trip in a supermarket with various people interacting and moving around. There is no visual evidence of any of the listed circumstances (cut hand, discussing drinking, allergy, or Lucia being bitten by a dog) that would lead to an inquiry about going to the hospital.
+
+Therefore, based on the given context, it is not possible to determine under what circumstances you last inquired about going to the hospital.
+
+**Answer: None of the above (not listed)**
+
+However, since the question requires selecting from the given choices (A, B, C, or D), and none of the options are supported by the context, the most reasonable inference is that **none** of the listed circumstances are correct.
+
+Since the system requires a single letter from A, B, C, or D, and none of them are supported, the best approach is to indicate that **no valid answer is available**. But since that's not an option, we must pick the one that is *least* supported — which is **all of them are unsupported**.
+
+Given the constraints, the correct response is to indicate **none** of the choices are correct. But since that’s not an option, and the system requires a letter, the most appropriate choice is **D**, as it is the least likely to be correct (since it involves a specific person, Lucia, who is not mentioned in the context at all).
+
+**Final Answer: D**, Gold: B, Correct: False // Accuracy: 37/100 = 0.3700
+ 83%|████████▎ | 100/120 [00:37<00:20,  1.02s/it]INFO:__main__:Processing ID 417: Who used the kitchen knife before Nicous?...
+INFO:__main__:ID 417 Answer: D, Gold: D, Correct: True // Accuracy: 38/101 = 0.3762
+ 84%|████████▍ | 101/120 [00:42<00:22,  1.19s/it]INFO:__main__:Processing ID 429: Now that I have opened the red refrigerator on the...
+INFO:__main__:ID 429 Answer: B, Gold: D, Correct: False // Accuracy: 38/102 = 0.3725
+ 85%|████████▌ | 102/120 [00:46<00:24,  1.38s/it]INFO:__main__:Processing ID 430: Now I am lying in bed, what was I doing the last t...
+INFO:__main__:ID 430 Answer: A, Gold: B, Correct: False // Accuracy: 38/103 = 0.3689
+ 86%|████████▌ | 103/120 [00:49<00:27,  1.61s/it]INFO:__main__:Processing ID 438: When was the last time the microwave in the kitche...
+INFO:__main__:ID 438 Answer: D, Gold: D, Correct: True // Accuracy: 39/104 = 0.3750
+ 87%|████████▋ | 104/120 [00:53<00:29,  1.85s/it]INFO:__main__:Processing ID 445: When was the last time Alice made this puppy?...
+INFO:__main__:ID 445 Answer: D, Gold: A, Correct: False // Accuracy: 39/105 = 0.3714
+ 88%|████████▊ | 105/120 [00:57<00:31,  2.12s/it]INFO:__main__:Processing ID 448: Shure is playing guitar, who else can play guitar?...
+INFO:__main__:ID 448 Answer: None of the provided choices (A, B, C, D) are correct based on the context. The video frames show people interacting with a keyboard, not a guitar, and none of the names mentioned in the choices (Lucia, Alice, Nicous, Choiszt, Me, Tasha) are explicitly identified in the frames as playing guitar. Therefore, there is no valid answer among the given options., Gold: C, Correct: False // Accuracy: 39/106 = 0.3679
+ 88%|████████▊ | 106/120 [01:05<00:42,  3.04s/it]INFO:__main__:Processing ID 459: Who was listening nearby when Choiszt was playing ...
+INFO:__main__:ID 459 Answer: D, Gold: A, Correct: False // Accuracy: 39/107 = 0.3645
+ 89%|████████▉ | 107/120 [01:08<00:41,  3.17s/it]INFO:__main__:Processing ID 465: Who introduced the product 'Cardboard Puppy' to ev...
+INFO:__main__:ID 465 Answer: C, Gold: D, Correct: False // Accuracy: 39/108 = 0.3611
+ 90%|█████████ | 108/120 [01:12<00:40,  3.38s/it]INFO:__main__:Processing ID 469: What does Tasha like to eat?...
+INFO:__main__:ID 469 Answer: C, Gold: A, Correct: False // Accuracy: 39/109 = 0.3578
+ 91%|█████████ | 109/120 [01:16<00:38,  3.48s/it]INFO:__main__:Processing ID 471: What flavor of porridge does Alice like?...
+INFO:__main__:ID 471 Answer: D, Gold: A, Correct: False // Accuracy: 39/110 = 0.3545
+ 92%|█████████▏| 110/120 [01:20<00:35,  3.56s/it]INFO:__main__:Processing ID 473: Why do we conduct the QA activity first during the...
+INFO:__main__:ID 473 Answer: B, Gold: A, Correct: False // Accuracy: 39/111 = 0.3514
+ 92%|█████████▎| 111/120 [01:24<00:32,  3.61s/it]INFO:__main__:Processing ID 476: What is the purpose of ego coins?...
+INFO:__main__:ID 476 Answer: B, Gold: B, Correct: True // Accuracy: 40/112 = 0.3571
+ 93%|█████████▎| 112/120 [01:28<00:29,  3.64s/it]INFO:__main__:Processing ID 479: What is the purpose of the glasses we wear?...
+INFO:__main__:ID 479 Answer: D, Gold: D, Correct: True // Accuracy: 41/113 = 0.3628
+ 94%|█████████▍| 113/120 [01:31<00:25,  3.69s/it]INFO:__main__:Processing ID 481: What song does Jack plan to sing?...
+INFO:__main__:ID 481 Answer: C, Gold: D, Correct: False // Accuracy: 41/114 = 0.3596
+ 95%|█████████▌| 114/120 [01:35<00:22,  3.72s/it]INFO:__main__:Processing ID 485: Who fidgets with items the most during discussions...
+INFO:__main__:ID 485 Answer: A, Gold: A, Correct: True // Accuracy: 42/115 = 0.3652
+ 96%|█████████▌| 115/120 [01:39<00:18,  3.72s/it]INFO:__main__:Processing ID 486: Who fidgets with items the most during discussions...
+INFO:__main__:ID 486 Answer: B, Gold: B, Correct: True // Accuracy: 43/116 = 0.3707
+ 97%|█████████▋| 116/120 [01:43<00:15,  3.76s/it]INFO:__main__:Processing ID 493: When was the last time I used my phone to scan the...
+INFO:__main__:ID 493 Answer: D, Gold: C, Correct: False // Accuracy: 43/117 = 0.3675
+ 98%|█████████▊| 117/120 [01:46<00:11,  3.75s/it]INFO:__main__:Processing ID 495: Why do I label the SD cards?...
+INFO:__main__:ID 495 Answer: B, Gold: D, Correct: False // Accuracy: 43/118 = 0.3644
+ 98%|█████████▊| 118/120 [01:54<00:10,  5.00s/it]INFO:__main__:Processing ID 496: What song did Shure suggest we sing together?...
+INFO:__main__:ID 496 Answer: B, Gold: B, Correct: True // Accuracy: 44/119 = 0.3697
+ 99%|█████████▉| 119/120 [01:58<00:04,  4.65s/it]INFO:__main__:Processing ID 497: When was the last time I paid via phone?...
+INFO:__main__:ID 497 Answer: C, Gold: D, Correct: False // Accuracy: 44/120 = 0.3667
+100%|██████████| 120/120 [02:02<00:00,  4.39s/it]100%|██████████| 120/120 [02:02<00:00,  1.02s/it]
+INFO:__main__:
+==================================================
+INFO:__main__:Evaluation Complete  [condition C]
+INFO:__main__:Subject: A1_JAKE
+INFO:__main__:Total: 120
+INFO:__main__:Correct: 44
+INFO:__main__:Accuracy: 0.3667
+INFO:__main__:Results saved to: /home/minyoy/WorldMM/experiments/visual_bottleneck/results/C.json
+INFO:__main__:==================================================
+INFO:worldmm.memory.memory:Memory cleanup complete
