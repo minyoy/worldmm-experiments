@@ -40,7 +40,8 @@ import numpy as np
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import (  # noqa: E402
     EMB_DIR, GAZE_PATH, MAX_PIXELS, NFRAMES, POOL_PATH, VIDEO_ROOT, VISUAL_EMB_PKL, arm_filename,
-    crop_box, gaze_at, load_gaze, load_json, parse_arm, resolve_video_path, save_json,
+    crop_box, decord_threads, gaze_at, load_gaze, load_json, parse_arm, resolve_video_path,
+    save_json,
 )
 
 
@@ -53,7 +54,7 @@ def frame_indices_uniform(total: int, n: int) -> List[int]:
 
 def decode(path: str, nframes: int):
     from decord import VideoReader, cpu
-    vr = VideoReader(path, ctx=cpu(0))
+    vr = VideoReader(path, ctx=cpu(0), num_threads=decord_threads())
     idx = frame_indices_uniform(len(vr), nframes)
     arr = vr.get_batch(idx).asnumpy()
     fps = float(vr.get_avg_fps()) or 30.0

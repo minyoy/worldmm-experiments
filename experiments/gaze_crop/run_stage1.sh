@@ -10,11 +10,31 @@
 # Knobs: VIDEO_ROOT, GAZE_ROOT (default data/EgoLife/EyeGaze/A1_JAKE), RATIO (0.5),
 #        GAZE_TRANSFORM (required for the real run), N_DISTRACTORS (500),
 #        SKIP_CONTROLS=1 (drop the pkl and random-crop arms),
-#        NO_GAZE=1 (run full vs centre crop only, on purpose)
+#        NO_GAZE=1 (run full vs centre crop only, on purpose),
+#        MAX_CPUS=N (cap the whole run at N cores, i.e. N*100% in top -- see below)
 #
 # Ends by printing whether the gaze arms beat `full`, which is what decides stage 2.
 # It never starts stage 2 itself -- that is run_stage2.sh, and it costs 3-4 hours.
 set -uo pipefail          # NOT -e: a late failure must still reach the digest
+
+# MAX_CPUS: hold the whole run to N cores on a shared machine. Decode (decord) and the BLAS/OMP
+# pools each default to "every core", so capping needs both a hard ceiling and a thread count --
+# affinity alone leaves N*ncore threads fighting over N cores. taskset pins this shell, and every
+# python it starts inherits that mask, so one re-exec covers all the steps below.
+MAX_CPUS="${MAX_CPUS:-}"
+if [ -n "$MAX_CPUS" ] && [ -z "${WORLDMM_CPU_PINNED:-}" ]; then
+  if ! [ "$MAX_CPUS" -ge 1 ] 2>/dev/null; then
+    echo "FATAL: MAX_CPUS must be a positive integer, got '$MAX_CPUS'"; exit 1
+  fi
+  export OMP_NUM_THREADS="$MAX_CPUS" MKL_NUM_THREADS="$MAX_CPUS" \
+         OPENBLAS_NUM_THREADS="$MAX_CPUS" NUMEXPR_NUM_THREADS="$MAX_CPUS" \
+         DECORD_NUM_THREADS="$MAX_CPUS" WORLDMM_CPU_PINNED=1
+  if command -v taskset >/dev/null 2>&1; then
+    exec taskset -c "0-$((MAX_CPUS - 1))" bash "$0" "$@"
+  fi
+  echo "WARNING: MAX_CPUS=$MAX_CPUS but taskset is missing. Thread counts are capped, but nothing"
+  echo "         enforces the ceiling -- libraries that ignore those vars can still use every core."
+fi
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
@@ -39,6 +59,7 @@ say "$(date '+%F %T')  stage 1: retrieval recall"
 echo "video root: $VIDEO_ROOT"
 echo "gaze root : $GAZE_ROOT"
 echo "ratio     : $RATIO"
+echo "cpus      : ${MAX_CPUS:-unbounded}${MAX_CPUS:+ cores (taskset 0-$((MAX_CPUS - 1)))}"
 echo "log       : $LOG"
 
 say "0. preflight"

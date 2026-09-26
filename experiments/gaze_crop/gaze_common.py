@@ -67,6 +67,18 @@ VISUAL_EMB_PKL = os.path.join(METADATA_DIR, "visual_memory", SUBJECT, "visual_em
 GAZE_ROOT = os.environ.get("WORLDMM_GAZE_ROOT", os.path.join(DATA_DIR, "EyeGaze", SUBJECT))
 
 
+def decord_threads() -> int:
+    """Threads for each decord VideoReader. 0 (the default) lets decord use every core.
+
+    Video decode is the CPU-heavy half of this experiment, and decord's auto setting will happily
+    fill a shared machine. DECORD_NUM_THREADS caps it; run_stage1.sh sets it from MAX_CPUS.
+    """
+    try:
+        return max(0, int(os.environ.get("DECORD_NUM_THREADS", "0")))
+    except ValueError:
+        return 0
+
+
 # ---------------------------------------------------------------------------
 # clips
 # ---------------------------------------------------------------------------
