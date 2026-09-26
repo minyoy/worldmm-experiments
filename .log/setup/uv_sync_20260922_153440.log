@@ -1,0 +1,91 @@
+Resolved 165 packages in 5ms
+   Building hipporag @ file:///home/minyoy/WorldMM/src/HippoRAG
+   Building velruse==1.1.1
+   Building anykeystore==0.2
+   Building cryptacular==1.6.2
+   Building apex==0.9.10.dev0
+   Building pbkdf2==1.3
+   Building pysrt==1.1.2
+Downloading tokenizers (3.1MiB)
+Downloading pydantic-core (2.0MiB)
+Downloading aiohttp (1.7MiB)
+Downloading transformers (11.4MiB)
+Downloading mteb (4.9MiB)
+Downloading av (34.7MiB)
+Downloading numpy (15.8MiB)
+Downloading onnxruntime (16.4MiB)
+Downloading pillow (6.7MiB)
+Downloading polars-runtime-32 (44.7MiB)
+Downloading scipy (33.6MiB)
+Downloading litellm (14.9MiB)
+Downloading sympy (6.0MiB)
+Downloading sqlalchemy (3.1MiB)
+Downloading hf-xet (4.0MiB)
+Downloading opencv-python-headless (57.6MiB)
+Downloading networkx (2.0MiB)
+Downloading scikit-image (13.0MiB)
+Downloading scikit-learn (8.5MiB)
+Downloading pandas (10.4MiB)
+Downloading wandb (24.4MiB)
+Downloading botocore (14.0MiB)
+Downloading pyarrow (45.4MiB)
+Downloading ctranslate2 (37.2MiB)
+Downloading decord (13.0MiB)
+Downloading igraph (5.4MiB)
+Downloading nvidia-cudnn-cu12 (674.0MiB)
+Downloading nvidia-cublas-cu12 (566.8MiB)
+Downloading nvidia-cusparse-cu12 (274.9MiB)
+Downloading torch (847.9MiB)
+Downloading nvidia-cusparselt-cu12 (273.9MiB)
+Downloading nvidia-cusolver-cu12 (255.1MiB)
+Downloading nvidia-nccl-cu12 (307.4MiB)
+Downloading nvidia-cufft-cu12 (184.2MiB)
+error: Failed to build `pbkdf2==1.3`
+  cause: The build backend returned an error
+  cause: Call to `setuptools.build_meta:__legacy__.build_wheel` failed (exit status: 1)
+
+         [stdout]
+         running bdist_wheel
+         running build
+         running build_py
+         copying pbkdf2.py -> build/lib
+         installing to build/bdist.linux-x86_64/wheel
+         running install
+         running install_lib
+         running install_egg_info
+         running egg_info
+         writing pbkdf2.egg-info/PKG-INFO
+         writing dependency_links to pbkdf2.egg-info/dependency_links.txt
+         writing top-level names to pbkdf2.egg-info/top_level.txt
+         reading manifest file 'pbkdf2.egg-info/SOURCES.txt'
+         writing manifest file 'pbkdf2.egg-info/SOURCES.txt'
+         removing 'build/bdist.linux-x86_64/wheel/./pbkdf2-1.3-py3.13.egg-info' (and everything under it)
+         Copying pbkdf2.egg-info to build/bdist.linux-x86_64/wheel/./pbkdf2-1.3-py3.13.egg-info
+         running install_scripts
+
+         [stderr]
+         /home/minyoy/.cache/uv/builds-v0/.tmp8Lrsxw/lib/python3.13/site-packages/setuptools/_distutils/dist.py:289:
+         UserWarning: Unknown distribution option: 'test_suite'
+           warnings.warn(msg)
+         /home/minyoy/.cache/uv/builds-v0/.tmp8Lrsxw/lib/python3.13/site-packages/setuptools/dist.py:759:
+         SetuptoolsDeprecationWarning: License classifiers are deprecated.
+         !!
+
+                 ********************************************************************************
+                 Please consider removing the following classifiers in favor of a SPDX license
+         expression:
+
+                 License :: OSI Approved :: MIT License
+
+                 See https://packaging.python.org/en/latest/guides/writing-pyproject-toml/#license for
+         details.
+                 ********************************************************************************
+
+         !!
+           self._finalize_license_expression()
+         error: [Errno 39] Directory not empty:
+         'build/bdist.linux-x86_64/wheel/./pbkdf2-1.3-py3.13.egg-info'
+
+hint: `pbkdf2` (v1.3) was included because `worldmm` (v0.2.0) depends on `apex` (v0.9.10.dev0) which depends on `cryptacular` (v1.6.2) which depends on `pbkdf2`
+
+hint: Build failures usually indicate a problem with the package or the build environment
