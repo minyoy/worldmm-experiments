@@ -1,39 +1,39 @@
 {
-  "n_clips": 36,
+  "n_clips": 1,
   "ratio": 0.5,
   "frame_size": [
     1408,
     1408
   ],
   "pick_mode": "per-frame",
-  "min_offset": 0.08,
+  "min_offset": 0.12,
   "axis": "x",
   "transforms": [
     "flipy",
     "flipx+flipy"
   ],
-  "n_skipped_too_central": 114,
+  "n_skipped_too_central": 149,
   "offset_median": 0.06536687990902668,
   "criterion": "mean cosine(gaze-crop embedding, own 30-sec caption embedding)",
   "scores": {
-    "flipy": 0.34148871898651123,
-    "flipx+flipy": 0.34026452898979187,
-    "__full__": 0.28661975264549255
+    "flipy": 0.2600332498550415,
+    "flipx+flipy": 0.26179349422454834,
+    "__full__": 0.20757555961608887
   },
   "ranked": [
-    "flipy",
-    "flipx+flipy"
+    "flipx+flipy",
+    "flipy"
   ],
-  "suggested": "flipy",
-  "runner_up": "flipx+flipy",
+  "suggested": "flipx+flipy",
+  "runner_up": "flipy",
   "votes": {
-    "flipy": 17,
-    "flipx+flipy": 19
+    "flipy": 0,
+    "flipx+flipy": 1
   },
   "gap_ci95": [
-    -0.009021230041980743,
-    0.012427635490894318
+    0.001760244369506836,
+    0.001760244369506836
   ],
-  "separated": false,
+  "separated": true,
   "chosen_by": "human"
 }
