@@ -1,0 +1,476 @@
+
+=== 2026-09-26 21:41:46  stage 1: retrieval recall ==================================================
+video root: /datasets/EgoLife
+gaze root : /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE
+ratio     : 0.5
+log       : /home/minyoy/WorldMM/experiments/gaze_crop/logs/stage1_20260926_214146.log
+
+=== 0. preflight ==================================================
+walking: /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE
+walked 8 directories (depth <= 5)
+file extensions:
+        .csv  6272
+
+pool clips with a same-stem gaze file: 622/623
+
+12 file(s) to look at:
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11253000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 21972010906,0.1053527891635894,0.1569263190031051,0.0965212062001228,1.216
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11270000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 22062010906,-0.0676093846559524,-0.0535029247403144,-0.0306048020720481,4.
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11293000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 22212010906,0.0690670311450958,0.0943551734089851,0.0204162001609802,2.483
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11343000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 22512010906,-0.0359472073614597,-0.0569280572235584,-0.2406290173530578,3.
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11370000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 22662010906,0.1976049244403839,0.2190921306610107,-0.0101097747683525,2.86
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11390000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 22782010906,-0.0277987904846668,0.0620253197848796,-0.0345075130462646,0.7
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11393000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 22812010906,0.0630812346935272,0.1268350183963775,0.025555221363902,0.9837
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11400000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 22842010906,-0.1594750732183456,-0.1002073660492897,-0.0926353335380554,1.
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11453000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 23172010906,-0.1560564339160919,-0.0398458391427993,-0.2538707554340362,0.
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11540000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 23682010906,0.265307754278183,0.3086577951908111,0.0079329386353492,1.3936
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11583000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 23952010906,0.0236266776919364,0.1745452284812927,-0.0896779745817184,0.41
+
+  /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE/DAY1/DAY1_A1_JAKE_11593000.csv  (0.08 MB)
+    head: tracking_timestamp_us,left_yaw_rads_cpf,right_yaw_rads_cpf,pitch_rads_cpf,depth_m,left_yaw_low_rads_cpf,right_yaw_low_rads_cpf,pitch_low_rads_cpf,left_yaw_high_rads_cpf,right_yaw_high_rads_cpf,pitch_high_rads_cpf,tx_left_eye_cpf,ty_left_eye_cpf,tz_left_eye_cpf,tx_right_eye_cpf,ty_right_eye_cpf,tz_right_eye_cpf,session_uid | 24012010906,0.2537331581115722,0.2528440654277801,-0.0604451671242713,4.0,
+
+Next: python experiments/gaze_crop/prepare_gaze.py --gaze-root /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE --dump-variants 3
+(the Aria CSVs hold yaw/pitch, not pixels -- pick --transform from the variant grid before embedding)
+
+=== 1. pool (623 clips) ==================================================
+questions: 120 (0 with no usable target clip)
+pool: 623 clips = 123 targets + 500 distractors
+days: {'DAY1': 126, 'DAY2': 86, 'DAY3': 111, 'DAY4': 102, 'DAY5': 91, 'DAY6': 107}
+visible pool per question: min 10, median 323, max 623
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/pool.json
+
+=== 2. gaze ==================================================
+transform: flipx+flipy  (chosen by you)
+gaze root: /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE
+frame size probed from video: 1408x1408
+projection: equidistant, focal 611.0px (implied HFOV 98.1deg), transform 'flipx+flipy', CPF offset (0.0, 0.0, 0.0)
+gaze files parsed: 6272 (622 had a device clock rebased to clip time)
+clips with gaze: 622/623 (targets: 123/123)
+samples per clip: min 22, median 300, max 300
+per-clip median gaze: x 0.515, y 0.561 (x/y spread p10-p90: 0.48-0.55 / 0.51-0.62)
+  if that centre sits at 0.5/0.5 with almost no spread, gaze adds nothing a centre crop does not already have -- check the transform before concluding it
+samples clamped to the frame edge: 0/185424 = 0.0% (a big number usually means the wrong projection or transform)
+example: combined yaw atan(mean tan of left_yaw_rads_cpf,right_yaw_rads_cpf) + pitch_rads_cpf
+vergence check: median |reconstructed depth - depth_m| = 0.022 m over 6270 file(s). Small means the left/right columns and their signs are being read as the Aria docs define them; large means they are not.
+  note: DAY4: a day-level file (57..23261s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY5: a day-level file (58..33596s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY2: a day-level file (62..39046s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY6: a day-level file (54..60965s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY7: a day-level file (50..9722s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY1: a day-level file (61..32369s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY3: a day-level file (55..9882s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/gaze_points.json
+overlay: 6 frame(s) in /home/minyoy/WorldMM/experiments/gaze_crop/overlay
+>>> overlay/*.jpg is the receipt for this transform -- keep it with the results.
+pseudo gaze (random) for 623 clips -> /home/minyoy/WorldMM/experiments/gaze_crop/gaze_random.json
+
+=== 3. embeddings: full center@0.5 gaze@0.5 gazef@0.5 ==================================================
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+[2026-09-26 21:42:28,297] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading processor from: VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 21:42:28,303] DEBUG [urllib3.connectionpool:1003] Starting new HTTPS connection (1): huggingface.co:443
+[2026-09-26 21:42:28,652] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:28,668] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:28,903] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 21:42:29,120] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:29,139] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:29,357] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 21:42:29,567] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-26 21:42:30,202] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-26 21:42:30,416] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:30,430] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:30,642] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 21:42:30,855] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:30,870] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:31,106] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 21:42:31,318] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-26 21:42:32,360] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-26 21:42:33,020] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 21:42:33,227] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 21:42:33,440] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.json HTTP/1.1" 307 0
+[2026-09-26 21:42:33,456] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/chat_template.json HTTP/1.1" 200 0
+[2026-09-26 21:42:33,663] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.jinja HTTP/1.1" 404 0
+[2026-09-26 21:42:33,878] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/audio_tokenizer_config.json HTTP/1.1" 404 0
+[2026-09-26 21:42:34,705] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:34,717] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:34,732] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 21:42:34,944] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:34,968] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+`torch_dtype` is deprecated! Use `dtype` instead!
+[2026-09-26 21:42:35,208] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors HTTP/1.1" 404 0
+[2026-09-26 21:42:35,427] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors.index.json HTTP/1.1" 307 0
+[2026-09-26 21:42:35,446] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/model.safetensors.index.json HTTP/1.1" 200 0
+[2026-09-26 21:42:35,708] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/Qwen/Qwen2-VL-2B-Instruct/revision/main HTTP/1.1" 200 None
+arms: ['full', 'center@0.5', 'gaze@0.5', 'gazef@0.5']
+clips to do: 623/623 (the rest are already in emb/)
+gaze coverage: 622/623 clips from /home/minyoy/WorldMM/experiments/gaze_crop/gaze_points.json
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 7781.64it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 29.92it/s]
+[2026-09-26 21:42:36,123] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:36,138] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/generation_config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:36,349] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2026-09-26 21:42:36,579] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:36,595] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:36,808] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:36,832] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-26 21:42:41,960] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 21:42:42,182] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 21:42:42,477] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 21:42:42,693] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 21:42:42,716] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+[2026-09-26 21:42:47,841] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 21:42:48,053] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 21:42:48,605] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 21:42:48,822] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 21:43:01,967] INFO [root:70] Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+  ... 50/623 clips, 0.23 clip/s (0.93 embeddings/s), ETA 41 min, checkpointed
+  ... 100/623 clips, 0.26 clip/s (1.02 embeddings/s), ETA 34 min, checkpointed
+  ... 150/623 clips, 0.27 clip/s (1.06 embeddings/s), ETA 30 min, checkpointed
+  ... 200/623 clips, 0.27 clip/s (1.07 embeddings/s), ETA 26 min, checkpointed
+  ... 250/623 clips, 0.27 clip/s (1.07 embeddings/s), ETA 23 min, checkpointed
+  ... 300/623 clips, 0.27 clip/s (1.07 embeddings/s), ETA 20 min, checkpointed
+  ... 350/623 clips, 0.27 clip/s (1.07 embeddings/s), ETA 17 min, checkpointed
+  ... 400/623 clips, 0.27 clip/s (1.07 embeddings/s), ETA 14 min, checkpointed
+  ... 450/623 clips, 0.27 clip/s (1.07 embeddings/s), ETA 11 min, checkpointed
+  ... 500/623 clips, 0.27 clip/s (1.07 embeddings/s), ETA 8 min, checkpointed
+  ... 550/623 clips, 0.27 clip/s (1.08 embeddings/s), ETA 5 min, checkpointed
+  ... 600/623 clips, 0.25 clip/s (1.01 embeddings/s), ETA 2 min, checkpointed
+[full] 623 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/full.npz
+[center@0.5] 623 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/center_05.npz
+[gaze@0.5] 622 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/gaze_05.npz
+[gazef@0.5] 622 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05.npz
+623 clips x 4 arm(s) in 42.5 min = 4.09 s/clip. Scale that to your real pool: a 6,223-clip pool would take 7.1 h at this rate.
+WARNING: 2 (clip, arm) pairs had no gaze point, e.g. [('DAY4_A1_JAKE_15295407', 'gaze@0.5'), ('DAY4_A1_JAKE_15295407', 'gazef@0.5')]. They are absent from that arm; recall_eval.py reports the shortfall rather than quietly substituting a centre crop.
+[pkl] copied 623 embeddings from the pkl (0 pool clips missing)
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+[2026-09-26 22:24:57,192] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading processor from: VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 22:24:57,195] DEBUG [urllib3.connectionpool:1003] Starting new HTTPS connection (1): huggingface.co:443
+[2026-09-26 22:24:57,576] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-26 22:24:57,593] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-26 22:24:57,841] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 22:24:58,050] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-26 22:24:58,067] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-26 22:24:58,274] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 22:24:58,485] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-26 22:24:59,072] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-26 22:24:59,281] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-26 22:24:59,300] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-26 22:24:59,515] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 22:24:59,733] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-26 22:24:59,748] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-26 22:24:59,953] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 22:25:00,176] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-26 22:25:01,213] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-26 22:25:01,872] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 22:25:02,082] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 22:25:02,301] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.json HTTP/1.1" 307 0
+[2026-09-26 22:25:02,320] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/chat_template.json HTTP/1.1" 200 0
+[2026-09-26 22:25:02,536] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.jinja HTTP/1.1" 404 0
+[2026-09-26 22:25:02,761] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/audio_tokenizer_config.json HTTP/1.1" 404 0
+[2026-09-26 22:25:03,555] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-26 22:25:03,566] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+[2026-09-26 22:25:03,580] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 22:25:03,785] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-26 22:25:03,804] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+`torch_dtype` is deprecated! Use `dtype` instead!
+[2026-09-26 22:25:04,031] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:25:04,253] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors.index.json HTTP/1.1" 307 0
+[2026-09-26 22:25:04,272] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/model.safetensors.index.json HTTP/1.1" 200 0
+[2026-09-26 22:25:04,504] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/Qwen/Qwen2-VL-2B-Instruct/revision/main HTTP/1.1" 200 None
+arms: ['gazef@0.5']
+clips to do: 623/623 (the rest are already in emb/)
+gaze coverage: 623/623 clips from /home/minyoy/WorldMM/experiments/gaze_crop/gaze_random.json
+  !! /home/minyoy/WorldMM/experiments/gaze_crop/gaze_random.json holds FABRICATED gaze (pseudo:random), not eye tracking. 'pseudo:center' is the pipeline test (it must equal center@R); 'pseudo:random' is the crop-anywhere control. Do not report either as gaze.
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 7788.87it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 29.55it/s]
+[2026-09-26 22:25:05,237] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2026-09-26 22:25:05,252] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/generation_config.json HTTP/1.1" 200 0
+[2026-09-26 22:25:05,462] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2026-09-26 22:25:05,687] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 22:25:05,704] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-26 22:25:05,943] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 22:25:05,958] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-26 22:25:07,529] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:25:07,738] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 22:25:07,862] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 22:25:08,085] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 22:25:08,098] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+[2026-09-26 22:25:09,591] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:25:09,815] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 22:25:10,449] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:25:10,659] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 22:25:15,209] INFO [root:70] Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+  ... 50/623 clips, 0.56 clip/s (0.56 embeddings/s), ETA 17 min, checkpointed
+  ... 100/623 clips, 0.63 clip/s (0.63 embeddings/s), ETA 14 min, checkpointed
+  ... 150/623 clips, 0.67 clip/s (0.67 embeddings/s), ETA 12 min, checkpointed
+  ... 200/623 clips, 0.69 clip/s (0.69 embeddings/s), ETA 10 min, checkpointed
+  ... 250/623 clips, 0.70 clip/s (0.70 embeddings/s), ETA 9 min, checkpointed
+  ... 300/623 clips, 0.70 clip/s (0.70 embeddings/s), ETA 8 min, checkpointed
+  ... 350/623 clips, 0.71 clip/s (0.71 embeddings/s), ETA 6 min, checkpointed
+  ... 400/623 clips, 0.72 clip/s (0.72 embeddings/s), ETA 5 min, checkpointed
+  ... 450/623 clips, 0.72 clip/s (0.72 embeddings/s), ETA 4 min, checkpointed
+  ... 500/623 clips, 0.72 clip/s (0.72 embeddings/s), ETA 3 min, checkpointed
+  ... 550/623 clips, 0.73 clip/s (0.73 embeddings/s), ETA 2 min, checkpointed
+  ... 600/623 clips, 0.73 clip/s (0.73 embeddings/s), ETA 1 min, checkpointed
+[gazef@0.5] 623 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05_rand.npz
+623 clips x 1 arm(s) in 14.2 min = 1.37 s/clip. Scale that to your real pool: a 6,223-clip pool would take 2.4 h at this rate.
+
+=== 4. recall ==================================================
+arms: ['center_05', 'full', 'gaze_05', 'gazef_05', 'gazef_05_rand', 'pkl']  (dim 1536)
+  center_05: 623 clips
+  full: 623 clips
+  gaze_05: 622 clips
+  gazef_05: 622 clips
+  gazef_05_rand: 623 clips
+  pkl: 623 clips
+
+questions: 120 | scorable in every arm: 120
+
+recall@k over 120 questions (union over the question's queries)
+           arm | @1       | @3       | @5       | @10      | @20      | @50      | med.rank
+-------------------------------------------------------------------------------------------
+     center_05 |    0.8% |    3.3% |    5.0% |    7.5% |   12.5% |   22.5% |      118
+          full |    0.8% |    2.5% |    2.5% |    6.7% |   15.8% |   27.5% |      114
+       gaze_05 |    0.8% |    2.5% |    3.3% |    6.7% |   12.5% |   26.7% |       98
+      gazef_05 |    1.7% |    3.3% |    4.2% |    7.5% |   12.5% |   28.3% |      109
+ gazef_05_rand |    0.8% |    2.5% |    2.5% |    5.8% |    7.5% |   24.2% |      120
+           pkl |    1.7% |    1.7% |    4.2% |    8.3% |   14.2% |   30.8% |      111
+
+paired comparisons at k=3  (win = only this arm found the target)
+  center_05 - full:  +0.8pp  95% CI [ +0.0,  +2.5]  (center_05 only 1, full only 0)
+  center_05 - gaze_05:  +0.8pp  95% CI [ -1.7,  +4.2]  (center_05 only 2, gaze_05 only 1)
+  center_05 - gazef_05:  +0.0pp  95% CI [ -2.5,  +2.5]  (center_05 only 1, gazef_05 only 1)
+  center_05 - gazef_05_rand:  +0.8pp  95% CI [ -1.7,  +3.3]  (center_05 only 2, gazef_05_rand only 1)
+  center_05 - pkl:  +1.7pp  95% CI [ +0.0,  +4.2]  (center_05 only 2, pkl only 0)
+  full - gaze_05:  +0.0pp  95% CI [ -2.5,  +2.5]  (full only 1, gaze_05 only 1)
+  full - gazef_05:  -0.8pp  95% CI [ -2.5,  +0.0]  (full only 0, gazef_05 only 1)
+  full - gazef_05_rand:  +0.0pp  95% CI [ -2.5,  +2.5]  (full only 1, gazef_05_rand only 1)
+  full - pkl:  +0.8pp  95% CI [ +0.0,  +2.5]  (full only 1, pkl only 0)
+  gaze_05 - gazef_05:  -0.8pp  95% CI [ -3.3,  +1.7]  (gaze_05 only 1, gazef_05 only 2)
+  gaze_05 - gazef_05_rand:  +0.0pp  95% CI [ -2.5,  +2.5]  (gaze_05 only 1, gazef_05_rand only 1)
+  gaze_05 - pkl:  +0.8pp  95% CI [ +0.0,  +2.5]  (gaze_05 only 1, pkl only 0)
+  gazef_05 - gazef_05_rand:  +0.8pp  95% CI [ -1.7,  +3.3]  (gazef_05 only 2, gazef_05_rand only 1)
+  gazef_05 - pkl:  +1.7pp  95% CI [ +0.0,  +4.2]  (gazef_05 only 2, pkl only 0)
+  gazef_05_rand - pkl:  +0.8pp  95% CI [ +0.0,  +2.5]  (gazef_05_rand only 1, pkl only 0)
+
+recall@3 by need_audio / type / gap  (need_audio=True questions are the ones oracle frames could not fix either)
+  need_audio
+           False (n= 70)  center_05   2.9%  full   1.4%  gaze_05   1.4%  gazef_05   1.4%  gazef_05_rand   1.4%  pkl   1.4%
+            True (n= 50)  center_05   4.0%  full   4.0%  gaze_05   4.0%  gazef_05   6.0%  gazef_05_rand   4.0%  pkl   2.0%
+  type
+       EntityLog (n= 24)  center_05   0.0%  full   0.0%  gaze_05   4.2%  gazef_05   0.0%  gazef_05_rand   0.0%  pkl   0.0%
+     EventRecall (n= 24)  center_05   4.2%  full   0.0%  gaze_05   0.0%  gazef_05   0.0%  gazef_05_rand   0.0%  pkl   0.0%
+    HabitInsight (n= 24)  center_05   4.2%  full   4.2%  gaze_05   4.2%  gazef_05   4.2%  gazef_05_rand   4.2%  pkl   4.2%
+     RelationMap (n= 24)  center_05   0.0%  full   0.0%  gaze_05   0.0%  gazef_05   0.0%  gazef_05_rand   0.0%  pkl   0.0%
+      TaskMaster (n= 24)  center_05   8.3%  full   8.3%  gaze_05   4.2%  gazef_05  12.5%  gazef_05_rand   8.3%  pkl   4.2%
+  gap_bin
+               0 (n= 57)  center_05   5.3%  full   5.3%  gaze_05   5.3%  gazef_05   5.3%  gazef_05_rand   5.3%  pkl   3.5%
+               1 (n= 33)  center_05   3.0%  full   0.0%  gaze_05   0.0%  gazef_05   3.0%  gazef_05_rand   0.0%  pkl   0.0%
+              2+ (n= 30)  center_05   0.0%  full   0.0%  gaze_05   0.0%  gazef_05   0.0%  gazef_05_rand   0.0%  pkl   0.0%
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/results/recall_question.json
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/recall_question.md
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+[2026-09-26 22:39:12,375] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading processor from: VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 22:39:12,378] DEBUG [urllib3.connectionpool:1003] Starting new HTTPS connection (1): huggingface.co:443
+[2026-09-26 22:39:12,718] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:12,740] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:12,961] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 22:39:13,175] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:13,188] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:13,412] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 22:39:13,624] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-26 22:39:14,245] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-26 22:39:14,462] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:14,477] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:14,699] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 22:39:14,912] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:14,930] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:15,151] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 22:39:15,371] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-26 22:39:16,467] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-26 22:39:17,130] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-26 22:39:17,329] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-26 22:39:17,551] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.json HTTP/1.1" 307 0
+[2026-09-26 22:39:17,568] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/chat_template.json HTTP/1.1" 200 0
+[2026-09-26 22:39:17,777] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.jinja HTTP/1.1" 404 0
+[2026-09-26 22:39:17,987] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/audio_tokenizer_config.json HTTP/1.1" 404 0
+[2026-09-26 22:39:18,786] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:18,803] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:18,818] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 22:39:19,033] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:19,054] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+`torch_dtype` is deprecated! Use `dtype` instead!
+[2026-09-26 22:39:19,279] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:39:19,491] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors.index.json HTTP/1.1" 307 0
+[2026-09-26 22:39:19,510] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/model.safetensors.index.json HTTP/1.1" 200 0
+[2026-09-26 22:39:19,728] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/Qwen/Qwen2-VL-2B-Instruct/revision/main HTTP/1.1" 200 None
+arms: ['center_05', 'full', 'gaze_05', 'gazef_05', 'gazef_05_rand', 'pkl']  (dim 1536)
+  center_05: 623 clips
+  full: 623 clips
+  gaze_05: 622 clips
+  gazef_05: 622 clips
+  gazef_05_rand: 623 clips
+  pkl: 623 clips
+encoding 113 distinct queries with encode_vis_query ...
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 10994.24it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 30.33it/s]
+[2026-09-26 22:39:20,150] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:20,169] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/generation_config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:20,378] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2026-09-26 22:39:20,615] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:20,631] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:20,905] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:20,920] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-26 22:39:21,991] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:39:22,204] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 22:39:22,326] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+[2026-09-26 22:39:22,535] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-26 22:39:22,552] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+[2026-09-26 22:39:23,826] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:39:24,033] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 22:39:24,643] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-26 22:39:24,853] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-26 22:39:28,880] INFO [root:70] Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+
+questions: 120 | scorable in every arm: 120
+
+recall@k over 120 questions (union over the question's queries)
+           arm | @1       | @3       | @5       | @10      | @20      | @50      | med.rank
+-------------------------------------------------------------------------------------------
+     center_05 |    8.3% |   19.2% |   22.5% |   30.8% |   36.7% |   53.3% |       35
+          full |   10.8% |   12.5% |   15.0% |   26.7% |   36.7% |   50.8% |       48
+       gaze_05 |   10.8% |   17.5% |   20.0% |   27.5% |   39.2% |   57.5% |       31
+      gazef_05 |    8.3% |   15.0% |   20.0% |   30.0% |   38.3% |   53.3% |       41
+ gazef_05_rand |    7.5% |   11.7% |   17.5% |   28.3% |   34.2% |   49.2% |       53
+           pkl |   10.0% |   16.7% |   18.3% |   28.3% |   36.7% |   51.7% |       47
+
+paired comparisons at k=3  (win = only this arm found the target)
+  center_05 - full:  +6.7pp  95% CI [ +1.7, +12.5]  (center_05 only 10, full only 2)
+  center_05 - gaze_05:  +1.7pp  95% CI [ -3.3,  +6.7]  (center_05 only 6, gaze_05 only 4)
+  center_05 - gazef_05:  +4.2pp  95% CI [ -0.8,  +9.2]  (center_05 only 8, gazef_05 only 3)
+  center_05 - gazef_05_rand:  +7.5pp  95% CI [ +2.5, +13.3]  (center_05 only 11, gazef_05_rand only 2)
+  center_05 - pkl:  +2.5pp  95% CI [ -4.2,  +8.3]  (center_05 only 9, pkl only 6)
+  full - gaze_05:  -5.0pp  95% CI [-10.0,  +0.0]  (full only 2, gaze_05 only 8)
+  full - gazef_05:  -2.5pp  95% CI [ -6.7,  +1.7]  (full only 2, gazef_05 only 5)
+  full - gazef_05_rand:  +0.8pp  95% CI [ -4.2,  +6.7]  (full only 6, gazef_05_rand only 5)
+  full - pkl:  -4.2pp  95% CI [ -8.3,  -0.8]  (full only 0, pkl only 5)
+  gaze_05 - gazef_05:  +2.5pp  95% CI [ -2.5,  +7.5]  (gaze_05 only 6, gazef_05 only 3)
+  gaze_05 - gazef_05_rand:  +5.8pp  95% CI [ +0.8, +11.7]  (gaze_05 only 9, gazef_05_rand only 2)
+  gaze_05 - pkl:  +0.8pp  95% CI [ -4.2,  +5.8]  (gaze_05 only 6, pkl only 5)
+  gazef_05 - gazef_05_rand:  +3.3pp  95% CI [ -2.5,  +9.2]  (gazef_05 only 9, gazef_05_rand only 5)
+  gazef_05 - pkl:  -1.7pp  95% CI [ -6.7,  +3.3]  (gazef_05 only 4, pkl only 6)
+  gazef_05_rand - pkl:  -5.0pp  95% CI [-11.7,  +0.8]  (gazef_05_rand only 5, pkl only 11)
+
+recall@3 by need_audio / type / gap  (need_audio=True questions are the ones oracle frames could not fix either)
+  need_audio
+           False (n= 70)  center_05  25.7%  full  18.6%  gaze_05  25.7%  gazef_05  21.4%  gazef_05_rand  14.3%  pkl  24.3%
+            True (n= 50)  center_05  10.0%  full   4.0%  gaze_05   6.0%  gazef_05   6.0%  gazef_05_rand   8.0%  pkl   6.0%
+  type
+       EntityLog (n= 24)  center_05  16.7%  full  16.7%  gaze_05  20.8%  gazef_05  16.7%  gazef_05_rand   0.0%  pkl  16.7%
+     EventRecall (n= 24)  center_05  12.5%  full  12.5%  gaze_05   8.3%  gazef_05  16.7%  gazef_05_rand  12.5%  pkl  12.5%
+    HabitInsight (n= 24)  center_05  12.5%  full   4.2%  gaze_05   8.3%  gazef_05   4.2%  gazef_05_rand  12.5%  pkl  12.5%
+     RelationMap (n= 24)  center_05  41.7%  full  25.0%  gaze_05  45.8%  gazef_05  33.3%  gazef_05_rand  29.2%  pkl  33.3%
+      TaskMaster (n= 24)  center_05  12.5%  full   4.2%  gaze_05   4.2%  gazef_05   4.2%  gazef_05_rand   4.2%  pkl   8.3%
+  gap_bin
+               0 (n= 57)  center_05  22.8%  full  14.0%  gaze_05  15.8%  gazef_05  15.8%  gazef_05_rand  10.5%  pkl  19.3%
+               1 (n= 33)  center_05  12.1%  full   6.1%  gaze_05  15.2%  gazef_05  12.1%  gazef_05_rand   6.1%  pkl  12.1%
+              2+ (n= 30)  center_05  20.0%  full  16.7%  gaze_05  23.3%  gazef_05  16.7%  gazef_05_rand  20.0%  pkl  16.7%
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/results/recall_keywords.json
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/recall_keywords.md
+
+=== 5. verdict ==================================================
+recall@3: full 2.5%
+  gazef@0.5: 3.3%  (+0.8pp vs full)
+  gaze@0.5: 2.5%  (+0.0pp vs full)
+BEST=gazef@0.5
+gate: PASS (best gain +0.8pp vs threshold +0.0pp)
+# gaze-crop 실험 다이제스트
+
+### gaze→이미지 transform
+
+- 실제로 쓴 값: **flipx+flipy** (사람이 고름; 근거 이미지는 `overlay/`, `variants/`)
+- 캡션 코사인 순위(참고): flipy > flipx+flipy / 36클립
+- 1위 `flipy` vs 2위 `flipx+flipy`: **tie(구분 안 됨)** (95% CI -0.0090..+0.0124)
+- 참고: 점수 1위는 `flipy` 인데 `flipx+flipy` 를 골랐음 — 이미지 판단을 우선한 결과
+
+### 1단계 recall (623클립 풀)
+
+pool pool.json, 120/120 문항 채점
+
+| arm | R@1 | R@3 | R@5 | R@10 | R@20 | R@50 | median rank |
+|---|---|---|---|---|---|---|---|
+| `center_05` | 0.8% | 3.3% | 5.0% | 7.5% | 12.5% | 22.5% | 118 |
+| `full` | 0.8% | 2.5% | 2.5% | 6.7% | 15.8% | 27.5% | 114 |
+| `gaze_05` | 0.8% | 2.5% | 3.3% | 6.7% | 12.5% | 26.7% | 98 |
+| `gazef_05` | 1.7% | 3.3% | 4.2% | 7.5% | 12.5% | 28.3% | 109 |
+| `gazef_05_rand` | 0.8% | 2.5% | 2.5% | 5.8% | 7.5% | 24.2% | 120 |
+| `pkl` | 1.7% | 1.7% | 4.2% | 8.3% | 14.2% | 30.8% | 111 |
+
+paired diff at k=3:
+- `center_05` − `full` = **+0.8pp** (95% CI +0.0..+2.5; center_05 only 1, full only 0)
+- `center_05` − `gaze_05` = **+0.8pp** (95% CI -1.7..+4.2; center_05 only 2, gaze_05 only 1)
+- `center_05` − `gazef_05` = **+0.0pp** (95% CI -2.5..+2.5; center_05 only 1, gazef_05 only 1)
+- `center_05` − `gazef_05_rand` = **+0.8pp** (95% CI -1.7..+3.3; center_05 only 2, gazef_05_rand only 1)
+- `center_05` − `pkl` = **+1.7pp** (95% CI +0.0..+4.2; center_05 only 2, pkl only 0)
+- `full` − `gaze_05` = **+0.0pp** (95% CI -2.5..+2.5; full only 1, gaze_05 only 1)
+- `full` − `gazef_05` = **-0.8pp** (95% CI -2.5..+0.0; full only 0, gazef_05 only 1)
+- `full` − `gazef_05_rand` = **+0.0pp** (95% CI -2.5..+2.5; full only 1, gazef_05_rand only 1)
+- `full` − `pkl` = **+0.8pp** (95% CI +0.0..+2.5; full only 1, pkl only 0)
+- `gaze_05` − `gazef_05` = **-0.8pp** (95% CI -3.3..+1.7; gaze_05 only 1, gazef_05 only 2)
+- `gaze_05` − `gazef_05_rand` = **+0.0pp** (95% CI -2.5..+2.5; gaze_05 only 1, gazef_05_rand only 1)
+- `gaze_05` − `pkl` = **+0.8pp** (95% CI +0.0..+2.5; gaze_05 only 1, pkl only 0)
+- `gazef_05` − `gazef_05_rand` = **+0.8pp** (95% CI -1.7..+3.3; gazef_05 only 2, gazef_05_rand only 1)
+- `gazef_05` − `pkl` = **+1.7pp** (95% CI +0.0..+4.2; gazef_05 only 2, pkl only 0)
+- `gazef_05_rand` − `pkl` = **+0.8pp** (95% CI +0.0..+2.5; gazef_05_rand only 1, pkl only 0)
+
+need_audio 분해 (False 행이 실제 여유분):
+- False (n=70): center_05 2.9%, full 1.4%, gaze_05 1.4%, gazef_05 1.4%, gazef_05_rand 1.4%, pkl 1.4%
+- True (n=50): center_05 4.0%, full 4.0%, gaze_05 4.0%, gazef_05 6.0%, gazef_05_rand 4.0%, pkl 2.0%
+
+### 2단계 recall (6,223클립 = 실제 인덱스 크기)
+
+MISSING (/home/minyoy/WorldMM/experiments/gaze_crop/results/recall_allclips.json)
+
+### 2단계 정확도 (조건 E′, 인덱스만 교체)
+
+MISSING — /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/*/E_prime.json 없음 (1단계에서 중단됐거나 QA 미실행)
+
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/DIGEST.md
+
+=== 2026-09-26 22:39:33  stage 1 done. log: /home/minyoy/WorldMM/experiments/gaze_crop/logs/stage1_20260926_214146.log ==================================================
+
+A gaze arm beat full. Stage 2 (answer accuracy, 3-4 h) is worth running:
+    bash experiments/gaze_crop/run_stage2.sh

@@ -1,0 +1,3979 @@
+{
+  "pool": "/home/minyoy/WorldMM/experiments/gaze_crop/pool.json",
+  "emb_dir": "/home/minyoy/WorldMM/experiments/gaze_crop/emb",
+  "query_source": "keywords",
+  "self_test": false,
+  "n_questions": 120,
+  "n_scored": 120,
+  "ks": [
+    1,
+    3,
+    5,
+    10,
+    20,
+    50
+  ],
+  "main_k": 3,
+  "arms": {
+    "center_05": {
+      "n_clips": 623,
+      "recall": {
+        "1": 0.08333333333333333,
+        "3": 0.19166666666666668,
+        "5": 0.225,
+        "10": 0.30833333333333335,
+        "20": 0.36666666666666664,
+        "50": 0.5333333333333333
+      },
+      "median_rank": 35,
+      "unscorable": []
+    },
+    "full": {
+      "n_clips": 623,
+      "recall": {
+        "1": 0.10833333333333334,
+        "3": 0.125,
+        "5": 0.15,
+        "10": 0.26666666666666666,
+        "20": 0.36666666666666664,
+        "50": 0.5083333333333333
+      },
+      "median_rank": 48,
+      "unscorable": []
+    },
+    "gaze_05": {
+      "n_clips": 622,
+      "recall": {
+        "1": 0.10833333333333334,
+        "3": 0.175,
+        "5": 0.2,
+        "10": 0.275,
+        "20": 0.39166666666666666,
+        "50": 0.575
+      },
+      "median_rank": 31,
+      "unscorable": []
+    },
+    "gazef_05": {
+      "n_clips": 622,
+      "recall": {
+        "1": 0.08333333333333333,
+        "3": 0.15,
+        "5": 0.2,
+        "10": 0.3,
+        "20": 0.38333333333333336,
+        "50": 0.5333333333333333
+      },
+      "median_rank": 41,
+      "unscorable": []
+    },
+    "gazef_05_rand": {
+      "n_clips": 623,
+      "recall": {
+        "1": 0.075,
+        "3": 0.11666666666666667,
+        "5": 0.175,
+        "10": 0.2833333333333333,
+        "20": 0.3416666666666667,
+        "50": 0.49166666666666664
+      },
+      "median_rank": 53,
+      "unscorable": []
+    },
+    "pkl": {
+      "n_clips": 623,
+      "recall": {
+        "1": 0.1,
+        "3": 0.16666666666666666,
+        "5": 0.18333333333333332,
+        "10": 0.2833333333333333,
+        "20": 0.36666666666666664,
+        "50": 0.5166666666666667
+      },
+      "median_rank": 47,
+      "unscorable": []
+    }
+  },
+  "pairs": [
+    {
+      "a": "center_05",
+      "b": "full",
+      "k": 3,
+      "diff_pp": 6.666666666666668,
+      "ci95_pp": [
+        1.6666666666666667,
+        12.5
+      ],
+      "a_only": 10,
+      "b_only": 2
+    },
+    {
+      "a": "center_05",
+      "b": "gaze_05",
+      "k": 3,
+      "diff_pp": 1.6666666666666692,
+      "ci95_pp": [
+        -3.3333333333333335,
+        6.666666666666667
+      ],
+      "a_only": 6,
+      "b_only": 4
+    },
+    {
+      "a": "center_05",
+      "b": "gazef_05",
+      "k": 3,
+      "diff_pp": 4.166666666666669,
+      "ci95_pp": [
+        -0.8333333333333334,
+        9.166666666666666
+      ],
+      "a_only": 8,
+      "b_only": 3
+    },
+    {
+      "a": "center_05",
+      "b": "gazef_05_rand",
+      "k": 3,
+      "diff_pp": 7.500000000000001,
+      "ci95_pp": [
+        2.5,
+        13.333333333333334
+      ],
+      "a_only": 11,
+      "b_only": 2
+    },
+    {
+      "a": "center_05",
+      "b": "pkl",
+      "k": 3,
+      "diff_pp": 2.500000000000002,
+      "ci95_pp": [
+        -4.166666666666666,
+        8.333333333333332
+      ],
+      "a_only": 9,
+      "b_only": 6
+    },
+    {
+      "a": "full",
+      "b": "gaze_05",
+      "k": 3,
+      "diff_pp": -4.999999999999999,
+      "ci95_pp": [
+        -10.0,
+        0.0
+      ],
+      "a_only": 2,
+      "b_only": 8
+    },
+    {
+      "a": "full",
+      "b": "gazef_05",
+      "k": 3,
+      "diff_pp": -2.4999999999999996,
+      "ci95_pp": [
+        -6.666666666666667,
+        1.6666666666666667
+      ],
+      "a_only": 2,
+      "b_only": 5
+    },
+    {
+      "a": "full",
+      "b": "gazef_05_rand",
+      "k": 3,
+      "diff_pp": 0.8333333333333331,
+      "ci95_pp": [
+        -4.166666666666666,
+        6.666666666666667
+      ],
+      "a_only": 6,
+      "b_only": 5
+    },
+    {
+      "a": "full",
+      "b": "pkl",
+      "k": 3,
+      "diff_pp": -4.166666666666666,
+      "ci95_pp": [
+        -8.333333333333332,
+        -0.8333333333333334
+      ],
+      "a_only": 0,
+      "b_only": 5
+    },
+    {
+      "a": "gaze_05",
+      "b": "gazef_05",
+      "k": 3,
+      "diff_pp": 2.4999999999999996,
+      "ci95_pp": [
+        -2.5,
+        7.5
+      ],
+      "a_only": 6,
+      "b_only": 3
+    },
+    {
+      "a": "gaze_05",
+      "b": "gazef_05_rand",
+      "k": 3,
+      "diff_pp": 5.833333333333332,
+      "ci95_pp": [
+        0.8333333333333334,
+        11.666666666666666
+      ],
+      "a_only": 9,
+      "b_only": 2
+    },
+    {
+      "a": "gaze_05",
+      "b": "pkl",
+      "k": 3,
+      "diff_pp": 0.8333333333333331,
+      "ci95_pp": [
+        -4.166666666666666,
+        5.833333333333333
+      ],
+      "a_only": 6,
+      "b_only": 5
+    },
+    {
+      "a": "gazef_05",
+      "b": "gazef_05_rand",
+      "k": 3,
+      "diff_pp": 3.3333333333333326,
+      "ci95_pp": [
+        -2.5,
+        9.166666666666666
+      ],
+      "a_only": 9,
+      "b_only": 5
+    },
+    {
+      "a": "gazef_05",
+      "b": "pkl",
+      "k": 3,
+      "diff_pp": -1.6666666666666663,
+      "ci95_pp": [
+        -6.666666666666667,
+        3.3333333333333335
+      ],
+      "a_only": 4,
+      "b_only": 6
+    },
+    {
+      "a": "gazef_05_rand",
+      "b": "pkl",
+      "k": 3,
+      "diff_pp": -4.999999999999999,
+      "ci95_pp": [
+        -11.666666666666666,
+        0.8333333333333334
+      ],
+      "a_only": 5,
+      "b_only": 11
+    }
+  ],
+  "breakdowns": {
+    "need_audio": {
+      "False": {
+        "n": 70,
+        "center_05": 25.71428571428571,
+        "full": 18.571428571428573,
+        "gaze_05": 25.71428571428571,
+        "gazef_05": 21.428571428571427,
+        "gazef_05_rand": 14.285714285714285,
+        "pkl": 24.285714285714285
+      },
+      "True": {
+        "n": 50,
+        "center_05": 10.0,
+        "full": 4.0,
+        "gaze_05": 6.0,
+        "gazef_05": 6.0,
+        "gazef_05_rand": 8.0,
+        "pkl": 6.0
+      }
+    },
+    "type": {
+      "EntityLog": {
+        "n": 24,
+        "center_05": 16.666666666666664,
+        "full": 16.666666666666664,
+        "gaze_05": 20.833333333333336,
+        "gazef_05": 16.666666666666664,
+        "gazef_05_rand": 0.0,
+        "pkl": 16.666666666666664
+      },
+      "EventRecall": {
+        "n": 24,
+        "center_05": 12.5,
+        "full": 12.5,
+        "gaze_05": 8.333333333333332,
+        "gazef_05": 16.666666666666664,
+        "gazef_05_rand": 12.5,
+        "pkl": 12.5
+      },
+      "HabitInsight": {
+        "n": 24,
+        "center_05": 12.5,
+        "full": 4.166666666666666,
+        "gaze_05": 8.333333333333332,
+        "gazef_05": 4.166666666666666,
+        "gazef_05_rand": 12.5,
+        "pkl": 12.5
+      },
+      "RelationMap": {
+        "n": 24,
+        "center_05": 41.66666666666667,
+        "full": 25.0,
+        "gaze_05": 45.83333333333333,
+        "gazef_05": 33.33333333333333,
+        "gazef_05_rand": 29.166666666666668,
+        "pkl": 33.33333333333333
+      },
+      "TaskMaster": {
+        "n": 24,
+        "center_05": 12.5,
+        "full": 4.166666666666666,
+        "gaze_05": 4.166666666666666,
+        "gazef_05": 4.166666666666666,
+        "gazef_05_rand": 4.166666666666666,
+        "pkl": 8.333333333333332
+      }
+    },
+    "gap_bin": {
+      "0": {
+        "n": 57,
+        "center_05": 22.807017543859647,
+        "full": 14.035087719298245,
+        "gaze_05": 15.789473684210526,
+        "gazef_05": 15.789473684210526,
+        "gazef_05_rand": 10.526315789473683,
+        "pkl": 19.298245614035086
+      },
+      "1": {
+        "n": 33,
+        "center_05": 12.121212121212121,
+        "full": 6.0606060606060606,
+        "gaze_05": 15.151515151515152,
+        "gazef_05": 12.121212121212121,
+        "gazef_05_rand": 6.0606060606060606,
+        "pkl": 12.121212121212121
+      },
+      "2+": {
+        "n": 30,
+        "center_05": 20.0,
+        "full": 16.666666666666664,
+        "gaze_05": 23.333333333333332,
+        "gazef_05": 16.666666666666664,
+        "gazef_05_rand": 20.0,
+        "pkl": 16.666666666666664
+      }
+    }
+  },
+  "per_question": [
+    {
+      "ID": "6",
+      "queries": [
+        "plan grow flowers"
+      ],
+      "pool_size": {
+        "center_05": 10,
+        "full": 10,
+        "gaze_05": 10,
+        "gazef_05": 10,
+        "gazef_05_rand": 10,
+        "pkl": 10
+      },
+      "rank": {
+        "center_05": 7,
+        "full": 8,
+        "gaze_05": 7,
+        "gazef_05": 6,
+        "gazef_05_rand": 7,
+        "pkl": 3
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "13",
+      "queries": [
+        "discuss, Lucia ask question"
+      ],
+      "pool_size": {
+        "center_05": 19,
+        "full": 19,
+        "gaze_05": 19,
+        "gazef_05": 19,
+        "gazef_05_rand": 19,
+        "pkl": 19
+      },
+      "rank": {
+        "center_05": 2,
+        "full": 5,
+        "gaze_05": 6,
+        "gazef_05": 5,
+        "gazef_05_rand": 2,
+        "pkl": 7
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 1,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "16",
+      "queries": [
+        "move puzzle board"
+      ],
+      "pool_size": {
+        "center_05": 21,
+        "full": 21,
+        "gaze_05": 21,
+        "gazef_05": 21,
+        "gazef_05_rand": 21,
+        "pkl": 21
+      },
+      "rank": {
+        "center_05": 3,
+        "full": 1,
+        "gaze_05": 13,
+        "gazef_05": 6,
+        "gazef_05_rand": 4,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "25",
+      "queries": [
+        "used the scissors"
+      ],
+      "pool_size": {
+        "center_05": 38,
+        "full": 38,
+        "gaze_05": 38,
+        "gazef_05": 38,
+        "gazef_05_rand": 38,
+        "pkl": 38
+      },
+      "rank": {
+        "center_05": 32,
+        "full": 21,
+        "gaze_05": 29,
+        "gazef_05": 18,
+        "gazef_05_rand": 31,
+        "pkl": 19
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "26",
+      "queries": [
+        "assemble shelf"
+      ],
+      "pool_size": {
+        "center_05": 40,
+        "full": 40,
+        "gaze_05": 40,
+        "gazef_05": 40,
+        "gazef_05_rand": 40,
+        "pkl": 40
+      },
+      "rank": {
+        "center_05": 20,
+        "full": 12,
+        "gaze_05": 13,
+        "gazef_05": 22,
+        "gazef_05_rand": 33,
+        "pkl": 20
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "28",
+      "queries": [
+        "busy with"
+      ],
+      "pool_size": {
+        "center_05": 40,
+        "full": 40,
+        "gaze_05": 40,
+        "gazef_05": 40,
+        "gazef_05_rand": 40,
+        "pkl": 40
+      },
+      "rank": {
+        "center_05": 35,
+        "full": 28,
+        "gaze_05": 12,
+        "gazef_05": 23,
+        "gazef_05_rand": 22,
+        "pkl": 35
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "34",
+      "queries": [
+        "decide eat"
+      ],
+      "pool_size": {
+        "center_05": 46,
+        "full": 46,
+        "gaze_05": 46,
+        "gazef_05": 46,
+        "gazef_05_rand": 46,
+        "pkl": 46
+      },
+      "rank": {
+        "center_05": 3,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 3,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "36",
+      "queries": [
+        "mix drinks, need rum"
+      ],
+      "pool_size": {
+        "center_05": 48,
+        "full": 48,
+        "gaze_05": 48,
+        "gazef_05": 48,
+        "gazef_05_rand": 48,
+        "pkl": 48
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 11,
+        "gaze_05": 6,
+        "gazef_05": 8,
+        "gazef_05_rand": 10,
+        "pkl": 13
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "42",
+      "queries": [
+        "plan buy drinks"
+      ],
+      "pool_size": {
+        "center_05": 64,
+        "full": 64,
+        "gaze_05": 64,
+        "gazef_05": 64,
+        "gazef_05_rand": 64,
+        "pkl": 64
+      },
+      "rank": {
+        "center_05": 22,
+        "full": 20,
+        "gaze_05": 5,
+        "gazef_05": 6,
+        "gazef_05_rand": 24,
+        "pkl": 39
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "55",
+      "queries": [
+        "eat century eggs"
+      ],
+      "pool_size": {
+        "center_05": 95,
+        "full": 95,
+        "gaze_05": 95,
+        "gazef_05": 95,
+        "gazef_05_rand": 95,
+        "pkl": 95
+      },
+      "rank": {
+        "center_05": 87,
+        "full": 48,
+        "gaze_05": 74,
+        "gazef_05": 88,
+        "gazef_05_rand": 35,
+        "pkl": 50
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "56",
+      "queries": [
+        "clean egg mixer, join help"
+      ],
+      "pool_size": {
+        "center_05": 95,
+        "full": 95,
+        "gaze_05": 95,
+        "gazef_05": 95,
+        "gazef_05_rand": 95,
+        "pkl": 95
+      },
+      "rank": {
+        "center_05": 14,
+        "full": 46,
+        "gaze_05": 9,
+        "gazef_05": 29,
+        "gazef_05_rand": 6,
+        "pkl": 51
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "65",
+      "queries": [
+        "decide buy boxes, buy grapes"
+      ],
+      "pool_size": {
+        "center_05": 99,
+        "full": 99,
+        "gaze_05": 99,
+        "gazef_05": 99,
+        "gazef_05_rand": 99,
+        "pkl": 99
+      },
+      "rank": {
+        "center_05": 6,
+        "full": 15,
+        "gaze_05": 8,
+        "gazef_05": 4,
+        "gazef_05_rand": 12,
+        "pkl": 7
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "67",
+      "queries": [
+        "clerk not agree, ask cut pineapple"
+      ],
+      "pool_size": {
+        "center_05": 99,
+        "full": 99,
+        "gaze_05": 99,
+        "gazef_05": 99,
+        "gazef_05_rand": 99,
+        "pkl": 99
+      },
+      "rank": {
+        "center_05": 2,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "68",
+      "queries": [
+        "buy chestnut kernels"
+      ],
+      "pool_size": {
+        "center_05": 99,
+        "full": 99,
+        "gaze_05": 99,
+        "gazef_05": 99,
+        "gazef_05_rand": 99,
+        "pkl": 99
+      },
+      "rank": {
+        "center_05": 53,
+        "full": 76,
+        "gaze_05": 66,
+        "gazef_05": 54,
+        "gazef_05_rand": 56,
+        "pkl": 76
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "72",
+      "queries": [
+        "Lucia plan make"
+      ],
+      "pool_size": {
+        "center_05": 99,
+        "full": 99,
+        "gaze_05": 99,
+        "gazef_05": 99,
+        "gazef_05_rand": 99,
+        "pkl": 99
+      },
+      "rank": {
+        "center_05": 2,
+        "full": 7,
+        "gaze_05": 9,
+        "gazef_05": 5,
+        "gazef_05_rand": 9,
+        "pkl": 8
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "74",
+      "queries": [
+        "go out, wear slippers"
+      ],
+      "pool_size": {
+        "center_05": 99,
+        "full": 99,
+        "gaze_05": 99,
+        "gazef_05": 99,
+        "gazef_05_rand": 99,
+        "pkl": 99
+      },
+      "rank": {
+        "center_05": 27,
+        "full": 6,
+        "gaze_05": 24,
+        "gazef_05": 14,
+        "gazef_05_rand": 41,
+        "pkl": 2
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "76",
+      "queries": [
+        "doing"
+      ],
+      "pool_size": {
+        "center_05": 114,
+        "full": 114,
+        "gaze_05": 114,
+        "gazef_05": 114,
+        "gazef_05_rand": 114,
+        "pkl": 114
+      },
+      "rank": {
+        "center_05": 95,
+        "full": 65,
+        "gaze_05": 111,
+        "gazef_05": 110,
+        "gazef_05_rand": 79,
+        "pkl": 62
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "79",
+      "queries": [
+        "help Alice open can"
+      ],
+      "pool_size": {
+        "center_05": 115,
+        "full": 115,
+        "gaze_05": 115,
+        "gazef_05": 115,
+        "gazef_05_rand": 115,
+        "pkl": 115
+      },
+      "rank": {
+        "center_05": 3,
+        "full": 9,
+        "gaze_05": 11,
+        "gazef_05": 5,
+        "gazef_05_rand": 17,
+        "pkl": 8
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "80",
+      "queries": [
+        "used kitchen knife"
+      ],
+      "pool_size": {
+        "center_05": 116,
+        "full": 116,
+        "gaze_05": 116,
+        "gazef_05": 116,
+        "gazef_05_rand": 116,
+        "pkl": 116
+      },
+      "rank": {
+        "center_05": 2,
+        "full": 4,
+        "gaze_05": 1,
+        "gazef_05": 2,
+        "gazef_05_rand": 6,
+        "pkl": 4
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "82",
+      "queries": [
+        "buy clothes, not purchase clothing"
+      ],
+      "pool_size": {
+        "center_05": 122,
+        "full": 122,
+        "gaze_05": 122,
+        "gazef_05": 122,
+        "gazef_05_rand": 122,
+        "pkl": 122
+      },
+      "rank": {
+        "center_05": 71,
+        "full": 48,
+        "gaze_05": 21,
+        "gazef_05": 59,
+        "gazef_05_rand": 33,
+        "pkl": 50
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "86",
+      "queries": [
+        "do, go supermarket"
+      ],
+      "pool_size": {
+        "center_05": 122,
+        "full": 122,
+        "gaze_05": 122,
+        "gazef_05": 122,
+        "gazef_05_rand": 122,
+        "pkl": 122
+      },
+      "rank": {
+        "center_05": 4,
+        "full": 8,
+        "gaze_05": 15,
+        "gazef_05": 17,
+        "gazef_05_rand": 7,
+        "pkl": 13
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "91",
+      "queries": [
+        "get off the car"
+      ],
+      "pool_size": {
+        "center_05": 122,
+        "full": 122,
+        "gaze_05": 122,
+        "gazef_05": 122,
+        "gazef_05_rand": 122,
+        "pkl": 122
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "92",
+      "queries": [
+        "use control computer"
+      ],
+      "pool_size": {
+        "center_05": 122,
+        "full": 122,
+        "gaze_05": 122,
+        "gazef_05": 122,
+        "gazef_05_rand": 122,
+        "pkl": 122
+      },
+      "rank": {
+        "center_05": 11,
+        "full": 10,
+        "gaze_05": 15,
+        "gazef_05": 8,
+        "gazef_05_rand": 14,
+        "pkl": 7
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "94",
+      "queries": [
+        "hometown close"
+      ],
+      "pool_size": {
+        "center_05": 122,
+        "full": 122,
+        "gaze_05": 122,
+        "gazef_05": 122,
+        "gazef_05_rand": 122,
+        "pkl": 122
+      },
+      "rank": {
+        "center_05": 60,
+        "full": 59,
+        "gaze_05": 22,
+        "gazef_05": 34,
+        "gazef_05_rand": 46,
+        "pkl": 70
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "98",
+      "queries": [
+        "write shopping list"
+      ],
+      "pool_size": {
+        "center_05": 123,
+        "full": 123,
+        "gaze_05": 123,
+        "gazef_05": 123,
+        "gazef_05_rand": 123,
+        "pkl": 123
+      },
+      "rank": {
+        "center_05": 54,
+        "full": 62,
+        "gaze_05": 38,
+        "gazef_05": 60,
+        "gazef_05_rand": 67,
+        "pkl": 56
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "103",
+      "queries": [
+        "take out from refrigerator"
+      ],
+      "pool_size": {
+        "center_05": 126,
+        "full": 126,
+        "gaze_05": 126,
+        "gazef_05": 126,
+        "gazef_05_rand": 126,
+        "pkl": 126
+      },
+      "rank": {
+        "center_05": 119,
+        "full": 112,
+        "gaze_05": 115,
+        "gazef_05": 124,
+        "gazef_05_rand": 126,
+        "pkl": 110
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "106",
+      "queries": [
+        "responsibility shopping"
+      ],
+      "pool_size": {
+        "center_05": 131,
+        "full": 131,
+        "gaze_05": 131,
+        "gazef_05": 131,
+        "gazef_05_rand": 131,
+        "pkl": 131
+      },
+      "rank": {
+        "center_05": 4,
+        "full": 8,
+        "gaze_05": 15,
+        "gazef_05": 5,
+        "gazef_05_rand": 10,
+        "pkl": 3
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "108",
+      "queries": [
+        "pick up takeout"
+      ],
+      "pool_size": {
+        "center_05": 131,
+        "full": 131,
+        "gaze_05": 131,
+        "gazef_05": 131,
+        "gazef_05_rand": 131,
+        "pkl": 131
+      },
+      "rank": {
+        "center_05": 114,
+        "full": 97,
+        "gaze_05": 97,
+        "gazef_05": 107,
+        "gazef_05_rand": 97,
+        "pkl": 109
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "109",
+      "queries": [
+        "purchase for delivery"
+      ],
+      "pool_size": {
+        "center_05": 131,
+        "full": 131,
+        "gaze_05": 131,
+        "gazef_05": 131,
+        "gazef_05_rand": 131,
+        "pkl": 131
+      },
+      "rank": {
+        "center_05": 31,
+        "full": 82,
+        "gaze_05": 90,
+        "gazef_05": 81,
+        "gazef_05_rand": 119,
+        "pkl": 90
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "113",
+      "queries": [
+        "discover glasses, turn off glasses"
+      ],
+      "pool_size": {
+        "center_05": 141,
+        "full": 141,
+        "gaze_05": 141,
+        "gazef_05": 141,
+        "gazef_05_rand": 141,
+        "pkl": 141
+      },
+      "rank": {
+        "center_05": 2,
+        "full": 7,
+        "gaze_05": 1,
+        "gazef_05": 3,
+        "gazef_05_rand": 7,
+        "pkl": 23
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "114",
+      "queries": [
+        "Tasha take off headphones"
+      ],
+      "pool_size": {
+        "center_05": 142,
+        "full": 142,
+        "gaze_05": 142,
+        "gazef_05": 142,
+        "gazef_05_rand": 142,
+        "pkl": 142
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 2,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "119",
+      "queries": [
+        "pick up glasses"
+      ],
+      "pool_size": {
+        "center_05": 148,
+        "full": 148,
+        "gaze_05": 148,
+        "gazef_05": 148,
+        "gazef_05_rand": 148,
+        "pkl": 148
+      },
+      "rank": {
+        "center_05": 65,
+        "full": 87,
+        "gaze_05": 40,
+        "gazef_05": 54,
+        "gazef_05_rand": 50,
+        "pkl": 93
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "125",
+      "queries": [
+        "use paper boxes"
+      ],
+      "pool_size": {
+        "center_05": 173,
+        "full": 173,
+        "gaze_05": 173,
+        "gazef_05": 173,
+        "gazef_05_rand": 173,
+        "pkl": 173
+      },
+      "rank": {
+        "center_05": 85,
+        "full": 73,
+        "gaze_05": 109,
+        "gazef_05": 133,
+        "gazef_05_rand": 112,
+        "pkl": 70
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "139",
+      "queries": [
+        "help wash dishes"
+      ],
+      "pool_size": {
+        "center_05": 189,
+        "full": 189,
+        "gaze_05": 189,
+        "gazef_05": 189,
+        "gazef_05_rand": 189,
+        "pkl": 189
+      },
+      "rank": {
+        "center_05": 3,
+        "full": 4,
+        "gaze_05": 3,
+        "gazef_05": 2,
+        "gazef_05_rand": 101,
+        "pkl": 2
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "140",
+      "queries": [
+        "use wipe, wash kitchenware"
+      ],
+      "pool_size": {
+        "center_05": 194,
+        "full": 194,
+        "gaze_05": 194,
+        "gazef_05": 194,
+        "gazef_05_rand": 194,
+        "pkl": 194
+      },
+      "rank": {
+        "center_05": 54,
+        "full": 127,
+        "gaze_05": 42,
+        "gazef_05": 48,
+        "gazef_05_rand": 119,
+        "pkl": 88
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "146",
+      "queries": [
+        "use computer, upload data"
+      ],
+      "pool_size": {
+        "center_05": 195,
+        "full": 195,
+        "gaze_05": 195,
+        "gazef_05": 195,
+        "gazef_05_rand": 195,
+        "pkl": 195
+      },
+      "rank": {
+        "center_05": 52,
+        "full": 17,
+        "gaze_05": 22,
+        "gazef_05": 38,
+        "gazef_05_rand": 8,
+        "pkl": 12
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "149",
+      "queries": [
+        "use device, scan house"
+      ],
+      "pool_size": {
+        "center_05": 199,
+        "full": 199,
+        "gaze_05": 199,
+        "gazef_05": 199,
+        "gazef_05_rand": 199,
+        "pkl": 199
+      },
+      "rank": {
+        "center_05": 48,
+        "full": 118,
+        "gaze_05": 73,
+        "gazef_05": 59,
+        "gazef_05_rand": 35,
+        "pkl": 126
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "155",
+      "queries": [
+        "play guitar"
+      ],
+      "pool_size": {
+        "center_05": 200,
+        "full": 200,
+        "gaze_05": 200,
+        "gazef_05": 200,
+        "gazef_05_rand": 200,
+        "pkl": 200
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "156",
+      "queries": [
+        "like eating durian"
+      ],
+      "pool_size": {
+        "center_05": 203,
+        "full": 203,
+        "gaze_05": 203,
+        "gazef_05": 203,
+        "gazef_05_rand": 203,
+        "pkl": 203
+      },
+      "rank": {
+        "center_05": 46,
+        "full": 125,
+        "gaze_05": 80,
+        "gazef_05": 154,
+        "gazef_05_rand": 169,
+        "pkl": 118
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "158",
+      "queries": [
+        "Lucia like music, dance"
+      ],
+      "pool_size": {
+        "center_05": 203,
+        "full": 203,
+        "gaze_05": 203,
+        "gazef_05": 203,
+        "gazef_05_rand": 203,
+        "pkl": 203
+      },
+      "rank": {
+        "center_05": 160,
+        "full": 158,
+        "gaze_05": 140,
+        "gazef_05": 144,
+        "gazef_05_rand": 146,
+        "pkl": 161
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "160",
+      "queries": [
+        "eat grapes"
+      ],
+      "pool_size": {
+        "center_05": 205,
+        "full": 205,
+        "gaze_05": 205,
+        "gazef_05": 205,
+        "gazef_05_rand": 205,
+        "pkl": 205
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 9,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "164",
+      "queries": [
+        "Lucia buy, decorate room"
+      ],
+      "pool_size": {
+        "center_05": 216,
+        "full": 216,
+        "gaze_05": 216,
+        "gazef_05": 216,
+        "gazef_05_rand": 216,
+        "pkl": 216
+      },
+      "rank": {
+        "center_05": 119,
+        "full": 89,
+        "gaze_05": 47,
+        "gazef_05": 19,
+        "gazef_05_rand": 14,
+        "pkl": 85
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "168",
+      "queries": [
+        "put takeout, microwave"
+      ],
+      "pool_size": {
+        "center_05": 217,
+        "full": 217,
+        "gaze_05": 217,
+        "gazef_05": 217,
+        "gazef_05_rand": 217,
+        "pkl": 217
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "170",
+      "queries": [
+        "sit next, eat"
+      ],
+      "pool_size": {
+        "center_05": 218,
+        "full": 218,
+        "gaze_05": 218,
+        "gazef_05": 218,
+        "gazef_05_rand": 218,
+        "pkl": 218
+      },
+      "rank": {
+        "center_05": 92,
+        "full": 90,
+        "gaze_05": 56,
+        "gazef_05": 44,
+        "gazef_05_rand": 73,
+        "pkl": 60
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "172",
+      "queries": [
+        "have activities"
+      ],
+      "pool_size": {
+        "center_05": 218,
+        "full": 218,
+        "gaze_05": 218,
+        "gazef_05": 218,
+        "gazef_05_rand": 218,
+        "pkl": 218
+      },
+      "rank": {
+        "center_05": 27,
+        "full": 10,
+        "gaze_05": 10,
+        "gazef_05": 5,
+        "gazef_05_rand": 4,
+        "pkl": 6
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "174",
+      "queries": [
+        "mention styles, discuss decoration"
+      ],
+      "pool_size": {
+        "center_05": 220,
+        "full": 220,
+        "gaze_05": 220,
+        "gazef_05": 220,
+        "gazef_05_rand": 220,
+        "pkl": 220
+      },
+      "rank": {
+        "center_05": 112,
+        "full": 107,
+        "gaze_05": 139,
+        "gazef_05": 64,
+        "gazef_05_rand": 73,
+        "pkl": 117
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "175",
+      "queries": [
+        "plan do"
+      ],
+      "pool_size": {
+        "center_05": 226,
+        "full": 226,
+        "gaze_05": 226,
+        "gazef_05": 226,
+        "gazef_05_rand": 226,
+        "pkl": 226
+      },
+      "rank": {
+        "center_05": 74,
+        "full": 82,
+        "gaze_05": 82,
+        "gazef_05": 62,
+        "gazef_05_rand": 109,
+        "pkl": 105
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "178",
+      "queries": [
+        "mention AI topic"
+      ],
+      "pool_size": {
+        "center_05": 230,
+        "full": 230,
+        "gaze_05": 230,
+        "gazef_05": 230,
+        "gazef_05_rand": 230,
+        "pkl": 230
+      },
+      "rank": {
+        "center_05": 102,
+        "full": 213,
+        "gaze_05": 28,
+        "gazef_05": 126,
+        "gazef_05_rand": 167,
+        "pkl": 218
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "181",
+      "queries": [
+        "wear hat"
+      ],
+      "pool_size": {
+        "center_05": 244,
+        "full": 244,
+        "gaze_05": 244,
+        "gazef_05": 244,
+        "gazef_05_rand": 244,
+        "pkl": 244
+      },
+      "rank": {
+        "center_05": 195,
+        "full": 114,
+        "gaze_05": 167,
+        "gazef_05": 126,
+        "gazef_05_rand": 214,
+        "pkl": 183
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "192",
+      "queries": [
+        "pay going out"
+      ],
+      "pool_size": {
+        "center_05": 253,
+        "full": 253,
+        "gaze_05": 253,
+        "gazef_05": 253,
+        "gazef_05_rand": 253,
+        "pkl": 253
+      },
+      "rank": {
+        "center_05": 3,
+        "full": 12,
+        "gaze_05": 17,
+        "gazef_05": 13,
+        "gazef_05_rand": 14,
+        "pkl": 8
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "193",
+      "queries": [
+        "stand on escalator"
+      ],
+      "pool_size": {
+        "center_05": 253,
+        "full": 253,
+        "gaze_05": 253,
+        "gazef_05": 253,
+        "gazef_05_rand": 253,
+        "pkl": 253
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 4,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "194",
+      "queries": [
+        "purchase tool"
+      ],
+      "pool_size": {
+        "center_05": 253,
+        "full": 253,
+        "gaze_05": 253,
+        "gazef_05": 253,
+        "gazef_05_rand": 253,
+        "pkl": 253
+      },
+      "rank": {
+        "center_05": 110,
+        "full": 57,
+        "gaze_05": 166,
+        "gazef_05": 68,
+        "gazef_05_rand": 185,
+        "pkl": 44
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "196",
+      "queries": [
+        "buy ingredients"
+      ],
+      "pool_size": {
+        "center_05": 253,
+        "full": 253,
+        "gaze_05": 253,
+        "gazef_05": 253,
+        "gazef_05_rand": 253,
+        "pkl": 253
+      },
+      "rank": {
+        "center_05": 127,
+        "full": 107,
+        "gaze_05": 78,
+        "gazef_05": 140,
+        "gazef_05_rand": 140,
+        "pkl": 94
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "198",
+      "queries": [
+        "buy eggs"
+      ],
+      "pool_size": {
+        "center_05": 255,
+        "full": 255,
+        "gaze_05": 255,
+        "gazef_05": 255,
+        "gazef_05_rand": 255,
+        "pkl": 255
+      },
+      "rank": {
+        "center_05": 6,
+        "full": 9,
+        "gaze_05": 13,
+        "gazef_05": 21,
+        "gazef_05_rand": 5,
+        "pkl": 4
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "206",
+      "queries": [
+        "Tasha check out, supermarket"
+      ],
+      "pool_size": {
+        "center_05": 264,
+        "full": 264,
+        "gaze_05": 264,
+        "gazef_05": 264,
+        "gazef_05_rand": 264,
+        "pkl": 264
+      },
+      "rank": {
+        "center_05": 13,
+        "full": 6,
+        "gaze_05": 19,
+        "gazef_05": 23,
+        "gazef_05_rand": 3,
+        "pkl": 10
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 1,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "217",
+      "queries": [
+        "Tasha have task"
+      ],
+      "pool_size": {
+        "center_05": 287,
+        "full": 287,
+        "gaze_05": 287,
+        "gazef_05": 287,
+        "gazef_05_rand": 287,
+        "pkl": 287
+      },
+      "rank": {
+        "center_05": 38,
+        "full": 36,
+        "gaze_05": 29,
+        "gazef_05": 25,
+        "gazef_05_rand": 46,
+        "pkl": 25
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "224",
+      "queries": [
+        "help Shure, light fire"
+      ],
+      "pool_size": {
+        "center_05": 301,
+        "full": 301,
+        "gaze_05": 301,
+        "gazef_05": 301,
+        "gazef_05_rand": 301,
+        "pkl": 301
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 2,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "225",
+      "queries": [
+        "plan do, mangoes"
+      ],
+      "pool_size": {
+        "center_05": 301,
+        "full": 301,
+        "gaze_05": 301,
+        "gazef_05": 301,
+        "gazef_05_rand": 301,
+        "pkl": 301
+      },
+      "rank": {
+        "center_05": 154,
+        "full": 155,
+        "gaze_05": 169,
+        "gazef_05": 237,
+        "gazef_05_rand": 129,
+        "pkl": 98
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "229",
+      "queries": [
+        "try drink combination"
+      ],
+      "pool_size": {
+        "center_05": 303,
+        "full": 303,
+        "gaze_05": 303,
+        "gazef_05": 303,
+        "gazef_05_rand": 303,
+        "pkl": 303
+      },
+      "rank": {
+        "center_05": 259,
+        "full": 236,
+        "gaze_05": 213,
+        "gazef_05": 231,
+        "gazef_05_rand": 166,
+        "pkl": 236
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "231",
+      "queries": [
+        "prepare ingredients, chop vegetables"
+      ],
+      "pool_size": {
+        "center_05": 308,
+        "full": 308,
+        "gaze_05": 308,
+        "gazef_05": 308,
+        "gazef_05_rand": 308,
+        "pkl": 308
+      },
+      "rank": {
+        "center_05": 4,
+        "full": 28,
+        "gaze_05": 4,
+        "gazef_05": 1,
+        "gazef_05_rand": 64,
+        "pkl": 27
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "245",
+      "queries": [
+        "protect fire seed"
+      ],
+      "pool_size": {
+        "center_05": 323,
+        "full": 323,
+        "gaze_05": 323,
+        "gazef_05": 323,
+        "gazef_05_rand": 323,
+        "pkl": 323
+      },
+      "rank": {
+        "center_05": 33,
+        "full": 110,
+        "gaze_05": 25,
+        "gazef_05": 1,
+        "gazef_05_rand": 162,
+        "pkl": 60
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "251",
+      "queries": [
+        "Katrina plan"
+      ],
+      "pool_size": {
+        "center_05": 324,
+        "full": 324,
+        "gaze_05": 324,
+        "gazef_05": 324,
+        "gazef_05_rand": 324,
+        "pkl": 324
+      },
+      "rank": {
+        "center_05": 102,
+        "full": 148,
+        "gaze_05": 74,
+        "gazef_05": 120,
+        "gazef_05_rand": 290,
+        "pkl": 131
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "254",
+      "queries": [
+        "Tasha buy, decorate room"
+      ],
+      "pool_size": {
+        "center_05": 325,
+        "full": 325,
+        "gaze_05": 325,
+        "gazef_05": 325,
+        "gazef_05_rand": 325,
+        "pkl": 325
+      },
+      "rank": {
+        "center_05": 26,
+        "full": 59,
+        "gaze_05": 43,
+        "gazef_05": 30,
+        "gazef_05_rand": 36,
+        "pkl": 60
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "256",
+      "queries": [
+        "Tasha ask, bring cup"
+      ],
+      "pool_size": {
+        "center_05": 327,
+        "full": 327,
+        "gaze_05": 327,
+        "gazef_05": 327,
+        "gazef_05_rand": 327,
+        "pkl": 327
+      },
+      "rank": {
+        "center_05": 245,
+        "full": 137,
+        "gaze_05": 172,
+        "gazef_05": 158,
+        "gazef_05_rand": 208,
+        "pkl": 167
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "258",
+      "queries": [
+        "buy oysters"
+      ],
+      "pool_size": {
+        "center_05": 328,
+        "full": 328,
+        "gaze_05": 328,
+        "gazef_05": 328,
+        "gazef_05_rand": 328,
+        "pkl": 328
+      },
+      "rank": {
+        "center_05": 25,
+        "full": 57,
+        "gaze_05": 108,
+        "gazef_05": 26,
+        "gazef_05_rand": 88,
+        "pkl": 53
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "260",
+      "queries": [
+        "take out, open fridge"
+      ],
+      "pool_size": {
+        "center_05": 328,
+        "full": 328,
+        "gaze_05": 328,
+        "gazef_05": 328,
+        "gazef_05_rand": 328,
+        "pkl": 328
+      },
+      "rank": {
+        "center_05": 10,
+        "full": 3,
+        "gaze_05": 6,
+        "gazef_05": 3,
+        "gazef_05_rand": 39,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 1,
+        "gaze_05": 0,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "263",
+      "queries": [
+        "navigate, lead to Hema Fresh"
+      ],
+      "pool_size": {
+        "center_05": 329,
+        "full": 329,
+        "gaze_05": 329,
+        "gazef_05": 329,
+        "gazef_05_rand": 329,
+        "pkl": 329
+      },
+      "rank": {
+        "center_05": 65,
+        "full": 120,
+        "gaze_05": 103,
+        "gazef_05": 47,
+        "gazef_05_rand": 82,
+        "pkl": 80
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "267",
+      "queries": [
+        "hold activities"
+      ],
+      "pool_size": {
+        "center_05": 331,
+        "full": 331,
+        "gaze_05": 331,
+        "gazef_05": 331,
+        "gazef_05_rand": 331,
+        "pkl": 331
+      },
+      "rank": {
+        "center_05": 22,
+        "full": 12,
+        "gaze_05": 19,
+        "gazef_05": 68,
+        "gazef_05_rand": 223,
+        "pkl": 21
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "275",
+      "queries": [
+        "make coffee"
+      ],
+      "pool_size": {
+        "center_05": 338,
+        "full": 338,
+        "gaze_05": 338,
+        "gazef_05": 338,
+        "gazef_05_rand": 338,
+        "pkl": 338
+      },
+      "rank": {
+        "center_05": 3,
+        "full": 123,
+        "gaze_05": 2,
+        "gazef_05": 8,
+        "gazef_05_rand": 2,
+        "pkl": 92
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 0,
+        "gazef_05_rand": 1,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "276",
+      "queries": [
+        "make coffee"
+      ],
+      "pool_size": {
+        "center_05": 338,
+        "full": 338,
+        "gaze_05": 338,
+        "gazef_05": 338,
+        "gazef_05_rand": 338,
+        "pkl": 338
+      },
+      "rank": {
+        "center_05": 3,
+        "full": 123,
+        "gaze_05": 2,
+        "gazef_05": 8,
+        "gazef_05_rand": 2,
+        "pkl": 92
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 0,
+        "gazef_05_rand": 1,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "283",
+      "queries": [
+        "find bread"
+      ],
+      "pool_size": {
+        "center_05": 351,
+        "full": 351,
+        "gaze_05": 351,
+        "gazef_05": 351,
+        "gazef_05_rand": 351,
+        "pkl": 351
+      },
+      "rank": {
+        "center_05": 64,
+        "full": 173,
+        "gaze_05": 176,
+        "gazef_05": 114,
+        "gazef_05_rand": 127,
+        "pkl": 139
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "286",
+      "queries": [
+        "sit with, during meals"
+      ],
+      "pool_size": {
+        "center_05": 352,
+        "full": 352,
+        "gaze_05": 352,
+        "gazef_05": 352,
+        "gazef_05_rand": 352,
+        "pkl": 352
+      },
+      "rank": {
+        "center_05": 6,
+        "full": 33,
+        "gaze_05": 2,
+        "gazef_05": 7,
+        "gazef_05_rand": 2,
+        "pkl": 17
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 0,
+        "gazef_05_rand": 1,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "293",
+      "queries": [
+        "ingredient in cart"
+      ],
+      "pool_size": {
+        "center_05": 364,
+        "full": 364,
+        "gaze_05": 363,
+        "gazef_05": 363,
+        "gazef_05_rand": 364,
+        "pkl": 364
+      },
+      "rank": {
+        "center_05": 11,
+        "full": 10,
+        "gaze_05": 35,
+        "gazef_05": 28,
+        "gazef_05_rand": 51,
+        "pkl": 11
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "294",
+      "queries": [
+        "Lucia take picture"
+      ],
+      "pool_size": {
+        "center_05": 374,
+        "full": 374,
+        "gaze_05": 373,
+        "gazef_05": 373,
+        "gazef_05_rand": 374,
+        "pkl": 374
+      },
+      "rank": {
+        "center_05": 35,
+        "full": 145,
+        "gaze_05": 47,
+        "gazef_05": 94,
+        "gazef_05_rand": 19,
+        "pkl": 99
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "296",
+      "queries": [
+        "Shure play guitar"
+      ],
+      "pool_size": {
+        "center_05": 379,
+        "full": 379,
+        "gaze_05": 378,
+        "gazef_05": 378,
+        "gazef_05_rand": 379,
+        "pkl": 379
+      },
+      "rank": {
+        "center_05": 204,
+        "full": 44,
+        "gaze_05": 267,
+        "gazef_05": 345,
+        "gazef_05_rand": 337,
+        "pkl": 309
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "307",
+      "queries": [
+        "plan eat"
+      ],
+      "pool_size": {
+        "center_05": 397,
+        "full": 397,
+        "gaze_05": 396,
+        "gazef_05": 396,
+        "gazef_05_rand": 397,
+        "pkl": 397
+      },
+      "rank": {
+        "center_05": 132,
+        "full": 98,
+        "gaze_05": 226,
+        "gazef_05": 195,
+        "gazef_05_rand": 314,
+        "pkl": 137
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "308",
+      "queries": [
+        "sing, Shure play guitar"
+      ],
+      "pool_size": {
+        "center_05": 401,
+        "full": 401,
+        "gaze_05": 400,
+        "gazef_05": 400,
+        "gazef_05_rand": 401,
+        "pkl": 401
+      },
+      "rank": {
+        "center_05": 209,
+        "full": 258,
+        "gaze_05": 153,
+        "gazef_05": 213,
+        "gazef_05_rand": 328,
+        "pkl": 311
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "314",
+      "queries": [
+        "discuss renting clothes"
+      ],
+      "pool_size": {
+        "center_05": 420,
+        "full": 420,
+        "gaze_05": 419,
+        "gazef_05": 419,
+        "gazef_05_rand": 420,
+        "pkl": 420
+      },
+      "rank": {
+        "center_05": 310,
+        "full": 89,
+        "gaze_05": 208,
+        "gazef_05": 234,
+        "gazef_05_rand": 194,
+        "pkl": 53
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "334",
+      "queries": [
+        "plug cable, power strip"
+      ],
+      "pool_size": {
+        "center_05": 435,
+        "full": 435,
+        "gaze_05": 434,
+        "gazef_05": 434,
+        "gazef_05_rand": 435,
+        "pkl": 435
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "335",
+      "queries": [
+        "use milk"
+      ],
+      "pool_size": {
+        "center_05": 435,
+        "full": 435,
+        "gaze_05": 434,
+        "gazef_05": 434,
+        "gazef_05_rand": 435,
+        "pkl": 435
+      },
+      "rank": {
+        "center_05": 24,
+        "full": 93,
+        "gaze_05": 54,
+        "gazef_05": 38,
+        "gazef_05_rand": 101,
+        "pkl": 119
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "337",
+      "queries": [
+        "gave Tasha, hold milk"
+      ],
+      "pool_size": {
+        "center_05": 450,
+        "full": 450,
+        "gaze_05": 449,
+        "gazef_05": 449,
+        "gazef_05_rand": 450,
+        "pkl": 450
+      },
+      "rank": {
+        "center_05": 10,
+        "full": 1,
+        "gaze_05": 2,
+        "gazef_05": 10,
+        "gazef_05_rand": 99,
+        "pkl": 2
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "352",
+      "queries": [
+        "join shopping trip"
+      ],
+      "pool_size": {
+        "center_05": 466,
+        "full": 466,
+        "gaze_05": 465,
+        "gazef_05": 465,
+        "gazef_05_rand": 466,
+        "pkl": 466
+      },
+      "rank": {
+        "center_05": 57,
+        "full": 16,
+        "gaze_05": 23,
+        "gazef_05": 57,
+        "gazef_05_rand": 133,
+        "pkl": 24
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "354",
+      "queries": [
+        "stand on escalator"
+      ],
+      "pool_size": {
+        "center_05": 466,
+        "full": 466,
+        "gaze_05": 465,
+        "gazef_05": 465,
+        "gazef_05_rand": 466,
+        "pkl": 466
+      },
+      "rank": {
+        "center_05": 2,
+        "full": 2,
+        "gaze_05": 2,
+        "gazef_05": 2,
+        "gazef_05_rand": 1,
+        "pkl": 2
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 1,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "357",
+      "queries": [
+        "shop with"
+      ],
+      "pool_size": {
+        "center_05": 467,
+        "full": 467,
+        "gaze_05": 466,
+        "gazef_05": 466,
+        "gazef_05_rand": 467,
+        "pkl": 467
+      },
+      "rank": {
+        "center_05": 101,
+        "full": 222,
+        "gaze_05": 178,
+        "gazef_05": 259,
+        "gazef_05_rand": 78,
+        "pkl": 217
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "360",
+      "queries": [
+        "taste-testing"
+      ],
+      "pool_size": {
+        "center_05": 467,
+        "full": 467,
+        "gaze_05": 466,
+        "gazef_05": 466,
+        "gazef_05_rand": 467,
+        "pkl": 467
+      },
+      "rank": {
+        "center_05": 77,
+        "full": 93,
+        "gaze_05": 33,
+        "gazef_05": 54,
+        "gazef_05_rand": 73,
+        "pkl": 89
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "366",
+      "queries": [
+        "use ride-hailing app"
+      ],
+      "pool_size": {
+        "center_05": 469,
+        "full": 469,
+        "gaze_05": 468,
+        "gazef_05": 468,
+        "gazef_05_rand": 469,
+        "pkl": 469
+      },
+      "rank": {
+        "center_05": 9,
+        "full": 16,
+        "gaze_05": 19,
+        "gazef_05": 6,
+        "gazef_05_rand": 7,
+        "pkl": 22
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "369",
+      "queries": [
+        "get home, after shopping"
+      ],
+      "pool_size": {
+        "center_05": 469,
+        "full": 469,
+        "gaze_05": 468,
+        "gazef_05": 468,
+        "gazef_05_rand": 469,
+        "pkl": 469
+      },
+      "rank": {
+        "center_05": 421,
+        "full": 443,
+        "gaze_05": 444,
+        "gazef_05": 411,
+        "gazef_05_rand": 445,
+        "pkl": 431
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "371",
+      "queries": [
+        "plan eat"
+      ],
+      "pool_size": {
+        "center_05": 471,
+        "full": 471,
+        "gaze_05": 470,
+        "gazef_05": 470,
+        "gazef_05_rand": 471,
+        "pkl": 471
+      },
+      "rank": {
+        "center_05": 268,
+        "full": 169,
+        "gaze_05": 263,
+        "gazef_05": 111,
+        "gazef_05_rand": 304,
+        "pkl": 141
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "374",
+      "queries": [
+        "use microwave"
+      ],
+      "pool_size": {
+        "center_05": 471,
+        "full": 471,
+        "gaze_05": 470,
+        "gazef_05": 470,
+        "gazef_05_rand": 471,
+        "pkl": 471
+      },
+      "rank": {
+        "center_05": 191,
+        "full": 25,
+        "gaze_05": 138,
+        "gazef_05": 77,
+        "gazef_05_rand": 78,
+        "pkl": 20
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "377",
+      "queries": [
+        "use grill"
+      ],
+      "pool_size": {
+        "center_05": 473,
+        "full": 473,
+        "gaze_05": 472,
+        "gazef_05": 472,
+        "gazef_05_rand": 473,
+        "pkl": 473
+      },
+      "rank": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 2,
+        "gazef_05_rand": 31,
+        "pkl": 2
+      },
+      "hit@3": {
+        "center_05": 1,
+        "full": 1,
+        "gaze_05": 1,
+        "gazef_05": 1,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "380",
+      "queries": [
+        "use microwave"
+      ],
+      "pool_size": {
+        "center_05": 474,
+        "full": 474,
+        "gaze_05": 473,
+        "gazef_05": 473,
+        "gazef_05_rand": 474,
+        "pkl": 474
+      },
+      "rank": {
+        "center_05": 194,
+        "full": 26,
+        "gaze_05": 141,
+        "gazef_05": 78,
+        "gazef_05_rand": 80,
+        "pkl": 20
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "382",
+      "queries": [
+        "use oven mitts"
+      ],
+      "pool_size": {
+        "center_05": 475,
+        "full": 475,
+        "gaze_05": 474,
+        "gazef_05": 474,
+        "gazef_05_rand": 475,
+        "pkl": 475
+      },
+      "rank": {
+        "center_05": 13,
+        "full": 22,
+        "gaze_05": 47,
+        "gazef_05": 20,
+        "gazef_05_rand": 17,
+        "pkl": 9
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "383",
+      "queries": [
+        "bought blueberries"
+      ],
+      "pool_size": {
+        "center_05": 475,
+        "full": 475,
+        "gaze_05": 474,
+        "gazef_05": 474,
+        "gazef_05_rand": 475,
+        "pkl": 475
+      },
+      "rank": {
+        "center_05": 63,
+        "full": 51,
+        "gaze_05": 112,
+        "gazef_05": 113,
+        "gazef_05_rand": 62,
+        "pkl": 66
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "392",
+      "queries": [
+        "made egg tart"
+      ],
+      "pool_size": {
+        "center_05": 495,
+        "full": 495,
+        "gaze_05": 494,
+        "gazef_05": 494,
+        "gazef_05_rand": 495,
+        "pkl": 495
+      },
+      "rank": {
+        "center_05": 113,
+        "full": 241,
+        "gaze_05": 156,
+        "gazef_05": 190,
+        "gazef_05_rand": 222,
+        "pkl": 154
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "393",
+      "queries": [
+        "Choiszt mix cream, prepare"
+      ],
+      "pool_size": {
+        "center_05": 496,
+        "full": 496,
+        "gaze_05": 495,
+        "gazef_05": 495,
+        "gazef_05_rand": 496,
+        "pkl": 496
+      },
+      "rank": {
+        "center_05": 160,
+        "full": 181,
+        "gaze_05": 67,
+        "gazef_05": 112,
+        "gazef_05_rand": 185,
+        "pkl": 120
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "402",
+      "queries": [
+        "Tasha want drink"
+      ],
+      "pool_size": {
+        "center_05": 507,
+        "full": 507,
+        "gaze_05": 506,
+        "gazef_05": 506,
+        "gazef_05_rand": 507,
+        "pkl": 507
+      },
+      "rank": {
+        "center_05": 391,
+        "full": 141,
+        "gaze_05": 358,
+        "gazef_05": 290,
+        "gazef_05_rand": 276,
+        "pkl": 192
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "403",
+      "queries": [
+        "Tasha eat dishes"
+      ],
+      "pool_size": {
+        "center_05": 507,
+        "full": 507,
+        "gaze_05": 506,
+        "gazef_05": 506,
+        "gazef_05_rand": 507,
+        "pkl": 507
+      },
+      "rank": {
+        "center_05": 248,
+        "full": 193,
+        "gaze_05": 196,
+        "gazef_05": 207,
+        "gazef_05_rand": 183,
+        "pkl": 171
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "408",
+      "queries": [
+        "arrange in room"
+      ],
+      "pool_size": {
+        "center_05": 516,
+        "full": 516,
+        "gaze_05": 515,
+        "gazef_05": 515,
+        "gazef_05_rand": 516,
+        "pkl": 516
+      },
+      "rank": {
+        "center_05": 32,
+        "full": 86,
+        "gaze_05": 27,
+        "gazef_05": 68,
+        "gazef_05_rand": 37,
+        "pkl": 23
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "409",
+      "queries": [
+        "pick up takeout"
+      ],
+      "pool_size": {
+        "center_05": 516,
+        "full": 516,
+        "gaze_05": 515,
+        "gazef_05": 515,
+        "gazef_05_rand": 516,
+        "pkl": 516
+      },
+      "rank": {
+        "center_05": 35,
+        "full": 7,
+        "gaze_05": 16,
+        "gazef_05": 112,
+        "gazef_05_rand": 27,
+        "pkl": 10
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "414",
+      "queries": [
+        "inquire going hospital"
+      ],
+      "pool_size": {
+        "center_05": 520,
+        "full": 520,
+        "gaze_05": 519,
+        "gazef_05": 519,
+        "gazef_05_rand": 520,
+        "pkl": 520
+      },
+      "rank": {
+        "center_05": 239,
+        "full": 184,
+        "gaze_05": 213,
+        "gazef_05": 329,
+        "gazef_05_rand": 182,
+        "pkl": 188
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "417",
+      "queries": [
+        "used the kitchen knife"
+      ],
+      "pool_size": {
+        "center_05": 525,
+        "full": 525,
+        "gaze_05": 524,
+        "gazef_05": 524,
+        "gazef_05_rand": 525,
+        "pkl": 525
+      },
+      "rank": {
+        "center_05": 6,
+        "full": 23,
+        "gaze_05": 2,
+        "gazef_05": 9,
+        "gazef_05_rand": 5,
+        "pkl": 31
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "429",
+      "queries": [
+        "put in refrigerator"
+      ],
+      "pool_size": {
+        "center_05": 554,
+        "full": 554,
+        "gaze_05": 553,
+        "gazef_05": 553,
+        "gazef_05_rand": 554,
+        "pkl": 554
+      },
+      "rank": {
+        "center_05": 28,
+        "full": 60,
+        "gaze_05": 61,
+        "gazef_05": 137,
+        "gazef_05_rand": 5,
+        "pkl": 125
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "430",
+      "queries": [
+        "use laptop"
+      ],
+      "pool_size": {
+        "center_05": 555,
+        "full": 555,
+        "gaze_05": 554,
+        "gazef_05": 554,
+        "gazef_05_rand": 555,
+        "pkl": 555
+      },
+      "rank": {
+        "center_05": 32,
+        "full": 14,
+        "gaze_05": 25,
+        "gazef_05": 19,
+        "gazef_05_rand": 7,
+        "pkl": 15
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "438",
+      "queries": [
+        "use microwave"
+      ],
+      "pool_size": {
+        "center_05": 578,
+        "full": 578,
+        "gaze_05": 577,
+        "gazef_05": 577,
+        "gazef_05_rand": 578,
+        "pkl": 578
+      },
+      "rank": {
+        "center_05": 232,
+        "full": 33,
+        "gaze_05": 175,
+        "gazef_05": 91,
+        "gazef_05_rand": 103,
+        "pkl": 26
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "445",
+      "queries": [
+        "Alice made puppy?"
+      ],
+      "pool_size": {
+        "center_05": 587,
+        "full": 587,
+        "gaze_05": 586,
+        "gazef_05": 586,
+        "gazef_05_rand": 587,
+        "pkl": 587
+      },
+      "rank": {
+        "center_05": 83,
+        "full": 123,
+        "gaze_05": 52,
+        "gazef_05": 19,
+        "gazef_05_rand": 106,
+        "pkl": 106
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "448",
+      "queries": [
+        "play guitar"
+      ],
+      "pool_size": {
+        "center_05": 600,
+        "full": 600,
+        "gaze_05": 599,
+        "gazef_05": 599,
+        "gazef_05_rand": 600,
+        "pkl": 600
+      },
+      "rank": {
+        "center_05": 36,
+        "full": 19,
+        "gaze_05": 16,
+        "gazef_05": 32,
+        "gazef_05_rand": 116,
+        "pkl": 24
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "459",
+      "queries": [
+        "listen nearby, Choiszt play piano"
+      ],
+      "pool_size": {
+        "center_05": 612,
+        "full": 612,
+        "gaze_05": 611,
+        "gazef_05": 611,
+        "gazef_05_rand": 612,
+        "pkl": 612
+      },
+      "rank": {
+        "center_05": 5,
+        "full": 6,
+        "gaze_05": 1,
+        "gazef_05": 13,
+        "gazef_05_rand": 4,
+        "pkl": 3
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 1,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 1
+      }
+    },
+    {
+      "ID": "465",
+      "queries": [
+        "introduce product, Cardboard Puppy"
+      ],
+      "pool_size": {
+        "center_05": 612,
+        "full": 612,
+        "gaze_05": 611,
+        "gazef_05": 611,
+        "gazef_05_rand": 612,
+        "pkl": 612
+      },
+      "rank": {
+        "center_05": 69,
+        "full": 433,
+        "gaze_05": 283,
+        "gazef_05": 124,
+        "gazef_05_rand": 289,
+        "pkl": 458
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "469",
+      "queries": [
+        "Tasha like eat"
+      ],
+      "pool_size": {
+        "center_05": 621,
+        "full": 621,
+        "gaze_05": 620,
+        "gazef_05": 620,
+        "gazef_05_rand": 621,
+        "pkl": 621
+      },
+      "rank": {
+        "center_05": 393,
+        "full": 188,
+        "gaze_05": 291,
+        "gazef_05": 249,
+        "gazef_05_rand": 66,
+        "pkl": 260
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "471",
+      "queries": [
+        "like porridge, Alice"
+      ],
+      "pool_size": {
+        "center_05": 621,
+        "full": 621,
+        "gaze_05": 620,
+        "gazef_05": 620,
+        "gazef_05_rand": 621,
+        "pkl": 621
+      },
+      "rank": {
+        "center_05": 53,
+        "full": 25,
+        "gaze_05": 134,
+        "gazef_05": 87,
+        "gazef_05_rand": 58,
+        "pkl": 10
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "473",
+      "queries": [
+        "conduct QA activity"
+      ],
+      "pool_size": {
+        "center_05": 622,
+        "full": 622,
+        "gaze_05": 621,
+        "gazef_05": 621,
+        "gazef_05_rand": 622,
+        "pkl": 622
+      },
+      "rank": {
+        "center_05": 319,
+        "full": 239,
+        "gaze_05": 331,
+        "gazef_05": 321,
+        "gazef_05_rand": 454,
+        "pkl": 328
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "476",
+      "queries": [
+        "purpose ego coins"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 244,
+        "full": 573,
+        "gaze_05": 429,
+        "gazef_05": 326,
+        "gazef_05_rand": 438,
+        "pkl": 483
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "479",
+      "queries": [
+        "wear glasses"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 410,
+        "full": 189,
+        "gaze_05": 438,
+        "gazef_05": 375,
+        "gazef_05_rand": 175,
+        "pkl": 38
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "481",
+      "queries": [
+        "Jack plan sing"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 388,
+        "full": 370,
+        "gaze_05": 348,
+        "gazef_05": 469,
+        "gazef_05_rand": 469,
+        "pkl": 343
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "485",
+      "queries": [
+        "fidget items, during discussions"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 173,
+        "full": 213,
+        "gaze_05": 221,
+        "gazef_05": 354,
+        "gazef_05_rand": 273,
+        "pkl": 181
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "486",
+      "queries": [
+        "fidget items"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 287,
+        "full": 446,
+        "gaze_05": 327,
+        "gazef_05": 447,
+        "gazef_05_rand": 245,
+        "pkl": 437
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "493",
+      "queries": [
+        "use phone, scan living room"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 8,
+        "full": 11,
+        "gaze_05": 21,
+        "gazef_05": 39,
+        "gazef_05_rand": 41,
+        "pkl": 9
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "495",
+      "queries": [
+        "label SD cards"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 7,
+        "full": 36,
+        "gaze_05": 4,
+        "gazef_05": 14,
+        "gazef_05_rand": 10,
+        "pkl": 33
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "496",
+      "queries": [
+        "Shure suggest song, sing together"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 84,
+        "full": 172,
+        "gaze_05": 29,
+        "gazef_05": 48,
+        "gazef_05_rand": 90,
+        "pkl": 148
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    },
+    {
+      "ID": "497",
+      "queries": [
+        "pay via phone"
+      ],
+      "pool_size": {
+        "center_05": 623,
+        "full": 623,
+        "gaze_05": 622,
+        "gazef_05": 622,
+        "gazef_05_rand": 623,
+        "pkl": 623
+      },
+      "rank": {
+        "center_05": 13,
+        "full": 25,
+        "gaze_05": 10,
+        "gazef_05": 8,
+        "gazef_05_rand": 32,
+        "pkl": 33
+      },
+      "hit@3": {
+        "center_05": 0,
+        "full": 0,
+        "gaze_05": 0,
+        "gazef_05": 0,
+        "gazef_05_rand": 0,
+        "pkl": 0
+      }
+    }
+  ]
+}
