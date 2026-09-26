@@ -5,14 +5,37 @@
 #   bash experiments/gaze_crop/run_stage2.sh                  # carries stage 1's winner
 #   ARM=gazef@0.5 bash experiments/gaze_crop/run_stage2.sh    # pick the arm yourself
 #   FORCE=1 bash experiments/gaze_crop/run_stage2.sh          # run even though stage 1 said no
+#   VISUAL_TOP_K="3 20" bash experiments/gaze_crop/run_stage2.sh   # QA at both depths, one run
 #   nohup bash experiments/gaze_crop/run_stage2.sh > /dev/null 2>&1 &
 #
-# Knobs: VIDEO_ROOT, GAZE_ROOT, ARM, FORCE, MIN_GAIN_PP (0.0), SKIP_QA=1 (embeddings + recall only)
+# Knobs: VIDEO_ROOT, GAZE_ROOT, ARM, FORCE, MIN_GAIN_PP (0.0), SKIP_QA=1 (embeddings + recall only),
+#        VISUAL_TOP_K (default 3; space-separated list runs step 6 once per value),
+#        MAX_CPUS=N (cap the whole run at N cores)
+#
+# k lives in the results path (results_qa/<arm>_k<K>/), because --resume keys off that file: with a
+# shared path the second k would skip all 120 answered questions and silently report the first k's
+# answers as its own.
 #
 # What it does NOT change: the LLM sees the retrieved clip's own uncropped frames, exactly as
 # condition E' always did. Only which clips get retrieved changes. Showing the LLM cropped frames
 # is a different experiment; mixing the two would make the result unreadable.
 set -uo pipefail
+
+# Hold the run to N cores on a shared box; see run_stage1.sh for why both the mask and the thread
+# counts are needed. Re-exec happens before any child is forked, so every step inherits it.
+MAX_CPUS="${MAX_CPUS:-}"
+if [ -n "$MAX_CPUS" ] && [ -z "${WORLDMM_CPU_PINNED:-}" ]; then
+  if ! [ "$MAX_CPUS" -ge 1 ] 2>/dev/null; then
+    echo "FATAL: MAX_CPUS must be a positive integer, got '$MAX_CPUS'"; exit 1
+  fi
+  export OMP_NUM_THREADS="$MAX_CPUS" MKL_NUM_THREADS="$MAX_CPUS" \
+         OPENBLAS_NUM_THREADS="$MAX_CPUS" NUMEXPR_NUM_THREADS="$MAX_CPUS" \
+         DECORD_NUM_THREADS="$MAX_CPUS" WORLDMM_CPU_PINNED=1
+  if command -v taskset >/dev/null 2>&1; then
+    exec taskset -c "0-$((MAX_CPUS - 1))" bash "$0" "$@"
+  fi
+  echo "WARNING: MAX_CPUS=$MAX_CPUS but taskset is missing; only thread counts are capped."
+fi
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$HERE/../.." && pwd)"
@@ -23,7 +46,12 @@ ARM="${ARM:-}"
 FORCE="${FORCE:-0}"
 MIN_GAIN_PP="${MIN_GAIN_PP:-0.0}"
 SKIP_QA="${SKIP_QA:-0}"
+VISUAL_TOP_K="${VISUAL_TOP_K:-3}"
 PY="${PY:-python}"
+
+for K in $VISUAL_TOP_K; do
+  [ "$K" -ge 1 ] 2>/dev/null || { echo "FATAL: VISUAL_TOP_K must be positive integers, got '$VISUAL_TOP_K'"; exit 1; }
+done
 
 POOL_ALL="$HERE/pool_all.json"
 mkdir -p "$HERE/logs"
@@ -34,7 +62,9 @@ cd "$REPO" || exit 1
 say() { echo; echo "=== $* ==================================================" ; }
 
 say "$(date '+%F %T')  stage 2: answer accuracy"
-echo "log: $LOG"
+echo "log : $LOG"
+echo "k   : $VISUAL_TOP_K  (visual-top-k for condition E')"
+echo "cpus: ${MAX_CPUS:-unbounded}${MAX_CPUS:+ cores (taskset 0-$((MAX_CPUS - 1)))}"
 
 say "0. preflight"
 FATAL=0
@@ -92,6 +122,18 @@ say "4. recall at the real index size"
     --out "$HERE/results/recall_allclips.json" \
     --markdown "$HERE/analysis/recall_allclips.md"
 
+# How far apart the two arms actually are at each k. Recall alone cannot say: two arms can score the
+# same and still disagree on which questions they got. Only the discordant counts (a_only + b_only)
+# bound how much the accuracy numbers in step 6 could possibly differ -- if they are ~0 at some k,
+# the LLM sees the same context in both arms there and any gap it reports is noise. Scoring only,
+# no embedding, so this is seconds per k. Printed for reading in the morning; nothing branches on it.
+say "4b. how much do the arms disagree at each k?"
+for K in 1 3 5 10 20 50; do
+  "$PY" "$HERE/recall_eval.py" --pool "$POOL_ALL" --arms full "$ARM" --main-k "$K" \
+      --out "$HERE/results/recall_allclips_k$K.json" 2>/dev/null \
+      | sed -n "/paired comparisons at k=$K/,/^$/p"
+done
+
 if [ "$SKIP_QA" = "1" ]; then
   say "SKIP_QA=1 -> stopping before the LLM"
   "$PY" "$HERE/digest.py"
@@ -103,16 +145,22 @@ for A in full "$ARM"; do
   "$PY" "$HERE/export_pkl.py" --arm "$A" --pool "$POOL_ALL" || exit 1
 done
 
-say "6. condition E' with each index (~34 min per arm)"
+say "6. condition E' per index x per k (~34 min each)"
 ARM_FILE="$(echo "$ARM" | tr -d '.' | tr '@' '_')"
-for A in full "$ARM_FILE"; do
-  echo
-  echo ">>> E' with emb/$A.pkl"
-  [ -f "$HERE/results_qa/$A/E_prime.json" ] && echo "(resuming; answered questions are skipped)"
-  "$PY" "$VB/eval_egolife.py" --condition E_prime \
-      --visual-path "$HERE/emb/$A.pkl" \
-      --results-dir "$HERE/results_qa/$A" \
-      --video-root "$VIDEO_ROOT" --resume
+for K in $VISUAL_TOP_K; do
+  for A in full "$ARM_FILE"; do
+    OUT="$HERE/results_qa/${A}_k${K}"
+    echo
+    echo ">>> E' with emb/$A.pkl at visual-top-k=$K -> results_qa/${A}_k${K}"
+    [ -f "$OUT/E_prime.json" ] && echo "(resuming; answered questions are skipped)"
+    # a failure here must not kill the remaining k: each pair is a standalone result
+    "$PY" "$VB/eval_egolife.py" --condition E_prime \
+        --visual-path "$HERE/emb/$A.pkl" \
+        --visual-top-k "$K" \
+        --results-dir "$OUT" \
+        --video-root "$VIDEO_ROOT" --resume \
+      || echo "WARNING: E' failed for $A at k=$K -- continuing with the rest"
+  done
 done
 
 say "7. parser sanity check"

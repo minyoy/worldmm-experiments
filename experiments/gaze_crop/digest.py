@@ -12,6 +12,7 @@ pieces are reported as missing rather than skipped, so a run that died at 3am is
 
 import argparse
 import glob
+import re
 import os
 import sys
 from typing import Any, Dict, List, Optional
@@ -106,20 +107,34 @@ def main() -> None:
         out.append("|---|---|")
         for name, v in BASELINES.items():
             out.append(f"| _{name}_ | _{v:.1f}%_ |")
+        # run_stage2.sh writes results_qa/<arm>_k<K>/, one dir per (arm, retrieval depth). Each k is
+        # its own condition -- a k=20 arm must never be differenced against a k=3 baseline -- so
+        # group by k and compare inside the group. Dirs with no _k suffix are older runs, which
+        # were all k=3 (eval_egolife.py's --visual-top-k default).
         vals: Dict[str, float] = {}
+        by_k: Dict[str, Dict[str, float]] = {}
         for p in qa:
             arm = os.path.basename(os.path.dirname(p))
             a = acc(p)
-            if a is not None:
-                vals[arm] = a
-                out.append(f"| `{arm}` | **{a:.1f}%** |")
+            if a is None:
+                continue
+            vals[arm] = a
+            out.append(f"| `{arm}` | **{a:.1f}%** |")
+            m = re.search(r"_k(\d+)$", arm)
+            k = m.group(1) if m else "3"
+            by_k.setdefault(k, {})[arm[: m.start()] if m else arm] = a
         out.append("")
-        if "full" in vals:
-            for arm, a in vals.items():
+        for k in sorted(by_k, key=int):
+            g = by_k[k]
+            if "full" not in g:
+                out.append(f"- k={k}: `full` 기준선이 없어 비교 불가 (있는 arm: "
+                           f"{', '.join('`%s`' % n for n in sorted(g))})")
+                continue
+            for arm, a in sorted(g.items()):
                 if arm != "full":
-                    out.append(f"- `{arm}` − `full` = **{a - vals['full']:+.1f}pp** "
-                               f"(같은 풀·같은 플래그의 자체 대조)")
-            out.append("")
+                    out.append(f"- k={k}: `{arm}` − `full` = **{a - g['full']:+.1f}pp** "
+                               f"(같은 풀·같은 플래그·같은 k의 자체 대조)")
+        out.append("")
         out.append("파서 확인: `python experiments/gaze_crop/rescore.py "
                    f"{args.qa_dir}/*/E_prime.json`\n")
 
