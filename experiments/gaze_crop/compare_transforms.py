@@ -26,7 +26,7 @@ the frame centre (30 s of saccades average out), so a median-based test moves th
 and every candidate scores the same. And it **skips clips whose gaze barely leaves the centre**
 (--min-offset), since those cannot separate a flip from its opposite. All candidate transforms are
 isometries about the frame centre, so the offset filter is identical for every candidate and cannot
-favour one.
+favour one. That distance is radial by default, which is not always enough -- see --axis below.
 
 Then look at variants/*_variants.jpg: the same frame under every candidate, labelled, at the moment
 the gaze sat furthest from the frame centre (where the candidates differ most). Pick the tile whose
@@ -38,6 +38,23 @@ box is on what the wearer was plainly looking at, and pass it on:
 
 The table's top row is printed as a suggestion only. When the top two are within noise the score
 cannot tell them apart at all, and the pictures are the only thing that can.
+
+**--axis, for when two candidates tie because the test never exercised them.** A left/right mirror
+only moves the box when the gaze is off-centre HORIZONTALLY. On this data the biggest excursions are
+almost all pitch -- the wearer looking down at their own hands -- so the default radial --min-offset
+and the default choice of frame to draw both keep clips whose gaze sat at x ~ 0.5. There an
+x-mirrored pair crops the SAME pixels: identical embeddings, identical scores, and a rendered frame
+whose two tiles are indistinguishable. The tie is the test's, not the data's.
+
+--axis x measures the offset horizontally instead, both for the --min-offset filter and for
+choosing the frame to draw, so only clips that actually swung left or right survive:
+
+    python experiments/gaze_crop/compare_transforms.py \
+        --axis x --min-offset 0.08 --transforms flipy flipx+flipy
+
+A rotation swaps the two axes, so an --axis filter is fair within one mirrored pair but not across
+all six candidates at once; the script warns if a rotation is in the list. Settle one mirror per
+run, with the pair named in --transforms.
 
 Cost: one decode per sampled clip plus one forward per (clip, candidate). 150 clips x 6 candidates
 is ~10 minutes.
@@ -62,6 +79,21 @@ from prepare_gaze import (  # noqa: E402
 )
 
 DEFAULT_CANDIDATES = ("none", "flipx", "flipy", "flipx+flipy", "rot90cw", "rot90ccw")
+ROTATIONS = ("rot90cw", "rot90ccw")
+
+
+def point_offset(p: Tuple[float, float], axis: str) -> float:
+    """How far one gaze point sits from the frame centre, along `axis`."""
+    x, y = p
+    if axis == "x":
+        return abs(x - 0.5)
+    if axis == "y":
+        return abs(y - 0.5)
+    return math.hypot(x - 0.5, y - 0.5)
+
+
+def clip_offset(pts: List[Tuple[float, float]], axis: str) -> float:
+    return float(np.mean([point_offset(p, axis) for p in pts]))
 
 
 def find_csv(gaze_root: str, key: str) -> Optional[str]:
@@ -83,6 +115,14 @@ def main() -> None:
                     help="skip clips whose gaze stays within this normalised distance of the frame "
                          "centre, averaged over the sampled frames. They cannot tell a flip from its "
                          "opposite. 0 keeps everything.")
+    ap.add_argument("--axis", choices=("radial", "x", "y"), default="radial",
+                    help="which component of the gaze's distance from centre drives --min-offset "
+                         "and picks the frame to draw. radial (default) is the overall distance. "
+                         "Use x to settle flipx and y to settle flipy: a clip whose gaze only ever "
+                         "moved vertically puts every x-mirrored pair on the SAME crop, so it "
+                         "cannot separate them however far off-centre it is. Measured on the "
+                         "untransformed points, so the threshold is the same for every candidate; "
+                         "meaningful only within a mirrored pair, so pair it with --transforms.")
     ap.add_argument("--pick-mode", choices=("per-frame", "median"), default="per-frame",
                     help="per-frame: crop each frame at its own gaze point (default, discriminates). "
                          "median: one box per clip, which on this data is nearly the centre crop.")
@@ -103,6 +143,13 @@ def main() -> None:
 
     if not os.path.isdir(args.gaze_root):
         ap.error(f"gaze root not found: {args.gaze_root} (pass --gaze-root or set WORLDMM_GAZE_ROOT)")
+    rot = [n for n in args.transforms if n in ROTATIONS]
+    if args.axis != "radial" and rot:
+        print(f"WARNING: --axis {args.axis} with {rot} in the candidates. A rotation swaps the two "
+              f"axes, so an --axis filter that keeps the clips one candidate needs is not the same "
+              f"filter for a rotated one, and the table stops being a fair comparison across all "
+              f"six. Use --axis to settle ONE mirror, e.g.\n"
+              f"    --axis x --transforms flipy flipx+flipy")
     print(f"gaze root: {args.gaze_root}")
     pool = load_json(args.pool)
     caption_text = {clip_key(c["video_path"]): c.get("text", "") for c in load_json(args.captions)}
@@ -138,7 +185,7 @@ def main() -> None:
             h = args.frame_height or h
             project, _ = make_projector(w, h, args.projection, args.focal_px, None)
             print(f"frame {w}x{h}, {len(args.transforms)} candidates, crop {args.ratio}, "
-                  f"{args.pick_mode}, min offset {args.min_offset}")
+                  f"{args.pick_mode}, min {args.axis} offset {args.min_offset}")
 
         # untransformed samples once; the candidates only rotate/flip the normalised points
         base, _, _, _, _ = parse_csv(csv_path, "auto", project, "none", w, h)
@@ -156,18 +203,18 @@ def main() -> None:
                 p = gaze_at(entry_pts, fi / fps, tol=1.0)
                 pts.append(tuple(p) if p else tuple(entry_pts["median"]))
 
-        # how far the gaze sits from the centre. Every candidate is an isometry about the centre,
-        # so this number is the same for all of them -- filtering on it stays neutral.
-        off = float(np.mean([math.hypot(x - 0.5, y - 0.5) for x, y in pts]))
+        # how far the gaze sits from the centre, along --axis. Measured on the untransformed
+        # points, so the same clips survive whichever candidate is being scored.
+        off = clip_offset(pts, args.axis)
         offsets.append(off)
         if off < args.min_offset:
             skipped_flat += 1
             continue
 
         from PIL import Image
-        # the most off-centre sampled frame: where the candidates disagree most, so that is the
-        # frame worth drawing
-        j = max(range(len(pts)), key=lambda t: math.hypot(pts[t][0] - 0.5, pts[t][1] - 0.5))
+        # the most off-centre sampled frame along --axis: where the candidates disagree most, so
+        # that is the frame worth drawing
+        j = max(range(len(pts)), key=lambda t: point_offset(pts[t], args.axis))
         entry: Dict[str, Any] = {"key": r["key"], "is_target": r["is_target"], "offset": off,
                                  "emb": {}, "draw_frame": arr[j].copy(), "draw_point": pts[j]}
         for name in args.transforms:
@@ -190,11 +237,11 @@ def main() -> None:
 
     if not rows:
         raise SystemExit(
-            f"no clip was scorable ({skipped_flat} skipped as too central out of {len(offsets)} "
-            f"with gaze). Lower --min-offset, or raise --n-clips.")
+            f"no clip was scorable ({skipped_flat} skipped as too central on {args.axis} out of "
+            f"{len(offsets)} with gaze). Lower --min-offset, raise --n-clips, or widen --axis.")
     if offsets:
         o = sorted(offsets)
-        print(f"\ngaze offset from centre ({args.pick_mode}): median {o[len(o)//2]:.3f}, "
+        print(f"\ngaze {args.axis} offset from centre ({args.pick_mode}): median {o[len(o)//2]:.3f}, "
               f"p90 {o[int(0.9 * (len(o) - 1))]:.3f} (normalised; 0.5 = frame edge). "
               f"{skipped_flat}/{len(offsets)} clips skipped as too central.")
 
@@ -239,7 +286,8 @@ def main() -> None:
 
     save_json({
         "n_clips": len(rows), "ratio": args.ratio, "frame_size": [w, h],
-        "pick_mode": args.pick_mode, "min_offset": args.min_offset,
+        "pick_mode": args.pick_mode, "min_offset": args.min_offset, "axis": args.axis,
+        "transforms": list(args.transforms),
         "n_skipped_too_central": skipped_flat,
         "offset_median": (sorted(offsets)[len(offsets) // 2] if offsets else None),
         "criterion": "mean cosine(gaze-crop embedding, own 30-sec caption embedding)",
@@ -260,9 +308,12 @@ def main() -> None:
     print("Now look at the images and decide:")
     for g in grids[:4]:
         print(f"  {g}")
+    axis_note = {"radial": "furthest from the centre",
+                 "x": "furthest from the centre HORIZONTALLY (so a left/right mirror moves the box)",
+                 "y": "furthest from the centre VERTICALLY (so an up/down mirror moves the box)"}
     print("\nEach tile is the same frame with the gaze point and crop box drawn under one candidate,")
-    print("labelled top-left, at the moment the gaze sat furthest from the centre. Pick the tile whose")
-    print("box is on what the wearer was plainly looking at -- then run stage 1 with it:")
+    print(f"labelled top-left, at the moment the gaze sat {axis_note[args.axis]}.")
+    print("Pick the tile whose box is on what the wearer was plainly looking at -- then run stage 1:")
     print(f"\n    GAZE_TRANSFORM=<그 라벨> bash experiments/gaze_crop/run_stage1.sh")
     print(f"\n(the table above suggests '{top}', "
           f"{'and the gap over the runner-up is real' if separated else 'but it is a tie -- the pictures decide'})")

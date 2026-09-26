@@ -192,6 +192,40 @@ Aria 문서가 좌표계를 정의하지만 EgoLife mp4는 재인코딩된 영�
 (`--min-offset`, 기본 0.05). 후보 변환은 모두 화면 중심에 대한 등거리 변환이라 이 필터는 후보마다 동일한
 값이고 특정 후보를 편들 수 없습니다.
 
+#### 동점이 났을 때: `--axis` (2026-09-26 실측)
+
+150클립 1차 실행에서 6후보가 다시 붙었습니다(`analysis/transform_choice.json`). 렌더된 4장의 점 위치를
+재보니 동점의 원인이 **데이터가 아니라 테스트 설계**였습니다:
+
+| clip | none | flipy | flipx+flipy | rot90cw | rot90ccw |
+|---|---|---|---|---|---|
+| D1 13:39:30 | (.74, .38) | (.74, **.70**) | (.26, **.71**) | (.70, .76) | (.30, .34) |
+| D1 19:25:30 | (.50, .30) | (.50, **.75**) | (.50, **.75**) | (.79, .50) | (.20, .50) |
+| D3 21:03:30 | (.40, .30) | (.40, **.76**) | (.60, **.76**) | (.73, .40) | (.26, .64) |
+| D6 17:07:30 | (.50, .28) | (.50, **.79**) | (.50, **.79**) | (.83, .50) | (.17, .49) |
+
+읽히는 것 셋:
+
+- **회전은 탈락.** 세 클립(노트북 키보드, 접시 집는 손, 싱크대)에서 착용자가 명백히 아래를 보는데
+  `rot90*`는 y를 정확히 0.50에 둡니다. 아래를 보는데 시선이 화면 높이 정중앙일 수는 없습니다.
+- **y는 뒤집어야 함.** `none`은 점을 천장·커튼·꽃병에 올리고, `flipy` 계열은 손·노트북·싱크대에 올립니다.
+  이미지 y는 아래로 증가하고 pitch는 위로 증가하니 부호 규약상으로도 맞습니다.
+- **x는 미결이고, 이 테스트로는 영원히 미결.** 4장 중 3장이 x ≈ 0.50입니다. 좌우 미러는 시선이 **가로로**
+  벗어나야만 박스를 움직이는데, 이 데이터의 큰 이탈은 대부분 pitch(자기 손을 내려다봄)입니다. x ≈ 0.5인
+  클립에서 x-미러 쌍은 **같은 픽셀을 crop**합니다 — 임베딩도 점수도 글자 그대로 동일하고, 그림의 두 타일도
+  구분되지 않습니다. 동점은 데이터가 아니라 측정이 만든 것입니다.
+
+`--axis x`가 `--min-offset` 필터와 **그릴 프레임 선택**을 모두 가로 성분으로 바꿉니다. `|x−0.5|`는 flipx에
+불변이라 두 후보에 같은 클립·같은 프레임이 남으니 필터는 중립입니다:
+
+```bash
+python experiments/gaze_crop/compare_transforms.py \
+    --axis x --min-offset 0.08 --transforms flipy flipx+flipy
+```
+
+회전은 두 축을 맞바꾸므로 `--axis` 필터가 6개 전체 비교에는 공정하지 않습니다. 한 번에 미러 하나씩
+정하고, 쌍을 `--transforms`로 명시하세요(회전이 섞여 있으면 스크립트가 경고합니다).
+
 ```bash
 # 후보 비교만 (run_stage1.sh 를 GAZE_TRANSFORM 없이 불러도 같은 일을 한다)
 python experiments/gaze_crop/compare_transforms.py
@@ -258,7 +292,15 @@ Meta의 MPS Eye Gaze 가이드(`mps.read_eyegaze` → `compute_depth_and_combine
 | `compute_depth_and_combined_gaze_direction(left_yaw, right_yaw, pitch)` | 같은 기하학을 직접 계산: 두 눈이 CPF x축 위 `[±0.0315,0,0]`에 있으므로 결합 방향 = `atan((tan yaw_L + tan yaw_R)/2)`, vergence depth = `0.063/(tan yaw_R − tan yaw_L)`, pitch는 공통이라 그대로 | **일치** |
 | `get_eyegaze_point_at_depth` / depth 사용 | `--cpf-offset`을 줬을 때만 사용(3D 점 → 카메라 프레임 → 투영). 기본값 0,0,0에서는 depth가 투영을 바꿀 수 없으므로 안 씀 | **자기정합적** |
 | `get_gaze_vector_reprojection` (fisheye624 + `get_transform_cpf_sensor`) | 단일 focal + equidistant 근사. VRS가 없어 실제 캘리브레이션 불가 | **근사** |
-| VRS가 있을 때 | `--aria-vrs <file>`로 `projectaria_tools`의 공식 경로를 그대로 사용 | **구현됨**(EgoLife에 VRS가 없어 미검증) |
+| VRS가 있을 때 | `--aria-vrs <file>`로 `projectaria_tools`의 공식 경로를 그대로 사용 | **구현됨**, 다만 쓸 입력이 없음(아래) |
+
+**공식 경로는 EgoLife에서 쓸 수 없습니다 (2026-09-26 확인).** HF API로 두 릴리스의 파일 목록을 전수
+확인했습니다: `Wangtwohappy/EgoLife_EyeTracking_EyeGaze`는 64,135개가 전부 `.csv`(32,067) + `.mp4`(32,067),
+`lmms-lab/EgoLife`는 32,817개가 `.mp4`/`.srt`/`.json` — **양쪽 모두 `.vrs` 0개, calibration 파일 0개**입니다.
+`get_gaze_vector_reprojection`은 VRS에서만 나오는 `device_calib`(fisheye624 + CPF→camera extrinsic)이
+필수라 호출 자체가 불가능합니다. 참고로 `EyeTracking/*.mp4`는 gaze 오버레이가 아니라 **IR 눈 카메라 원본**
+(양쪽 눈 나란히, 640×240)이라 여기서도 정답을 얻을 수 없습니다. 캘리브레이션을 구하기 전까지는 위
+`--axis` 절차가 transform을 정하는 유일한 방법입니다.
 
 **부호 규약은 데이터로 검증했습니다.** vergence로 역산한 depth를 CSV의 `depth_m` 컬럼과 비교하니 중앙
 오차 **0.011 m** — 좌/우 컬럼과 부호를 문서대로 읽고 있다는 뜻입니다. `prepare_gaze.py`가 매 실행 이
