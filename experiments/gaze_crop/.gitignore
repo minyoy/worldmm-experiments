@@ -6,7 +6,6 @@ gaze_points.json
 gaze_random.json
 pool_all.json
 overlay/
-variants/
 results_qa/
 .cache_queries.npz
 __pycache__/
