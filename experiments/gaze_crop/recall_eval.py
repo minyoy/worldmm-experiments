@@ -294,11 +294,33 @@ def main() -> None:
         keys = set(arms[ref]["keys"])
         n_tgt.append(len(expanded[qid] & keys))
         n_vis.append(vis)
+    def chance_at(t: int, v: int, k: int) -> float:
+        """P(a random k-subset of v contains at least one of t targets).
+
+        NOT k*t/v: that union bound double-counts the ways two targets both land in the k, and
+        runs past 1 once k*t approaches v -- at tolerance 300s (t~21, k=50) it reported 52% where
+        the truth is 45%, which is the difference between an arm looking below chance and above.
+        """
+        if t <= 0 or v <= 0:
+            return 0.0
+        if t >= v:
+            return 1.0
+        miss = 1.0
+        for i in range(min(k, v)):
+            num = v - t - i
+            if num <= 0:
+                return 1.0
+            miss *= num / (v - i)
+        return 1.0 - miss
+
     if n_vis:
-        chance = [100 * float(np.mean([min(k * t / v, 1.0) for t, v in zip(n_tgt, n_vis)]))
+        chance = [100 * float(np.mean([chance_at(t, v, k) for t, v in zip(n_tgt, n_vis)]))
                   for k in ks]
+        # expected rank of the BEST of t targets under a random ranking is (v+1)/(t+1), not v/2 --
+        # v/2 is the t=1 case and would flatter every tolerance above 0.
+        mr_chance = float(np.median([(v + 1) / (t + 1) for t, v in zip(n_tgt, n_vis) if t > 0]))
         print(f"{'chance':>14} | " + " | ".join(f"{c:6.2f}%" for c in chance)
-              + f" | {int(np.median([v / 2 for v in n_vis])):>8}")
+              + f" | {int(mr_chance):>8}")
         print(f"{'':>14}   (targets/question median {int(np.median(n_tgt))}, "
               f"visible pool median {int(np.median(n_vis))}, tolerance {tol:.0f}s)")
 
