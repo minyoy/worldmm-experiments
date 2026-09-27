@@ -1,0 +1,6957 @@
+{
+  "pool": "experiments/gaze_crop/pool_holdout.json",
+  "emb_dir": "/home/minyoy/WorldMM/experiments/gaze_crop/emb",
+  "query_source": "question",
+  "self_test": false,
+  "n_questions": 380,
+  "n_scored": 380,
+  "ks": [
+    1,
+    3,
+    5,
+    10,
+    20,
+    50
+  ],
+  "main_k": 3,
+  "arms": {
+    "full": {
+      "n_clips": 6223,
+      "recall": {
+        "1": 0.06315789473684211,
+        "3": 0.11842105263157894,
+        "5": 0.15263157894736842,
+        "10": 0.2578947368421053,
+        "20": 0.33157894736842103,
+        "50": 0.4842105263157895
+      },
+      "median_rank": 57,
+      "unscorable": []
+    },
+    "gazef_05": {
+      "n_clips": 6222,
+      "recall": {
+        "1": 0.09210526315789473,
+        "3": 0.1631578947368421,
+        "5": 0.21578947368421053,
+        "10": 0.31842105263157894,
+        "20": 0.4131578947368421,
+        "50": 0.5447368421052632
+      },
+      "median_rank": 35,
+      "unscorable": []
+    }
+  },
+  "pairs": [
+    {
+      "a": "full",
+      "b": "gazef_05",
+      "k": 3,
+      "diff_pp": -4.473684210526317,
+      "a_only": 17,
+      "b_only": 34,
+      "mcnemar_p": 0.024092907698449295,
+      "n_discordant": 51
+    }
+  ],
+  "breakdowns": {
+    "need_audio": {
+      "False": {
+        "n": 228,
+        "full": 15.789473684210526,
+        "gazef_05": 18.859649122807017
+      },
+      "True": {
+        "n": 152,
+        "full": 5.921052631578947,
+        "gazef_05": 12.5
+      }
+    },
+    "type": {
+      "EntityLog": {
+        "n": 101,
+        "full": 11.881188118811881,
+        "gazef_05": 14.85148514851485
+      },
+      "EventRecall": {
+        "n": 102,
+        "full": 6.862745098039216,
+        "gazef_05": 11.76470588235294
+      },
+      "HabitInsight": {
+        "n": 37,
+        "full": 16.216216216216218,
+        "gazef_05": 8.108108108108109
+      },
+      "RelationMap": {
+        "n": 101,
+        "full": 17.82178217821782,
+        "gazef_05": 26.732673267326735
+      },
+      "TaskMaster": {
+        "n": 39,
+        "full": 5.128205128205128,
+        "gazef_05": 12.82051282051282
+      }
+    },
+    "gap_bin": {
+      "0": {
+        "n": 257,
+        "full": 12.062256809338521,
+        "gazef_05": 17.898832684824903
+      },
+      "1": {
+        "n": 61,
+        "full": 6.557377049180328,
+        "gazef_05": 9.836065573770492
+      },
+      "2+": {
+        "n": 62,
+        "full": 16.129032258064516,
+        "gazef_05": 16.129032258064516
+      }
+    }
+  },
+  "per_question": [
+    {
+      "ID": "1",
+      "queries": [
+        "Who used the screwdriver first?"
+      ],
+      "pool_size": {
+        "full": 23,
+        "gazef_05": 23
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "2",
+      "queries": [
+        "Where was the black marker in Shure's hand before?"
+      ],
+      "pool_size": {
+        "full": 51,
+        "gazef_05": 51
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "3",
+      "queries": [
+        "Where was the small clapperboard on the table placed before?"
+      ],
+      "pool_size": {
+        "full": 51,
+        "gazef_05": 51
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "4",
+      "queries": [
+        "Who just helped Katrina put the flowers on the table"
+      ],
+      "pool_size": {
+        "full": 67,
+        "gazef_05": 67
+      },
+      "rank": {
+        "full": 5,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "5",
+      "queries": [
+        "Katrina is now suggesting dancing, what other activities has she suggested before?"
+      ],
+      "pool_size": {
+        "full": 94,
+        "gazef_05": 94
+      },
+      "rank": {
+        "full": 32,
+        "gazef_05": 41
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "7",
+      "queries": [
+        "Whose phone is on the table?"
+      ],
+      "pool_size": {
+        "full": 106,
+        "gazef_05": 106
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "8",
+      "queries": [
+        "What might we do next?"
+      ],
+      "pool_size": {
+        "full": 121,
+        "gazef_05": 121
+      },
+      "rank": {
+        "full": 52,
+        "gazef_05": 47
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "9",
+      "queries": [
+        "Who just helped Alice unpack and arrange the flowers"
+      ],
+      "pool_size": {
+        "full": 124,
+        "gazef_05": 124
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "10",
+      "queries": [
+        "Who was the first to write the meeting notes on the whiteboard in the meeting room?"
+      ],
+      "pool_size": {
+        "full": 135,
+        "gazef_05": 135
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "11",
+      "queries": [
+        "This morning during our discussion, which two people did I remind not to let their hair cover their glasses?"
+      ],
+      "pool_size": {
+        "full": 159,
+        "gazef_05": 159
+      },
+      "rank": {
+        "full": 18,
+        "gazef_05": 24
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "12",
+      "queries": [
+        "When I handed out the charging cables just now, who had already started charging?"
+      ],
+      "pool_size": {
+        "full": 167,
+        "gazef_05": 167
+      },
+      "rank": {
+        "full": 95,
+        "gazef_05": 92
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "14",
+      "queries": [
+        "Who is missing compared to when we first started the puzzle?"
+      ],
+      "pool_size": {
+        "full": 193,
+        "gazef_05": 193
+      },
+      "rank": {
+        "full": 83,
+        "gazef_05": 12
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "15",
+      "queries": [
+        "While puzzling, who am I guiding to use the app on the phone"
+      ],
+      "pool_size": {
+        "full": 194,
+        "gazef_05": 194
+      },
+      "rank": {
+        "full": 5,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "17",
+      "queries": [
+        "Who wrote most of the words on the whiteboard?"
+      ],
+      "pool_size": {
+        "full": 226,
+        "gazef_05": 226
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "18",
+      "queries": [
+        "Who joined us when Shure and I were setting up the rack?"
+      ],
+      "pool_size": {
+        "full": 250,
+        "gazef_05": 250
+      },
+      "rank": {
+        "full": 21,
+        "gazef_05": 26
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "19",
+      "queries": [
+        "What do I usually do after getting close to the sports camera today?"
+      ],
+      "pool_size": {
+        "full": 259,
+        "gazef_05": 259
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "20",
+      "queries": [
+        "We are currently discussing the details of the puzzle. When was this discussed before?"
+      ],
+      "pool_size": {
+        "full": 265,
+        "gazef_05": 265
+      },
+      "rank": {
+        "full": 177,
+        "gazef_05": 35
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "21",
+      "queries": [
+        "Who always sits on that pony hair this morning"
+      ],
+      "pool_size": {
+        "full": 274,
+        "gazef_05": 274
+      },
+      "rank": {
+        "full": 72,
+        "gazef_05": 95
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "22",
+      "queries": [
+        "Who did I just move the whiteboard to the wall with?"
+      ],
+      "pool_size": {
+        "full": 280,
+        "gazef_05": 280
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "23",
+      "queries": [
+        "Who took out the tools on the table?"
+      ],
+      "pool_size": {
+        "full": 295,
+        "gazef_05": 295
+      },
+      "rank": {
+        "full": 35,
+        "gazef_05": 27
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "24",
+      "queries": [
+        "What are the lunch options?"
+      ],
+      "pool_size": {
+        "full": 305,
+        "gazef_05": 305
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "27",
+      "queries": [
+        "I put the pot aside, what was in the pot before?"
+      ],
+      "pool_size": {
+        "full": 330,
+        "gazef_05": 330
+      },
+      "rank": {
+        "full": 30,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "29",
+      "queries": [
+        "What does Tasha not like to eat?"
+      ],
+      "pool_size": {
+        "full": 348,
+        "gazef_05": 348
+      },
+      "rank": {
+        "full": 58,
+        "gazef_05": 93
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "30",
+      "queries": [
+        "Who was I mostly busy with in the kitchen today"
+      ],
+      "pool_size": {
+        "full": 349,
+        "gazef_05": 349
+      },
+      "rank": {
+        "full": 14,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "31",
+      "queries": [
+        "Who used the black signature pen last time?"
+      ],
+      "pool_size": {
+        "full": 354,
+        "gazef_05": 354
+      },
+      "rank": {
+        "full": 18,
+        "gazef_05": 225
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "32",
+      "queries": [
+        "What are we planning to eat for lunch?"
+      ],
+      "pool_size": {
+        "full": 358,
+        "gazef_05": 358
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 12
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "33",
+      "queries": [
+        "What app did I order the takeout in my hand?"
+      ],
+      "pool_size": {
+        "full": 372,
+        "gazef_05": 372
+      },
+      "rank": {
+        "full": 20,
+        "gazef_05": 23
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "35",
+      "queries": [
+        "Who mentioned something related to durian before?"
+      ],
+      "pool_size": {
+        "full": 397,
+        "gazef_05": 397
+      },
+      "rank": {
+        "full": 10,
+        "gazef_05": 45
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "37",
+      "queries": [
+        "What does Shure especially love to drink"
+      ],
+      "pool_size": {
+        "full": 412,
+        "gazef_05": 412
+      },
+      "rank": {
+        "full": 99,
+        "gazef_05": 148
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "38",
+      "queries": [
+        "What do Shure, Katrina, and Lucia mainly purchase"
+      ],
+      "pool_size": {
+        "full": 415,
+        "gazef_05": 415
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "39",
+      "queries": [
+        "Who was the first to mention the century eggs we need to buy?"
+      ],
+      "pool_size": {
+        "full": 422,
+        "gazef_05": 422
+      },
+      "rank": {
+        "full": 148,
+        "gazef_05": 99
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "40",
+      "queries": [
+        "Shure mentioned Tiramisu, when was the last time we discussed making Tiramisu?"
+      ],
+      "pool_size": {
+        "full": 424,
+        "gazef_05": 424
+      },
+      "rank": {
+        "full": 106,
+        "gazef_05": 254
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "41",
+      "queries": [
+        "When did we first mention having hot pot?"
+      ],
+      "pool_size": {
+        "full": 436,
+        "gazef_05": 436
+      },
+      "rank": {
+        "full": 12,
+        "gazef_05": 43
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "43",
+      "queries": [
+        "Why is there no barbecue for dinner?"
+      ],
+      "pool_size": {
+        "full": 452,
+        "gazef_05": 452
+      },
+      "rank": {
+        "full": 173,
+        "gazef_05": 81
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "44",
+      "queries": [
+        "What to eat for dinner?"
+      ],
+      "pool_size": {
+        "full": 452,
+        "gazef_05": 452
+      },
+      "rank": {
+        "full": 112,
+        "gazef_05": 182
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "45",
+      "queries": [
+        "When was the last time we talked about coffee?"
+      ],
+      "pool_size": {
+        "full": 455,
+        "gazef_05": 455
+      },
+      "rank": {
+        "full": 38,
+        "gazef_05": 44
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "46",
+      "queries": [
+        "Compared to our first photo at the supermarket, who is missing this time?"
+      ],
+      "pool_size": {
+        "full": 492,
+        "gazef_05": 492
+      },
+      "rank": {
+        "full": 44,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "47",
+      "queries": [
+        "What food does Alice love to eat?"
+      ],
+      "pool_size": {
+        "full": 533,
+        "gazef_05": 533
+      },
+      "rank": {
+        "full": 139,
+        "gazef_05": 281
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "48",
+      "queries": [
+        "What did we end up eating the last time we ordered takeout?"
+      ],
+      "pool_size": {
+        "full": 536,
+        "gazef_05": 536
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "49",
+      "queries": [
+        "What interesting topic did we discuss the last time we took the escalator?"
+      ],
+      "pool_size": {
+        "full": 546,
+        "gazef_05": 546
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "50",
+      "queries": [
+        "What do I usually show everyone on my phone?"
+      ],
+      "pool_size": {
+        "full": 562,
+        "gazef_05": 562
+      },
+      "rank": {
+        "full": 10,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "51",
+      "queries": [
+        "Who else was with us the last time we took the car?"
+      ],
+      "pool_size": {
+        "full": 563,
+        "gazef_05": 563
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "52",
+      "queries": [
+        "To shop faster, how did we divide into groups?"
+      ],
+      "pool_size": {
+        "full": 582,
+        "gazef_05": 582
+      },
+      "rank": {
+        "full": 31,
+        "gazef_05": 44
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "53",
+      "queries": [
+        "Who bought the hot pot base on the table?"
+      ],
+      "pool_size": {
+        "full": 588,
+        "gazef_05": 588
+      },
+      "rank": {
+        "full": 27,
+        "gazef_05": 31
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "54",
+      "queries": [
+        "Who purchased the scallion in my hand?"
+      ],
+      "pool_size": {
+        "full": 590,
+        "gazef_05": 590
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "57",
+      "queries": [
+        "Who chats with me the most when I'm cleaning in the kitchen?"
+      ],
+      "pool_size": {
+        "full": 632,
+        "gazef_05": 632
+      },
+      "rank": {
+        "full": 32,
+        "gazef_05": 18
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "58",
+      "queries": [
+        "Who are the member of ingredients group"
+      ],
+      "pool_size": {
+        "full": 632,
+        "gazef_05": 632
+      },
+      "rank": {
+        "full": 273,
+        "gazef_05": 260
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "59",
+      "queries": [
+        "After Lucia said she wanted to buy some fruit, what fruit did Katrina mention?"
+      ],
+      "pool_size": {
+        "full": 632,
+        "gazef_05": 632
+      },
+      "rank": {
+        "full": 12,
+        "gazef_05": 11
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "60",
+      "queries": [
+        "Why did Tasha say not to eat freshly cut ones when I was looking at fruit?"
+      ],
+      "pool_size": {
+        "full": 632,
+        "gazef_05": 632
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "61",
+      "queries": [
+        "Who joined in while me and Shure were setting up the shelf?"
+      ],
+      "pool_size": {
+        "full": 638,
+        "gazef_05": 638
+      },
+      "rank": {
+        "full": 65,
+        "gazef_05": 45
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "62",
+      "queries": [
+        "Besides me, Katrina, and Shure, who else joined in to set up the shelf?"
+      ],
+      "pool_size": {
+        "full": 638,
+        "gazef_05": 638
+      },
+      "rank": {
+        "full": 54,
+        "gazef_05": 16
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "63",
+      "queries": [
+        "How long should the self-introduction and quiz session take approximately?"
+      ],
+      "pool_size": {
+        "full": 652,
+        "gazef_05": 652
+      },
+      "rank": {
+        "full": 74,
+        "gazef_05": 28
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "64",
+      "queries": [
+        "What items are still not bought?"
+      ],
+      "pool_size": {
+        "full": 652,
+        "gazef_05": 652
+      },
+      "rank": {
+        "full": 40,
+        "gazef_05": 37
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "66",
+      "queries": [
+        "Why do we want to buy sterile eggs"
+      ],
+      "pool_size": {
+        "full": 652,
+        "gazef_05": 652
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "69",
+      "queries": [
+        "During group discussions, who usually speaks the least?"
+      ],
+      "pool_size": {
+        "full": 652,
+        "gazef_05": 652
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 24
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "70",
+      "queries": [
+        "Why do we need to buy two boxes of green grapes?"
+      ],
+      "pool_size": {
+        "full": 652,
+        "gazef_05": 652
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "71",
+      "queries": [
+        "What prize does Alice plan to give the participants"
+      ],
+      "pool_size": {
+        "full": 652,
+        "gazef_05": 652
+      },
+      "rank": {
+        "full": 22,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "73",
+      "queries": [
+        "What materials does Tasha plan to use to make seed paper?"
+      ],
+      "pool_size": {
+        "full": 652,
+        "gazef_05": 652
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 8
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "75",
+      "queries": [
+        "Tasha is now saying she will wash the dishes, who washed the dishes last time"
+      ],
+      "pool_size": {
+        "full": 657,
+        "gazef_05": 657
+      },
+      "rank": {
+        "full": 9,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "77",
+      "queries": [
+        "Who helps Alice look after the ring"
+      ],
+      "pool_size": {
+        "full": 737,
+        "gazef_05": 737
+      },
+      "rank": {
+        "full": 146,
+        "gazef_05": 159
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "78",
+      "queries": [
+        "Who helped Alice take off the bracelet"
+      ],
+      "pool_size": {
+        "full": 737,
+        "gazef_05": 737
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 47
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "81",
+      "queries": [
+        "Who came to visit my room at noon"
+      ],
+      "pool_size": {
+        "full": 759,
+        "gazef_05": 759
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "83",
+      "queries": [
+        "when Tasha and Alice and I were buying fruit at the supermarket, who was mainly responsible for selecting the fruit"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "84",
+      "queries": [
+        "Who discussed sterile eggs with me while shopping at the supermarket"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 21,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "85",
+      "queries": [
+        "Who usually frequents the vegetable market"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 16,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "87",
+      "queries": [
+        "what beverages i rarely drink"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 40,
+        "gazef_05": 18
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "88",
+      "queries": [
+        "When shopping at the supermarket on day1, who did I lose track of and took a long time to find?"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 20,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "89",
+      "queries": [
+        "What drinks do I usually not buy when shopping at the supermarket?"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 29,
+        "gazef_05": 17
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "90",
+      "queries": [
+        "where is the place I will never go to"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 503,
+        "gazef_05": 152
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "93",
+      "queries": [
+        "when Tasha and Alice and I entered the supermarket first, who were we waiting for"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 41,
+        "gazef_05": 82
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "95",
+      "queries": [
+        "What cuisine are we going to make on the last day?"
+      ],
+      "pool_size": {
+        "full": 763,
+        "gazef_05": 763
+      },
+      "rank": {
+        "full": 468,
+        "gazef_05": 208
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "96",
+      "queries": [
+        "Who took the group photo today?"
+      ],
+      "pool_size": {
+        "full": 767,
+        "gazef_05": 767
+      },
+      "rank": {
+        "full": 69,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "97",
+      "queries": [
+        "What does Alice not eat?"
+      ],
+      "pool_size": {
+        "full": 768,
+        "gazef_05": 768
+      },
+      "rank": {
+        "full": 46,
+        "gazef_05": 88
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "99",
+      "queries": [
+        "Who helped Tasha spread cream on the cake?"
+      ],
+      "pool_size": {
+        "full": 779,
+        "gazef_05": 779
+      },
+      "rank": {
+        "full": 18,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "100",
+      "queries": [
+        "when I was eating the cake, I accidentally dropped the strawberry on the ground. Who helped me pick it up and throw it in the trash can?"
+      ],
+      "pool_size": {
+        "full": 789,
+        "gazef_05": 789
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "101",
+      "queries": [
+        "What should I buy tomorrow"
+      ],
+      "pool_size": {
+        "full": 789,
+        "gazef_05": 789
+      },
+      "rank": {
+        "full": 92,
+        "gazef_05": 54
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "102",
+      "queries": [
+        "In the morning, while we were chatting and discussing by the table on the first floor, what replaced the tripod?"
+      ],
+      "pool_size": {
+        "full": 806,
+        "gazef_05": 806
+      },
+      "rank": {
+        "full": 20,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "104",
+      "queries": [
+        "When was the last time cherries were mentioned?"
+      ],
+      "pool_size": {
+        "full": 816,
+        "gazef_05": 816
+      },
+      "rank": {
+        "full": 79,
+        "gazef_05": 297
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "105",
+      "queries": [
+        "When Katrina said the item was a bit heavy and she couldn't move it last night, who helped her move it?"
+      ],
+      "pool_size": {
+        "full": 835,
+        "gazef_05": 835
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "107",
+      "queries": [
+        "When was the last time I used the food delivery app to order food?"
+      ],
+      "pool_size": {
+        "full": 858,
+        "gazef_05": 858
+      },
+      "rank": {
+        "full": 43,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "110",
+      "queries": [
+        "Who gave Tasha the power bank when she needed it yesterday?"
+      ],
+      "pool_size": {
+        "full": 882,
+        "gazef_05": 882
+      },
+      "rank": {
+        "full": 25,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "111",
+      "queries": [
+        "Where was the coffee in the bag purchased from?"
+      ],
+      "pool_size": {
+        "full": 921,
+        "gazef_05": 921
+      },
+      "rank": {
+        "full": 218,
+        "gazef_05": 63
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "112",
+      "queries": [
+        "When did the video playing on Katrina's iPad start playing?"
+      ],
+      "pool_size": {
+        "full": 924,
+        "gazef_05": 924
+      },
+      "rank": {
+        "full": 78,
+        "gazef_05": 76
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "115",
+      "queries": [
+        "Who was Tasha doing makeup for before me"
+      ],
+      "pool_size": {
+        "full": 992,
+        "gazef_05": 992
+      },
+      "rank": {
+        "full": 21,
+        "gazef_05": 52
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "116",
+      "queries": [
+        "What were we doing the last time I took something from Shure's hand?"
+      ],
+      "pool_size": {
+        "full": 1019,
+        "gazef_05": 1019
+      },
+      "rank": {
+        "full": 57,
+        "gazef_05": 95
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "117",
+      "queries": [
+        "What am I doing near the action camera today?"
+      ],
+      "pool_size": {
+        "full": 1030,
+        "gazef_05": 1030
+      },
+      "rank": {
+        "full": 11,
+        "gazef_05": 39
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "118",
+      "queries": [
+        "Who was with me just now on the second floor to get the SD"
+      ],
+      "pool_size": {
+        "full": 1049,
+        "gazef_05": 1049
+      },
+      "rank": {
+        "full": 64,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "120",
+      "queries": [
+        "How do I usually buy plane tickets"
+      ],
+      "pool_size": {
+        "full": 1085,
+        "gazef_05": 1085
+      },
+      "rank": {
+        "full": 762,
+        "gazef_05": 775
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "121",
+      "queries": [
+        "What activities do we have in the afternoon?"
+      ],
+      "pool_size": {
+        "full": 1129,
+        "gazef_05": 1129
+      },
+      "rank": {
+        "full": 359,
+        "gazef_05": 215
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "122",
+      "queries": [
+        "The last time I took the item handed to me by Nicous, what were we doing?"
+      ],
+      "pool_size": {
+        "full": 1179,
+        "gazef_05": 1179
+      },
+      "rank": {
+        "full": 77,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "123",
+      "queries": [
+        "The last time I tried to install an SD card with Choiszt, what else did we discuss?"
+      ],
+      "pool_size": {
+        "full": 1190,
+        "gazef_05": 1190
+      },
+      "rank": {
+        "full": 62,
+        "gazef_05": 20
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "124",
+      "queries": [
+        "Who just helped me look at Katrina's mobile software"
+      ],
+      "pool_size": {
+        "full": 1277,
+        "gazef_05": 1277
+      },
+      "rank": {
+        "full": 67,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "126",
+      "queries": [
+        "Which of the following people did not eat pancakes with us this morning"
+      ],
+      "pool_size": {
+        "full": 1303,
+        "gazef_05": 1303
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "127",
+      "queries": [
+        "Who was with me working in my room last time"
+      ],
+      "pool_size": {
+        "full": 1322,
+        "gazef_05": 1322
+      },
+      "rank": {
+        "full": 73,
+        "gazef_05": 67
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "128",
+      "queries": [
+        "Who came in to find me while we were busy removing the computer's hard drive just now"
+      ],
+      "pool_size": {
+        "full": 1339,
+        "gazef_05": 1339
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "129",
+      "queries": [
+        "The last time I walked into the kitchen, what did I do there?"
+      ],
+      "pool_size": {
+        "full": 1348,
+        "gazef_05": 1348
+      },
+      "rank": {
+        "full": 83,
+        "gazef_05": 69
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "130",
+      "queries": [
+        "Where was the calibration board initially?"
+      ],
+      "pool_size": {
+        "full": 1357,
+        "gazef_05": 1357
+      },
+      "rank": {
+        "full": 276,
+        "gazef_05": 88
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "131",
+      "queries": [
+        "Who sat on the pony stool last time?"
+      ],
+      "pool_size": {
+        "full": 1360,
+        "gazef_05": 1360
+      },
+      "rank": {
+        "full": 424,
+        "gazef_05": 683
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "132",
+      "queries": [
+        "When was the meat bought?"
+      ],
+      "pool_size": {
+        "full": 1407,
+        "gazef_05": 1407
+      },
+      "rank": {
+        "full": 24,
+        "gazef_05": 29
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "133",
+      "queries": [
+        "When was the baby cabbage bought?"
+      ],
+      "pool_size": {
+        "full": 1413,
+        "gazef_05": 1413
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "134",
+      "queries": [
+        "When was the hot pot base purchased?"
+      ],
+      "pool_size": {
+        "full": 1414,
+        "gazef_05": 1414
+      },
+      "rank": {
+        "full": 33,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "135",
+      "queries": [
+        "When was the last time Choiszt played the piano?"
+      ],
+      "pool_size": {
+        "full": 1421,
+        "gazef_05": 1421
+      },
+      "rank": {
+        "full": 305,
+        "gazef_05": 466
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "136",
+      "queries": [
+        "What kind of sauce do Shure and I usually have with hot pot?"
+      ],
+      "pool_size": {
+        "full": 1462,
+        "gazef_05": 1462
+      },
+      "rank": {
+        "full": 129,
+        "gazef_05": 109
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "137",
+      "queries": [
+        "Who helped me set up the second floor"
+      ],
+      "pool_size": {
+        "full": 1463,
+        "gazef_05": 1463
+      },
+      "rank": {
+        "full": 103,
+        "gazef_05": 151
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "138",
+      "queries": [
+        "Who used the dishwashing liquid I saw in the kitchen last time?"
+      ],
+      "pool_size": {
+        "full": 1480,
+        "gazef_05": 1480
+      },
+      "rank": {
+        "full": 204,
+        "gazef_05": 288
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "141",
+      "queries": [
+        "The last time I saw Lucia drawing, what did she draw?"
+      ],
+      "pool_size": {
+        "full": 1533,
+        "gazef_05": 1533
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "142",
+      "queries": [
+        "In the afternoon, who was putting on makeup in the living room"
+      ],
+      "pool_size": {
+        "full": 1535,
+        "gazef_05": 1535
+      },
+      "rank": {
+        "full": 9,
+        "gazef_05": 54
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "143",
+      "queries": [
+        "Who discussed the dance stage setup with me"
+      ],
+      "pool_size": {
+        "full": 1535,
+        "gazef_05": 1535
+      },
+      "rank": {
+        "full": 374,
+        "gazef_05": 301
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "144",
+      "queries": [
+        "Who told me about having a toothache and bleeding a couple of days ago?"
+      ],
+      "pool_size": {
+        "full": 1535,
+        "gazef_05": 1535
+      },
+      "rank": {
+        "full": 257,
+        "gazef_05": 26
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "145",
+      "queries": [
+        "who changed the camera's SD card with me"
+      ],
+      "pool_size": {
+        "full": 1535,
+        "gazef_05": 1535
+      },
+      "rank": {
+        "full": 486,
+        "gazef_05": 72
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "147",
+      "queries": [
+        "What should I do next"
+      ],
+      "pool_size": {
+        "full": 1546,
+        "gazef_05": 1546
+      },
+      "rank": {
+        "full": 255,
+        "gazef_05": 135
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "148",
+      "queries": [
+        "Who joined the conversation when I was chatting with Tasha and Lucia"
+      ],
+      "pool_size": {
+        "full": 1563,
+        "gazef_05": 1563
+      },
+      "rank": {
+        "full": 225,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "150",
+      "queries": [
+        "What are Shure and Katrina about to go out to do"
+      ],
+      "pool_size": {
+        "full": 1570,
+        "gazef_05": 1570
+      },
+      "rank": {
+        "full": 199,
+        "gazef_05": 111
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "151",
+      "queries": [
+        "Who was discussing future plans with me on the whiteboard on the first floor in the evening?"
+      ],
+      "pool_size": {
+        "full": 1570,
+        "gazef_05": 1570
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "152",
+      "queries": [
+        "What are we doing tomorrow?"
+      ],
+      "pool_size": {
+        "full": 1570,
+        "gazef_05": 1570
+      },
+      "rank": {
+        "full": 1075,
+        "gazef_05": 547
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "153",
+      "queries": [
+        "Where do you plan to go for outdoor activities tomorrow?"
+      ],
+      "pool_size": {
+        "full": 1570,
+        "gazef_05": 1570
+      },
+      "rank": {
+        "full": 1218,
+        "gazef_05": 575
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "154",
+      "queries": [
+        "Who used the microwave last time?"
+      ],
+      "pool_size": {
+        "full": 1570,
+        "gazef_05": 1570
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "157",
+      "queries": [
+        "What hairstyle does Tasha like to do?"
+      ],
+      "pool_size": {
+        "full": 1616,
+        "gazef_05": 1616
+      },
+      "rank": {
+        "full": 245,
+        "gazef_05": 32
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "159",
+      "queries": [
+        "When was the calibration board on the ground last used?"
+      ],
+      "pool_size": {
+        "full": 1617,
+        "gazef_05": 1617
+      },
+      "rank": {
+        "full": 61,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "161",
+      "queries": [
+        "Lucia is now suggesting buying small pillows shaped like marine creatures. When was the last time she mentioned similar decorations?"
+      ],
+      "pool_size": {
+        "full": 1651,
+        "gazef_05": 1651
+      },
+      "rank": {
+        "full": 50,
+        "gazef_05": 57
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "162",
+      "queries": [
+        "What was the last thing I used the timer app on my phone for?"
+      ],
+      "pool_size": {
+        "full": 1691,
+        "gazef_05": 1691
+      },
+      "rank": {
+        "full": 237,
+        "gazef_05": 49
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "163",
+      "queries": [
+        "When was the last time the microwave in the kitchen was used?"
+      ],
+      "pool_size": {
+        "full": 1695,
+        "gazef_05": 1695
+      },
+      "rank": {
+        "full": 33,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "165",
+      "queries": [
+        "Who helped me set up the table?"
+      ],
+      "pool_size": {
+        "full": 1714,
+        "gazef_05": 1714
+      },
+      "rank": {
+        "full": 226,
+        "gazef_05": 40
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "166",
+      "queries": [
+        "Who is missing from today's event compared to yesterday's dance?"
+      ],
+      "pool_size": {
+        "full": 1715,
+        "gazef_05": 1715
+      },
+      "rank": {
+        "full": 13,
+        "gazef_05": 19
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "167",
+      "queries": [
+        "Who put the water cup on the table?"
+      ],
+      "pool_size": {
+        "full": 1740,
+        "gazef_05": 1740
+      },
+      "rank": {
+        "full": 13,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "169",
+      "queries": [
+        "Who handed me the gloves last time?"
+      ],
+      "pool_size": {
+        "full": 1748,
+        "gazef_05": 1748
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "171",
+      "queries": [
+        "What happened after the last time Tasha handed me something?"
+      ],
+      "pool_size": {
+        "full": 1763,
+        "gazef_05": 1763
+      },
+      "rank": {
+        "full": 535,
+        "gazef_05": 508
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "173",
+      "queries": [
+        "What drinks were these disposable paper cups used for before?"
+      ],
+      "pool_size": {
+        "full": 1776,
+        "gazef_05": 1776
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "176",
+      "queries": [
+        "What brand of mineral water does Shure not like to drink?"
+      ],
+      "pool_size": {
+        "full": 1830,
+        "gazef_05": 1830
+      },
+      "rank": {
+        "full": 787,
+        "gazef_05": 381
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "177",
+      "queries": [
+        "While walking earlier, who was I chatting with about dancing?"
+      ],
+      "pool_size": {
+        "full": 1841,
+        "gazef_05": 1841
+      },
+      "rank": {
+        "full": 587,
+        "gazef_05": 570
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "179",
+      "queries": [
+        "What should we do next?"
+      ],
+      "pool_size": {
+        "full": 1920,
+        "gazef_05": 1920
+      },
+      "rank": {
+        "full": 774,
+        "gazef_05": 837
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "180",
+      "queries": [
+        "Who borrowed the flower stick from the old man in the park?"
+      ],
+      "pool_size": {
+        "full": 1954,
+        "gazef_05": 1954
+      },
+      "rank": {
+        "full": 54,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "182",
+      "queries": [
+        "Who was I watching Shure play the drums with just now?"
+      ],
+      "pool_size": {
+        "full": 1968,
+        "gazef_05": 1968
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "183",
+      "queries": [
+        "This time I returned to the claw machine, what happened the last time I was at the claw machine?"
+      ],
+      "pool_size": {
+        "full": 1993,
+        "gazef_05": 1993
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 13
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "184",
+      "queries": [
+        "When was the doll in Katrina's hand grabbed from the claw machine?"
+      ],
+      "pool_size": {
+        "full": 1996,
+        "gazef_05": 1996
+      },
+      "rank": {
+        "full": 7,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "185",
+      "queries": [
+        "I put down the box and bottle in my hand, where did I get the bottle?"
+      ],
+      "pool_size": {
+        "full": 2000,
+        "gazef_05": 2000
+      },
+      "rank": {
+        "full": 58,
+        "gazef_05": 61
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "186",
+      "queries": [
+        "Who did I play games with today"
+      ],
+      "pool_size": {
+        "full": 2000,
+        "gazef_05": 2000
+      },
+      "rank": {
+        "full": 32,
+        "gazef_05": 23
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "187",
+      "queries": [
+        "Now Tasha and I are clapping hands in the arcade, what happened the last time we played games together?"
+      ],
+      "pool_size": {
+        "full": 2006,
+        "gazef_05": 2006
+      },
+      "rank": {
+        "full": 5,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "188",
+      "queries": [
+        "Who was I playing bowling with last time?"
+      ],
+      "pool_size": {
+        "full": 2019,
+        "gazef_05": 2019
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "189",
+      "queries": [
+        "How many types of games did I play in arcade?"
+      ],
+      "pool_size": {
+        "full": 2026,
+        "gazef_05": 2026
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "190",
+      "queries": [
+        "Who among us didn't play video bowling just now?"
+      ],
+      "pool_size": {
+        "full": 2028,
+        "gazef_05": 2028
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "191",
+      "queries": [
+        "Where does Katrina plan to go when she arrives at the mall"
+      ],
+      "pool_size": {
+        "full": 2029,
+        "gazef_05": 2029
+      },
+      "rank": {
+        "full": 26,
+        "gazef_05": 15
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "195",
+      "queries": [
+        "Where was I the last time I pushed a cart with a friend?"
+      ],
+      "pool_size": {
+        "full": 2043,
+        "gazef_05": 2043
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "197",
+      "queries": [
+        "Who was with me the last time I bought eggs?"
+      ],
+      "pool_size": {
+        "full": 2054,
+        "gazef_05": 2054
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "199",
+      "queries": [
+        "Who was I with the last time I went to the supermarket to look at fruit?"
+      ],
+      "pool_size": {
+        "full": 2065,
+        "gazef_05": 2065
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 28
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "200",
+      "queries": [
+        "When was the last time I saw durian?"
+      ],
+      "pool_size": {
+        "full": 2067,
+        "gazef_05": 2067
+      },
+      "rank": {
+        "full": 262,
+        "gazef_05": 470
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "201",
+      "queries": [
+        "Who else was nearby when I was chatting with Tasha in the seafood section last time?"
+      ],
+      "pool_size": {
+        "full": 2071,
+        "gazef_05": 2071
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "202",
+      "queries": [
+        "Who was next to me the last time I was throwing away trash?"
+      ],
+      "pool_size": {
+        "full": 2094,
+        "gazef_05": 2094
+      },
+      "rank": {
+        "full": 10,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "203",
+      "queries": [
+        "Now we stopped in front of the fruit stall, what did we buy the last time we stopped at the fruit stall?"
+      ],
+      "pool_size": {
+        "full": 2098,
+        "gazef_05": 2098
+      },
+      "rank": {
+        "full": 10,
+        "gazef_05": 18
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "204",
+      "queries": [
+        "Now we are standing in front of the supermarket checkout, what happened the last time we checked out at the supermarket?"
+      ],
+      "pool_size": {
+        "full": 2102,
+        "gazef_05": 2102
+      },
+      "rank": {
+        "full": 18,
+        "gazef_05": 76
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "205",
+      "queries": [
+        "Now Tasha and Katrina are using their phones to scan a code, what were we going to do the last time I used my phone to scan a code?"
+      ],
+      "pool_size": {
+        "full": 2102,
+        "gazef_05": 2102
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 21
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "207",
+      "queries": [
+        "The last time I walked in the mall hallway with Lucia and Alice, what were we discussing?"
+      ],
+      "pool_size": {
+        "full": 2118,
+        "gazef_05": 2118
+      },
+      "rank": {
+        "full": 23,
+        "gazef_05": 23
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "208",
+      "queries": [
+        "Who bought the egg we are looking for?"
+      ],
+      "pool_size": {
+        "full": 2140,
+        "gazef_05": 2140
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 8
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "209",
+      "queries": [
+        "Where did the plastic bag in Katrina's hand come from?"
+      ],
+      "pool_size": {
+        "full": 2160,
+        "gazef_05": 2160
+      },
+      "rank": {
+        "full": 386,
+        "gazef_05": 466
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "210",
+      "queries": [
+        "Who joined us on the way home from shopping this time compared to last time?"
+      ],
+      "pool_size": {
+        "full": 2162,
+        "gazef_05": 2162
+      },
+      "rank": {
+        "full": 223,
+        "gazef_05": 212
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "211",
+      "queries": [
+        "Who entered the password at the door last time?"
+      ],
+      "pool_size": {
+        "full": 2163,
+        "gazef_05": 2163
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "212",
+      "queries": [
+        "What should I do after we finish packing?"
+      ],
+      "pool_size": {
+        "full": 2164,
+        "gazef_05": 2164
+      },
+      "rank": {
+        "full": 1612,
+        "gazef_05": 1349
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "213",
+      "queries": [
+        "We went shopping at the supermarket after Violet left. When does she plan to return?"
+      ],
+      "pool_size": {
+        "full": 2167,
+        "gazef_05": 2167
+      },
+      "rank": {
+        "full": 48,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "214",
+      "queries": [
+        "Who was working with me in the room last time"
+      ],
+      "pool_size": {
+        "full": 2188,
+        "gazef_05": 2188
+      },
+      "rank": {
+        "full": 137,
+        "gazef_05": 179
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "215",
+      "queries": [
+        "What is Shure going to do tonight?"
+      ],
+      "pool_size": {
+        "full": 2197,
+        "gazef_05": 2197
+      },
+      "rank": {
+        "full": 465,
+        "gazef_05": 519
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "216",
+      "queries": [
+        "Now that I am sitting on the sofa, what was I doing the last time I sat on this sofa?"
+      ],
+      "pool_size": {
+        "full": 2227,
+        "gazef_05": 2227
+      },
+      "rank": {
+        "full": 104,
+        "gazef_05": 105
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "218",
+      "queries": [
+        "Who bought the vegetables on the table, and when were they bought?"
+      ],
+      "pool_size": {
+        "full": 2286,
+        "gazef_05": 2286
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 12
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "219",
+      "queries": [
+        "Compared to yesterday, who hasn't participated in making desserts today?"
+      ],
+      "pool_size": {
+        "full": 2296,
+        "gazef_05": 2296
+      },
+      "rank": {
+        "full": 368,
+        "gazef_05": 11
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "220",
+      "queries": [
+        "When was the sugar on the table used before?"
+      ],
+      "pool_size": {
+        "full": 2297,
+        "gazef_05": 2297
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "221",
+      "queries": [
+        "What mineral water does Shure like to drink?"
+      ],
+      "pool_size": {
+        "full": 2298,
+        "gazef_05": 2298
+      },
+      "rank": {
+        "full": 1281,
+        "gazef_05": 810
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "222",
+      "queries": [
+        "What does Alice not like to eat?"
+      ],
+      "pool_size": {
+        "full": 2316,
+        "gazef_05": 2316
+      },
+      "rank": {
+        "full": 208,
+        "gazef_05": 284
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "223",
+      "queries": [
+        "Who placed these baking utensils on the table?"
+      ],
+      "pool_size": {
+        "full": 2340,
+        "gazef_05": 2340
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 25
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "226",
+      "queries": [
+        "Who used the knife last before me?"
+      ],
+      "pool_size": {
+        "full": 2351,
+        "gazef_05": 2351
+      },
+      "rank": {
+        "full": 115,
+        "gazef_05": 24
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "227",
+      "queries": [
+        "Who was the last person to use the small white microwave on the first floor?"
+      ],
+      "pool_size": {
+        "full": 2352,
+        "gazef_05": 2352
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "228",
+      "queries": [
+        "What does Shure usually do when mentioning prices?"
+      ],
+      "pool_size": {
+        "full": 2352,
+        "gazef_05": 2352
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "230",
+      "queries": [
+        "Now I'm taking a picture of Alice, who was the last person I photographed with my phone?"
+      ],
+      "pool_size": {
+        "full": 2395,
+        "gazef_05": 2395
+      },
+      "rank": {
+        "full": 335,
+        "gazef_05": 17
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "232",
+      "queries": [
+        "Now I am cutting fruit in the kitchen, what did I do after the last time I cut fruit in the kitchen?"
+      ],
+      "pool_size": {
+        "full": 2429,
+        "gazef_05": 2429
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "233",
+      "queries": [
+        "When was the piping bag last used?"
+      ],
+      "pool_size": {
+        "full": 2436,
+        "gazef_05": 2436
+      },
+      "rank": {
+        "full": 29,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "234",
+      "queries": [
+        "When in the arcade, who watched Lucia play the rhythm game"
+      ],
+      "pool_size": {
+        "full": 2461,
+        "gazef_05": 2461
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "235",
+      "queries": [
+        "Who was responsible for making the cake on the evening"
+      ],
+      "pool_size": {
+        "full": 2461,
+        "gazef_05": 2461
+      },
+      "rank": {
+        "full": 56,
+        "gazef_05": 33
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "236",
+      "queries": [
+        "On the evening, we are going to have a barbecue in the yard. Who did Lucia ask to help with the lighting?"
+      ],
+      "pool_size": {
+        "full": 2461,
+        "gazef_05": 2461
+      },
+      "rank": {
+        "full": 10,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "237",
+      "queries": [
+        "Who helped Tasha and Lucia beat the eggs"
+      ],
+      "pool_size": {
+        "full": 2461,
+        "gazef_05": 2461
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "238",
+      "queries": [
+        "Who gave us the disposable gloves when we were eating pizza on day3"
+      ],
+      "pool_size": {
+        "full": 2461,
+        "gazef_05": 2461
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "239",
+      "queries": [
+        "Who placed the plate of strawberries next to the table?"
+      ],
+      "pool_size": {
+        "full": 2467,
+        "gazef_05": 2467
+      },
+      "rank": {
+        "full": 280,
+        "gazef_05": 12
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "240",
+      "queries": [
+        "Now I am walking towards the kitchen with a plate of fruit, what was the reason I went to the kitchen last time?"
+      ],
+      "pool_size": {
+        "full": 2492,
+        "gazef_05": 2492
+      },
+      "rank": {
+        "full": 114,
+        "gazef_05": 158
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "241",
+      "queries": [
+        "When did these foods start baking?"
+      ],
+      "pool_size": {
+        "full": 2510,
+        "gazef_05": 2510
+      },
+      "rank": {
+        "full": 1048,
+        "gazef_05": 689
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "242",
+      "queries": [
+        "The last time I laughed so hard, what was it about?"
+      ],
+      "pool_size": {
+        "full": 2531,
+        "gazef_05": 2531
+      },
+      "rank": {
+        "full": 571,
+        "gazef_05": 1682
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "243",
+      "queries": [
+        "What was I washing with the faucet last time?"
+      ],
+      "pool_size": {
+        "full": 2537,
+        "gazef_05": 2537
+      },
+      "rank": {
+        "full": 93,
+        "gazef_05": 145
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "244",
+      "queries": [
+        "Last time when Tasha, Lucia and I made a cake, who else joined?"
+      ],
+      "pool_size": {
+        "full": 2546,
+        "gazef_05": 2546
+      },
+      "rank": {
+        "full": 235,
+        "gazef_05": 94
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "246",
+      "queries": [
+        "Who is missing from tonight's dinner compared to the morning's game activity?"
+      ],
+      "pool_size": {
+        "full": 2562,
+        "gazef_05": 2562
+      },
+      "rank": {
+        "full": 235,
+        "gazef_05": 278
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "247",
+      "queries": [
+        "Now that I have opened the door, what was I going to do the last time I opened this door?"
+      ],
+      "pool_size": {
+        "full": 2574,
+        "gazef_05": 2574
+      },
+      "rank": {
+        "full": 77,
+        "gazef_05": 214
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "248",
+      "queries": [
+        "When was the last time I received a delivery?"
+      ],
+      "pool_size": {
+        "full": 2575,
+        "gazef_05": 2575
+      },
+      "rank": {
+        "full": 34,
+        "gazef_05": 218
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "249",
+      "queries": [
+        "What app do I usually use to shop"
+      ],
+      "pool_size": {
+        "full": 2576,
+        "gazef_05": 2576
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "250",
+      "queries": [
+        "What app do I usually use to shop"
+      ],
+      "pool_size": {
+        "full": 2576,
+        "gazef_05": 2576
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "252",
+      "queries": [
+        "What are Katrina's plans for today?"
+      ],
+      "pool_size": {
+        "full": 2596,
+        "gazef_05": 2596
+      },
+      "rank": {
+        "full": 277,
+        "gazef_05": 87
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "253",
+      "queries": [
+        "What activities are there this morning?"
+      ],
+      "pool_size": {
+        "full": 2604,
+        "gazef_05": 2604
+      },
+      "rank": {
+        "full": 1740,
+        "gazef_05": 1381
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "255",
+      "queries": [
+        "What is Katrina planning to buy tomorrow"
+      ],
+      "pool_size": {
+        "full": 2640,
+        "gazef_05": 2640
+      },
+      "rank": {
+        "full": 231,
+        "gazef_05": 123
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "257",
+      "queries": [
+        "Who placed the cup on the table before Tasha picked it up?"
+      ],
+      "pool_size": {
+        "full": 2659,
+        "gazef_05": 2659
+      },
+      "rank": {
+        "full": 956,
+        "gazef_05": 530
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "259",
+      "queries": [
+        "Who else joined when Tasha and I had breakfast last time?"
+      ],
+      "pool_size": {
+        "full": 2663,
+        "gazef_05": 2663
+      },
+      "rank": {
+        "full": 17,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "261",
+      "queries": [
+        "When were the boiled eggs on the dining table bought?"
+      ],
+      "pool_size": {
+        "full": 2668,
+        "gazef_05": 2668
+      },
+      "rank": {
+        "full": 898,
+        "gazef_05": 289
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "262",
+      "queries": [
+        "What were my friends doing around me the last time I took food from the dining table?"
+      ],
+      "pool_size": {
+        "full": 2668,
+        "gazef_05": 2668
+      },
+      "rank": {
+        "full": 58,
+        "gazef_05": 90
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "264",
+      "queries": [
+        "The last time I discussed weekend plans with Katrina, what else did we talk about?"
+      ],
+      "pool_size": {
+        "full": 2693,
+        "gazef_05": 2693
+      },
+      "rank": {
+        "full": 276,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "265",
+      "queries": [
+        "Who joined Tasha and me when we were cleaning up the trash?"
+      ],
+      "pool_size": {
+        "full": 2695,
+        "gazef_05": 2695
+      },
+      "rank": {
+        "full": 131,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "266",
+      "queries": [
+        "What do I often check on my phone in the morning?"
+      ],
+      "pool_size": {
+        "full": 2701,
+        "gazef_05": 2701
+      },
+      "rank": {
+        "full": 207,
+        "gazef_05": 152
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "268",
+      "queries": [
+        "What are we planning to eat for lunch today?"
+      ],
+      "pool_size": {
+        "full": 2734,
+        "gazef_05": 2734
+      },
+      "rank": {
+        "full": 1037,
+        "gazef_05": 1005
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "269",
+      "queries": [
+        "Who was with me the last time I assembled something?"
+      ],
+      "pool_size": {
+        "full": 2763,
+        "gazef_05": 2763
+      },
+      "rank": {
+        "full": 8,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "270",
+      "queries": [
+        "Who am I with when cleaning up food waste"
+      ],
+      "pool_size": {
+        "full": 2766,
+        "gazef_05": 2766
+      },
+      "rank": {
+        "full": 66,
+        "gazef_05": 15
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "271",
+      "queries": [
+        "What task were we doing the last time screws were mentioned?"
+      ],
+      "pool_size": {
+        "full": 2769,
+        "gazef_05": 2769
+      },
+      "rank": {
+        "full": 57,
+        "gazef_05": 18
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "272",
+      "queries": [
+        "Where did I get the screwdriver in my hand?"
+      ],
+      "pool_size": {
+        "full": 2781,
+        "gazef_05": 2781
+      },
+      "rank": {
+        "full": 45,
+        "gazef_05": 8
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "273",
+      "queries": [
+        "What do I plan to do this afternoon?"
+      ],
+      "pool_size": {
+        "full": 2788,
+        "gazef_05": 2788
+      },
+      "rank": {
+        "full": 70,
+        "gazef_05": 21
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "274",
+      "queries": [
+        "When was the last time I used a power bank?"
+      ],
+      "pool_size": {
+        "full": 2799,
+        "gazef_05": 2799
+      },
+      "rank": {
+        "full": 30,
+        "gazef_05": 13
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "277",
+      "queries": [
+        "Now that I received a call, what happened the last time I answered the phone?"
+      ],
+      "pool_size": {
+        "full": 2806,
+        "gazef_05": 2806
+      },
+      "rank": {
+        "full": 232,
+        "gazef_05": 30
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "278",
+      "queries": [
+        "Now that I walk into the alley, what was I doing the last time I walked into the alley?"
+      ],
+      "pool_size": {
+        "full": 2807,
+        "gazef_05": 2807
+      },
+      "rank": {
+        "full": 12,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "279",
+      "queries": [
+        "What do I usually do when ordering takeout?"
+      ],
+      "pool_size": {
+        "full": 2808,
+        "gazef_05": 2808
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "280",
+      "queries": [
+        "Who was I chatting with in the yard just now"
+      ],
+      "pool_size": {
+        "full": 2821,
+        "gazef_05": 2821
+      },
+      "rank": {
+        "full": 2208,
+        "gazef_05": 2159
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "281",
+      "queries": [
+        "When was the last time I used the calibration board?"
+      ],
+      "pool_size": {
+        "full": 2844,
+        "gazef_05": 2844
+      },
+      "rank": {
+        "full": 193,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "282",
+      "queries": [
+        "Who did I sit next to the last time I ate on the second floor"
+      ],
+      "pool_size": {
+        "full": 2871,
+        "gazef_05": 2871
+      },
+      "rank": {
+        "full": 212,
+        "gazef_05": 65
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "284",
+      "queries": [
+        "We clearly bought two bags of bread, why do we only see one bag?"
+      ],
+      "pool_size": {
+        "full": 2880,
+        "gazef_05": 2880
+      },
+      "rank": {
+        "full": 191,
+        "gazef_05": 246
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "285",
+      "queries": [
+        "When was the last time a movie was shown?"
+      ],
+      "pool_size": {
+        "full": 2886,
+        "gazef_05": 2886
+      },
+      "rank": {
+        "full": 9,
+        "gazef_05": 508
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "287",
+      "queries": [
+        "What doesn't Shure eat?"
+      ],
+      "pool_size": {
+        "full": 2899,
+        "gazef_05": 2899
+      },
+      "rank": {
+        "full": 650,
+        "gazef_05": 68
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "288",
+      "queries": [
+        "Who eats dumplings without dipping in vinegar?"
+      ],
+      "pool_size": {
+        "full": 2906,
+        "gazef_05": 2906
+      },
+      "rank": {
+        "full": 26,
+        "gazef_05": 12
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "289",
+      "queries": [
+        "How do I plan to acquire clothes?"
+      ],
+      "pool_size": {
+        "full": 2914,
+        "gazef_05": 2914
+      },
+      "rank": {
+        "full": 87,
+        "gazef_05": 261
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "290",
+      "queries": [
+        "Who was eating durian with me last time?"
+      ],
+      "pool_size": {
+        "full": 2917,
+        "gazef_05": 2916
+      },
+      "rank": {
+        "full": 270,
+        "gazef_05": 26
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "291",
+      "queries": [
+        "Who played the game with Tasha last time?"
+      ],
+      "pool_size": {
+        "full": 2950,
+        "gazef_05": 2949
+      },
+      "rank": {
+        "full": 9,
+        "gazef_05": 460
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "292",
+      "queries": [
+        "Now we are preparing to move the table, who helped me move it last time?"
+      ],
+      "pool_size": {
+        "full": 2955,
+        "gazef_05": 2954
+      },
+      "rank": {
+        "full": 23,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "295",
+      "queries": [
+        "Where were we the last time we discussed what to eat?"
+      ],
+      "pool_size": {
+        "full": 3077,
+        "gazef_05": 3076
+      },
+      "rank": {
+        "full": 259,
+        "gazef_05": 166
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "297",
+      "queries": [
+        "What type of music does Katrina like?"
+      ],
+      "pool_size": {
+        "full": 3113,
+        "gazef_05": 3112
+      },
+      "rank": {
+        "full": 1574,
+        "gazef_05": 1279
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "298",
+      "queries": [
+        "What tasks does Lucia still need to complete?"
+      ],
+      "pool_size": {
+        "full": 3124,
+        "gazef_05": 3123
+      },
+      "rank": {
+        "full": 599,
+        "gazef_05": 14
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "299",
+      "queries": [
+        "When was the last time played guitar?"
+      ],
+      "pool_size": {
+        "full": 3138,
+        "gazef_05": 3137
+      },
+      "rank": {
+        "full": 98,
+        "gazef_05": 41
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "300",
+      "queries": [
+        "What am I planning to do?"
+      ],
+      "pool_size": {
+        "full": 3163,
+        "gazef_05": 3162
+      },
+      "rank": {
+        "full": 20,
+        "gazef_05": 31
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "301",
+      "queries": [
+        "Before I took out the handle, when was the last time this knife was used?"
+      ],
+      "pool_size": {
+        "full": 3188,
+        "gazef_05": 3187
+      },
+      "rank": {
+        "full": 396,
+        "gazef_05": 599
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "302",
+      "queries": [
+        "Who was the last to use the kitchen oven?"
+      ],
+      "pool_size": {
+        "full": 3202,
+        "gazef_05": 3201
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 28
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "303",
+      "queries": [
+        "What was the tablet used for last time?"
+      ],
+      "pool_size": {
+        "full": 3215,
+        "gazef_05": 3214
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "304",
+      "queries": [
+        "What was Lucia doing the last time Tasha took out what she baked from the oven?"
+      ],
+      "pool_size": {
+        "full": 3218,
+        "gazef_05": 3217
+      },
+      "rank": {
+        "full": 35,
+        "gazef_05": 58
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "305",
+      "queries": [
+        "Who brought the wooden dessert stands on the table?"
+      ],
+      "pool_size": {
+        "full": 3253,
+        "gazef_05": 3252
+      },
+      "rank": {
+        "full": 44,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "306",
+      "queries": [
+        "The guitar is now with Nicous, who used the guitar first today?"
+      ],
+      "pool_size": {
+        "full": 3256,
+        "gazef_05": 3255
+      },
+      "rank": {
+        "full": 5,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "309",
+      "queries": [
+        "On the first day, when Tasha found it too dark, who went to turn on the light?"
+      ],
+      "pool_size": {
+        "full": 3322,
+        "gazef_05": 3321
+      },
+      "rank": {
+        "full": 476,
+        "gazef_05": 279
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "310",
+      "queries": [
+        "When was the last time Tasha took ingredients from the fridge?"
+      ],
+      "pool_size": {
+        "full": 3418,
+        "gazef_05": 3417
+      },
+      "rank": {
+        "full": 446,
+        "gazef_05": 74
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "311",
+      "queries": [
+        "When was the last time I cut a mango?"
+      ],
+      "pool_size": {
+        "full": 3419,
+        "gazef_05": 3418
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "312",
+      "queries": [
+        "When was the last time we watched a movie?"
+      ],
+      "pool_size": {
+        "full": 3442,
+        "gazef_05": 3441
+      },
+      "rank": {
+        "full": 43,
+        "gazef_05": 1021
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "313",
+      "queries": [
+        "Who was discussing reptile pets in the yard at noon today?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 29,
+        "gazef_05": 67
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "315",
+      "queries": [
+        "Before we went to see the dog, who went with me to the second floor to find Tasha?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 13,
+        "gazef_05": 175
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "316",
+      "queries": [
+        "Which shopping app do I usually not choose？"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 1263,
+        "gazef_05": 2097
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "317",
+      "queries": [
+        "Shure noticed who didn't wash the electric mixer, and then who helped wash it？"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 110,
+        "gazef_05": 26
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "318",
+      "queries": [
+        "Who was talking to me today while I was assembling the wooden crate in the yard?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "319",
+      "queries": [
+        "Who was discussing flying pets with me in the yard at noon？"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 160,
+        "gazef_05": 200
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "320",
+      "queries": [
+        "Who helped me clean up the table after lunch today?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 586,
+        "gazef_05": 379
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "321",
+      "queries": [
+        "when we went to the café to play with the dog, the staff asked about the glasses we were wearing, who did the product introduction with her"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 399,
+        "gazef_05": 21
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "322",
+      "queries": [
+        "After playing with the dog  and returning, who opened the door for Lucia and me when we knocked?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 88,
+        "gazef_05": 16
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "323",
+      "queries": [
+        "Who did not participate when we went to see the dog on the afternoon?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 39,
+        "gazef_05": 27
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "324",
+      "queries": [
+        "Who was pressing flowers together on today afternoon?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 24,
+        "gazef_05": 18
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "325",
+      "queries": [
+        "The last time I checked Lucia's wound, what were we discussing?"
+      ],
+      "pool_size": {
+        "full": 3461,
+        "gazef_05": 3460
+      },
+      "rank": {
+        "full": 71,
+        "gazef_05": 244
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "326",
+      "queries": [
+        "Why is the bread made by Shure delicious?"
+      ],
+      "pool_size": {
+        "full": 3468,
+        "gazef_05": 3467
+      },
+      "rank": {
+        "full": 1145,
+        "gazef_05": 1133
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "327",
+      "queries": [
+        "Who usually picks up the takeout?"
+      ],
+      "pool_size": {
+        "full": 3476,
+        "gazef_05": 3475
+      },
+      "rank": {
+        "full": 123,
+        "gazef_05": 926
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "328",
+      "queries": [
+        "When was the last time Jay Chou was mentioned?"
+      ],
+      "pool_size": {
+        "full": 3481,
+        "gazef_05": 3480
+      },
+      "rank": {
+        "full": 800,
+        "gazef_05": 955
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "329",
+      "queries": [
+        "This time we discussed the auction of this bottle of wine, what items were mentioned when we previously discussed auction-related content?"
+      ],
+      "pool_size": {
+        "full": 3494,
+        "gazef_05": 3493
+      },
+      "rank": {
+        "full": 7,
+        "gazef_05": 177
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "330",
+      "queries": [
+        "What did Tasha say is the most needed task from me later?"
+      ],
+      "pool_size": {
+        "full": 3516,
+        "gazef_05": 3515
+      },
+      "rank": {
+        "full": 125,
+        "gazef_05": 81
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "331",
+      "queries": [
+        "Who said my room was very cyber before"
+      ],
+      "pool_size": {
+        "full": 3521,
+        "gazef_05": 3520
+      },
+      "rank": {
+        "full": 396,
+        "gazef_05": 448
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "332",
+      "queries": [
+        "What did I order the last time I used the Meituan Waimai APP?"
+      ],
+      "pool_size": {
+        "full": 3544,
+        "gazef_05": 3543
+      },
+      "rank": {
+        "full": 44,
+        "gazef_05": 43
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "333",
+      "queries": [
+        "Now that I have walked to the garbage pile by the gate, what changes are there in the surroundings compared to the last time I came here to throw out the trash?"
+      ],
+      "pool_size": {
+        "full": 3561,
+        "gazef_05": 3560
+      },
+      "rank": {
+        "full": 9,
+        "gazef_05": 8
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "336",
+      "queries": [
+        "Last time I had a meal with Nicous, who else was there?"
+      ],
+      "pool_size": {
+        "full": 3666,
+        "gazef_05": 3665
+      },
+      "rank": {
+        "full": 552,
+        "gazef_05": 60
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "338",
+      "queries": [
+        "What do I usually do after finishing in the kitchen?"
+      ],
+      "pool_size": {
+        "full": 3679,
+        "gazef_05": 3678
+      },
+      "rank": {
+        "full": 15,
+        "gazef_05": 18
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "339",
+      "queries": [
+        "Where was the AD calcium milk taken from?"
+      ],
+      "pool_size": {
+        "full": 3688,
+        "gazef_05": 3687
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "340",
+      "queries": [
+        "What does Alice not like to eat?"
+      ],
+      "pool_size": {
+        "full": 3753,
+        "gazef_05": 3752
+      },
+      "rank": {
+        "full": 61,
+        "gazef_05": 31
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "341",
+      "queries": [
+        "What are we planning to do in the afternoon?"
+      ],
+      "pool_size": {
+        "full": 3758,
+        "gazef_05": 3757
+      },
+      "rank": {
+        "full": 547,
+        "gazef_05": 941
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "342",
+      "queries": [
+        "What did Katrina draw the last time she was at the whiteboard?"
+      ],
+      "pool_size": {
+        "full": 3774,
+        "gazef_05": 3773
+      },
+      "rank": {
+        "full": 43,
+        "gazef_05": 36
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "343",
+      "queries": [
+        "When was the last time I used my phone to check the map?"
+      ],
+      "pool_size": {
+        "full": 3789,
+        "gazef_05": 3788
+      },
+      "rank": {
+        "full": 175,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "344",
+      "queries": [
+        "Who made the dog in Lucia's hand?"
+      ],
+      "pool_size": {
+        "full": 3813,
+        "gazef_05": 3812
+      },
+      "rank": {
+        "full": 697,
+        "gazef_05": 742
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "345",
+      "queries": [
+        "Now I'm looking at the dog in Lucia's hand, when was the last time we discussed dogs?"
+      ],
+      "pool_size": {
+        "full": 3814,
+        "gazef_05": 3813
+      },
+      "rank": {
+        "full": 2304,
+        "gazef_05": 2948
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "346",
+      "queries": [
+        "When we go out shopping and take a taxi, who usually sits next to me?"
+      ],
+      "pool_size": {
+        "full": 3824,
+        "gazef_05": 3823
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "347",
+      "queries": [
+        "When was the last time I used the shopping cart?"
+      ],
+      "pool_size": {
+        "full": 3827,
+        "gazef_05": 3826
+      },
+      "rank": {
+        "full": 39,
+        "gazef_05": 13
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "348",
+      "queries": [
+        "What are we planning to buy?"
+      ],
+      "pool_size": {
+        "full": 3830,
+        "gazef_05": 3829
+      },
+      "rank": {
+        "full": 1488,
+        "gazef_05": 912
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "349",
+      "queries": [
+        "Now I'm standing in front of the freezer looking at drinks, what did I see the last time I was in front of the freezer?"
+      ],
+      "pool_size": {
+        "full": 3833,
+        "gazef_05": 3832
+      },
+      "rank": {
+        "full": 80,
+        "gazef_05": 139
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "350",
+      "queries": [
+        "When was the first time Choiszt saw the Erguotou he picked up?"
+      ],
+      "pool_size": {
+        "full": 3847,
+        "gazef_05": 3846
+      },
+      "rank": {
+        "full": 828,
+        "gazef_05": 15
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "351",
+      "queries": [
+        "What were we doing the last time I noticed Katrina and Shure fell behind?"
+      ],
+      "pool_size": {
+        "full": 3851,
+        "gazef_05": 3850
+      },
+      "rank": {
+        "full": 194,
+        "gazef_05": 1045
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "353",
+      "queries": [
+        "Who is missing from this shopping trip compared to the last one?"
+      ],
+      "pool_size": {
+        "full": 3853,
+        "gazef_05": 3852
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 11
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "355",
+      "queries": [
+        "What fruit are we planning to buy?"
+      ],
+      "pool_size": {
+        "full": 3858,
+        "gazef_05": 3857
+      },
+      "rank": {
+        "full": 1931,
+        "gazef_05": 1593
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "356",
+      "queries": [
+        "When was the last time I bought fruit in the fruit area?"
+      ],
+      "pool_size": {
+        "full": 3858,
+        "gazef_05": 3857
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "358",
+      "queries": [
+        "Who helped Alice find the preserved egg on the first day"
+      ],
+      "pool_size": {
+        "full": 3864,
+        "gazef_05": 3863
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "359",
+      "queries": [
+        "When was the last time we bought eggs?"
+      ],
+      "pool_size": {
+        "full": 3864,
+        "gazef_05": 3863
+      },
+      "rank": {
+        "full": 6,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "361",
+      "queries": [
+        "Who was I with the last time we shopped separately?"
+      ],
+      "pool_size": {
+        "full": 3890,
+        "gazef_05": 3889
+      },
+      "rank": {
+        "full": 33,
+        "gazef_05": 18
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "362",
+      "queries": [
+        "What did I put back on the shelf the last time I was at the supermarket?"
+      ],
+      "pool_size": {
+        "full": 3899,
+        "gazef_05": 3898
+      },
+      "rank": {
+        "full": 242,
+        "gazef_05": 165
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "363",
+      "queries": [
+        "What does Lucia like to drink?"
+      ],
+      "pool_size": {
+        "full": 3900,
+        "gazef_05": 3899
+      },
+      "rank": {
+        "full": 374,
+        "gazef_05": 1548
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "364",
+      "queries": [
+        "Who picked the drinks?"
+      ],
+      "pool_size": {
+        "full": 3907,
+        "gazef_05": 3906
+      },
+      "rank": {
+        "full": 140,
+        "gazef_05": 22
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "365",
+      "queries": [
+        "What do I buy every time I shop?"
+      ],
+      "pool_size": {
+        "full": 3908,
+        "gazef_05": 3907
+      },
+      "rank": {
+        "full": 20,
+        "gazef_05": 14
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "367",
+      "queries": [
+        "When did Jack take the drink in his hand?"
+      ],
+      "pool_size": {
+        "full": 3923,
+        "gazef_05": 3922
+      },
+      "rank": {
+        "full": 1542,
+        "gazef_05": 1334
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "368",
+      "queries": [
+        "Who else was in the car with Tasha and Lucia last time?"
+      ],
+      "pool_size": {
+        "full": 3925,
+        "gazef_05": 3924
+      },
+      "rank": {
+        "full": 10,
+        "gazef_05": 14
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "370",
+      "queries": [
+        "Who was next to me the last time I got in the car?"
+      ],
+      "pool_size": {
+        "full": 3925,
+        "gazef_05": 3924
+      },
+      "rank": {
+        "full": 2,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "372",
+      "queries": [
+        "Who was washing dishes in the kitchen last time?"
+      ],
+      "pool_size": {
+        "full": 3953,
+        "gazef_05": 3952
+      },
+      "rank": {
+        "full": 25,
+        "gazef_05": 29
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "373",
+      "queries": [
+        "When was the red refrigerator last opened?"
+      ],
+      "pool_size": {
+        "full": 3953,
+        "gazef_05": 3952
+      },
+      "rank": {
+        "full": 13,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "375",
+      "queries": [
+        "Who bought the carton of eggs in the fridge?"
+      ],
+      "pool_size": {
+        "full": 3963,
+        "gazef_05": 3962
+      },
+      "rank": {
+        "full": 5,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "376",
+      "queries": [
+        "Who used the whisk last?"
+      ],
+      "pool_size": {
+        "full": 3964,
+        "gazef_05": 3963
+      },
+      "rank": {
+        "full": 213,
+        "gazef_05": 100
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "378",
+      "queries": [
+        "When was the last time a package arrived that Alice was organizing?"
+      ],
+      "pool_size": {
+        "full": 4011,
+        "gazef_05": 4010
+      },
+      "rank": {
+        "full": 1266,
+        "gazef_05": 873
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "379",
+      "queries": [
+        "Now Tasha suggested finding a container to put the eggs in and start baking. What did we bake in the oven last time?"
+      ],
+      "pool_size": {
+        "full": 4013,
+        "gazef_05": 4012
+      },
+      "rank": {
+        "full": 849,
+        "gazef_05": 454
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "381",
+      "queries": [
+        "Where did Tasha buy the tart crust?"
+      ],
+      "pool_size": {
+        "full": 4023,
+        "gazef_05": 4022
+      },
+      "rank": {
+        "full": 83,
+        "gazef_05": 207
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "384",
+      "queries": [
+        "Who usually helps Tasha when she makes desserts?"
+      ],
+      "pool_size": {
+        "full": 4031,
+        "gazef_05": 4030
+      },
+      "rank": {
+        "full": 25,
+        "gazef_05": 57
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "385",
+      "queries": [
+        "Who bought the chips on the table?"
+      ],
+      "pool_size": {
+        "full": 4036,
+        "gazef_05": 4035
+      },
+      "rank": {
+        "full": 123,
+        "gazef_05": 62
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "386",
+      "queries": [
+        "How many bottles of Wangzai milk do we need?"
+      ],
+      "pool_size": {
+        "full": 4069,
+        "gazef_05": 4068
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "387",
+      "queries": [
+        "What was the environment like the last time Shure and Nicous sang?"
+      ],
+      "pool_size": {
+        "full": 4144,
+        "gazef_05": 4143
+      },
+      "rank": {
+        "full": 192,
+        "gazef_05": 1138
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "388",
+      "queries": [
+        "When was McDonald's first mentioned?"
+      ],
+      "pool_size": {
+        "full": 4145,
+        "gazef_05": 4144
+      },
+      "rank": {
+        "full": 515,
+        "gazef_05": 158
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "389",
+      "queries": [
+        "Who used the tape and scissors on the table last time?"
+      ],
+      "pool_size": {
+        "full": 4193,
+        "gazef_05": 4192
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "390",
+      "queries": [
+        "When was the last time I saw Jack drinking a beverage?"
+      ],
+      "pool_size": {
+        "full": 4197,
+        "gazef_05": 4196
+      },
+      "rank": {
+        "full": 1075,
+        "gazef_05": 163
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "391",
+      "queries": [
+        "Who else was there when I had a meal with Lucia last time?"
+      ],
+      "pool_size": {
+        "full": 4218,
+        "gazef_05": 4217
+      },
+      "rank": {
+        "full": 486,
+        "gazef_05": 129
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "394",
+      "queries": [
+        "The last time I carefully placed a strawberry on a cake, what was the occasion?"
+      ],
+      "pool_size": {
+        "full": 4246,
+        "gazef_05": 4245
+      },
+      "rank": {
+        "full": 9,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "395",
+      "queries": [
+        "When was the last time the mango was sliced?"
+      ],
+      "pool_size": {
+        "full": 4252,
+        "gazef_05": 4251
+      },
+      "rank": {
+        "full": 30,
+        "gazef_05": 26
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "396",
+      "queries": [
+        "What were we doing last time we discussed the air conditioning temperature?"
+      ],
+      "pool_size": {
+        "full": 4267,
+        "gazef_05": 4266
+      },
+      "rank": {
+        "full": 244,
+        "gazef_05": 96
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "397",
+      "queries": [
+        "Shure is dancing now, what were we doing the last time he danced?"
+      ],
+      "pool_size": {
+        "full": 4308,
+        "gazef_05": 4307
+      },
+      "rank": {
+        "full": 185,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "398",
+      "queries": [
+        "Now I'm helping Lucia cut the poster, what were we doing the last time I used scissors?"
+      ],
+      "pool_size": {
+        "full": 4308,
+        "gazef_05": 4307
+      },
+      "rank": {
+        "full": 39,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "399",
+      "queries": [
+        "What was I doing the last time I heard Choiszt play the guitar?"
+      ],
+      "pool_size": {
+        "full": 4308,
+        "gazef_05": 4307
+      },
+      "rank": {
+        "full": 38,
+        "gazef_05": 101
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "400",
+      "queries": [
+        "Why did I say to push the cart backwards?"
+      ],
+      "pool_size": {
+        "full": 4308,
+        "gazef_05": 4307
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 41
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "401",
+      "queries": [
+        "Why did we put the durian back?"
+      ],
+      "pool_size": {
+        "full": 4308,
+        "gazef_05": 4307
+      },
+      "rank": {
+        "full": 1,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "404",
+      "queries": [
+        "Who among us has drunk Douzhi?"
+      ],
+      "pool_size": {
+        "full": 4308,
+        "gazef_05": 4307
+      },
+      "rank": {
+        "full": 378,
+        "gazef_05": 611
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "405",
+      "queries": [
+        "What name does Alice plan to give her dog?"
+      ],
+      "pool_size": {
+        "full": 4308,
+        "gazef_05": 4307
+      },
+      "rank": {
+        "full": 13,
+        "gazef_05": 116
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "406",
+      "queries": [
+        "When was the last time Shure drank coffee?"
+      ],
+      "pool_size": {
+        "full": 4468,
+        "gazef_05": 4467
+      },
+      "rank": {
+        "full": 62,
+        "gazef_05": 64
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "407",
+      "queries": [
+        "When were the flowers in the vase on the table placed there?"
+      ],
+      "pool_size": {
+        "full": 4468,
+        "gazef_05": 4467
+      },
+      "rank": {
+        "full": 130,
+        "gazef_05": 252
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "410",
+      "queries": [
+        "I picked up a white power bank in Shure's room. When was the last time this power bank was charged?"
+      ],
+      "pool_size": {
+        "full": 4481,
+        "gazef_05": 4480
+      },
+      "rank": {
+        "full": 198,
+        "gazef_05": 102
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "411",
+      "queries": [
+        "When was this bottle of cola drunk?"
+      ],
+      "pool_size": {
+        "full": 4484,
+        "gazef_05": 4483
+      },
+      "rank": {
+        "full": 2225,
+        "gazef_05": 331
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "412",
+      "queries": [
+        "I saw the dishes piled up by the kitchen sink. When were these dishes last washed?"
+      ],
+      "pool_size": {
+        "full": 4484,
+        "gazef_05": 4483
+      },
+      "rank": {
+        "full": 157,
+        "gazef_05": 152
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "413",
+      "queries": [
+        "What was I going to do the last time I passed by the red refrigerator?"
+      ],
+      "pool_size": {
+        "full": 4485,
+        "gazef_05": 4484
+      },
+      "rank": {
+        "full": 168,
+        "gazef_05": 659
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "415",
+      "queries": [
+        "When was the last time these cooking tools and ingredients were used?"
+      ],
+      "pool_size": {
+        "full": 4510,
+        "gazef_05": 4509
+      },
+      "rank": {
+        "full": 18,
+        "gazef_05": 86
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "416",
+      "queries": [
+        "What was the oven last used to bake?"
+      ],
+      "pool_size": {
+        "full": 4525,
+        "gazef_05": 4524
+      },
+      "rank": {
+        "full": 198,
+        "gazef_05": 193
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "418",
+      "queries": [
+        "When was the last time I went out wearing slippers?"
+      ],
+      "pool_size": {
+        "full": 4583,
+        "gazef_05": 4582
+      },
+      "rank": {
+        "full": 30,
+        "gazef_05": 20
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "419",
+      "queries": [
+        "What were we doing the last time I mentioned settling the bill?"
+      ],
+      "pool_size": {
+        "full": 4642,
+        "gazef_05": 4641
+      },
+      "rank": {
+        "full": 3534,
+        "gazef_05": 3161
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "420",
+      "queries": [
+        "Who is sitting with Alice and making gestures on the screen?"
+      ],
+      "pool_size": {
+        "full": 4655,
+        "gazef_05": 4654
+      },
+      "rank": {
+        "full": 20,
+        "gazef_05": 8
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "421",
+      "queries": [
+        "When was the last time we passed by the ancient archway?"
+      ],
+      "pool_size": {
+        "full": 4661,
+        "gazef_05": 4660
+      },
+      "rank": {
+        "full": 31,
+        "gazef_05": 13
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "422",
+      "queries": [
+        "When was the last time the fridge was opened?"
+      ],
+      "pool_size": {
+        "full": 4738,
+        "gazef_05": 4737
+      },
+      "rank": {
+        "full": 1483,
+        "gazef_05": 1601
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "423",
+      "queries": [
+        "The last time I went up to the second floor, what did I do?"
+      ],
+      "pool_size": {
+        "full": 4739,
+        "gazef_05": 4738
+      },
+      "rank": {
+        "full": 66,
+        "gazef_05": 15
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "424",
+      "queries": [
+        "Where is my data cable?"
+      ],
+      "pool_size": {
+        "full": 4749,
+        "gazef_05": 4748
+      },
+      "rank": {
+        "full": 124,
+        "gazef_05": 539
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "425",
+      "queries": [
+        "Who played the piano last time?"
+      ],
+      "pool_size": {
+        "full": 4754,
+        "gazef_05": 4753
+      },
+      "rank": {
+        "full": 10,
+        "gazef_05": 77
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "426",
+      "queries": [
+        "I am currently washing a water cup, what happened the last time I was cleaning something in the kitchen?"
+      ],
+      "pool_size": {
+        "full": 4763,
+        "gazef_05": 4762
+      },
+      "rank": {
+        "full": 132,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "427",
+      "queries": [
+        "Who prepared the box containing food in Choiszt's hand?"
+      ],
+      "pool_size": {
+        "full": 4814,
+        "gazef_05": 4813
+      },
+      "rank": {
+        "full": 7,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "428",
+      "queries": [
+        "When was the last time the small lamp on the windowsill was used?"
+      ],
+      "pool_size": {
+        "full": 4828,
+        "gazef_05": 4827
+      },
+      "rank": {
+        "full": 133,
+        "gazef_05": 524
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "431",
+      "queries": [
+        "When was the last time I scanned the QR code with the action camera?"
+      ],
+      "pool_size": {
+        "full": 4909,
+        "gazef_05": 4908
+      },
+      "rank": {
+        "full": 12,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "432",
+      "queries": [
+        "I am now plugging in a power bank, what was the color of the power bank I used last time?"
+      ],
+      "pool_size": {
+        "full": 4950,
+        "gazef_05": 4949
+      },
+      "rank": {
+        "full": 1968,
+        "gazef_05": 63
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "433",
+      "queries": [
+        "Tasha is flipping the egg tart now, who helped her the last time she made egg tarts?"
+      ],
+      "pool_size": {
+        "full": 4972,
+        "gazef_05": 4971
+      },
+      "rank": {
+        "full": 472,
+        "gazef_05": 967
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "434",
+      "queries": [
+        "Now that Lucia is busy in the kitchen, what were we preparing the last time she was busy there?"
+      ],
+      "pool_size": {
+        "full": 4972,
+        "gazef_05": 4971
+      },
+      "rank": {
+        "full": 38,
+        "gazef_05": 20
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "435",
+      "queries": [
+        "What might the first activity be?"
+      ],
+      "pool_size": {
+        "full": 4997,
+        "gazef_05": 4996
+      },
+      "rank": {
+        "full": 446,
+        "gazef_05": 316
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "436",
+      "queries": [
+        "What task was I handling the last time I used this laptop?"
+      ],
+      "pool_size": {
+        "full": 5036,
+        "gazef_05": 5035
+      },
+      "rank": {
+        "full": 9,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "437",
+      "queries": [
+        "Who was the last person to use the keyboard in the second-floor living room?"
+      ],
+      "pool_size": {
+        "full": 5060,
+        "gazef_05": 5059
+      },
+      "rank": {
+        "full": 646,
+        "gazef_05": 307
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "439",
+      "queries": [
+        "What might Lucia auction?"
+      ],
+      "pool_size": {
+        "full": 5073,
+        "gazef_05": 5072
+      },
+      "rank": {
+        "full": 1385,
+        "gazef_05": 751
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "440",
+      "queries": [
+        "Who made the Cardboard Puppy?"
+      ],
+      "pool_size": {
+        "full": 5074,
+        "gazef_05": 5073
+      },
+      "rank": {
+        "full": 1093,
+        "gazef_05": 1935
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "441",
+      "queries": [
+        "What activity was taking place in the room the last time I saw this whiteboard and projection screen?"
+      ],
+      "pool_size": {
+        "full": 5101,
+        "gazef_05": 5100
+      },
+      "rank": {
+        "full": 59,
+        "gazef_05": 194
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "442",
+      "queries": [
+        "Shure is now asking everyone if they have anything else to auction, what did he auction last time?"
+      ],
+      "pool_size": {
+        "full": 5113,
+        "gazef_05": 5112
+      },
+      "rank": {
+        "full": 406,
+        "gazef_05": 1010
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "443",
+      "queries": [
+        "Who was the last person to use the computer on the table?"
+      ],
+      "pool_size": {
+        "full": 5115,
+        "gazef_05": 5114
+      },
+      "rank": {
+        "full": 36,
+        "gazef_05": 255
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "444",
+      "queries": [
+        "When was the last time the red refrigerator was opened?"
+      ],
+      "pool_size": {
+        "full": 5119,
+        "gazef_05": 5118
+      },
+      "rank": {
+        "full": 1235,
+        "gazef_05": 19
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "446",
+      "queries": [
+        "What was displayed on the computer screen in front of me the last time I ate fruit?"
+      ],
+      "pool_size": {
+        "full": 5139,
+        "gazef_05": 5138
+      },
+      "rank": {
+        "full": 356,
+        "gazef_05": 115
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "447",
+      "queries": [
+        "Whose keyboard is in the room?"
+      ],
+      "pool_size": {
+        "full": 5175,
+        "gazef_05": 5174
+      },
+      "rank": {
+        "full": 4009,
+        "gazef_05": 3786
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "449",
+      "queries": [
+        "We are listening to Shure play and sing now, when was the last time we heard him play and sing?"
+      ],
+      "pool_size": {
+        "full": 5227,
+        "gazef_05": 5226
+      },
+      "rank": {
+        "full": 2994,
+        "gazef_05": 246
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "450",
+      "queries": [
+        "Why did Katrina ask us to help her punch holes?"
+      ],
+      "pool_size": {
+        "full": 5248,
+        "gazef_05": 5247
+      },
+      "rank": {
+        "full": 226,
+        "gazef_05": 84
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "451",
+      "queries": [
+        "Why doesn't Tasha pin the pictures in the room on the wall?"
+      ],
+      "pool_size": {
+        "full": 5248,
+        "gazef_05": 5247
+      },
+      "rank": {
+        "full": 129,
+        "gazef_05": 32
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "452",
+      "queries": [
+        "What did Tasha ask me to help her with?"
+      ],
+      "pool_size": {
+        "full": 5248,
+        "gazef_05": 5247
+      },
+      "rank": {
+        "full": 626,
+        "gazef_05": 1670
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "453",
+      "queries": [
+        "Why did I ask Tasha to go upstairs with me?"
+      ],
+      "pool_size": {
+        "full": 5248,
+        "gazef_05": 5247
+      },
+      "rank": {
+        "full": 30,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "454",
+      "queries": [
+        "Why didn't Lucia auction the jellyfish lamp?"
+      ],
+      "pool_size": {
+        "full": 5248,
+        "gazef_05": 5247
+      },
+      "rank": {
+        "full": 1820,
+        "gazef_05": 1413
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "455",
+      "queries": [
+        "When we were playing below, who didn't participate because they were sick?"
+      ],
+      "pool_size": {
+        "full": 5248,
+        "gazef_05": 5247
+      },
+      "rank": {
+        "full": 3681,
+        "gazef_05": 2349
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "456",
+      "queries": [
+        "Why did I go upstairs with Tasha to unplug the multi-socket?"
+      ],
+      "pool_size": {
+        "full": 5262,
+        "gazef_05": 5261
+      },
+      "rank": {
+        "full": 570,
+        "gazef_05": 74
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "457",
+      "queries": [
+        "When was the last time we discussed claw machines?"
+      ],
+      "pool_size": {
+        "full": 5370,
+        "gazef_05": 5369
+      },
+      "rank": {
+        "full": 38,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "458",
+      "queries": [
+        "Who accompanied Tasha to pick up the package?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 102,
+        "gazef_05": 137
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "460",
+      "queries": [
+        "Who was listening nearby when Choiszt was playing the piano?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 1857,
+        "gazef_05": 144
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "461",
+      "queries": [
+        "Who did I ask to go upstairs with me?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 36,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "462",
+      "queries": [
+        "Who did I ask Violet to call down?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 1782,
+        "gazef_05": 1283
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "463",
+      "queries": [
+        "Who gave the gloves to her when Tasha said she needed them?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 280,
+        "gazef_05": 142
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "464",
+      "queries": [
+        "When I asked how many minutes until the desserts could be taken up, who answered me?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 21,
+        "gazef_05": 55
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "466",
+      "queries": [
+        "When we were downstairs, who was upstairs?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 117,
+        "gazef_05": 106
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "467",
+      "queries": [
+        "Who didn't participate while we were playing below?"
+      ],
+      "pool_size": {
+        "full": 5377,
+        "gazef_05": 5376
+      },
+      "rank": {
+        "full": 1316,
+        "gazef_05": 962
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "468",
+      "queries": [
+        "What doesn't Alice like to eat?"
+      ],
+      "pool_size": {
+        "full": 5496,
+        "gazef_05": 5495
+      },
+      "rank": {
+        "full": 59,
+        "gazef_05": 50
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "470",
+      "queries": [
+        "What does Katrina like to eat?"
+      ],
+      "pool_size": {
+        "full": 5496,
+        "gazef_05": 5495
+      },
+      "rank": {
+        "full": 226,
+        "gazef_05": 1092
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "472",
+      "queries": [
+        "How did Choiszt plan to punch holes when he helped with flower pressing?"
+      ],
+      "pool_size": {
+        "full": 5508,
+        "gazef_05": 5507
+      },
+      "rank": {
+        "full": 18,
+        "gazef_05": 12
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "474",
+      "queries": [
+        "What did we plan to do first while Lucia was getting ready to attend the party?"
+      ],
+      "pool_size": {
+        "full": 5508,
+        "gazef_05": 5507
+      },
+      "rank": {
+        "full": 2872,
+        "gazef_05": 1992
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "475",
+      "queries": [
+        "How many ego coins did Lucia's cardboard puppy finally sell for?"
+      ],
+      "pool_size": {
+        "full": 5508,
+        "gazef_05": 5507
+      },
+      "rank": {
+        "full": 2664,
+        "gazef_05": 1787
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "477",
+      "queries": [
+        "How much is an ego coin worth in RMB?"
+      ],
+      "pool_size": {
+        "full": 5521,
+        "gazef_05": 5520
+      },
+      "rank": {
+        "full": 30,
+        "gazef_05": 34
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "478",
+      "queries": [
+        "What was the reward for the QA quiz?"
+      ],
+      "pool_size": {
+        "full": 5521,
+        "gazef_05": 5520
+      },
+      "rank": {
+        "full": 26,
+        "gazef_05": 127
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "480",
+      "queries": [
+        "What does Nicous plan to perform?"
+      ],
+      "pool_size": {
+        "full": 5521,
+        "gazef_05": 5520
+      },
+      "rank": {
+        "full": 198,
+        "gazef_05": 467
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "482",
+      "queries": [
+        "How many times has Shure played the guitar in total?"
+      ],
+      "pool_size": {
+        "full": 5527,
+        "gazef_05": 5526
+      },
+      "rank": {
+        "full": 18,
+        "gazef_05": 21
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "483",
+      "queries": [
+        "What were we eating the last time I clinked glasses with Lucia?"
+      ],
+      "pool_size": {
+        "full": 5544,
+        "gazef_05": 5543
+      },
+      "rank": {
+        "full": 866,
+        "gazef_05": 603
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "484",
+      "queries": [
+        "Where did we eat most often in the past seven days? How many times?"
+      ],
+      "pool_size": {
+        "full": 5546,
+        "gazef_05": 5545
+      },
+      "rank": {
+        "full": 185,
+        "gazef_05": 314
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "487",
+      "queries": [
+        "After Lucia accidentally stained her clothes, whose clothes also got stained?"
+      ],
+      "pool_size": {
+        "full": 5579,
+        "gazef_05": 5578
+      },
+      "rank": {
+        "full": 1858,
+        "gazef_05": 2039
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "488",
+      "queries": [
+        "During lunch today, who took a bottle of soda and asked if anyone wanted some?"
+      ],
+      "pool_size": {
+        "full": 5600,
+        "gazef_05": 5599
+      },
+      "rank": {
+        "full": 526,
+        "gazef_05": 284
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "489",
+      "queries": [
+        "When was the last time watermelons were mentioned?"
+      ],
+      "pool_size": {
+        "full": 5697,
+        "gazef_05": 5696
+      },
+      "rank": {
+        "full": 4,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "490",
+      "queries": [
+        "On the first day, when I was lifting the garbage bag, who helped me put the trash from the plate into the garbage bag?"
+      ],
+      "pool_size": {
+        "full": 5699,
+        "gazef_05": 5698
+      },
+      "rank": {
+        "full": 12,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "491",
+      "queries": [
+        "Lucia originally wanted to create several wallets, why did she give up later?"
+      ],
+      "pool_size": {
+        "full": 5784,
+        "gazef_05": 5783
+      },
+      "rank": {
+        "full": 357,
+        "gazef_05": 202
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "492",
+      "queries": [
+        "Now I am washing cups in the kitchen, when was the last time I washed dishes in the kitchen?"
+      ],
+      "pool_size": {
+        "full": 5842,
+        "gazef_05": 5841
+      },
+      "rank": {
+        "full": 74,
+        "gazef_05": 101
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "494",
+      "queries": [
+        "When was the last time we scratched lottery tickets?"
+      ],
+      "pool_size": {
+        "full": 5904,
+        "gazef_05": 5903
+      },
+      "rank": {
+        "full": 3,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "498",
+      "queries": [
+        "Who spilled oil on their clothes during lunch?"
+      ],
+      "pool_size": {
+        "full": 6222,
+        "gazef_05": 6221
+      },
+      "rank": {
+        "full": 81,
+        "gazef_05": 73
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "499",
+      "queries": [
+        "Who discovered that our auctioned CP dog was not taken away yesterday?"
+      ],
+      "pool_size": {
+        "full": 6222,
+        "gazef_05": 6221
+      },
+      "rank": {
+        "full": 200,
+        "gazef_05": 1116
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "500",
+      "queries": [
+        "Who suggested listening to JJ Lin's songs?"
+      ],
+      "pool_size": {
+        "full": 6222,
+        "gazef_05": 6221
+      },
+      "rank": {
+        "full": 2021,
+        "gazef_05": 1077
+      },
+      "hit@3": {
+        "full": 0,
+        "gazef_05": 0
+      }
+    }
+  ]
+}
