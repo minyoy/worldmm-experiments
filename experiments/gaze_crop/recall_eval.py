@@ -24,13 +24,14 @@ import glob
 import hashlib
 import os
 import sys
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import (  # noqa: E402
-    ANALYSIS_DIR, EMB_DIR, EXP_DIR, POOL_PATH, RESULTS_DIR, VB_DIR, load_json, save_json, unit,
+    ANALYSIS_DIR, EMB_DIR, EXP_DIR, POOL_PATH, RESULTS_DIR, VB_DIR, clip_start_sec, load_json,
+    save_json, unit,
 )
 
 DEFAULT_KS = (1, 3, 5, 10, 20, 50)
@@ -152,6 +153,14 @@ def main() -> None:
     ap.add_argument("--arms", nargs="+", default=None, help="default: every npz in emb/")
     ap.add_argument("--ks", type=int, nargs="+", default=list(DEFAULT_KS))
     ap.add_argument("--main-k", type=int, default=MAIN_K, help="k used for the arm-vs-arm tests")
+    ap.add_argument("--target-tolerance-sec", type=float, default=0.0, metavar="SEC",
+                    help="count a clip as a hit when it starts within SEC of an annotated target "
+                         "clip on the same day. 0 (default) is the strict benchmark definition: "
+                         "only the one 30-sec clip EgoLife tagged. Raising it asks a different "
+                         "question -- 'did the arm land near the evidence' rather than 'on it' -- "
+                         "and mechanically inflates recall, so the table prints the chance level "
+                         "and the targets-per-question that go with each setting. Compare arms "
+                         "only at the same tolerance.")
     ap.add_argument("--query-source", choices=("question", "keywords", "agent"), default="question",
                     help="'question': the raw question text, which is what condition E' retrieved "
                          "with (default). 'keywords': the QA's own keywords, a friendlier query. "
@@ -183,6 +192,40 @@ def main() -> None:
     ts_end = {r["key"]: r["ts_end"] for r in pool["clips"]}
     ks = sorted(args.ks)
 
+    # Neighbour tolerance. The benchmark tags exactly one 30-sec clip per question (the one holding
+    # target_time), so an arm that ranks the clip right before the evidence first scores a miss.
+    # Widening asks whether the arm landed in the right place at all. It is a DIFFERENT question,
+    # not a fairer version of the same one: every extra clip admitted is another way to score a
+    # hit, so recall rises even for a random ranker. The chance column below is what keeps it
+    # honest -- read the arm against chance at its own tolerance, never against another one.
+    tol = float(args.target_tolerance_sec)
+    day_of = {r["key"]: r["date"] for r in pool["clips"]}
+    start_of = {r["key"]: clip_start_sec(r["video_path"]) for r in pool["clips"]}
+
+    def expand(target_keys: Set[str]) -> Set[str]:
+        if tol <= 0:
+            return set(target_keys)
+        out = set(target_keys)
+        anchors = [(day_of[t], start_of[t]) for t in target_keys
+                   if t in day_of and start_of.get(t) is not None]
+        if not anchors:
+            return out
+        for key, st in start_of.items():
+            if st is None:
+                continue
+            d = day_of[key]
+            if any(d == ad and abs(st - a) <= tol for ad, a in anchors):
+                out.add(key)
+        return out
+
+    expanded = {q["ID"]: expand(set(q["target_keys"])) for q in pool["questions"]}
+    if tol > 0:
+        sizes = sorted(len(v) for v in expanded.values())
+        print(f"\ntarget tolerance {tol:.0f}s: targets per question went "
+              f"{sorted(len(set(q['target_keys'])) for q in pool['questions'])[len(sizes)//2]} -> "
+              f"{sizes[len(sizes)//2]} (median), max {sizes[-1]}. Recall below is NOT comparable "
+              f"to the strict table; use the chance column.")
+
     # hits[arm][k] -> {qid: 0/1};  rank[arm] -> {qid: best target rank or None}
     hits: Dict[str, Dict[int, Dict[str, int]]] = {n: {k: {} for k in ks} for n in arm_names}
     ranks: Dict[str, Dict[str, Optional[int]]] = {n: {} for n in arm_names}
@@ -191,7 +234,7 @@ def main() -> None:
 
     for q in pool["questions"]:
         qid, qt = q["ID"], q["query_time"]
-        targets = set(q["target_keys"])
+        targets = expanded[qid]
         qvecs = np.ascontiguousarray(np.stack([qemb[t] for t in qmap[qid]]).T)   # [d, nq]
         for n in arm_names:
             keys, emb = arms[n]["keys"], arms[n]["emb"]
@@ -238,6 +281,26 @@ def main() -> None:
         rs = [r for r in (ranks[n].get(q) for q in common) if r]
         med = f"{int(np.median(rs))}" if rs else "-"
         print(f"{n:>14} | {row} | {med:>8}")
+
+    # What a ranker that knows nothing would score on THIS question set, at THIS tolerance:
+    # per question, the chance of landing a target in k draws from its own visible pool. Recall
+    # only means something against this line -- a tolerance that admits more targets lifts both.
+    ref = arm_names[0]
+    n_tgt, n_vis = [], []
+    for qid in common:
+        vis = pool_sizes[ref].get(qid)
+        if not vis:
+            continue
+        keys = set(arms[ref]["keys"])
+        n_tgt.append(len(expanded[qid] & keys))
+        n_vis.append(vis)
+    if n_vis:
+        chance = [100 * float(np.mean([min(k * t / v, 1.0) for t, v in zip(n_tgt, n_vis)]))
+                  for k in ks]
+        print(f"{'chance':>14} | " + " | ".join(f"{c:6.2f}%" for c in chance)
+              + f" | {int(np.median([v / 2 for v in n_vis])):>8}")
+        print(f"{'':>14}   (targets/question median {int(np.median(n_tgt))}, "
+              f"visible pool median {int(np.median(n_vis))}, tolerance {tol:.0f}s)")
 
     mk = args.main_k if args.main_k in ks else ks[0]
     pairs = []
