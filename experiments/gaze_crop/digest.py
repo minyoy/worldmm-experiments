@@ -27,7 +27,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import ANALYSIS_DIR, EXP_DIR, RESULTS_DIR, load_json  # noqa: E402
 
 # from ../visual_bottleneck: the lines a gaze arm has to clear
-BASELINES = {"B (텍스트만)": 40.8, "E (에이전트 자율)": 41.7, "E' (저자 임베딩, visual 강제)": 45.8}
+# B and E' are 3-run means (visual_bottleneck/analysis/seeds_summary.md; single-run sd 1-2 pp).
+# E runs the agent loop and was run once.
+BASELINES = {"B (텍스트만, 3회 평균)": 43.1, "E (에이전트 자율, 1회)": 41.7,
+             "E' (저자 임베딩, visual 강제, 3회 평균)": 44.7}
 
 # (파일, 제목, 필수, 없을 때 알려줄 명령, tolerance 폴백) -- 검정력이 약한 것부터.
 # 필수=True 는 run_stage{1,2}.sh 가 만드는 파일이라 없으면 실행이 죽은 것이고,

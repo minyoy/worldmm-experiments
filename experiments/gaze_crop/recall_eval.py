@@ -4,7 +4,7 @@ Visual retrieval recall per arm. No LLM, no answer generation -- just whether th
 clip lands in the top-k for the question.
 
 This is the metric the experiment turns on. In the visual-bottleneck run, oracle visual frames were
-worth +12.2 points on the 82 questions where text retrieval failed, while real visual retrieval put
+worth +13.0 points (3-run mean) on the 82 questions where text retrieval failed, while real visual retrieval put
 the target in the top-3 for 5% of questions. Recall is what a crop can move; accuracy is what recall
 buys, later and more expensively.
 
