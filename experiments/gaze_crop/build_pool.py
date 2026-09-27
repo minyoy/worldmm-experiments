@@ -69,6 +69,9 @@ def main() -> None:
             "question": e["question"],
             "keywords": e.get("keywords", ""),
             "query_time": e["query_time"],
+            # the raw annotation, so recall_eval can score against the instant rather than against
+            # the clip this repo derived from it
+            "target_time": e.get("target_time"),
             "target_keys": [clip_key(vp) for vp in e["target_clips"] if vp in by_path],
         })
 

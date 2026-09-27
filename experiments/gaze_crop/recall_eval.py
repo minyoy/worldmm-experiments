@@ -30,8 +30,8 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import (  # noqa: E402
-    ANALYSIS_DIR, EMB_DIR, EXP_DIR, POOL_PATH, RESULTS_DIR, VB_DIR, clip_start_sec, load_json,
-    save_json, unit,
+    ANALYSIS_DIR, EMB_DIR, EXP_DIR, POOL_PATH, RESULTS_DIR, VB_DIR, clip_span,
+    exact_paired_p, load_json, save_json, target_spans, unit,
 )
 
 DEFAULT_KS = (1, 3, 5, 10, 20, 50)
@@ -43,7 +43,18 @@ def arm_name_from_file(path: str) -> str:
 
 
 def load_arms(emb_dir: str, wanted: Optional[List[str]]) -> Dict[str, Dict[str, np.ndarray]]:
-    """arm name -> {clip_key: embedding}. Files are emb/<arm>.npz as written by embed_arms.py."""
+    """emb/*.npz 를 읽어 arm 별 클립 벡터를 올린다.
+
+    입력:  emb_dir  "experiments/gaze_crop/emb"
+           wanted   ["full", "gazef@0.5"] 또는 None(=emb/ 안의 모든 npz)
+                    "gazef@0.5" 와 파일명 "gazef_05.npz" 를 서로 맞춰준다
+    출력:  {"full": {"keys": [클립key, ...], "emb": (N, d) float32 배열}, ...}
+           emb 는 unit() 으로 L2 정규화돼 있다. 그래서 나중에 내적 하나가 코사인 유사도가 된다.
+
+    디버깅 팁: 0벡터나 NaN 행이 있으면 WARNING 을 찍는다. 그게 뜨면 임베딩 단계가
+    일부 클립에서 실패한 것이므로 recall 을 믿지 말 것.
+    6,223 규모로 임베딩된 arm 은 full 과 gazef@0.5 뿐이다(2단계에서 그 둘만 돌렸다).
+    """
     files = sorted(glob.glob(os.path.join(emb_dir, "*.npz")))
     if not files:
         raise SystemExit(f"no arm embeddings in {emb_dir}; run embed_arms.py first")
@@ -72,7 +83,12 @@ def load_arms(emb_dir: str, wanted: Optional[List[str]]) -> Dict[str, Dict[str, 
 
 
 def agent_queries(results_path: str) -> Dict[str, List[str]]:
-    """The text queries the agent itself sent to visual memory, from a condition-E results file."""
+    """조건 E 결과 파일에서 '에이전트가 실제로 던진 검색어' 를 꺼낸다.
+
+    입력:  results_path  visual_bottleneck/results/E.json
+    출력:  {질문ID: [검색어, ...]}  중복 제거. 파일이 없으면 {}
+    --query-source agent 일 때만 쓴다.
+    """
     out: Dict[str, List[str]] = {}
     if not os.path.exists(results_path):
         return out
@@ -111,7 +127,18 @@ def question_queries(pool: Dict[str, Any], source: str, results_path: str) -> Tu
 
 
 def encode_queries(texts: List[str], cache_path: str, self_test: bool, dim: int) -> Dict[str, np.ndarray]:
-    """VLM2Vec's text side -- the same call VisualMemory._retrieve_by_similarity makes."""
+    """검색어 텍스트를 클립 벡터와 같은 공간으로 임베딩한다.
+
+    입력:  texts       ["Who plans to grow flowers", ...]  (중복 제거된 전체 목록)
+           cache_path  .cache_queries.npz  -- 있으면 재사용, 없는 것만 새로 인코딩
+           self_test   True 면 GPU 없이 해시 기반 난수 벡터 (숫자는 무의미, 배선 점검용)
+           dim         클립 벡터 차원. self_test 때만 쓴다
+    출력:  {텍스트: 정규화된 벡터}
+
+    ★ model.encode_vis_query 를 쓰는 게 핵심. 실제 시스템의
+      VisualMemory._retrieve_by_similarity 와 같은 호출이어야 측정이 의미가 있다.
+      클립 쪽 encode_video 와 짝이 맞는 텍스트 인코더다.
+    """
     cache: Dict[str, np.ndarray] = {}
     if os.path.exists(cache_path):
         z = np.load(cache_path, allow_pickle=False)
@@ -133,17 +160,6 @@ def encode_queries(texts: List[str], cache_path: str, self_test: bool, dim: int)
         keys = sorted(cache)
         np.savez(cache_path, texts=np.array(keys), emb=np.stack([cache[k] for k in keys]))
     return {t: unit(cache[t].astype(np.float32)) for t in texts}
-
-
-def bootstrap_ci(a: np.ndarray, b: np.ndarray, iters: int = 5000, seed: int = 0) -> Tuple[float, float]:
-    """95% CI of mean(a) - mean(b), resampling questions (paired)."""
-    rng = np.random.default_rng(seed)
-    n = len(a)
-    if n == 0:
-        return (float("nan"), float("nan"))
-    idx = rng.integers(0, n, size=(iters, n))
-    d = (a[idx] - b[idx]).mean(axis=1)
-    return float(np.percentile(d, 2.5)), float(np.percentile(d, 97.5))
 
 
 def main() -> None:
@@ -192,33 +208,54 @@ def main() -> None:
     ts_end = {r["key"]: r["ts_end"] for r in pool["clips"]}
     ks = sorted(args.ks)
 
-    # Neighbour tolerance. The benchmark tags exactly one 30-sec clip per question (the one holding
-    # target_time), so an arm that ranks the clip right before the evidence first scores a miss.
-    # Widening asks whether the arm landed in the right place at all. It is a DIFFERENT question,
-    # not a fairer version of the same one: every extra clip admitted is another way to score a
-    # hit, so recall rises even for a random ranker. The chance column below is what keeps it
-    # honest -- read the arm against chance at its own tolerance, never against another one.
+    # ------------------------------------------------------------------
+    # 정답 클립 판정: 주석된 시점(target_time) 기준, 파생된 클립 기준이 아니다
+    # ------------------------------------------------------------------
+    # EgoLifeQA 원본이 주는 건 target_time 뿐이다. "어느 클립이 정답인가" 는
+    # common.py 의 target_clips() 가 "시점이 클립 구간 안에 들어가는가" 로 만든 파생물이고,
+    # 실측해보면 두 군데가 깨진다.
+    #   - 주석 시점이 클립 경계 3초 이내인 문항이 19.2% -> 격자가 조금만 달랐어도 옆 클립이 정답
+    #   - 클립 사이 틈(중앙값 3초)에 떨어져 정답이 0개가 되는 문항 13개
+    # 그래서 여기서는 "클립 구간이 target_time ±tol 에 걸치는가" 로 판정한다.
+    #   tol=0  -> 기존 엄격 정의와 동일 (500문항 중 497개 일치, 나머지 3개는 위 연쇄 버그)
+    #   tol>0  -> '정확히 맞혔나' 가 아니라 '근처에 갔나' 라는 다른 질문. 정답 칸이 늘어나
+    #             recall 이 저절로 오르므로 아래 chance 행과 같이 읽어야 한다.
     tol = float(args.target_tolerance_sec)
-    day_of = {r["key"]: r["date"] for r in pool["clips"]}
-    start_of = {r["key"]: clip_start_sec(r["video_path"]) for r in pool["clips"]}
 
-    def expand(target_keys: Set[str]) -> Set[str]:
-        if tol <= 0:
+    # spans:      {질문ID: [(시작초, 끝초), ...]}   지금 데이터는 항상 시작==끝 (한 시점)
+    # clip_spans: {클립key: (시작초, 끝초)}          풀 전체 6,223개
+    spans = {q["ID"]: target_spans(q.get("target_time"), (q.get("query_time") or {}).get("date"))
+             for q in pool["questions"]}
+    clip_spans = {r["key"]: clip_span(r) for r in pool["clips"]}
+
+    def expand(qid: str, target_keys: Set[str]) -> Set[str]:
+        """질문 하나의 정답 클립 key 집합을 만든다.
+
+        입력:  qid          "6"
+               target_keys  build_pool 이 넣어둔 파생 정답 {"DAY1_A1_JAKE_11343000"}
+        출력:  정답으로 칠 클립 key 집합
+               tol=0  -> {"DAY1_A1_JAKE_11343000"}           1칸
+               tol=30 -> {"...11340000", "...11343000", "...11350000"}   3칸
+
+        디버깅 팁: 반환 크기가 이상하면 spans[qid] 를 먼저 찍어볼 것.
+        시점이 2~3개로 쪼개져 있어야 정상이고, 하나인데 수백 칸이 나오면 tol 이 너무 크다.
+        """
+        sp = spans.get(qid) or []
+        if not sp:
+            # target_time 이 없는 옛날 pool 파일 -> 기존 파생 정답으로 폴백
             return set(target_keys)
-        out = set(target_keys)
-        anchors = [(day_of[t], start_of[t]) for t in target_keys
-                   if t in day_of and start_of.get(t) is not None]
-        if not anchors:
-            return out
-        for key, st in start_of.items():
-            if st is None:
-                continue
-            d = day_of[key]
-            if any(d == ad and abs(st - a) <= tol for ad, a in anchors):
+        out = set()
+        for key, (cs, ce) in clip_spans.items():
+            # 두 구간 [cs,ce] 와 [a-tol, b+tol] 이 겹치는가 (양끝 포함)
+            if any(cs <= b + tol and ce >= a - tol for a, b in sp):
                 out.add(key)
+        # ★ target_keys 를 합집합으로 얹지 않는다.
+        #   그건 common.py 의 target_clips() 가 만든 값이고, 연쇄 타임스탬프를 구간으로
+        #   잘못 읽어 ID 279 를 2,430칸으로 부풀린다(16문항, 전부 held-out 380 쪽).
+        #   spans 가 잡히면 그게 주석에 더 충실하므로 그것만 쓴다.
         return out
 
-    expanded = {q["ID"]: expand(set(q["target_keys"])) for q in pool["questions"]}
+    expanded = {q["ID"]: expand(q["ID"], set(q["target_keys"])) for q in pool["questions"]}
     if tol > 0:
         sizes = sorted(len(v) for v in expanded.values())
         print(f"\ntarget tolerance {tol:.0f}s: targets per question went "
@@ -226,7 +263,14 @@ def main() -> None:
               f"{sizes[len(sizes)//2]} (median), max {sizes[-1]}. Recall below is NOT comparable "
               f"to the strict table; use the chance column.")
 
-    # hits[arm][k] -> {qid: 0/1};  rank[arm] -> {qid: best target rank or None}
+    # ------------------------------------------------------------------
+    # 채점 루프: 질문 x arm 마다 클립을 유사도로 줄 세우고 정답 순위를 기록
+    # ------------------------------------------------------------------
+    # 여기서 채워지는 4개가 이후 모든 표의 원재료다. 디버깅할 때 먼저 볼 것.
+    #   hits[arm][k][qid]  0/1   정답이 상위 k 안에 들어왔나
+    #   ranks[arm][qid]    int   정답이 처음 나온 순위(1부터). 없으면 None
+    #   pool_sizes[arm][qid] int 그 질문이 실제로 뒤진 후보 수(6,223 이 아니다!)
+    #   skipped[arm]       list  채점 불가 질문 ID
     hits: Dict[str, Dict[int, Dict[str, int]]] = {n: {k: {} for k in ks} for n in arm_names}
     ranks: Dict[str, Dict[str, Optional[int]]] = {n: {} for n in arm_names}
     pool_sizes: Dict[str, Dict[str, int]] = {n: {} for n in arm_names}
@@ -234,34 +278,44 @@ def main() -> None:
 
     for q in pool["questions"]:
         qid, qt = q["ID"], q["query_time"]
-        targets = expanded[qid]
+        targets = expanded[qid]                  # 위에서 만든 정답 클립 key 집합
         qvecs = np.ascontiguousarray(np.stack([qemb[t] for t in qmap[qid]]).T)   # [d, nq]
         for n in arm_names:
             keys, emb = arms[n]["keys"], arms[n]["emb"]
+            # ★ 미래 차단: 질문 시각 이전에 끝난 클립만 후보. 그래서 문항마다 후보 수가
+            #   다르다(96 ~ 5,966개, 중앙값 2,489). recall 을 6,223 기준으로 해석하면 틀린다.
             vis = [i for i, k in enumerate(keys) if ts_end[k] <= qt]
             vis_keys = [keys[i] for i in vis]
             tgt_present = targets & set(vis_keys)
             if not tgt_present or len(vis) < 2:
-                skipped[n].append(qid)          # arm cannot be scored on this question
+                # 정답이 아직 안 일어났거나(질문 시각 이전에 없음) 이 arm 에 임베딩이 없음.
+                # 채점 불가로 빼고, 아래 common 계산에서 모든 arm 공통 문항만 남긴다.
+                skipped[n].append(qid)
                 continue
             pool_sizes[n][qid] = len(vis)
             sub = emb[vis]                       # [m, d]
             # some numpy/BLAS builds (2.0 + Accelerate) raise spurious divide/overflow warnings
             # here even for finite inputs; load_arms already checked the rows are finite.
             with np.errstate(divide="ignore", over="ignore", invalid="ignore"):
-                sims = sub @ qvecs               # [m, nq]
+                # 양쪽 다 unit() 으로 정규화돼 있으므로 내적 = 코사인 유사도. [후보수, 검색어수]
+                sims = sub @ qvecs
+            # 검색어마다 유사도 내림차순 정렬. order_per_query[j][0] 이 j번째 검색어의 1위.
             order_per_query = [np.argsort(-sims[:, j]) for j in range(sims.shape[1])]
             best = None
             for pos, i in enumerate(order_per_query[0], 1):
                 if vis_keys[i] in tgt_present:
-                    best = pos
+                    best = pos                   # 정답이 처음 나온 순위 (1부터)
                     break
             ranks[n][qid] = best
             for k in ks:
+                # 검색어가 여러 개면 각자의 상위 k 를 합집합으로 본다.
+                # 주의: ranks 는 위에서 order_per_query[0] 만 쓰므로 검색어가 2개 이상이면
+                # rank 와 hit@k 의 기준이 달라진다. --query-source question 은 1개라 무관.
                 topk = {vis_keys[i] for order in order_per_query for i in order[:k]}
                 hits[n][k][qid] = int(bool(tgt_present & topk))
 
-    # questions every arm could score -- the paired set
+    # 모든 arm 이 채점할 수 있었던 질문만 남긴다 = 짝지은 비교의 대상.
+    # 이게 있어야 arm 간 차이가 "문항 구성이 달라서" 생기는 일이 없다.
     common = sorted(set.intersection(*[set(hits[n][ks[0]]) for n in arm_names]), key=int)
     print(f"\nquestions: {len(pool['questions'])} | scorable in every arm: {len(common)}")
     for n in arm_names:
@@ -270,6 +324,11 @@ def main() -> None:
                   f"or nothing was visible yet)")
 
     def arr(n: str, k: int) -> np.ndarray:
+        """arm n 의 recall@k 를 문항별 0/1 벡터로. 길이는 항상 len(common).
+
+        출력 예) array([0., 0., 1., 0., ...])  -> .mean() 이 곧 recall@k
+        모든 arm 이 같은 순서의 같은 문항이라 그대로 짝지어 빼면 된다.
+        """
         return np.array([hits[n][k][qid] for qid in common], dtype=np.float64)
 
     print(f"\nrecall@k over {len(common)} questions (union over the question's queries)")
@@ -295,11 +354,19 @@ def main() -> None:
         n_tgt.append(len(expanded[qid] & keys))
         n_vis.append(vis)
     def chance_at(t: int, v: int, k: int) -> float:
-        """P(a random k-subset of v contains at least one of t targets).
+        """아무것도 모르는 랭커가 상위 k 안에 정답을 넣을 확률.
 
-        NOT k*t/v: that union bound double-counts the ways two targets both land in the k, and
-        runs past 1 once k*t approaches v -- at tolerance 300s (t~21, k=50) it reported 52% where
-        the truth is 45%, which is the difference between an arm looking below chance and above.
+        입력:  t 정답 클립 수, v 후보(가시 풀) 수, k 상위 몇 개
+        출력:  확률 0~1.  chance_at(1, 2489, 3) = 0.0012,  chance_at(21, 2489, 50) = 0.348
+
+        recall 은 이 값과 비교해야만 의미가 있다. tolerance 를 올리면 t 가 늘어나
+        recall 이 저절로 오르는데, 이 값도 같이 오르기 때문.
+        ★ tolerance 가 다른 두 recall 을 직접 비교하지 말 것. 각자 자기 chance 와 비교.
+
+        k*t/v (합집합 상한) 를 쓰면 안 된다. 정답 두 개가 동시에 들어오는 경우를 중복해서
+        세고, k*t 가 v 에 가까워지면 1 을 넘어간다. tolerance 300s(t~21, k=50)에서
+        그 식은 52%, 실제는 45% 였고 -- arm 이 우연 이하로 보이느냐 아니냐가 갈렸다.
+        여기서는 정확식 1 - C(v-t,k)/C(v,k) 를 곱셈으로 푼다.
         """
         if t <= 0 or v <= 0:
             return 0.0
@@ -310,7 +377,7 @@ def main() -> None:
             num = v - t - i
             if num <= 0:
                 return 1.0
-            miss *= num / (v - i)
+            miss *= num / (v - i)        # 정답을 i번째까지 계속 피할 확률
         return 1.0 - miss
 
     if n_vis:
@@ -333,11 +400,13 @@ def main() -> None:
             a_only = int(((ha == 1) & (hb == 0)).sum())
             b_only = int(((ha == 0) & (hb == 1)).sum())
             diff = 100 * (ha.mean() - hb.mean())
-            lo, hi = bootstrap_ci(ha, hb)
+            pv = exact_paired_p(a_only, b_only)
             pairs.append({"a": a, "b": b, "k": mk, "diff_pp": diff,
-                          "ci95_pp": [100 * lo, 100 * hi], "a_only": a_only, "b_only": b_only})
-            print(f"  {a} - {b}: {diff:+5.1f}pp  95% CI [{100*lo:+5.1f}, {100*hi:+5.1f}]  "
-                  f"({a} only {a_only}, {b} only {b_only})")
+                          "a_only": a_only, "b_only": b_only,
+                          "mcnemar_p": pv, "n_discordant": a_only + b_only})
+            flag = "" if pv < 0.05 else "  <- not significant"
+            print(f"  {a} - {b}: {diff:+5.1f}pp  ({a} only {a_only}, {b} only {b_only}, "
+                  f"discordant {a_only + b_only})  McNemar p={pv:.3f}{flag}")
 
     # breakdowns at the main k
     def group(field: str) -> Dict[str, Dict[str, float]]:
@@ -392,10 +461,16 @@ def main() -> None:
         lines.append(f"| `{n}` | " + " | ".join(f"{100 * arr(n, k).mean():.1f}%" for k in ks) +
                      f" | {int(np.median(rs)) if rs else '-'} |")
     lines += ["", f"Paired differences at k={mk}:", "",
-              "| arms | diff (pp) | 95% CI | a only | b only |", "|---|---|---|---|---|"]
+              "| arms | diff (pp) | a only | b only | discordant | McNemar p |",
+              "|---|---|---|---|---|---|"]
     for p in pairs:
-        lines.append(f"| `{p['a']}` - `{p['b']}` | {p['diff_pp']:+.1f} | "
-                     f"[{p['ci95_pp'][0]:+.1f}, {p['ci95_pp'][1]:+.1f}] | {p['a_only']} | {p['b_only']} |")
+        lines.append(f"| `{p['a']}` - `{p['b']}` | {p['diff_pp']:+.1f} | {p['a_only']} | "
+                     f"{p['b_only']} | {p['n_discordant']} | {p['mcnemar_p']:.3f} |")
+    lines += ["", "Only the discordant questions carry information about which arm is better, and "
+                  "McNemar asks whether their split is further from even than a coin would give. "
+                  "Six discordant all one way is the first split reaching p < 0.05; below that, a "
+                  "clean-looking 4-0 is not evidence. A small discordant count means 'underpowered', "
+                  "not 'no difference'."]
     lines += ["", "How to read it: `center@R` is the control. `gaze@R` beating `full` but not "
                   "`center@R` means cropping helped and gaze did not.", ""]
     os.makedirs(os.path.dirname(md_path), exist_ok=True)

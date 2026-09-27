@@ -62,8 +62,16 @@ def main() -> int:
         # the pair test from recall_eval, when it is there, says whether the gap is noise
         for p in d.get("pairs", []):
             if canon(p["a"]) == canon(best) and canon(p["b"]) == args.baseline:
-                print(f"  paired 95% CI for {best} - {args.baseline}: "
-                      f"[{p['ci95_pp'][0]:+.1f}, {p['ci95_pp'][1]:+.1f}]")
+                if "mcnemar_p" in p:
+                    n_d = p.get("n_discordant", p["a_only"] + p["b_only"])
+                    print(f"  paired test for {best} - {args.baseline}: "
+                          f"{p['b_only']} vs {p['a_only']} of {n_d} discordant, "
+                          f"p={p['mcnemar_p']:.3f}"
+                          + ("" if p["mcnemar_p"] < 0.05 else "  <- not significant"))
+                elif "ci95_pp" in p:      # results file from before the bootstrap was dropped
+                    print(f"  paired 95% CI for {best} - {args.baseline}: "
+                          f"[{p['ci95_pp'][0]:+.1f}, {p['ci95_pp'][1]:+.1f}]  (old bootstrap CI; "
+                          f"unreliable at small discordant counts)")
     print(f"BEST={best}")
     ok = gain > args.min_gain_pp
     if not args.quiet:

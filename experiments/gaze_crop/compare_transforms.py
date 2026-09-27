@@ -1,63 +1,44 @@
 #!/usr/bin/env python3
 """
-Lay out the gaze->image transform candidates so a person can choose one: a score table as evidence,
-and rendered frames with the crop box drawn under every candidate. It does NOT choose.
+Render the gaze->image transform candidates so a person can choose one. It does NOT choose, and it
+does not score: it draws, and you look.
 
-The problem it helps with: the gaze CSVs hold yaw/pitch in the Central Pupil Frame, not pixels, and
-EgoLife's mp4s are re-exported video, so the sign/rotation mapping between the two cannot be settled
-from a spec sheet. Get it wrong and the box lands on the ceiling while the wearer was looking at a
-pan -- the experiment then reports "gaze does not help" about a bug.
+The problem: the gaze CSVs hold yaw/pitch in the Central Pupil Frame, not pixels, and EgoLife's
+mp4s are re-exported video, so the sign/rotation mapping between the two cannot be settled from a
+spec sheet. Get it wrong and the box lands on the ceiling while the wearer was looking at a pan --
+the experiment then reports "gaze does not help" about a bug.
 
-The score is evidence, not a verdict. Each candidate is scored by how well a clip's gaze crop
-matches THAT CLIP'S OWN 30-sec caption:
-
-    score(transform) = mean over clips of  cos( emb(gaze crop), emb(clip's own caption text) )
-
-The caption describes what the wearer was doing, so a box on the right thing should sit closer to
-its own caption than a box the wrong way up. It uses captions, never the QA questions, never the
-target labels, and never the retrieval ranking -- so it cannot hand the experiment its own answer.
-
-Every candidate has the same crop size and differs only in where the box sits, which is what makes
-the scores comparable. `full` is printed as a reference line, not as a candidate.
-
-Two things make the test actually discriminate. It crops **frame by frame** at each frame's own gaze
-point, not once per clip at the median: on this data the per-clip median sits within a few percent of
-the frame centre (30 s of saccades average out), so a median-based test moves the box hardly at all
-and every candidate scores the same. And it **skips clips whose gaze barely leaves the centre**
-(--min-offset), since those cannot separate a flip from its opposite. All candidate transforms are
-isometries about the frame centre, so the offset filter is identical for every candidate and cannot
-favour one. That distance is radial by default, which is not always enough -- see --axis below.
-
-Then look at variants/*_variants.jpg: the same frame under every candidate, labelled, at the moment
-the gaze sat furthest from the frame centre (where the candidates differ most). Pick the tile whose
-box is on what the wearer was plainly looking at, and pass it on:
+For each of a handful of clips it writes variants/<clip>_variants.jpg: the same frame under every
+candidate, labelled, with the gaze point and crop box drawn. Pick the tile whose box is on what the
+wearer was plainly looking at, and pass it on:
 
     python experiments/gaze_crop/compare_transforms.py
     # look at the images, then
     GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/run_stage1.sh
 
-The table's top row is printed as a suggestion only. When the top two are within noise the score
-cannot tell them apart at all, and the pictures are the only thing that can.
+Two things decide whether the pictures can discriminate at all.
 
-**--axis, for when two candidates tie because the test never exercised them.** A left/right mirror
-only moves the box when the gaze is off-centre HORIZONTALLY. On this data the biggest excursions are
-almost all pitch -- the wearer looking down at their own hands -- so the default radial --min-offset
-and the default choice of frame to draw both keep clips whose gaze sat at x ~ 0.5. There an
-x-mirrored pair crops the SAME pixels: identical embeddings, identical scores, and a rendered frame
-whose two tiles are indistinguishable. The tie is the test's, not the data's.
+**Which frame gets drawn.** Per-frame gaze, not the clip median: 30 s of saccades average out, so a
+median-based box sits within a few percent of the frame centre and every candidate looks the same.
+Within a clip it draws the most off-centre sampled frame, where the candidates disagree most.
 
---axis x measures the offset horizontally instead, both for the --min-offset filter and for
-choosing the frame to draw, so only clips that actually swung left or right survive:
+**--axis.** A left/right mirror only moves the box when the gaze is off-centre HORIZONTALLY. On
+this data the biggest excursions are almost all pitch -- the wearer looking down at their own
+hands -- so the default radial --min-offset keeps clips whose gaze sat at x ~ 0.5, where an
+x-mirrored pair crops the SAME pixels and its two tiles are indistinguishable. --axis x measures
+the offset horizontally instead, for both the filter and the frame choice:
 
     python experiments/gaze_crop/compare_transforms.py \
-        --axis x --min-offset 0.08 --transforms flipy flipx+flipy
+        --axis x --min-offset 0.08 --dump-variants 12 --transforms flipy flipx+flipy
 
-A rotation swaps the two axes, so an --axis filter is fair within one mirrored pair but not across
-all six candidates at once; the script warns if a rotation is in the list. Settle one mirror per
-run, with the pair named in --transforms.
+Settle one mirror per run, with the pair named in --transforms: a rotation swaps the two axes, so
+an --axis filter is not the same filter for it. Look at 12 images, not 4 -- on this data 4 gave the
+wrong answer, and two clips 2.5 minutes apart in the same corridor disagreed with each other.
 
-Cost: one decode per sampled clip plus one forward per (clip, candidate). 150 clips x 6 candidates
-is ~10 minutes.
+This script used to also print a table scoring each candidate by the cosine between its crop and
+the clip's own 30-sec caption. It was never used to decide anything -- it could not separate the
+candidates on this data, and the pictures settled it -- so it is gone, along with the embedding
+pass it needed. Decoding and drawing only: no GPU, a couple of minutes.
 """
 
 import argparse
@@ -70,8 +51,8 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import (  # noqa: E402
-    ANALYSIS_DIR, CAPTION_30SEC, GAZE_ROOT, MAX_PIXELS, NFRAMES, POOL_PATH, VIDEO_ROOT, clip_key,
-    crop_box, gaze_at, load_json, resolve_video_path, save_json, unit,
+    ANALYSIS_DIR, GAZE_ROOT, NFRAMES, POOL_PATH, VIDEO_ROOT, crop_box, gaze_at, load_json,
+    resolve_video_path, save_json,
 )
 from embed_arms import decode  # noqa: E402
 from prepare_gaze import (  # noqa: E402
@@ -80,7 +61,6 @@ from prepare_gaze import (  # noqa: E402
 
 DEFAULT_CANDIDATES = ("none", "flipx", "flipy", "flipx+flipy", "rot90cw", "rot90ccw")
 ROTATIONS = ("rot90cw", "rot90ccw")
-MIN_CLIPS_FOR_CI = 10      # below this the bootstrap CI is an artefact, not a measurement
 
 
 def point_offset(p: Tuple[float, float], axis: str) -> float:
@@ -109,7 +89,6 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--pool", default=POOL_PATH)
     ap.add_argument("--gaze-root", default=GAZE_ROOT, help=f"default: {GAZE_ROOT}")
-    ap.add_argument("--captions", default=CAPTION_30SEC)
     ap.add_argument("--transforms", nargs="+", default=list(DEFAULT_CANDIDATES))
     ap.add_argument("--n-clips", type=int, default=150, help="clips to try; targets come first")
     ap.add_argument("--min-offset", type=float, default=0.05,
@@ -134,7 +113,6 @@ def main() -> None:
     ap.add_argument("--projection", choices=("equidistant", "pinhole"), default="equidistant")
     ap.add_argument("--focal-px", type=float, default=None)
     ap.add_argument("--nframes", type=int, default=NFRAMES)
-    ap.add_argument("--max-pixels", type=int, default=MAX_PIXELS)
     ap.add_argument("--dump-variants", type=int, default=4, metavar="N",
                     help="render N clips' most off-centre frame under every candidate, as a labelled "
                          "grid. 0 disables it, and then there is nothing to look at.")
@@ -153,27 +131,21 @@ def main() -> None:
               f"    --axis x --transforms flipy flipx+flipy")
     print(f"gaze root: {args.gaze_root}")
     pool = load_json(args.pool)
-    caption_text = {clip_key(c["video_path"]): c.get("text", "") for c in load_json(args.captions)}
-
     rng = np.random.default_rng(args.seed)
     targets = [r for r in pool["clips"] if r["is_target"]]
     others = [r for r in pool["clips"] if not r["is_target"]]
     rng.shuffle(others)
     picked = (targets + others)[:args.n_clips]
 
-    from worldmm.embedding import EmbeddingModel
-    model = EmbeddingModel()
-
-    rows: List[Dict[str, Any]] = []        # per clip: {"key", "caption", "emb": {transform: vec}}
+    rows: List[Dict[str, Any]] = []        # 그릴 클립: {"key", "offset", "draw_frame", "draw_point"}
     offsets: List[float] = []
     skipped_flat = 0
     w = h = None
     project = None
     for i, r in enumerate(picked, 1):
         csv_path = find_csv(args.gaze_root, r["key"])
-        cap = caption_text.get(r["key"], "").strip()
         vpath = resolve_video_path(r["video_path"], args.video_root)
-        if not csv_path or not cap or not os.path.exists(vpath):
+        if not csv_path or not os.path.exists(vpath):
             continue
         try:
             arr, idx, fps = decode(vpath, args.nframes)
@@ -204,41 +176,25 @@ def main() -> None:
                 p = gaze_at(entry_pts, fi / fps, tol=1.0)
                 pts.append(tuple(p) if p else tuple(entry_pts["median"]))
 
-        # how far the gaze sits from the centre, along --axis. Measured on the untransformed
-        # points, so the same clips survive whichever candidate is being scored.
+        # how far the gaze sits from the centre, along --axis, on the untransformed points
         off = clip_offset(pts, args.axis)
         offsets.append(off)
         if off < args.min_offset:
-            skipped_flat += 1
+            skipped_flat += 1          # this clip cannot separate a mirror from its opposite
             continue
 
-        from PIL import Image
         # the most off-centre sampled frame along --axis: where the candidates disagree most, so
         # that is the frame worth drawing
         j = max(range(len(pts)), key=lambda t: point_offset(pts[t], args.axis))
-        entry: Dict[str, Any] = {"key": r["key"], "is_target": r["is_target"], "offset": off,
-                                 "emb": {}, "draw_frame": arr[j].copy(), "draw_point": pts[j]}
-        for name in args.transforms:
-            frames = []
-            for a, (px, py) in zip(arr, pts):
-                tx, ty = apply_transform(px, py, name)
-                frames.append(Image.fromarray(a).crop(crop_box(w, h, tx, ty, args.ratio)))
-            vec = model.encode_video([{"video": frames, "nframes": len(frames),
-                                       "max_pixels": args.max_pixels}])
-            entry["emb"][name] = np.asarray(vec, dtype=np.float32)[0]
-        full = [Image.fromarray(a) for a in arr]
-        entry["emb"]["__full__"] = np.asarray(
-            model.encode_video([{"video": full, "nframes": len(full),
-                                 "max_pixels": args.max_pixels}]), dtype=np.float32)[0]
-        entry["caption"] = cap
-        rows.append(entry)
+        rows.append({"key": r["key"], "is_target": r["is_target"], "offset": off,
+                     "draw_frame": arr[j].copy(), "draw_point": pts[j]})
         if i % 25 == 0:
-            print(f"  ... {i}/{len(picked)} clips tried, {len(rows)} scored, "
+            print(f"  ... {i}/{len(picked)} clips tried, {len(rows)} usable, "
                   f"{skipped_flat} skipped as too central")
 
     if not rows:
         raise SystemExit(
-            f"no clip was scorable ({skipped_flat} skipped as too central on {args.axis} out of "
+            f"no clip was usable ({skipped_flat} skipped as too central on {args.axis} out of "
             f"{len(offsets)} with gaze). Lower --min-offset, raise --n-clips, or widen --axis.")
     if offsets:
         o = sorted(offsets)
@@ -246,79 +202,25 @@ def main() -> None:
               f"p90 {o[int(0.9 * (len(o) - 1))]:.3f} (normalised; 0.5 = frame edge). "
               f"{skipped_flat}/{len(offsets)} clips skipped as too central.")
 
-    caps = unit(np.asarray(model.encode_vis_query([r["caption"] for r in rows]), dtype=np.float32))
-    names = list(args.transforms) + ["__full__"]
-    scores: Dict[str, np.ndarray] = {}
-    for name in names:
-        emb = unit(np.stack([r["emb"][name] for r in rows]))
-        scores[name] = np.einsum("ij,ij->i", emb, caps)      # per-clip cosine with its own caption
-
-    ranked = sorted(args.transforms, key=lambda n: -float(scores[n].mean()))
-    top, second = ranked[0], (ranked[1] if len(ranked) > 1 else None)
-
-    # per-clip votes: which candidate scored highest on each clip. A mean can be carried by a few
-    # clips; the vote count says whether the ordering is consistent.
-    stacked = np.stack([scores[n] for n in args.transforms])          # [cand, clip]
-    votes = {n: int((stacked.argmax(axis=0) == i).sum()) for i, n in enumerate(args.transforms)}
-
-    ci = None
-    if second:
-        d = scores[top] - scores[second]
-        idx = np.random.default_rng(0).integers(0, len(d), size=(5000, len(d)))
-        boot = d[idx].mean(axis=1)
-        ci = (float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5)))
-
-    print(f"\ncosine with each clip's own 30-sec caption, {len(rows)} clips, crop {args.ratio}, "
-          f"{args.pick_mode}")
-    print(f"{'transform':>14} | {'mean cos':>9} | {'vs full':>8} | {'클립 1위':>9}")
-    print("-" * 52)
-    full_mean = float(scores["__full__"].mean())
-    for n in ranked:
-        m = float(scores[n].mean())
-        print(f"{n:>14} | {m:9.4f} | {m - full_mean:+8.4f} | {votes[n]:>9}")
-    print(f"{'full (ref)':>14} | {full_mean:9.4f} |")
-
-    # A bootstrap over a handful of clips resamples the same few numbers, so its interval collapses
-    # towards a point and clears 0 on width alone. At n=1 it IS a point: CI = [d, d], "separated"
-    # for free. Refuse to call that a separation -- too few clips is a reason to widen the filter,
-    # not a result.
-    too_few = len(rows) < MIN_CLIPS_FOR_CI
-    separated = bool(ci and ci[0] > 0 and not too_few)
-    print(f"\nThe score is evidence, not a decision. Top row '{top}'"
-          + (f" is separated from '{second}' (95% CI of the gap "
-             f"{ci[0]:+.4f}..{ci[1]:+.4f})." if separated else
-             f" is NOT separated from '{second}' (95% CI {ci[0]:+.4f}..{ci[1]:+.4f}) -- the score "
-             f"cannot tell them apart."))
-    if too_few:
-        print(f"  ...and that CI is not usable anyway: only {len(rows)} clip(s) survived "
-              f"--min-offset {args.min_offset} on --axis {args.axis} "
-              f"({skipped_flat}/{len(offsets)} skipped), under the {MIN_CLIPS_FOR_CI} this needs. "
-              f"Lower --min-offset or raise --n-clips and run it again.")
-
     save_json({
         "n_clips": len(rows), "ratio": args.ratio, "frame_size": [w, h],
         "pick_mode": args.pick_mode, "min_offset": args.min_offset, "axis": args.axis,
         "transforms": list(args.transforms),
         "n_skipped_too_central": skipped_flat,
         "offset_median": (sorted(offsets)[len(offsets) // 2] if offsets else None),
-        "criterion": "mean cosine(gaze-crop embedding, own 30-sec caption embedding)",
-        "scores": {n: float(scores[n].mean()) for n in names},
-        "ranked": ranked, "suggested": top, "runner_up": second, "votes": votes,
-        "gap_ci95": list(ci) if ci else None,
-        "ci_usable": not too_few,
-        "separated": separated, "chosen_by": "human",
+        "chosen_by": "human",      # 이 스크립트는 고르지 않는다. 그림만 만든다.
     }, args.out)
     print(f"wrote {args.out}")
 
     if args.dump_variants:
-        grids = variant_grids(rows, args, w, h, scores)
+        grids = variant_grids(rows, args, w, h)
     else:
         grids = []
         print("\n--dump-variants 0: no images rendered, so there is nothing to look at.")
 
     print("\n" + "-" * 74)
     print("Now look at the images and decide:")
-    for g in grids[:4]:
+    for g in grids:
         print(f"  {g}")
     axis_note = {"radial": "furthest from the centre",
                  "x": "furthest from the centre HORIZONTALLY (so a left/right mirror moves the box)",
@@ -327,30 +229,35 @@ def main() -> None:
     print(f"labelled top-left, at the moment the gaze sat {axis_note[args.axis]}.")
     print("Pick the tile whose box is on what the wearer was plainly looking at -- then run stage 1:")
     print(f"\n    GAZE_TRANSFORM=<그 라벨> bash experiments/gaze_crop/run_stage1.sh")
-    print(f"\n(the table above suggests '{top}', "
-          f"{'and the gap over the runner-up is real' if separated else 'but it is a tie -- the pictures decide'})")
+    print(f"\nNothing here ranks the candidates. Twelve images beat four: on this data four gave "
+          f"the wrong answer.")
     print("-" * 74)
 
 
-def variant_grids(rows: List[Dict[str, Any]], args, w: int, h: int,
-                  scores: Dict[str, np.ndarray]) -> List[str]:
-    """One image per clip: the same frame under every candidate, labelled, biggest gaze offset first."""
+def variant_grids(rows: List[Dict[str, Any]], args, w: int, h: int) -> List[str]:
+    """클립 하나당 이미지 한 장: 같은 프레임을 후보별로 그려 격자로 붙인다.
+
+    입력:  rows  채점 루프가 모은 {"key", "offset", "draw_frame", "draw_point"} 목록
+                 draw_point 는 변환 전 정규화 좌표 (x, y)
+    출력:  쓴 파일 경로 목록. variants/<clip>_variants.jpg
+
+    --axis 기준 이탈이 큰 클립부터 --dump-variants 장을 고른다. 후보 간 박스 차이가
+    가장 큰 클립이 판단하기 쉽기 때문.
+    """
     from PIL import Image
     out_dir = os.path.join(os.path.dirname(os.path.abspath(args.out)), "..", "variants")
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
 
     order = sorted(rows, key=lambda r: -r["offset"])[:args.dump_variants]
-    means = {n: float(scores[n].mean()) for n in args.transforms}
     paths = []
     for r in order:
         img = Image.fromarray(r["draw_frame"])
         px, py = r["draw_point"]
-        tiles = []
-        for name in args.transforms:
-            tx, ty = apply_transform(px, py, name)
-            tiles.append(_draw(img, tx, ty, args.ratio, f"{name}   cos {means[name]:.4f}"))
-        cols = 3
+        # 같은 프레임 · 같은 crop 크기. 후보마다 박스 위치만 다르다.
+        tiles = [_draw(img, *apply_transform(px, py, name), args.ratio, name)
+                 for name in args.transforms]
+        cols = min(3, len(tiles))
         rowsn = (len(tiles) + cols - 1) // cols
         tw, th = tiles[0].width // 2, tiles[0].height // 2
         grid = Image.new("RGB", (tw * cols, th * rowsn), (20, 20, 20))

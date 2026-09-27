@@ -49,9 +49,16 @@ def recall_block(path: str, label: str, out: List[str]) -> None:
     if d.get("pairs"):
         out.append(f"paired diff at k={d['main_k']}:")
         for p in d["pairs"]:
-            out.append(f"- `{p['a']}` − `{p['b']}` = **{p['diff_pp']:+.1f}pp** "
-                       f"(95% CI {p['ci95_pp'][0]:+.1f}..{p['ci95_pp'][1]:+.1f}; "
-                       f"{p['a']} only {p['a_only']}, {p['b']} only {p['b_only']})")
+            # 엇갈린 문항 수와 정확검정 p값만 싣는다. 부트스트랩 CI 는 불일치가 적을 때
+            # 거의 자동으로 0 을 벗어나서 뺐다 (gaze_common.exact_paired_p 주석 참고).
+            n_d = p.get("n_discordant", p["a_only"] + p["b_only"])
+            if "mcnemar_p" in p:
+                sig = "" if p["mcnemar_p"] < 0.05 else " — **유의하지 않음**"
+                stat = f"불일치 {n_d}개 중 {p['a']} {p['a_only']} : {p['b']} {p['b_only']}, p={p['mcnemar_p']:.3f}{sig}"
+            else:                       # 부트스트랩 제거 이전에 만든 결과 파일
+                stat = (f"{p['a']} only {p['a_only']}, {p['b']} only {p['b_only']} "
+                        f"(옛 형식: 정확검정 p값 없음)")
+            out.append(f"- `{p['a']}` − `{p['b']}` = **{p['diff_pp']:+.1f}pp** ({stat})")
         out.append("")
     audio = (d.get("breakdowns") or {}).get("need_audio")
     if audio:
@@ -82,16 +89,9 @@ def main() -> None:
     tc_path = os.path.join(ANALYSIS_DIR, "transform_choice.json")
     if os.path.exists(tc_path):
         tc = load_json(tc_path)
-        sug = tc.get("suggested") or tc.get("best")     # "best" is the pre-rename field name
-        out.append(f"- 캡션 코사인 순위(참고): {' > '.join(tc.get('ranked', [])[:3])} "
-                   f"/ {tc.get('n_clips')}클립")
-        if tc.get("gap_ci95"):
-            sep = ("격차 유의" if (tc.get("separated") or tc.get("verdict") == "clear")
-                   else "**tie(구분 안 됨)**")
-            out.append(f"- 1위 `{sug}` vs 2위 `{tc.get('runner_up')}`: {sep} "
-                       f"(95% CI {tc['gap_ci95'][0]:+.4f}..{tc['gap_ci95'][1]:+.4f})")
-        if used and sug and used != sug:
-            out.append(f"- 참고: 점수 1위는 `{sug}` 인데 `{used}` 를 골랐음 — 이미지 판단을 우선한 결과")
+        out.append(f"- 후보를 그린 조건: {tc.get('n_clips')}클립, crop {tc.get('ratio')}, "
+                   f"axis {tc.get('axis', 'radial')}, min-offset {tc.get('min_offset')} "
+                   f"(중앙 이탈 부족으로 제외 {tc.get('n_skipped_too_central')}개)")
     out.append("")
 
     recall_block(os.path.join(args.results_dir, "recall_question.json"), "1단계 recall (623클립 풀)", out)
