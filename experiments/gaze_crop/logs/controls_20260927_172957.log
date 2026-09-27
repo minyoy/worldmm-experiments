@@ -1,3 +1,121 @@
+
+=== 2026-09-27 17:29:57  0. preflight ===================================================
+pool      : /home/minyoy/WorldMM/experiments/gaze_crop/pool_all.json  (6223 clips / 500 questions)
+arms      : center@0.5, gazef_05_randf  (비교 대상 full, gazef@0.5)
+tolerance : 0 60
+gpus      : 1 <- center@0.5,  2 <- gazef_05_randf  (병렬, arm 로그는 별도 파일)
+log       : /home/minyoy/WorldMM/experiments/gaze_crop/logs/controls_20260927_172957.log
+
+=== 2026-09-27 17:29:58  1. randf 좌표 파일 ===================================================
+  (다시 만든다)
+pseudo gaze (random-frames) for 6223 clips -> /home/minyoy/WorldMM/experiments/gaze_crop/gaze_random_frames.json
+
+=== 2026-09-27 17:30:10  2. arm 임베딩 (center = 자르기 효과, randf = 움직임 효과) ===================================================
+  gpu 1: center@0.5  -> /home/minyoy/WorldMM/experiments/gaze_crop/logs/controls_20260927_172957_center.log
+  gpu 2: gazef_05_randf -> /home/minyoy/WorldMM/experiments/gaze_crop/logs/controls_20260927_172957_randf.log
+  ... 5600/5600 clips, 0.55 clip/s (0.55 embeddings/s), ETA 0 min, checkpointed
+[center@0.5] 6223 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/center_05.npz
+5600 clips x 1 arm(s) in 168.7 min = 1.81 s/clip. Scale that to your real pool: a 6,223-clip pool would take 3.1 h at this rate.
+  ... 6200/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 1 min, checkpointed
+[gazef@0.5] 6223 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05_randf.npz
+6223 clips x 1 arm(s) in 185.4 min = 1.79 s/clip. Scale that to your real pool: a 6,223-clip pool would take 3.1 h at this rate.
+  ok: 실험군 arm 은 여전히 /home/minyoy/WorldMM/experiments/gaze_crop/gaze_points.json 로 만들어진 것
+
+=== 2026-09-27 20:35:41  3. recall, 4 arms x tolerance {0 60} ===================================================
+arms: ['full', 'center_05', 'gazef_05', 'gazef_05_randf']  (dim 1536)
+  full: 6223 clips
+  center_05: 6223 clips
+  gazef_05: 6222 clips
+  gazef_05_randf: 6223 clips
+
+questions: 500 | scorable in every arm: 487
+  full: 13 unscorable (target clip has no embedding in this arm, or nothing was visible yet)
+  center_05: 13 unscorable (target clip has no embedding in this arm, or nothing was visible yet)
+  gazef_05: 13 unscorable (target clip has no embedding in this arm, or nothing was visible yet)
+  gazef_05_randf: 13 unscorable (target clip has no embedding in this arm, or nothing was visible yet)
+
+recall@k over 487 questions (union over the question's queries)
+           arm | @1       | @3       | @5       | @10      | @20      | @50      | med.rank
+-------------------------------------------------------------------------------------------
+          full |    1.2% |    3.1% |    4.5% |    8.4% |   12.7% |   23.4% |      289
+     center_05 |    1.6% |    4.7% |    6.8% |   11.3% |   16.6% |   25.9% |      245
+      gazef_05 |    2.5% |    5.1% |    6.4% |   12.7% |   17.5% |   28.1% |      249
+gazef_05_randf |    1.0% |    4.1% |    5.5% |    8.6% |   12.3% |   22.8% |      292
+        chance |   0.11% |   0.34% |   0.57% |   1.14% |   2.27% |   5.39% |     1273
+                 (targets/question median 1, visible pool median 2621, tolerance 0s)
+
+paired comparisons at k=3  (win = only this arm found the target)
+  full - center_05:  -1.6pp  (full only 6, center_05 only 14, discordant 20)  McNemar p=0.115  <- not significant
+  full - gazef_05:  -2.1pp  (full only 9, gazef_05 only 19, discordant 28)  McNemar p=0.087  <- not significant
+  full - gazef_05_randf:  -1.0pp  (full only 8, gazef_05_randf only 13, discordant 21)  McNemar p=0.383  <- not significant
+  center_05 - gazef_05:  -0.4pp  (center_05 only 14, gazef_05 only 16, discordant 30)  McNemar p=0.856  <- not significant
+  center_05 - gazef_05_randf:  +0.6pp  (center_05 only 15, gazef_05_randf only 12, discordant 27)  McNemar p=0.701  <- not significant
+  gazef_05 - gazef_05_randf:  +1.0pp  (gazef_05 only 17, gazef_05_randf only 12, discordant 29)  McNemar p=0.458  <- not significant
+
+recall@3 by need_audio / type / gap  (need_audio=True questions are the ones oracle frames could not fix either)
+  need_audio
+           False (n=287)  full   3.8%  center_05   6.3%  gazef_05   5.2%  gazef_05_randf   3.8%
+            True (n=200)  full   2.0%  center_05   2.5%  gazef_05   5.0%  gazef_05_randf   4.5%
+  type
+       EntityLog (n=122)  full   4.1%  center_05   4.9%  gazef_05   4.1%  gazef_05_randf   0.8%
+     EventRecall (n=122)  full   3.3%  center_05   4.9%  gazef_05   4.1%  gazef_05_randf   2.5%
+    HabitInsight (n= 61)  full   3.3%  center_05   1.6%  gazef_05   3.3%  gazef_05_randf   6.6%
+     RelationMap (n=121)  full   3.3%  center_05   7.4%  gazef_05   8.3%  gazef_05_randf   7.4%
+      TaskMaster (n= 61)  full   0.0%  center_05   1.6%  gazef_05   4.9%  gazef_05_randf   4.9%
+  gap_bin
+               0 (n=304)  full   3.9%  center_05   5.6%  gazef_05   5.3%  gazef_05_randf   4.9%
+               1 (n= 94)  full   2.1%  center_05   3.2%  gazef_05   3.2%  gazef_05_randf   2.1%
+              2+ (n= 89)  full   1.1%  center_05   3.4%  gazef_05   6.7%  gazef_05_randf   3.4%
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/results/recall_arms_tol0.json
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/recall_arms_tol0.md
+arms: ['full', 'center_05', 'gazef_05', 'gazef_05_randf']  (dim 1536)
+  full: 6223 clips
+  center_05: 6223 clips
+  gazef_05: 6222 clips
+  gazef_05_randf: 6223 clips
+
+target tolerance 60s: targets per question went 1 -> 5 (median), max 30. Recall below is NOT comparable to the strict table; use the chance column.
+
+questions: 500 | scorable in every arm: 500
+
+recall@k over 500 questions (union over the question's queries)
+           arm | @1       | @3       | @5       | @10      | @20      | @50      | med.rank
+-------------------------------------------------------------------------------------------
+          full |    4.8% |    9.2% |   11.8% |   20.4% |   26.8% |   39.6% |       99
+     center_05 |    5.4% |   10.8% |   15.0% |   22.0% |   30.0% |   42.4% |       81
+      gazef_05 |    7.2% |   13.4% |   17.4% |   25.4% |   33.2% |   44.4% |       76
+gazef_05_randf |    4.4% |   11.2% |   14.2% |   19.6% |   28.2% |   40.4% |       87
+        chance |   0.55% |   1.60% |   2.58% |   4.84% |   8.75% |  17.92% |      428
+                 (targets/question median 5, visible pool median 2585, tolerance 60s)
+
+paired comparisons at k=3  (win = only this arm found the target)
+  full - center_05:  -1.6pp  (full only 20, center_05 only 28, discordant 48)  McNemar p=0.312  <- not significant
+  full - gazef_05:  -4.2pp  (full only 17, gazef_05 only 38, discordant 55)  McNemar p=0.006
+  full - gazef_05_randf:  -2.0pp  (full only 16, gazef_05_randf only 26, discordant 42)  McNemar p=0.164  <- not significant
+  center_05 - gazef_05:  -2.6pp  (center_05 only 17, gazef_05 only 30, discordant 47)  McNemar p=0.079  <- not significant
+  center_05 - gazef_05_randf:  -0.4pp  (center_05 only 24, gazef_05_randf only 26, discordant 50)  McNemar p=0.888  <- not significant
+  gazef_05 - gazef_05_randf:  +2.2pp  (gazef_05 only 32, gazef_05_randf only 21, discordant 53)  McNemar p=0.169  <- not significant
+
+recall@3 by need_audio / type / gap  (need_audio=True questions are the ones oracle frames could not fix either)
+  need_audio
+           False (n=298)  full  12.4%  center_05  14.8%  gazef_05  15.1%  gazef_05_randf  11.7%
+            True (n=202)  full   4.5%  center_05   5.0%  gazef_05  10.9%  gazef_05_randf  10.4%
+  type
+       EntityLog (n=125)  full   9.6%  center_05  12.0%  gazef_05  12.8%  gazef_05_randf   8.0%
+     EventRecall (n=126)  full   5.6%  center_05  10.3%  gazef_05  10.3%  gazef_05_randf   7.9%
+    HabitInsight (n= 61)  full  11.5%  center_05   1.6%  gazef_05   6.6%  gazef_05_randf   8.2%
+     RelationMap (n=125)  full  14.4%  center_05  17.6%  gazef_05  21.6%  gazef_05_randf  18.4%
+      TaskMaster (n= 63)  full   3.2%  center_05   4.8%  gazef_05  11.1%  gazef_05_randf  12.7%
+  gap_bin
+               0 (n=314)  full  10.2%  center_05  12.1%  gazef_05  15.9%  gazef_05_randf  12.1%
+               1 (n= 94)  full   4.3%  center_05   7.4%  gazef_05   7.4%  gazef_05_randf   7.4%
+              2+ (n= 92)  full  10.9%  center_05   9.8%  gazef_05  10.9%  gazef_05_randf  12.0%
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/results/recall_arms_tol60.json
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/recall_arms_tol60.md
+
+=== 2026-09-27 20:36:03  4. digest ===================================================
 # gaze-crop 실험 다이제스트
 
 ### 헤드라인
@@ -252,3 +370,20 @@ need_audio 분해 (False 행이 실제 여유분):
 - ⚠ 이 정확도는 visual_bottleneck 의 120문항 subset 에서만 잰 값이다. 그 표본에서는 두 arm 의 recall@3 이 거의 0 이라(위 120문항 블록) 정확도가 달라질 재료 자체가 없다. recall 이득이 있는 문항에서 재려면 나머지 380문항에 조건 B 를 먼저 돌려 `visual_bottleneck/text_context/` 를 채워야 한다 (README 3.5, 6-4).
 
 파서 확인: `python experiments/gaze_crop/rescore.py /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/*/E_prime.json`
+
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/DIGEST.md
+
+--------------------------------------------------------------------------
+읽는 법 (k=3, 같은 문항·같은 질의·같은 candidate set):
+
+  gazef > center  그리고  gazef > randf   -> 시선의 순간 위치가 정보다
+  gazef ~ randf  > center                 -> 이득은 박스가 움직인 것 자체 (시선은 부수적)
+  gazef ~ center                          -> 이득은 자르기 자체. gaze 는 접는다
+
+판정은 이 두 쌍(gazef-center, gazef-randf)만 본다. arm 4개면 pair 가 6개이고,
+6개를 다 보고 이긴 쌍을 고르면 그게 다중비교다. 불일치 건수가 6건 미만인 쌍은
+방향이 한쪽으로 몰려도 p<0.05 가 될 수 없으니 "차이 없음"이 아니라 "검정력 부족"이다.
+--------------------------------------------------------------------------
+
+=== 2026-09-27 20:36:05  2026-09-27 20:36:05  controls done. log: /home/minyoy/WorldMM/experiments/gaze_crop/logs/controls_20260927_172957.log ===================================================

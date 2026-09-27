@@ -1,0 +1,187 @@
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+[2026-09-27 17:30:37,337] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading processor from: VLM2Vec/VLM2Vec-V2.0
+[2026-09-27 17:30:37,499] DEBUG [urllib3.connectionpool:1003] Starting new HTTPS connection (1): huggingface.co:443
+[2026-09-27 17:30:37,813] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:37,940] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-27 17:30:38,278] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-27 17:30:40,313] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:40,352] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-27 17:30:40,741] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-27 17:30:41,114] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-27 17:30:42,134] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-27 17:30:42,430] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:42,588] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-27 17:30:42,956] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-27 17:30:43,278] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:43,311] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-27 17:30:43,677] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-27 17:30:43,970] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-27 17:30:45,404] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-27 17:30:46,344] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-27 17:30:46,612] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-27 17:30:46,942] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.json HTTP/1.1" 307 0
+[2026-09-27 17:30:46,963] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/chat_template.json HTTP/1.1" 200 0
+[2026-09-27 17:30:47,217] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.jinja HTTP/1.1" 404 0
+[2026-09-27 17:30:47,624] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/audio_tokenizer_config.json HTTP/1.1" 404 0
+[2026-09-27 17:30:48,485] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:48,738] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+[2026-09-27 17:30:48,857] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+[2026-09-27 17:30:49,177] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:49,224] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+`torch_dtype` is deprecated! Use `dtype` instead!
+[2026-09-27 17:30:49,470] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors HTTP/1.1" 404 0
+[2026-09-27 17:30:50,138] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors.index.json HTTP/1.1" 307 0
+[2026-09-27 17:30:50,258] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/model.safetensors.index.json HTTP/1.1" 200 0
+[2026-09-27 17:30:50,663] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/Qwen/Qwen2-VL-2B-Instruct/revision/main HTTP/1.1" 200 None
+arms: ['gazef@0.5']
+clips to do: 6223/6223 (the rest are already in emb/)
+gaze coverage: 6223/6223 clips from /home/minyoy/WorldMM/experiments/gaze_crop/gaze_random_frames.json
+  !! /home/minyoy/WorldMM/experiments/gaze_crop/gaze_random_frames.json holds FABRICATED gaze (pseudo:random-frames), not eye tracking. 'pseudo:center' is the pipeline test (it must equal center@R); 'pseudo:random-frames' is the moving-box control. Do not report either as gaze.
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 43.15it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  5.90it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.28it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.45it/s]
+[2026-09-27 17:30:52,587] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:52,655] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/generation_config.json HTTP/1.1" 200 0
+[2026-09-27 17:30:52,884] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2026-09-27 17:30:53,204] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:53,280] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-27 17:30:53,502] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-27 17:30:53,565] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-27 17:31:00,085] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-27 17:31:00,302] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-27 17:31:00,498] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+[2026-09-27 17:31:00,755] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-27 17:31:00,794] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+[2026-09-27 17:31:06,191] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-27 17:31:06,468] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-27 17:31:07,012] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-27 17:31:07,314] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-27 17:31:21,898] INFO [root:70] Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+  ... 50/6223 clips, 0.33 clip/s (0.33 embeddings/s), ETA 315 min, checkpointed
+  ... 100/6223 clips, 0.42 clip/s (0.42 embeddings/s), ETA 242 min, checkpointed
+  ... 150/6223 clips, 0.46 clip/s (0.46 embeddings/s), ETA 219 min, checkpointed
+  ... 200/6223 clips, 0.49 clip/s (0.49 embeddings/s), ETA 205 min, checkpointed
+  ... 250/6223 clips, 0.51 clip/s (0.51 embeddings/s), ETA 197 min, checkpointed
+  ... 300/6223 clips, 0.52 clip/s (0.52 embeddings/s), ETA 190 min, checkpointed
+  ... 350/6223 clips, 0.53 clip/s (0.53 embeddings/s), ETA 186 min, checkpointed
+  ... 400/6223 clips, 0.53 clip/s (0.53 embeddings/s), ETA 182 min, checkpointed
+  ... 450/6223 clips, 0.54 clip/s (0.54 embeddings/s), ETA 180 min, checkpointed
+  ... 500/6223 clips, 0.54 clip/s (0.54 embeddings/s), ETA 177 min, checkpointed
+  ... 550/6223 clips, 0.54 clip/s (0.54 embeddings/s), ETA 174 min, checkpointed
+  ... 600/6223 clips, 0.55 clip/s (0.55 embeddings/s), ETA 171 min, checkpointed
+  ... 650/6223 clips, 0.55 clip/s (0.55 embeddings/s), ETA 169 min, checkpointed
+  ... 700/6223 clips, 0.55 clip/s (0.55 embeddings/s), ETA 167 min, checkpointed
+  ... 750/6223 clips, 0.55 clip/s (0.55 embeddings/s), ETA 165 min, checkpointed
+  ... 800/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 163 min, checkpointed
+  ... 850/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 161 min, checkpointed
+  ... 900/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 159 min, checkpointed
+  ... 950/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 157 min, checkpointed
+  ... 1000/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 155 min, checkpointed
+  ... 1050/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 153 min, checkpointed
+  ... 1100/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 151 min, checkpointed
+  ... 1150/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 150 min, checkpointed
+  ... 1200/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 149 min, checkpointed
+  ... 1250/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 147 min, checkpointed
+  ... 1300/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 146 min, checkpointed
+  ... 1350/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 144 min, checkpointed
+  ... 1400/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 143 min, checkpointed
+  ... 1450/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 141 min, checkpointed
+  ... 1500/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 139 min, checkpointed
+  ... 1550/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 138 min, checkpointed
+  ... 1600/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 136 min, checkpointed
+  ... 1650/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 135 min, checkpointed
+  ... 1700/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 133 min, checkpointed
+  ... 1750/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 132 min, checkpointed
+  ... 1800/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 131 min, checkpointed
+  ... 1850/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 129 min, checkpointed
+  ... 1900/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 128 min, checkpointed
+  ... 1950/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 126 min, checkpointed
+  ... 2000/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 125 min, checkpointed
+  ... 2050/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 123 min, checkpointed
+  ... 2100/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 122 min, checkpointed
+  ... 2150/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 120 min, checkpointed
+  ... 2200/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 119 min, checkpointed
+  ... 2250/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 117 min, checkpointed
+  ... 2300/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 116 min, checkpointed
+  ... 2350/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 114 min, checkpointed
+  ... 2400/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 113 min, checkpointed
+  ... 2450/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 111 min, checkpointed
+  ... 2500/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 109 min, checkpointed
+  ... 2550/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 108 min, checkpointed
+  ... 2600/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 106 min, checkpointed
+  ... 2650/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 105 min, checkpointed
+  ... 2700/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 103 min, checkpointed
+  ... 2750/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 102 min, checkpointed
+  ... 2800/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 100 min, checkpointed
+  ... 2850/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 99 min, checkpointed
+  ... 2900/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 97 min, checkpointed
+  ... 2950/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 96 min, checkpointed
+  ... 3000/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 95 min, checkpointed
+  ... 3050/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 93 min, checkpointed
+  ... 3100/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 92 min, checkpointed
+  ... 3150/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 90 min, checkpointed
+  ... 3200/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 89 min, checkpointed
+  ... 3250/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 87 min, checkpointed
+  ... 3300/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 86 min, checkpointed
+  ... 3350/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 84 min, checkpointed
+  ... 3400/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 83 min, checkpointed
+  ... 3450/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 82 min, checkpointed
+  ... 3500/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 80 min, checkpointed
+  ... 3550/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 79 min, checkpointed
+  ... 3600/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 77 min, checkpointed
+  ... 3650/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 76 min, checkpointed
+  ... 3700/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 74 min, checkpointed
+  ... 3750/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 73 min, checkpointed
+  ... 3800/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 71 min, checkpointed
+  ... 3850/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 70 min, checkpointed
+  ... 3900/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 68 min, checkpointed
+  ... 3950/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 67 min, checkpointed
+  ... 4000/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 65 min, checkpointed
+  ... 4050/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 64 min, checkpointed
+  ... 4100/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 63 min, checkpointed
+  ... 4150/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 61 min, checkpointed
+  ... 4200/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 60 min, checkpointed
+  ... 4250/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 58 min, checkpointed
+  ... 4300/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 57 min, checkpointed
+  ... 4350/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 55 min, checkpointed
+  ... 4400/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 54 min, checkpointed
+  ... 4450/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 52 min, checkpointed
+  ... 4500/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 51 min, checkpointed
+  ... 4550/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 49 min, checkpointed
+  ... 4600/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 48 min, checkpointed
+  ... 4650/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 46 min, checkpointed
+  ... 4700/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 45 min, checkpointed
+  ... 4750/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 43 min, checkpointed
+  ... 4800/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 42 min, checkpointed
+  ... 4850/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 40 min, checkpointed
+  ... 4900/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 39 min, checkpointed
+  ... 4950/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 38 min, checkpointed
+  ... 5000/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 36 min, checkpointed
+  ... 5050/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 35 min, checkpointed
+  ... 5100/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 33 min, checkpointed
+  ... 5150/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 32 min, checkpointed
+  ... 5200/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 30 min, checkpointed
+  ... 5250/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 29 min, checkpointed
+  ... 5300/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 27 min, checkpointed
+  ... 5350/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 26 min, checkpointed
+  ... 5400/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 24 min, checkpointed
+  ... 5450/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 23 min, checkpointed
+  ... 5500/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 21 min, checkpointed
+  ... 5550/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 20 min, checkpointed
+  ... 5600/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 18 min, checkpointed
+  ... 5650/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 17 min, checkpointed
+  ... 5700/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 15 min, checkpointed
+  ... 5750/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 14 min, checkpointed
+  ... 5800/6223 clips, 0.57 clip/s (0.57 embeddings/s), ETA 12 min, checkpointed
+  ... 5850/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 11 min, checkpointed
+  ... 5900/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 10 min, checkpointed
+  ... 5950/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 8 min, checkpointed
+  ... 6000/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 7 min, checkpointed
+  ... 6050/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 5 min, checkpointed
+  ... 6100/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 4 min, checkpointed
+  ... 6150/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 2 min, checkpointed
+  ... 6200/6223 clips, 0.56 clip/s (0.56 embeddings/s), ETA 1 min, checkpointed
+[gazef@0.5] 6223 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05_randf.npz
+6223 clips x 1 arm(s) in 185.4 min = 1.79 s/clip. Scale that to your real pool: a 6,223-clip pool would take 3.1 h at this rate.

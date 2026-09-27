@@ -8,6 +8,8 @@ as they are (except the visual-similarity frame bug fix in src/worldmm/memory/vi
 Conditions
     A        question only
     B        question + text memory (WorldMM loop with visual disabled); caches text_context/{qid}.json
+    B_replay question + B's cached text context, answered once (D without the frames). Same prompt as
+             B's own final answer, so B's run counts as one B_replay sample
     C        question + oracle visual (frames/{qid})
     D        question + text memory (from B cache) + oracle visual
     E        original WorldMM loop (episodic + semantic + visual)
@@ -52,9 +54,9 @@ from common import (  # noqa: E402
     TEXT_CONTEXT_DIR, VIDEO_ROOT, build_choices, load_subset, resolve_video_path, subset_by_id,
 )
 
-CONDITIONS = ["A", "B", "C", "D", "E", "E_prime", "C1", "D1", "C2", "D2", "C3", "D3"]
-TEXT_CONDITIONS = {"B", "D", "E", "E_prime", "D1", "D2", "D3"}
-NEEDS_TEXT_CACHE = {"D", "E_prime", "D1", "D2", "D3"}
+CONDITIONS = ["A", "B", "B_replay", "C", "D", "E", "E_prime", "C1", "D1", "C2", "D2", "C3", "D3"]
+TEXT_CONDITIONS = {"B", "B_replay", "D", "E", "E_prime", "D1", "D2", "D3"}
+NEEDS_TEXT_CACHE = {"B_replay", "D", "E_prime", "D1", "D2", "D3"}
 # Only these two actually run the retrieval loop over episodic memory, so only they depend on the
 # index holding exactly the captions up to query_time. The rest read B's cached text context.
 RETRIEVES_EPISODIC = {"B", "E"}
@@ -323,6 +325,16 @@ def answer_with_context(
     return world_memory.respond_llm_model.generate(qa_messages)
 
 
+def seed_everything(seed: int) -> None:
+    import random
+    import numpy as np
+    import torch
+    random.seed(seed)
+    np.random.seed(seed % (2 ** 32))
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+
+
 def load_frames(frames_root: str, qid: str) -> List[Image.Image]:
     d = os.path.join(frames_root, qid)
     if not os.path.isdir(d):
@@ -550,6 +562,11 @@ def main():
                              "explicitly chosen / bolded letter, else the single choice text quoted "
                              "verbatim. The raw response is still stored. Off = original behaviour.")
     parser.add_argument("--resume", action="store_true", help="skip IDs already present in the results file")
+    parser.add_argument("--overwrite", action="store_true",
+                        help="allow replacing an existing results file (without --resume it is refused)")
+    parser.add_argument("--seed", type=int, default=None,
+                        help="seed the sampler per question (seed*1_000_003 + ID) so a resumed run draws the "
+                             "same samples. Must be used with a --results-dir other than the default")
     parser.add_argument("--limit", type=int, default=None, help="only run the first N subset questions (smoke test)")
     args = parser.parse_args()
 
@@ -568,6 +585,12 @@ def main():
         wanted_ids = [e["ID"] for e in subset["entries"] if e.get("masking")]
     if args.limit:
         wanted_ids = wanted_ids[:args.limit]
+
+    if args.seed is not None and os.path.abspath(args.results_dir) == os.path.abspath(RESULTS_DIR):
+        raise SystemExit(f"--seed writes a repeat run; give it its own --results-dir so {RESULTS_DIR} "
+                         f"(the first run) is not touched")
+    if os.path.exists(output_path) and not args.resume and not args.overwrite:
+        raise SystemExit(f"{output_path} already exists. Use --resume to continue it or --overwrite to replace it")
 
     results: List[Dict[str, Any]] = []
     done_ids = set()
@@ -687,6 +710,8 @@ def main():
         query_time = int(row['query_time']["date"][-1] + row['query_time']["time"].zfill(8))
 
         logger.info(f"Processing ID {ID}: {question[:50]}...")
+        if args.seed is not None:
+            seed_everything(args.seed * 1_000_003 + int(ID))
 
         # Index only what this condition actually reads (see NEEDS_FULL_INDEX above).
         if condition in NEEDS_FULL_INDEX:
@@ -722,6 +747,10 @@ def main():
                         retrieved_clips = [c for call in recorder.calls for c in call["clips"]]
                         # answer() consumes the images internally, so count them from the recorder
                         n_images = sum(call["num_images"] for call in recorder.calls)
+
+            elif condition == "B_replay":
+                text_items, text_ctx = load_text_context(os.path.join(args.text_context_dir, f"{ID}.json"))
+                response = answer_with_context(world_memory, question, choices, text_items, [])
 
             elif condition in ("C", "C1", "C2", "C3"):
                 images = load_frames(frames_root, ID)

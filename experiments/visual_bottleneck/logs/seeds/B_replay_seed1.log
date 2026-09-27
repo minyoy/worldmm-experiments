@@ -1,0 +1,382 @@
+/home/minyoy/WorldMM/experiments/visual_bottleneck/eval_egolife.py:418: SyntaxWarning: invalid escape sequence '\{'
+  The original does re.search(r'\{.*\}', DOTALL) and json.loads the match. That regex is greedy, so
+INFO:__main__:Initializing models...
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:04,  1.36s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.25s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.18s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.02it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.08s/it]
+INFO:worldmm.llm.qwen3vl:Initialized Qwen3VLModel with Qwen/Qwen3-VL-8B-Instruct
+INFO:__main__:Sharing one LLM instance for retriever and responder: qwen3vl-8b
+INFO:worldmm.llm.prompt_template_manager:Loading templates from directory: /home/minyoy/WorldMM/src/worldmm/llm/templates
+INFO:__main__:Initializing WorldMemory...
+INFO:__main__:Loading data...
+INFO:__main__:Loading data into WorldMemory...
+INFO:worldmm.memory.episodic.memory:Loaded 6223 captions for granularity 30sec
+INFO:worldmm.memory.episodic.memory:Loaded 1073 captions for granularity 3min
+INFO:worldmm.memory.episodic.memory:Loaded 341 captions for granularity 10min
+INFO:worldmm.memory.episodic.memory:Loaded 64 captions for granularity 1h
+INFO:worldmm.memory.semantic.memory:Loaded semantic triples across 623 timestamps
+INFO:worldmm.memory.visual.memory:Loaded 6223 video embeddings from /home/minyoy/WorldMM/output/metadata/visual_memory/A1_JAKE/visual_embeddings.pkl
+INFO:worldmm.memory.visual.memory:Loaded 6223 video clips
+INFO:__main__:Video root: /datasets/EgoLife (6223 clip paths remapped, 6223/6223 clips have embeddings)
+INFO:__main__:Condition B_replay: evaluating 120 questions ...
+  0%|          | 0/120 [00:00<?, ?it/s]INFO:__main__:Processing ID 6: Who plans to grow flowers...
+INFO:__main__:ID 6 Answer: B, Gold: D, Correct: False // Accuracy: 0/1 = 0.0000
+  1%|          | 1/120 [00:00<01:20,  1.48it/s]INFO:__main__:Processing ID 13: Now Lucia asks, "What is this, is this a hedgehog?...
+INFO:__main__:ID 13 Answer: B, Gold: C, Correct: False // Accuracy: 0/2 = 0.0000
+  2%|▏         | 2/120 [00:00<00:47,  2.48it/s]INFO:__main__:Processing ID 16: Who was the first to move the puzzle board on the ...
+INFO:__main__:ID 16 Answer: A, Gold: B, Correct: False // Accuracy: 0/3 = 0.0000
+  2%|▎         | 3/120 [00:01<00:52,  2.24it/s]INFO:__main__:Processing ID 25: Who originally used the scissors in my hand?...
+INFO:__main__:ID 25 Answer: D, Gold: D, Correct: True // Accuracy: 1/4 = 0.2500
+  3%|▎         | 4/120 [00:02<01:22,  1.40it/s]INFO:__main__:Processing ID 26: Who has been assembling the shelf...
+INFO:__main__:ID 26 Answer: C, Gold: C, Correct: True // Accuracy: 2/5 = 0.4000
+  4%|▍         | 5/120 [00:03<01:30,  1.27it/s]INFO:__main__:Processing ID 28: Who am I always busy with in the kitchen today...
+INFO:__main__:ID 28 Answer: C, Gold: C, Correct: True // Accuracy: 3/6 = 0.5000
+  5%|▌         | 6/120 [00:03<01:17,  1.48it/s]INFO:__main__:Processing ID 34: What do we decide to eat for lunch?...
+INFO:__main__:ID 34 Answer: A, Gold: A, Correct: True // Accuracy: 4/7 = 0.5714
+  6%|▌         | 7/120 [00:04<01:00,  1.87it/s]INFO:__main__:Processing ID 36: What other drinks are needed to mix with rum?...
+INFO:__main__:ID 36 Answer: D, Gold: D, Correct: True // Accuracy: 5/8 = 0.6250
+  7%|▋         | 8/120 [00:04<00:46,  2.43it/s]INFO:__main__:Processing ID 42: What drinks are you planning to buy?...
+INFO:__main__:ID 42 Answer: D, Gold: B, Correct: False // Accuracy: 5/9 = 0.5556
+  8%|▊         | 9/120 [00:05<01:28,  1.25it/s]INFO:__main__:Processing ID 55: Who among us hasn't eaten century eggs...
+INFO:__main__:ID 55 Answer: D, Gold: D, Correct: True // Accuracy: 6/10 = 0.6000
+  8%|▊         | 10/120 [00:07<01:37,  1.13it/s]INFO:__main__:Processing ID 56: While I was cleaning the egg mixer, who joined in ...
+INFO:__main__:ID 56 Answer: C, Gold: C, Correct: True // Accuracy: 7/11 = 0.6364
+  9%|▉         | 11/120 [00:07<01:17,  1.40it/s]INFO:__main__:Processing ID 65: We decided to buy how many boxes of green grapes...
+INFO:__main__:ID 65 Answer: A, Gold: A, Correct: True // Accuracy: 8/12 = 0.6667
+ 10%|█         | 12/120 [00:07<01:01,  1.76it/s]INFO:__main__:Processing ID 67: Why did the clerk not agree when we asked them to ...
+INFO:__main__:ID 67 Answer: D, Gold: D, Correct: True // Accuracy: 9/13 = 0.6923
+ 11%|█         | 13/120 [00:07<00:52,  2.03it/s]INFO:__main__:Processing ID 68: Why didn't we buy chestnut kernels...
+INFO:__main__:ID 68 Answer: C, Gold: A, Correct: False // Accuracy: 9/14 = 0.6429
+ 12%|█▏        | 14/120 [00:08<00:40,  2.61it/s]INFO:__main__:Processing ID 72: What does Lucia plan to make on World Earth Day?...
+INFO:__main__:ID 72 Answer: A, Gold: A, Correct: True // Accuracy: 10/15 = 0.6667
+ 12%|█▎        | 15/120 [00:08<00:38,  2.75it/s]INFO:__main__:Processing ID 74: Among us, who often goes out wearing slippers...
+INFO:__main__:ID 74 Answer: None of the provided context explicitly states that any of the individuals (Me, Tasha, Lucia, or Alice) often go out wearing slippers. While there are references to wearing shoes (e.g., tying shoelaces), no one is described as routinely wearing slippers outdoors. Therefore, based on the evidence, the correct answer is:
+
+**None of the above** — but since the question requires selecting from A, B, C, or D, and no evidence supports any of them, the most reasonable inference is that **none are correct**. However, since we must choose one, and there is no explicit evidence for any, the answer must be inferred from context — but **no one is mentioned wearing slippers**.
+
+Since the question implies one of the four must be correct, and none are supported, the best answer is:
+
+**None of the above** — but since that’s not an option, and the question forces a choice, we must select the least incorrect — but **no evidence supports any**.
+
+Given the constraints, and since the question asks for an answer from A, B, C, or D, and none are supported, **the correct answer is not determinable from context** — but since we must choose, and the question implies one must be correct, we have to infer.
+
+However, **the context does not mention anyone going out wearing slippers** — so none of the options are supported.
+
+But since we must choose, and the question is multiple choice, and **no evidence supports any**, we cannot confidently select any.
+
+But since the system requires an answer, and the question implies one must be correct, and **none are supported**, we must conclude that **the question is flawed**, but since we must answer, we choose the one least contradicted — but **none are contradicted**.
+
+Actually, re-examining — **the question says "Among us, who often goes out wearing slippers"** — and **no one is mentioned wearing slippers** — so **none**.
+
+But since we must choose, and the options are A, B, C, D — and **none are correct**, but we must pick one — **the answer is not determinable** — but since we must choose, and the question forces a choice, we have to pick the least likely — but **all are equally likely**.
+
+Actually, **none are mentioned** — so **none**.
+
+But since the question is multiple choice and requires a letter — and **no evidence supports any** — the correct answer is **none** — but since that’s not an option, and the question forces a choice, we must pick one — but **none are supported**.
+
+Therefore, **the answer is not determinable from context** — but since we must choose, and the question implies one must be correct, we must pick **the one most likely** — but **none are mentioned**.
+
+Actually, **the only person mentioned wearing shoes is Katrina** — “Katrina: 'I was just tying my shoelaces'” — so **she wears shoes** — so **not slippers** — so **none**.
+
+Therefore, **the correct answer is none** — but since that’s not an option, and the question forces a choice, we must pick **the one least likely** — but **all are equally likely** — so **no answer**.
+
+But since we must choose, and the question requires a letter — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since the system requires an answer, and the question is multiple choice — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the only person mentioned wearing shoes is Katrina** — so **she does not wear slippers** — so **none**.
+
+Therefore, **the correct answer is none** — but since that’s not an option, and the question forces a choice, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since we must choose, and the question requires a letter — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since the system requires an answer, and the question is multiple choice — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since we must choose, and the question requires a letter — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since the system requires an answer, and the question is multiple choice — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since we must choose, and the question requires a letter — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since the system requires an answer, and the question is multiple choice — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since we must choose, and the question requires a letter — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since the system requires an answer, and the question is multiple choice — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since we must choose, and the question requires a letter — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since the system requires an answer, and the question is multiple choice — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+But since we must choose, and the question requires a letter — and **none are correct**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**.
+
+Actually, **the question is flawed** — but since we must answer, and the options are A, B, C, D — and **none are supported**, we must pick **the one that is most likely** — but **none are mentioned** — so **no answer**., Gold: A, Correct: False // Accuracy: 10/16 = 0.6250
+ 13%|█▎        | 16/120 [01:42<49:35, 28.61s/it]INFO:__main__:Processing ID 76: What am I usually doing on the second floor today?...
+INFO:__main__:ID 76 Answer: B, Gold: C, Correct: False // Accuracy: 10/17 = 0.5882
+ 14%|█▍        | 17/120 [01:43<34:41, 20.21s/it]INFO:__main__:Processing ID 79: Previously, Alice couldn't open the can. Who helpe...
+INFO:__main__:ID 79 Answer: B, Gold: B, Correct: True // Accuracy: 11/18 = 0.6111
+ 15%|█▌        | 18/120 [01:43<24:21, 14.33s/it]INFO:__main__:Processing ID 80: Who used the kitchen knife on the counter last tim...
+INFO:__main__:ID 80 Answer: B, Gold: B, Correct: True // Accuracy: 12/19 = 0.6316
+ 16%|█▌        | 19/120 [01:45<17:41, 10.51s/it]INFO:__main__:Processing ID 82: When I usually buy clothes, what type of clothing ...
+INFO:__main__:ID 82 Answer: B, Gold: A, Correct: False // Accuracy: 12/20 = 0.6000
+ 17%|█▋        | 20/120 [01:45<12:19,  7.39s/it]INFO:__main__:Processing ID 86: What do I always do when I go to the supermarket...
+INFO:__main__:ID 86 Answer: B, Gold: B, Correct: True // Accuracy: 13/21 = 0.6190
+ 18%|█▊        | 21/120 [01:47<09:24,  5.70s/it]INFO:__main__:Processing ID 91: Who is always the first to get off the car...
+INFO:__main__:ID 91 Answer: B, Gold: B, Correct: True // Accuracy: 14/22 = 0.6364
+ 18%|█▊        | 22/120 [01:48<06:52,  4.21s/it]INFO:__main__:Processing ID 92: What do I usually use to control the computer when...
+INFO:__main__:ID 92 Answer: B, Gold: B, Correct: True // Accuracy: 15/23 = 0.6522
+ 19%|█▉        | 23/120 [01:48<04:49,  2.99s/it]INFO:__main__:Processing ID 94: Whose hometown is close to mine...
+INFO:__main__:ID 94 Answer: C, Gold: D, Correct: False // Accuracy: 15/24 = 0.6250
+ 20%|██        | 24/120 [01:48<03:25,  2.14s/it]INFO:__main__:Processing ID 98: Who usually writes the shopping list on the whiteb...
+INFO:__main__:ID 98 Answer: B, Gold: B, Correct: True // Accuracy: 16/25 = 0.6400
+ 21%|██        | 25/120 [01:48<02:31,  1.60s/it]INFO:__main__:Processing ID 103: When was the last time items were taken from the r...
+INFO:__main__:ID 103 Answer: D, Gold: D, Correct: True // Accuracy: 17/26 = 0.6538
+ 22%|██▏       | 26/120 [01:48<01:51,  1.19s/it]INFO:__main__:Processing ID 106: What is my main responsibility when shopping in th...
+INFO:__main__:ID 106 Answer: B, Gold: D, Correct: False // Accuracy: 17/27 = 0.6296
+ 22%|██▎       | 27/120 [01:49<01:21,  1.15it/s]INFO:__main__:Processing ID 108: Who usually picks up the takeout from the delivery...
+INFO:__main__:ID 108 Answer: B, Gold: B, Correct: True // Accuracy: 18/28 = 0.6429
+ 23%|██▎       | 28/120 [01:49<01:13,  1.25it/s]INFO:__main__:Processing ID 109: What else do I need to purchase for delivery?...
+INFO:__main__:ID 109 Answer: C, Gold: B, Correct: False // Accuracy: 18/29 = 0.6207
+ 24%|██▍       | 29/120 [01:51<01:31,  1.01s/it]INFO:__main__:Processing ID 113: Last night during the chat, I discovered whose gla...
+INFO:__main__:ID 113 Answer: C, Gold: D, Correct: False // Accuracy: 18/30 = 0.6000
+ 25%|██▌       | 30/120 [01:51<01:09,  1.29it/s]INFO:__main__:Processing ID 114: Who did Tasha take off the headphones for yesterda...
+INFO:__main__:ID 114 Answer: C, Gold: C, Correct: True // Accuracy: 19/31 = 0.6129
+ 26%|██▌       | 31/120 [01:52<01:17,  1.15it/s]INFO:__main__:Processing ID 119: What do I usually do after picking up glasses that...
+INFO:__main__:ID 119 Answer: C, Gold: C, Correct: True // Accuracy: 20/32 = 0.6250
+ 27%|██▋       | 32/120 [01:53<01:24,  1.04it/s]INFO:__main__:Processing ID 125: What is the paper boxes will be used for in plan o...
+INFO:__main__:ID 125 Answer: A, Gold: B, Correct: False // Accuracy: 20/33 = 0.6061
+ 28%|██▊       | 33/120 [01:55<01:36,  1.11s/it]INFO:__main__:Processing ID 139: Who was beside me helping the last time I washed d...
+INFO:__main__:ID 139 Answer: B, Gold: D, Correct: False // Accuracy: 20/34 = 0.5882
+ 28%|██▊       | 34/120 [01:55<01:13,  1.17it/s]INFO:__main__:Processing ID 140: What do I habitually use to wipe after washing kit...
+INFO:__main__:ID 140 Answer: C, Gold: A, Correct: False // Accuracy: 20/35 = 0.5714
+ 29%|██▉       | 35/120 [01:55<00:55,  1.53it/s]INFO:__main__:Processing ID 146: Who used the computer with me to upload data...
+INFO:__main__:ID 146 Answer: A, Gold: B, Correct: False // Accuracy: 20/36 = 0.5556
+ 30%|███       | 36/120 [01:56<01:03,  1.33it/s]INFO:__main__:Processing ID 149: What device should I use to scan the house...
+INFO:__main__:ID 149 Answer: D, Gold: D, Correct: True // Accuracy: 21/37 = 0.5676
+ 31%|███       | 37/120 [01:56<00:47,  1.76it/s]INFO:__main__:Processing ID 155: Tonight, who is playing the guitar next to me and ...
+INFO:__main__:ID 155 Answer: B, Gold: B, Correct: True // Accuracy: 22/38 = 0.5789
+ 32%|███▏      | 38/120 [01:56<00:37,  2.16it/s]INFO:__main__:Processing ID 156: Among us, who doesn't like eating durian...
+INFO:__main__:ID 156 Answer: C, Gold: B, Correct: False // Accuracy: 22/39 = 0.5641
+ 32%|███▎      | 39/120 [01:57<00:31,  2.57it/s]INFO:__main__:Processing ID 158: What kind of music does Lucia like to dance to?...
+INFO:__main__:ID 158 Answer: A, Gold: D, Correct: False // Accuracy: 22/40 = 0.5500
+ 33%|███▎      | 40/120 [01:57<00:27,  2.90it/s]INFO:__main__:Processing ID 160: Who did I eat green grapes with in the kitchen tod...
+INFO:__main__:ID 160 Answer: D, Gold: D, Correct: True // Accuracy: 23/41 = 0.5610
+ 34%|███▍      | 41/120 [01:57<00:22,  3.46it/s]INFO:__main__:Processing ID 164: What does Lucia need to buy for decorating her roo...
+INFO:__main__:ID 164 Answer: B, Gold: C, Correct: False // Accuracy: 23/42 = 0.5476
+ 35%|███▌      | 42/120 [01:57<00:23,  3.33it/s]INFO:__main__:Processing ID 168: Who put the takeout in the microwave the night bef...
+INFO:__main__:ID 168 Answer: B, Gold: B, Correct: True // Accuracy: 24/43 = 0.5581
+ 36%|███▌      | 43/120 [01:58<00:29,  2.59it/s]INFO:__main__:Processing ID 170: Who did I sit next to while eating last night?...
+INFO:__main__:ID 170 Answer: C, Gold: A, Correct: False // Accuracy: 24/44 = 0.5455
+ 37%|███▋      | 44/120 [01:59<00:53,  1.42it/s]INFO:__main__:Processing ID 172: What activities do we have in the afternoon?...
+INFO:__main__:ID 172 Answer: B, Gold: B, Correct: True // Accuracy: 25/45 = 0.5556
+ 38%|███▊      | 45/120 [02:00<00:55,  1.36it/s]INFO:__main__:Processing ID 174: What other styles were mentioned the last time we ...
+INFO:__main__:ID 174 Answer: D, Gold: D, Correct: True // Accuracy: 26/46 = 0.5652
+ 38%|███▊      | 46/120 [02:01<01:04,  1.15it/s]INFO:__main__:Processing ID 175: What are we planning to do outdoors?...
+INFO:__main__:ID 175 Answer: B, Gold: B, Correct: True // Accuracy: 27/47 = 0.5745
+ 39%|███▉      | 47/120 [02:02<00:49,  1.49it/s]INFO:__main__:Processing ID 178: Alice mentioned whether AI can understand why we t...
+INFO:__main__:ID 178 Answer: C, Gold: D, Correct: False // Accuracy: 27/48 = 0.5625
+ 40%|████      | 48/120 [02:02<00:44,  1.64it/s]INFO:__main__:Processing ID 181: Who wore a hat while walking in the park?...
+INFO:__main__:ID 181 Answer: D, Gold: C, Correct: False // Accuracy: 27/49 = 0.5510
+ 41%|████      | 49/120 [02:03<00:49,  1.43it/s]INFO:__main__:Processing ID 192: Who usually pays when going out today?...
+INFO:__main__:ID 192 Answer: C, Gold: C, Correct: True // Accuracy: 28/50 = 0.5600
+ 42%|████▏     | 50/120 [02:03<00:37,  1.87it/s]INFO:__main__:Processing ID 193: When was the last time you stood on the escalator?...
+INFO:__main__:ID 193 Answer: C, Gold: A, Correct: False // Accuracy: 28/51 = 0.5490
+ 42%|████▎     | 51/120 [02:04<00:44,  1.56it/s]INFO:__main__:Processing ID 194: Which tool was not purchased last time in this sho...
+INFO:__main__:ID 194 Answer: C, Gold: C, Correct: True // Accuracy: 29/52 = 0.5577
+ 43%|████▎     | 52/120 [02:05<00:54,  1.25it/s]INFO:__main__:Processing ID 196: What ingredients do we need to buy?...
+INFO:__main__:ID 196 Answer: None of the provided context mentions any specific ingredients or items to buy. The context revolves around interactions between I and Tasha, including shopping, food reviews, and general cooperation, but does not list or imply any particular ingredients such as barbecue skewers, dumplings cake, vita taro, or hot pot pizza.
+
+Since there is no evidence in the context to support any of the choices, and the question asks for ingredients to buy, none of the options can be confirmed based on the given context.
+
+However, since the task requires selecting one of the four choices (A, B, C, or D), and no option is supported by context, the most reasonable inference is that **none of the choices are correct** — but since we must pick one, and the question implies there is an answer, we must choose the **least irrelevant** or **most contextually plausible**.
+
+But wait — **none of the options are mentioned in context at all**. Therefore, **none** of them can be selected with confidence.
+
+But since the system requires an answer, and the question is "What ingredients do we need to buy?" — perhaps the best approach is to **select the most contextually relevant** — but **none are relevant**.
+
+Given the constraints, and since the context mentions “shopping” and “food reviews,” **any of the choices could be plausible** — but **none are confirmed**.
+
+**Final Answer: None of the above** — but since we must pick one, and the system expects A, B, C, or D — and **none are supported**, we must infer that the context **does not provide sufficient information** to answer.
+
+But the system requires an answer.
+
+**Therefore, I must choose the most reasonable default — none of the above — but since that’s not an option, I must pick one.**
+
+Wait — perhaps the context implies **shopping**, and **ingredients** — but **none of the options are ingredients** — barbecue skewers are utensils, dumplings cake is a food, vita taro is a food, hot pot pizza is a food.
+
+So perhaps **C or D** — but **no context supports** any of them.
+
+**Conclusion: The correct answer is not available in context.**
+
+But since we must choose, and the system requires an answer, and **none of the options are supported**, I must pick **the least irrelevant** — which is **C (Vita Taro)** — as it is a food item, and the context mentions food reviews.
+
+**Final Answer: C**, Gold: A, Correct: False // Accuracy: 29/53 = 0.5472
+ 44%|████▍     | 53/120 [02:28<08:09,  7.31s/it]INFO:__main__:Processing ID 198: When was the last time eggs were bought?...
+INFO:__main__:ID 198 Answer: A, Gold: D, Correct: False // Accuracy: 29/54 = 0.5370
+ 45%|████▌     | 54/120 [02:28<05:42,  5.18s/it]INFO:__main__:Processing ID 206: Why did Tasha check out both times at the supermar...
+INFO:__main__:ID 206 Answer: A, Gold: A, Correct: True // Accuracy: 30/55 = 0.5455
+ 46%|████▌     | 55/120 [02:29<04:17,  3.97s/it]INFO:__main__:Processing ID 217: What task does Tasha have tonight?...
+INFO:__main__:ID 217 Answer: A, Gold: A, Correct: True // Accuracy: 31/56 = 0.5536
+ 47%|████▋     | 56/120 [02:30<03:18,  3.10s/it]INFO:__main__:Processing ID 224: Who helped Shure last time he lit the fire?...
+INFO:__main__:ID 224 Answer: B, Gold: B, Correct: True // Accuracy: 32/57 = 0.5614
+ 48%|████▊     | 57/120 [02:30<02:20,  2.23s/it]INFO:__main__:Processing ID 225: What do we plan to do with the mangoes...
+INFO:__main__:ID 225 Answer: A, Gold: A, Correct: True // Accuracy: 33/58 = 0.5690
+ 48%|████▊     | 58/120 [02:31<01:41,  1.64s/it]INFO:__main__:Processing ID 229: What drink combination can we try at this gatherin...
+INFO:__main__:ID 229 Answer: B, Gold: C, Correct: False // Accuracy: 33/59 = 0.5593
+ 49%|████▉     | 59/120 [02:31<01:12,  1.19s/it]INFO:__main__:Processing ID 231: What other ingredients did I prepare the last time...
+INFO:__main__:ID 231 Answer: C, Gold: A, Correct: False // Accuracy: 33/60 = 0.5500
+ 50%|█████     | 60/120 [02:33<01:38,  1.64s/it]INFO:__main__:Processing ID 245: How many times did I protect the fire seed?...
+INFO:__main__:ID 245 Answer: D, Gold: B, Correct: False // Accuracy: 33/61 = 0.5410
+ 51%|█████     | 61/120 [02:35<01:28,  1.51s/it]INFO:__main__:Processing ID 251: What is Katrina's room decoration plan?...
+INFO:__main__:ID 251 Answer: B, Gold: C, Correct: False // Accuracy: 33/62 = 0.5323
+ 52%|█████▏    | 62/120 [02:35<01:05,  1.12s/it]INFO:__main__:Processing ID 254: What does Tasha need to buy to decorate the room?...
+INFO:__main__:ID 254 Answer: B, Gold: D, Correct: False // Accuracy: 33/63 = 0.5238
+ 52%|█████▎    | 63/120 [02:36<01:02,  1.10s/it]INFO:__main__:Processing ID 256: On the first day, who did Tasha ask to bring her a...
+INFO:__main__:ID 256 Answer: B, Gold: D, Correct: False // Accuracy: 33/64 = 0.5156
+ 53%|█████▎    | 64/120 [02:37<01:09,  1.24s/it]INFO:__main__:Processing ID 258: When were the oysters bought?...
+INFO:__main__:ID 258 Answer: B, Gold: C, Correct: False // Accuracy: 33/65 = 0.5077
+ 54%|█████▍    | 65/120 [02:39<01:14,  1.35s/it]INFO:__main__:Processing ID 260: What did I take out the last time I opened the fri...
+INFO:__main__:ID 260 Answer: D, Gold: C, Correct: False // Accuracy: 33/66 = 0.5000
+ 55%|█████▌    | 66/120 [02:40<01:07,  1.24s/it]INFO:__main__:Processing ID 263: Who navigated and led us all to Hema Fresh?...
+INFO:__main__:ID 263 Answer: C, Gold: C, Correct: True // Accuracy: 34/67 = 0.5075
+ 56%|█████▌    | 67/120 [02:41<00:56,  1.07s/it]INFO:__main__:Processing ID 267: What activities can we hold in Shure's room?...
+INFO:__main__:ID 267 Answer: A, Gold: A, Correct: True // Accuracy: 35/68 = 0.5147
+ 57%|█████▋    | 68/120 [02:41<00:41,  1.24it/s]INFO:__main__:Processing ID 275: Who was next to me the last time I made coffee?...
+INFO:__main__:ID 275 Answer: A, Gold: D, Correct: False // Accuracy: 35/69 = 0.5072
+ 57%|█████▊    | 69/120 [02:41<00:32,  1.58it/s]INFO:__main__:Processing ID 276: Who was next to me the last time I made coffee?...
+INFO:__main__:ID 276 Answer: B, Gold: A, Correct: False // Accuracy: 35/70 = 0.5000
+ 58%|█████▊    | 70/120 [02:41<00:25,  1.96it/s]INFO:__main__:Processing ID 283: Where was the bread found?...
+INFO:__main__:ID 283 Answer: C, Gold: C, Correct: True // Accuracy: 36/71 = 0.5070
+ 59%|█████▉    | 71/120 [02:42<00:20,  2.34it/s]INFO:__main__:Processing ID 286: Who do I usually sit with during meals?...
+INFO:__main__:ID 286 Answer: B, Gold: C, Correct: False // Accuracy: 36/72 = 0.5000
+ 60%|██████    | 72/120 [02:43<00:32,  1.48it/s]INFO:__main__:Processing ID 293: What is the first ingredient in the shopping cart ...
+INFO:__main__:ID 293 Answer: B, Gold: C, Correct: False // Accuracy: 36/73 = 0.4932
+ 61%|██████    | 73/120 [02:45<00:47,  1.00s/it]INFO:__main__:Processing ID 294: When was the last time Lucia took a picture?...
+INFO:__main__:ID 294 Answer: A, Gold: C, Correct: False // Accuracy: 36/74 = 0.4865
+ 62%|██████▏   | 74/120 [02:45<00:39,  1.18it/s]INFO:__main__:Processing ID 296: Now Shure is playing the guitar, what was the envi...
+INFO:__main__:ID 296 Answer: D, Gold: D, Correct: True // Accuracy: 37/75 = 0.4933
+ 62%|██████▎   | 75/120 [02:46<00:39,  1.13it/s]INFO:__main__:Processing ID 307: What do we plan to eat for lunch?...
+INFO:__main__:ID 307 Answer: A, Gold: A, Correct: True // Accuracy: 38/76 = 0.5000
+ 63%|██████▎   | 76/120 [02:47<00:36,  1.21it/s]INFO:__main__:Processing ID 308: Who usually sings when Shure plays the guitar?...
+INFO:__main__:ID 308 Answer: B, Gold: D, Correct: False // Accuracy: 38/77 = 0.4935
+ 64%|██████▍   | 77/120 [02:47<00:29,  1.44it/s]INFO:__main__:Processing ID 314: Who discussed renting clothes with me at noon toda...
+INFO:__main__:ID 314 Answer: A, Gold: A, Correct: True // Accuracy: 39/78 = 0.5000
+ 65%|██████▌   | 78/120 [02:47<00:24,  1.70it/s]INFO:__main__:Processing ID 334: When was the last time I plugged a cable into the ...
+INFO:__main__:ID 334 Answer: C, Gold: A, Correct: False // Accuracy: 39/79 = 0.4937
+ 66%|██████▌   | 79/120 [02:49<00:29,  1.37it/s]INFO:__main__:Processing ID 335: What is the milk used for?...
+INFO:__main__:ID 335 Answer: A, Gold: C, Correct: False // Accuracy: 39/80 = 0.4875
+ 67%|██████▋   | 80/120 [02:49<00:22,  1.78it/s]INFO:__main__:Processing ID 337: Who gave Tasha the AD calcium milk she is holding?...
+INFO:__main__:ID 337 Answer: C, Gold: C, Correct: True // Accuracy: 40/81 = 0.4938
+ 68%|██████▊   | 81/120 [02:49<00:23,  1.67it/s]INFO:__main__:Processing ID 352: Who joined the shopping trip this time compared to...
+INFO:__main__:ID 352 Answer: B, Gold: A, Correct: False // Accuracy: 40/82 = 0.4878
+ 68%|██████▊   | 82/120 [02:51<00:39,  1.03s/it]INFO:__main__:Processing ID 354: Who was I with the last time I stood on the escala...
+INFO:__main__:ID 354 Answer: D, Gold: D, Correct: True // Accuracy: 41/83 = 0.4940
+ 69%|██████▉   | 83/120 [02:52<00:36,  1.02it/s]INFO:__main__:Processing ID 357: Who do I usually shop with?...
+INFO:__main__:ID 357 Answer: B, Gold: B, Correct: True // Accuracy: 42/84 = 0.5000
+ 70%|███████   | 84/120 [02:54<00:38,  1.08s/it]INFO:__main__:Processing ID 360: Who was next to me the last time I was taste-testi...
+INFO:__main__:ID 360 Answer: D, Gold: D, Correct: True // Accuracy: 43/85 = 0.5059
+ 71%|███████   | 85/120 [02:54<00:31,  1.10it/s]INFO:__main__:Processing ID 366: When was the last time I used the ride-hailing app...
+INFO:__main__:ID 366 Answer: B, Gold: D, Correct: False // Accuracy: 43/86 = 0.5000
+ 72%|███████▏  | 86/120 [02:54<00:23,  1.42it/s]INFO:__main__:Processing ID 369: How do we get home after shopping?...
+INFO:__main__:ID 369 Answer: B, Gold: B, Correct: True // Accuracy: 44/87 = 0.5057
+ 72%|███████▎  | 87/120 [02:55<00:27,  1.20it/s]INFO:__main__:Processing ID 371: What do we plan to eat today?...
+INFO:__main__:ID 371 Answer: C, Gold: D, Correct: False // Accuracy: 44/88 = 0.5000
+ 73%|███████▎  | 88/120 [02:57<00:29,  1.10it/s]INFO:__main__:Processing ID 374: When was the last time the microwave in the kitche...
+INFO:__main__:ID 374 Answer: B, Gold: C, Correct: False // Accuracy: 44/89 = 0.4944
+ 74%|███████▍  | 89/120 [02:57<00:21,  1.43it/s]INFO:__main__:Processing ID 377: When was the last time the grill in the yard was u...
+INFO:__main__:ID 377 Answer: A, Gold: D, Correct: False // Accuracy: 44/90 = 0.4889
+ 75%|███████▌  | 90/120 [02:58<00:30,  1.00s/it]INFO:__main__:Processing ID 380: When was the white microwave in the kitchen last u...
+INFO:__main__:ID 380 Answer: B, Gold: D, Correct: False // Accuracy: 44/91 = 0.4835
+ 76%|███████▌  | 91/120 [02:59<00:23,  1.25it/s]INFO:__main__:Processing ID 382: When was the last time these oven mitts were used?...
+INFO:__main__:ID 382 Answer: A, Gold: B, Correct: False // Accuracy: 44/92 = 0.4783
+ 77%|███████▋  | 92/120 [03:00<00:26,  1.06it/s]INFO:__main__:Processing ID 383: Who bought the blueberries?...
+INFO:__main__:ID 383 Answer: B, Gold: C, Correct: False // Accuracy: 44/93 = 0.4731
+ 78%|███████▊  | 93/120 [03:01<00:27,  1.01s/it]INFO:__main__:Processing ID 392: Who made the egg tart on the table?...
+INFO:__main__:ID 392 Answer: C, Gold: A, Correct: False // Accuracy: 44/94 = 0.4681
+ 78%|███████▊  | 94/120 [03:02<00:24,  1.08it/s]INFO:__main__:Processing ID 393: The last time Choiszt was mixing cream, what were ...
+INFO:__main__:ID 393 Answer: A, Gold: B, Correct: False // Accuracy: 44/95 = 0.4632
+ 79%|███████▉  | 95/120 [03:03<00:20,  1.19it/s]INFO:__main__:Processing ID 402: What does Tasha want to drink?...
+INFO:__main__:ID 402 Answer: D, Gold: D, Correct: True // Accuracy: 45/96 = 0.4688
+ 80%|████████  | 96/120 [03:04<00:21,  1.14it/s]INFO:__main__:Processing ID 403: Why doesn't Tasha eat stewed dishes?...
+INFO:__main__:ID 403 Answer: C, Gold: B, Correct: False // Accuracy: 45/97 = 0.4639
+ 81%|████████  | 97/120 [03:04<00:15,  1.50it/s]INFO:__main__:Processing ID 408: What should be arranged in Alice's room?...
+INFO:__main__:ID 408 Answer: B, Gold: D, Correct: False // Accuracy: 45/98 = 0.4592
+ 82%|████████▏ | 98/120 [03:04<00:13,  1.60it/s]INFO:__main__:Processing ID 409: When did I last pick up the takeout?...
+INFO:__main__:ID 409 Answer: C, Gold: D, Correct: False // Accuracy: 45/99 = 0.4545
+ 82%|████████▎ | 99/120 [03:05<00:13,  1.57it/s]INFO:__main__:Processing ID 414: Under what circumstances did I last inquire about ...
+INFO:__main__:ID 414 Answer: D, Gold: B, Correct: False // Accuracy: 45/100 = 0.4500
+ 83%|████████▎ | 100/120 [03:05<00:10,  1.93it/s]INFO:__main__:Processing ID 417: Who used the kitchen knife before Nicous?...
+INFO:__main__:ID 417 Answer: D, Gold: D, Correct: True // Accuracy: 46/101 = 0.4554
+ 84%|████████▍ | 101/120 [03:06<00:09,  2.09it/s]INFO:__main__:Processing ID 429: Now that I have opened the red refrigerator on the...
+INFO:__main__:ID 429 Answer: B, Gold: D, Correct: False // Accuracy: 46/102 = 0.4510
+ 85%|████████▌ | 102/120 [03:07<00:16,  1.11it/s]INFO:__main__:Processing ID 430: Now I am lying in bed, what was I doing the last t...
+INFO:__main__:ID 430 Answer: B, Gold: B, Correct: True // Accuracy: 47/103 = 0.4563
+ 86%|████████▌ | 103/120 [03:08<00:12,  1.40it/s]INFO:__main__:Processing ID 438: When was the last time the microwave in the kitche...
+INFO:__main__:ID 438 Answer: B, Gold: D, Correct: False // Accuracy: 47/104 = 0.4519
+ 87%|████████▋ | 104/120 [03:08<00:09,  1.76it/s]INFO:__main__:Processing ID 445: When was the last time Alice made this puppy?...
+INFO:__main__:ID 445 Answer: C, Gold: A, Correct: False // Accuracy: 47/105 = 0.4476
+ 88%|████████▊ | 105/120 [03:08<00:07,  2.08it/s]INFO:__main__:Processing ID 448: Shure is playing guitar, who else can play guitar?...
+INFO:__main__:ID 448 Answer: D, Gold: C, Correct: False // Accuracy: 47/106 = 0.4434
+ 88%|████████▊ | 106/120 [03:09<00:08,  1.64it/s]INFO:__main__:Processing ID 459: Who was listening nearby when Choiszt was playing ...
+INFO:__main__:ID 459 Answer: D, Gold: A, Correct: False // Accuracy: 47/107 = 0.4393
+ 89%|████████▉ | 107/120 [03:10<00:09,  1.36it/s]INFO:__main__:Processing ID 465: Who introduced the product 'Cardboard Puppy' to ev...
+INFO:__main__:ID 465 Answer: D, Gold: D, Correct: True // Accuracy: 48/108 = 0.4444
+ 90%|█████████ | 108/120 [03:11<00:08,  1.39it/s]INFO:__main__:Processing ID 469: What does Tasha like to eat?...
+INFO:__main__:ID 469 Answer: B, Gold: A, Correct: False // Accuracy: 48/109 = 0.4404
+ 91%|█████████ | 109/120 [03:11<00:06,  1.74it/s]INFO:__main__:Processing ID 471: What flavor of porridge does Alice like?...
+INFO:__main__:ID 471 Answer: A, Gold: A, Correct: True // Accuracy: 49/110 = 0.4455
+ 92%|█████████▏| 110/120 [03:11<00:04,  2.22it/s]INFO:__main__:Processing ID 473: Why do we conduct the QA activity first during the...
+INFO:__main__:ID 473 Answer: B, Gold: A, Correct: False // Accuracy: 49/111 = 0.4414
+ 92%|█████████▎| 111/120 [03:12<00:05,  1.57it/s]INFO:__main__:Processing ID 476: What is the purpose of ego coins?...
+INFO:__main__:ID 476 Answer: C, Gold: B, Correct: False // Accuracy: 49/112 = 0.4375
+ 93%|█████████▎| 112/120 [03:12<00:03,  2.04it/s]INFO:__main__:Processing ID 479: What is the purpose of the glasses we wear?...
+INFO:__main__:ID 479 Answer: A, Gold: D, Correct: False // Accuracy: 49/113 = 0.4336
+ 94%|█████████▍| 113/120 [03:13<00:02,  2.59it/s]INFO:__main__:Processing ID 481: What song does Jack plan to sing?...
+INFO:__main__:ID 481 Answer: B, Gold: D, Correct: False // Accuracy: 49/114 = 0.4298
+ 95%|█████████▌| 114/120 [03:13<00:02,  2.14it/s]INFO:__main__:Processing ID 485: Who fidgets with items the most during discussions...
+INFO:__main__:ID 485 Answer: A, Gold: A, Correct: True // Accuracy: 50/115 = 0.4348
+ 96%|█████████▌| 115/120 [03:14<00:03,  1.52it/s]INFO:__main__:Processing ID 486: Who fidgets with items the most during discussions...
+INFO:__main__:ID 486 Answer: B, Gold: B, Correct: True // Accuracy: 51/116 = 0.4397
+ 97%|█████████▋| 116/120 [03:16<00:03,  1.24it/s]INFO:__main__:Processing ID 493: When was the last time I used my phone to scan the...
+INFO:__main__:ID 493 Answer: B, Gold: C, Correct: False // Accuracy: 51/117 = 0.4359
+ 98%|█████████▊| 117/120 [03:16<00:01,  1.61it/s]INFO:__main__:Processing ID 495: Why do I label the SD cards?...
+INFO:__main__:ID 495 Answer: B, Gold: D, Correct: False // Accuracy: 51/118 = 0.4322
+ 98%|█████████▊| 118/120 [03:16<00:00,  2.07it/s]INFO:__main__:Processing ID 496: What song did Shure suggest we sing together?...
+INFO:__main__:ID 496 Answer: B, Gold: B, Correct: True // Accuracy: 52/119 = 0.4370
+ 99%|█████████▉| 119/120 [03:17<00:00,  1.45it/s]INFO:__main__:Processing ID 497: When was the last time I paid via phone?...
+INFO:__main__:ID 497 Answer: A, Gold: D, Correct: False // Accuracy: 52/120 = 0.4333
+100%|██████████| 120/120 [03:17<00:00,  1.77it/s]100%|██████████| 120/120 [03:17<00:00,  1.65s/it]
+INFO:__main__:
+==================================================
+INFO:__main__:Evaluation Complete  [condition B_replay]
+INFO:__main__:Subject: A1_JAKE
+INFO:__main__:Total: 120
+INFO:__main__:Correct: 52
+INFO:__main__:Accuracy: 0.4333
+INFO:__main__:Results saved to: /home/minyoy/WorldMM/experiments/visual_bottleneck/results_seeds/seed1/B_replay.json
+INFO:__main__:==================================================
+INFO:worldmm.memory.memory:Memory cleanup complete
