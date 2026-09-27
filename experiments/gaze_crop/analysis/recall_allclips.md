@@ -9,8 +9,10 @@ Pool: 6223 clips (123 targets + 6100 distractors, scope `all-clips`), scored on 
 
 Paired differences at k=3:
 
-| arms | diff (pp) | 95% CI | a only | b only |
-|---|---|---|---|---|
-| `full` - `gazef_05` | +0.0 | [-2.5, +2.5] | 1 | 1 |
+| arms | diff (pp) | a only | b only | discordant | McNemar p |
+|---|---|---|---|---|---|
+| `full` - `gazef_05` | +0.0 | 1 | 1 | 2 | 1.000 |
+
+Only the discordant questions carry information about which arm is better, and McNemar asks whether their split is further from even than a coin would give. Six discordant all one way is the first split reaching p < 0.05; below that, a clean-looking 4-0 is not evidence. A small discordant count means 'underpowered', not 'no difference'.
 
 How to read it: `center@R` is the control. `gaze@R` beating `full` but not `center@R` means cropping helped and gaze did not.

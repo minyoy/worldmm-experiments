@@ -1,5 +1,5 @@
 {
-  "pool": "/home/minyoy/WorldMM/experiments/gaze_crop/pool_all.json",
+  "pool": "experiments/gaze_crop/pool_all.json",
   "emb_dir": "/home/minyoy/WorldMM/experiments/gaze_crop/emb",
   "query_source": "question",
   "self_test": false,
@@ -48,12 +48,10 @@
       "b": "gazef_05",
       "k": 3,
       "diff_pp": 0.0,
-      "ci95_pp": [
-        -2.5,
-        2.5
-      ],
       "a_only": 1,
-      "b_only": 1
+      "b_only": 1,
+      "mcnemar_p": 1.0,
+      "n_discordant": 2
     }
   ],
   "breakdowns": {
