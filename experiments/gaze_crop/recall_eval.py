@@ -38,6 +38,25 @@ DEFAULT_KS = (1, 3, 5, 10, 20, 50)
 MAIN_K = 3  # WorldMM's visual top-k, and what condition E' actually consumed
 
 
+def question_date(q: Dict[str, Any]) -> Optional[str]:
+    """질문의 날짜를 "DAY3" 형태로. target_time 에 date 가 없을 때의 폴백으로만 쓴다.
+
+    query_time 이 두 가지 모양으로 돌아다닌다:
+      - 원본 EgoLifeQA:  {"date": "DAY1", "time": "11210217"}   dict
+      - pool / subset:   111573606                             int (build_subset 의 query_time_int)
+                         맨 앞 한 자리가 DAY 번호다
+    지금 데이터에서는 500문항 전부 target_time 에 date 가 있어 이 폴백이 쓰이지 않지만,
+    모양이 둘이라 그냥 두면 int 에서 AttributeError 로 죽는다.
+    """
+    qt = q.get("query_time")
+    if isinstance(qt, dict):
+        return qt.get("date")
+    if qt is None:
+        return None
+    d = str(qt)
+    return f"DAY{d[0]}" if d[:1].isdigit() else None
+
+
 def arm_name_from_file(path: str) -> str:
     return os.path.splitext(os.path.basename(path))[0]
 
@@ -224,7 +243,7 @@ def main() -> None:
 
     # spans:      {질문ID: [(시작초, 끝초), ...]}   지금 데이터는 항상 시작==끝 (한 시점)
     # clip_spans: {클립key: (시작초, 끝초)}          풀 전체 6,223개
-    spans = {q["ID"]: target_spans(q.get("target_time"), (q.get("query_time") or {}).get("date"))
+    spans = {q["ID"]: target_spans(q.get("target_time"), question_date(q))
              for q in pool["questions"]}
     clip_spans = {r["key"]: clip_span(r) for r in pool["clips"]}
 
