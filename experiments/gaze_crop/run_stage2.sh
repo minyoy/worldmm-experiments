@@ -101,7 +101,10 @@ try: print(json.load(open('$HERE/gaze_points.json')).get('transform','none'))
 except Exception: print('none')")
 echo "arm: $ARM   transform: $TRANSFORM"
 
-say "1. pool: all 6,223 clips"
+say "1. questions: all 500"
+"$PY" "$HERE/build_questions.py" || exit 1
+
+say "1b. pool: all 6,223 clips"
 "$PY" "$HERE/build_pool.py" --all-clips --out "$POOL_ALL" || exit 1
 
 case "$ARM" in

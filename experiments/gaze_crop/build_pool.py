@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-Build the small retrieval pool: every target clip of the 120-question subset plus random
-distractors from the same days.
+Build the retrieval pool: the clips to search over, plus the questions to search with.
+
+Questions come from questions_500.json (all 500 EgoLifeQA A1_JAKE questions, built by
+build_questions.py). Not visual_bottleneck/subset.json (120): recall scoring costs nothing per
+question, and 120 gave only 4 discordant pairs -- too few for any test to conclude with.
 
 Why not the full 6,223 clips: an arm costs one VLM2Vec forward pass per clip, and the question
 here is only whether cropping moves the ranking at all. If gaze-cropping cannot win at
@@ -25,13 +28,14 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import (  # noqa: E402
-    CAPTION_30SEC, POOL_PATH, SUBSET_PATH, clip_key, load_json, load_subset, save_json, ts_int,
+    CAPTION_30SEC, POOL_PATH, QUESTIONS_PATH, clip_key, load_json, load_subset, save_json, ts_int,
 )
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--subset", default=SUBSET_PATH)
+    ap.add_argument("--questions", dest="subset", default=QUESTIONS_PATH,
+                    help="문항 파일. 기본값은 500문항 전체(build_questions.py 가 만든다).")
     ap.add_argument("--captions", default=CAPTION_30SEC)
     ap.add_argument("--out", default=POOL_PATH)
     ap.add_argument("--n-distractors", type=int, default=500)
@@ -46,6 +50,9 @@ def main() -> None:
     args = ap.parse_args()
 
     rng = random.Random(args.seed)
+    if not os.path.exists(args.subset):
+        raise SystemExit(f"문항 파일이 없다: {args.subset}\n"
+                         f"    python experiments/gaze_crop/build_questions.py")
     subset = load_subset(args.subset)
     caps = load_json(args.captions)
     by_path = {c["video_path"]: c for c in caps}

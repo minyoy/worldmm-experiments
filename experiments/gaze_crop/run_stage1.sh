@@ -77,7 +77,10 @@ if [ "$HAS_GAZE" != "1" ] && [ "${NO_GAZE:-0}" != "1" ]; then
   exit 1
 fi
 
-say "1. pool (623 clips)"
+say "1. questions: all 500"
+"$PY" "$HERE/build_questions.py" || exit 1
+
+say "2. pool (623 clips)"
 "$PY" "$HERE/build_pool.py" --n-distractors "$N_DISTRACTORS" || exit 1
 
 say "2. gaze"

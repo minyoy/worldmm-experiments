@@ -46,6 +46,11 @@ subset_by_id = vb.subset_by_id
 ts_display = vb.ts_display
 ts_int = vb.ts_int
 
+# 이 실험이 쓰는 문항 목록: EgoLifeQA 500 전체 (build_questions.py 가 만든다).
+# visual_bottleneck 의 subset.json(120문항)이 아니다 -- 저쪽은 문항마다 LLM 을 돌려야
+# 해서 줄일 이유가 있었지만, recall 채점은 문항을 늘리는 비용이 사실상 0 이고 검정력이
+# 문항 수에 직접 걸린다.
+QUESTIONS_PATH = os.path.join(EXP_DIR, "questions_500.json")
 POOL_PATH = os.path.join(EXP_DIR, "pool.json")
 GAZE_PATH = os.path.join(EXP_DIR, "gaze_points.json")
 EMB_DIR = os.path.join(EXP_DIR, "emb")
