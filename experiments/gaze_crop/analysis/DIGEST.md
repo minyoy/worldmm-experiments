@@ -43,8 +43,33 @@ need_audio 분해 (False 행이 실제 여유분):
 
 ### 2단계 recall (6,223클립 = 실제 인덱스 크기)
 
-MISSING (/home/minyoy/WorldMM/experiments/gaze_crop/results/recall_allclips.json)
+pool pool_all.json, 120/120 문항 채점
+
+| arm | R@1 | R@3 | R@5 | R@10 | R@20 | R@50 | median rank |
+|---|---|---|---|---|---|---|---|
+| `full` | 0.0% | 0.8% | 0.8% | 1.7% | 2.5% | 3.3% | 878 |
+| `gazef_05` | 0.8% | 0.8% | 1.7% | 2.5% | 2.5% | 5.8% | 909 |
+
+paired diff at k=3:
+- `full` − `gazef_05` = **+0.0pp** (95% CI -2.5..+2.5; full only 1, gazef_05 only 1)
+
+need_audio 분해 (False 행이 실제 여유분):
+- False (n=70): full 1.4%, gazef_05 0.0%
+- True (n=50): full 0.0%, gazef_05 2.0%
 
 ### 2단계 정확도 (조건 E′, 인덱스만 교체)
 
-MISSING — /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/*/E_prime.json 없음 (1단계에서 중단됐거나 QA 미실행)
+| arm | 정확도 |
+|---|---|
+| _B (텍스트만)_ | _40.8%_ |
+| _E (에이전트 자율)_ | _41.7%_ |
+| _E' (저자 임베딩, visual 강제)_ | _45.8%_ |
+| `full_k20` | **46.7%** |
+| `full_k3` | **45.0%** |
+| `gazef_05_k20` | **45.0%** |
+| `gazef_05_k3` | **45.0%** |
+
+- k=3: `gazef_05` − `full` = **+0.0pp** (같은 풀·같은 플래그·같은 k의 자체 대조)
+- k=20: `gazef_05` − `full` = **-1.7pp** (같은 풀·같은 플래그·같은 k의 자체 대조)
+
+파서 확인: `python experiments/gaze_crop/rescore.py /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/*/E_prime.json`

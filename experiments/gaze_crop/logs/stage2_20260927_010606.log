@@ -1,0 +1,1956 @@
+
+=== 2026-09-27 01:06:06  stage 2: answer accuracy ==================================================
+log : /home/minyoy/WorldMM/experiments/gaze_crop/logs/stage2_20260927_010606.log
+k   : 3 20  (visual-top-k for condition E')
+cpus: 5 cores (taskset 0-4)
+
+=== 0. preflight ==================================================
+B text_context cache: 120 files
+recall@3: full 2.5%
+  gazef@0.5: 3.3%  (+0.8pp vs full)
+  gaze@0.5: 2.5%  (+0.0pp vs full)
+BEST=gazef@0.5
+gate: PASS (best gain +0.8pp vs threshold +0.0pp)
+arm: gazef@0.5   transform: flipx+flipy
+
+=== 1. pool: all 6,223 clips ==================================================
+questions: 120 (0 with no usable target clip)
+pool: 6223 clips = 123 targets + 6100 distractors
+days: {'DAY1': 808, 'DAY2': 852, 'DAY3': 908, 'DAY4': 949, 'DAY5': 938, 'DAY6': 1067, 'DAY7': 701}
+visible pool per question: min 96, median 2561, max 5966
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/pool_all.json
+
+=== 2. gaze over the full pool ==================================================
+gaze root: /home/minyoy/WorldMM/data/EgoLife/EyeGaze/A1_JAKE
+frame size probed from video: 1408x1408
+projection: equidistant, focal 611.0px (implied HFOV 98.1deg), transform 'flipx+flipy', CPF offset (0.0, 0.0, 0.0)
+gaze files parsed: 6272 (6222 had a device clock rebased to clip time)
+clips with gaze: 6222/6223 (targets: 123/123)
+samples per clip: min 2, median 300, max 300
+per-clip median gaze: x 0.515, y 0.563 (x/y spread p10-p90: 0.49-0.55 / 0.51-0.62)
+  if that centre sits at 0.5/0.5 with almost no spread, gaze adds nothing a centre crop does not already have -- check the transform before concluding it
+samples clamped to the frame edge: 0/1858955 = 0.0% (a big number usually means the wrong projection or transform)
+example: combined yaw atan(mean tan of left_yaw_rads_cpf,right_yaw_rads_cpf) + pitch_rads_cpf
+vergence check: median |reconstructed depth - depth_m| = 0.022 m over 6270 file(s). Small means the left/right columns and their signs are being read as the Aria docs define them; large means they are not.
+  note: DAY4: a day-level file (61..6408s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY5: a day-level file (64..29543s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY2: a day-level file (1087..9967s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY6: a day-level file (49908..49920s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY7: a day-level file (6480..9722s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY1: a day-level file (2880..10565s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+  note: DAY3: a day-level file (71..9882s) matched no clip. Aria timestamps are a device clock, not time of day -- name each CSV after its clip (DAY1_A1_JAKE_11100000.csv) so it is read as that clip.
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/gaze_points.json
+
+=== 3. embeddings: full + gazef@0.5  (stage 1's 623 clips are reused; ~5,600 left per arm) ==================================================
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+[2026-09-27 01:06:46,500] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading processor from: VLM2Vec/VLM2Vec-V2.0
+[2026-09-27 01:06:46,503] DEBUG [urllib3.connectionpool:1003] Starting new HTTPS connection (1): huggingface.co:443
+[2026-09-27 01:06:46,840] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:46,860] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:47,079] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-27 01:06:47,334] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:47,358] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:47,578] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-27 01:06:47,798] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-27 01:06:48,407] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-27 01:06:48,616] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/preprocessor_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:48,635] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/preprocessor_config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:48,860] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-27 01:06:49,078] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:49,097] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/tokenizer_config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:49,311] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-27 01:06:49,551] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main?recursive=True&expand=False HTTP/1.1" 200 None
+[2026-09-27 01:06:50,594] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0 HTTP/1.1" 200 None
+[2026-09-27 01:06:51,230] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/VLM2Vec/VLM2Vec-V2.0/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2026-09-27 01:06:51,445] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/processor_config.json HTTP/1.1" 404 0
+[2026-09-27 01:06:51,662] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.json HTTP/1.1" 307 0
+[2026-09-27 01:06:51,680] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/chat_template.json HTTP/1.1" 200 0
+[2026-09-27 01:06:51,891] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/chat_template.jinja HTTP/1.1" 404 0
+[2026-09-27 01:06:52,110] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/audio_tokenizer_config.json HTTP/1.1" 404 0
+[2026-09-27 01:06:52,887] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:52,902] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:52,915] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+[2026-09-27 01:06:53,132] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:53,154] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/config.json HTTP/1.1" 200 0
+`torch_dtype` is deprecated! Use `dtype` instead!
+[2026-09-27 01:06:53,386] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors HTTP/1.1" 404 0
+[2026-09-27 01:06:53,599] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/model.safetensors.index.json HTTP/1.1" 307 0
+[2026-09-27 01:06:53,620] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/model.safetensors.index.json HTTP/1.1" 200 0
+[2026-09-27 01:06:53,843] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "GET /api/models/Qwen/Qwen2-VL-2B-Instruct/revision/main HTTP/1.1" 200 None
+arms: ['full', 'gazef@0.5']
+clips to do: 5601/6223 (the rest are already in emb/)
+gaze coverage: 6222/6223 clips from /home/minyoy/WorldMM/experiments/gaze_crop/gaze_points.json
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]
+Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 2590.68it/s]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 30.00it/s]
+[2026-09-27 01:06:54,256] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:54,272] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/Qwen/Qwen2-VL-2B-Instruct/895c3a49bc3fa70a340399125c650a463535e71c/generation_config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:54,486] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /Qwen/Qwen2-VL-2B-Instruct/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2026-09-27 01:06:54,714] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:54,734] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:54,955] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:54,972] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+[2026-09-27 01:06:56,279] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-27 01:06:56,490] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-27 01:06:56,621] INFO [worldmm.embedding.VLM2Vec.src.utils:21] Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+[2026-09-27 01:06:56,825] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_config.json HTTP/1.1" 307 0
+[2026-09-27 01:06:56,840] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /api/resolve-cache/models/VLM2Vec/VLM2Vec-V2.0/e39ff079b8275ef876d3656da8c0bddbff3c4dde/adapter_config.json HTTP/1.1" 200 0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+[2026-09-27 01:06:58,084] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-27 01:06:58,303] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-27 01:06:58,867] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.safetensors HTTP/1.1" 404 0
+[2026-09-27 01:06:59,085] DEBUG [urllib3.connectionpool:456] https://huggingface.co:443 "HEAD /VLM2Vec/VLM2Vec-V2.0/resolve/main/adapter_model.bin HTTP/1.1" 302 0
+[2026-09-27 01:07:02,498] INFO [root:70] Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+  ... 50/5601 clips, 0.44 clip/s (0.88 embeddings/s), ETA 211 min, checkpointed
+  ... 100/5601 clips, 0.48 clip/s (0.97 embeddings/s), ETA 189 min, checkpointed
+  ... 150/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 182 min, checkpointed
+  ... 200/5601 clips, 0.51 clip/s (1.01 embeddings/s), ETA 178 min, checkpointed
+  ... 250/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 175 min, checkpointed
+  ... 300/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 173 min, checkpointed
+  ... 350/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 171 min, checkpointed
+  ... 400/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 170 min, checkpointed
+  ... 450/5601 clips, 0.51 clip/s (1.01 embeddings/s), ETA 170 min, checkpointed
+  ... 500/5601 clips, 0.51 clip/s (1.01 embeddings/s), ETA 168 min, checkpointed
+  ... 550/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 166 min, checkpointed
+  ... 600/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 164 min, checkpointed
+  ... 650/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 165 min, checkpointed
+  ... 700/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 163 min, checkpointed
+  ... 750/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 162 min, checkpointed
+  ... 800/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 160 min, checkpointed
+  ... 850/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 158 min, checkpointed
+  ... 900/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 156 min, checkpointed
+  ... 950/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 154 min, checkpointed
+  ... 1000/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 152 min, checkpointed
+  ... 1050/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 151 min, checkpointed
+  ... 1100/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 149 min, checkpointed
+  ... 1150/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 147 min, checkpointed
+  ... 1200/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 146 min, checkpointed
+  ... 1250/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 144 min, checkpointed
+  ... 1300/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 143 min, checkpointed
+  ... 1350/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 141 min, checkpointed
+  ... 1400/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 139 min, checkpointed
+  ... 1450/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 137 min, checkpointed
+  ... 1500/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 136 min, checkpointed
+  ... 1550/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 134 min, checkpointed
+  ... 1600/5601 clips, 0.51 clip/s (1.01 embeddings/s), ETA 132 min, checkpointed
+  ... 1650/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 131 min, checkpointed
+  ... 1700/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 129 min, checkpointed
+  ... 1750/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 128 min, checkpointed
+  ... 1800/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 126 min, checkpointed
+  ... 1850/5601 clips, 0.50 clip/s (1.00 embeddings/s), ETA 124 min, checkpointed
+  ... 1900/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 123 min, checkpointed
+  ... 1950/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 121 min, checkpointed
+  ... 2000/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 119 min, checkpointed
+  ... 2050/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 118 min, checkpointed
+  ... 2100/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 116 min, checkpointed
+  ... 2150/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 114 min, checkpointed
+  ... 2200/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 113 min, checkpointed
+  ... 2250/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 111 min, checkpointed
+  ... 2300/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 109 min, checkpointed
+  ... 2350/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 108 min, checkpointed
+  ... 2400/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 106 min, checkpointed
+  ... 2450/5601 clips, 0.50 clip/s (1.01 embeddings/s), ETA 104 min, checkpointed
+  ... 2500/5601 clips, 0.51 clip/s (1.01 embeddings/s), ETA 102 min, checkpointed
+  ... 2550/5601 clips, 0.51 clip/s (1.01 embeddings/s), ETA 100 min, checkpointed
+  ... 2600/5601 clips, 0.51 clip/s (1.01 embeddings/s), ETA 99 min, checkpointed
+  ... 2650/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 97 min, checkpointed
+  ... 2700/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 95 min, checkpointed
+  ... 2750/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 93 min, checkpointed
+  ... 2800/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 92 min, checkpointed
+  ... 2850/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 90 min, checkpointed
+  ... 2900/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 88 min, checkpointed
+  ... 2950/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 87 min, checkpointed
+  ... 3000/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 85 min, checkpointed
+  ... 3050/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 83 min, checkpointed
+  ... 3100/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 82 min, checkpointed
+  ... 3150/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 80 min, checkpointed
+  ... 3200/5601 clips, 0.51 clip/s (1.02 embeddings/s), ETA 78 min, checkpointed
+  ... 3250/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 76 min, checkpointed
+  ... 3300/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 75 min, checkpointed
+  ... 3350/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 73 min, checkpointed
+  ... 3400/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 71 min, checkpointed
+  ... 3450/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 70 min, checkpointed
+  ... 3500/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 68 min, checkpointed
+  ... 3550/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 66 min, checkpointed
+  ... 3600/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 65 min, checkpointed
+  ... 3650/5601 clips, 0.51 clip/s (1.03 embeddings/s), ETA 63 min, checkpointed
+  ... 3700/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 62 min, checkpointed
+  ... 3750/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 60 min, checkpointed
+  ... 3800/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 58 min, checkpointed
+  ... 3850/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 57 min, checkpointed
+  ... 3900/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 55 min, checkpointed
+  ... 3950/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 53 min, checkpointed
+  ... 4000/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 52 min, checkpointed
+  ... 4050/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 50 min, checkpointed
+  ... 4100/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 48 min, checkpointed
+  ... 4150/5601 clips, 0.52 clip/s (1.03 embeddings/s), ETA 47 min, checkpointed
+  ... 4200/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 45 min, checkpointed
+  ... 4250/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 43 min, checkpointed
+  ... 4300/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 42 min, checkpointed
+  ... 4350/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 40 min, checkpointed
+  ... 4400/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 39 min, checkpointed
+  ... 4450/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 37 min, checkpointed
+  ... 4500/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 35 min, checkpointed
+  ... 4550/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 34 min, checkpointed
+  ... 4600/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 32 min, checkpointed
+  ... 4650/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 30 min, checkpointed
+  ... 4700/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 29 min, checkpointed
+  ... 4750/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 27 min, checkpointed
+  ... 4800/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 26 min, checkpointed
+  ... 4850/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 24 min, checkpointed
+  ... 4900/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 22 min, checkpointed
+  ... 4950/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 21 min, checkpointed
+  ... 5000/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 19 min, checkpointed
+  ... 5050/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 18 min, checkpointed
+  ... 5100/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 16 min, checkpointed
+  ... 5150/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 14 min, checkpointed
+  ... 5200/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 13 min, checkpointed
+  ... 5250/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 11 min, checkpointed
+  ... 5300/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 10 min, checkpointed
+  ... 5350/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 8 min, checkpointed
+  ... 5400/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 6 min, checkpointed
+  ... 5450/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 5 min, checkpointed
+  ... 5500/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 3 min, checkpointed
+  ... 5550/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 2 min, checkpointed
+  ... 5600/5601 clips, 0.52 clip/s (1.04 embeddings/s), ETA 0 min, checkpointed
+[full] 6223 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/full.npz
+[gazef@0.5] 6222 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05.npz
+5601 clips x 2 arm(s) in 179.2 min = 1.92 s/clip. Scale that to your real pool: a 6,223-clip pool would take 3.3 h at this rate.
+WARNING: 1 (clip, arm) pairs had no gaze point, e.g. [('DAY4_A1_JAKE_15295407', 'gazef@0.5')]. They are absent from that arm; recall_eval.py reports the shortfall rather than quietly substituting a centre crop.
+
+=== 4. recall at the real index size ==================================================
+arms: ['full', 'gazef_05']  (dim 1536)
+  full: 6223 clips
+  gazef_05: 6222 clips
+
+questions: 120 | scorable in every arm: 120
+
+recall@k over 120 questions (union over the question's queries)
+           arm | @1       | @3       | @5       | @10      | @20      | @50      | med.rank
+-------------------------------------------------------------------------------------------
+          full |    0.0% |    0.8% |    0.8% |    1.7% |    2.5% |    3.3% |      878
+      gazef_05 |    0.8% |    0.8% |    1.7% |    2.5% |    2.5% |    5.8% |      909
+
+paired comparisons at k=3  (win = only this arm found the target)
+  full - gazef_05:  +0.0pp  95% CI [ -2.5,  +2.5]  (full only 1, gazef_05 only 1)
+
+recall@3 by need_audio / type / gap  (need_audio=True questions are the ones oracle frames could not fix either)
+  need_audio
+           False (n= 70)  full   1.4%  gazef_05   0.0%
+            True (n= 50)  full   0.0%  gazef_05   2.0%
+  type
+       EntityLog (n= 24)  full   0.0%  gazef_05   0.0%
+     EventRecall (n= 24)  full   0.0%  gazef_05   0.0%
+    HabitInsight (n= 24)  full   4.2%  gazef_05   0.0%
+     RelationMap (n= 24)  full   0.0%  gazef_05   0.0%
+      TaskMaster (n= 24)  full   0.0%  gazef_05   4.2%
+  gap_bin
+               0 (n= 57)  full   1.8%  gazef_05   0.0%
+               1 (n= 33)  full   0.0%  gazef_05   3.0%
+              2+ (n= 30)  full   0.0%  gazef_05   0.0%
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/results/recall_allclips.json
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/recall_allclips.md
+
+=== 4b. how much do the arms disagree at each k? ==================================================
+paired comparisons at k=1  (win = only this arm found the target)
+  full - gazef_05:  -0.8pp  95% CI [ -2.5,  +0.0]  (full only 0, gazef_05 only 1)
+
+paired comparisons at k=3  (win = only this arm found the target)
+  full - gazef_05:  +0.0pp  95% CI [ -2.5,  +2.5]  (full only 1, gazef_05 only 1)
+
+paired comparisons at k=5  (win = only this arm found the target)
+  full - gazef_05:  -0.8pp  95% CI [ -4.2,  +1.7]  (full only 1, gazef_05 only 2)
+
+paired comparisons at k=10  (win = only this arm found the target)
+  full - gazef_05:  -0.8pp  95% CI [ -4.2,  +1.7]  (full only 1, gazef_05 only 2)
+
+paired comparisons at k=20  (win = only this arm found the target)
+  full - gazef_05:  +0.0pp  95% CI [ -2.5,  +2.5]  (full only 1, gazef_05 only 1)
+
+paired comparisons at k=50  (win = only this arm found the target)
+  full - gazef_05:  -2.5pp  95% CI [ -6.7,  +0.8]  (full only 1, gazef_05 only 4)
+
+
+=== 5. export the arms as visual_embeddings.pkl ==================================================
+full: 6223 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/full.pkl
+this pkl will index 6223 clips (pool has 6223, scope 'all-clips')
+gazef@0.5: 6222 embeddings -> /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05.pkl
+this pkl will index 6222 clips (pool has 6223, scope 'all-clips')
+
+=== 6. condition E' per index x per k (~34 min each) ==================================================
+
+>>> E' with emb/full.pkl at visual-top-k=3 -> results_qa/full_k3
+/home/minyoy/WorldMM/experiments/visual_bottleneck/eval_egolife.py:406: SyntaxWarning: invalid escape sequence '\{'
+  The original does re.search(r'\{.*\}', DOTALL) and json.loads the match. That regex is greedy, so
+INFO:__main__:Initializing models...
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [01:27<04:22, 87.62s/it]Loading checkpoint shards:  50%|█████     | 2/4 [02:54<02:54, 87.30s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [04:29<01:30, 90.86s/it]Loading checkpoint shards: 100%|██████████| 4/4 [05:20<00:00, 75.19s/it]Loading checkpoint shards: 100%|██████████| 4/4 [05:20<00:00, 80.24s/it]
+INFO:worldmm.llm.qwen3vl:Initialized Qwen3VLModel with Qwen/Qwen3-VL-8B-Instruct
+INFO:__main__:Sharing one LLM instance for retriever and responder: qwen3vl-8b
+INFO:worldmm.llm.prompt_template_manager:Loading templates from directory: /home/minyoy/WorldMM/src/worldmm/llm/templates
+INFO:__main__:Initializing WorldMemory...
+INFO:__main__:Loading data...
+INFO:__main__:Loading data into WorldMemory...
+INFO:worldmm.memory.episodic.memory:Loaded 6223 captions for granularity 30sec
+INFO:worldmm.memory.episodic.memory:Loaded 1073 captions for granularity 3min
+INFO:worldmm.memory.episodic.memory:Loaded 341 captions for granularity 10min
+INFO:worldmm.memory.episodic.memory:Loaded 64 captions for granularity 1h
+INFO:worldmm.memory.semantic.memory:Loaded semantic triples across 623 timestamps
+INFO:worldmm.memory.visual.memory:Loaded 6223 video embeddings from /home/minyoy/WorldMM/experiments/gaze_crop/emb/full.pkl
+INFO:worldmm.memory.visual.memory:Loaded 6223 video clips
+INFO:__main__:Video root: /datasets/EgoLife (6223 clip paths remapped, 6223/6223 clips have embeddings)
+INFO:__main__:Condition E_prime: evaluating 120 questions ...
+  0%|          | 0/120 [00:00<?, ?it/s]INFO:__main__:Processing ID 6: Who plans to grow flowers...
+INFO:worldmm.memory.visual.memory:Indexed 96 video clips up to 111573606
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading processor from: VLM2Vec/VLM2Vec-V2.0
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s][AFetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 363.96it/s]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 12.83it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 12.81it/s]
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+INFO:root:Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+INFO:__main__:ID 6 Answer: B, Gold: D, Correct: False // Accuracy: 0/1 = 0.0000
+  1%|          | 1/120 [00:35<1:10:50, 35.72s/it]INFO:__main__:Processing ID 13: Now Lucia asks, "What is this, is this a hedgehog?...
+INFO:worldmm.memory.visual.memory:Indexed 171 video clips up to 112351415
+INFO:__main__:ID 13 Answer: B, Gold: C, Correct: False // Accuracy: 0/2 = 0.0000
+  2%|▏         | 2/120 [00:46<41:08, 20.92s/it]  INFO:__main__:Processing ID 16: Who was the first to move the puzzle board on the ...
+INFO:worldmm.memory.visual.memory:Indexed 204 video clips up to 112512802
+INFO:__main__:ID 16 Answer: A, Gold: B, Correct: False // Accuracy: 0/3 = 0.0000
+  2%|▎         | 3/120 [00:57<32:07, 16.47s/it]INFO:__main__:Processing ID 25: Who originally used the scissors in my hand?...
+INFO:worldmm.memory.visual.memory:Indexed 320 video clips up to 113495310
+INFO:__main__:ID 25 Answer: C, Gold: D, Correct: False // Accuracy: 0/4 = 0.0000
+  3%|▎         | 4/120 [01:09<28:24, 14.69s/it]INFO:__main__:Processing ID 26: Who has been assembling the shelf...
+INFO:worldmm.memory.visual.memory:Indexed 329 video clips up to 113541007
+INFO:__main__:ID 26 Answer: D, Gold: C, Correct: False // Accuracy: 0/5 = 0.0000
+  4%|▍         | 5/120 [01:22<26:58, 14.07s/it]INFO:__main__:Processing ID 28: Who am I always busy with in the kitchen today...
+INFO:worldmm.memory.visual.memory:Indexed 336 video clips up to 113575015
+INFO:__main__:ID 28 Answer: D, Gold: C, Correct: False // Accuracy: 0/6 = 0.0000
+  5%|▌         | 6/120 [01:34<25:29, 13.41s/it]INFO:__main__:Processing ID 34: What do we decide to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 379 video clips up to 115473415
+INFO:__main__:ID 34 Answer: A, Gold: A, Correct: True // Accuracy: 1/7 = 0.1429
+  6%|▌         | 7/120 [01:45<23:52, 12.67s/it]INFO:__main__:Processing ID 36: What other drinks are needed to mix with rum?...
+INFO:worldmm.memory.visual.memory:Indexed 399 video clips up to 117210410
+INFO:__main__:ID 36 Answer: D, Gold: D, Correct: True // Accuracy: 2/8 = 0.2500
+  7%|▋         | 8/120 [01:56<22:23, 11.99s/it]INFO:__main__:Processing ID 42: What drinks are you planning to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 450 video clips up to 117463818
+INFO:__main__:ID 42 Answer: D, Gold: B, Correct: False // Accuracy: 2/9 = 0.2222
+  8%|▊         | 9/120 [02:08<22:31, 12.18s/it]INFO:__main__:Processing ID 55: Who among us hasn't eaten century eggs...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375108
+INFO:__main__:ID 55 Answer: C, Gold: D, Correct: False // Accuracy: 2/10 = 0.2000
+  8%|▊         | 10/120 [02:20<22:13, 12.13s/it]INFO:__main__:Processing ID 56: While I was cleaning the egg mixer, who joined in ...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375109
+INFO:__main__:ID 56 Answer: C, Gold: C, Correct: True // Accuracy: 3/11 = 0.2727
+  9%|▉         | 11/120 [02:31<21:10, 11.65s/it]INFO:__main__:Processing ID 65: We decided to buy how many boxes of green grapes...
+INFO:worldmm.memory.visual.memory:Indexed 652 video clips up to 119473415
+INFO:__main__:ID 65 Answer: A, Gold: A, Correct: True // Accuracy: 4/12 = 0.3333
+ 10%|█         | 12/120 [02:42<20:29, 11.38s/it]INFO:__main__:Processing ID 67: Why did the clerk not agree when we asked them to ...
+INFO:__main__:ID 67 Answer: A, Gold: D, Correct: False // Accuracy: 4/13 = 0.3077
+ 11%|█         | 13/120 [02:52<19:59, 11.21s/it]INFO:__main__:Processing ID 68: Why didn't we buy chestnut kernels...
+INFO:__main__:ID 68 Answer: C, Gold: A, Correct: False // Accuracy: 4/14 = 0.2857
+ 12%|█▏        | 14/120 [03:03<19:21, 10.96s/it]INFO:__main__:Processing ID 72: What does Lucia plan to make on World Earth Day?...
+INFO:__main__:ID 72 Answer: A, Gold: A, Correct: True // Accuracy: 5/15 = 0.3333
+ 12%|█▎        | 15/120 [03:14<19:01, 10.87s/it]INFO:__main__:Processing ID 74: Among us, who often goes out wearing slippers...
+INFO:__main__:ID 74 Answer: C, Gold: A, Correct: False // Accuracy: 5/16 = 0.3125
+ 13%|█▎        | 16/120 [03:25<19:12, 11.08s/it]INFO:__main__:Processing ID 76: What am I usually doing on the second floor today?...
+INFO:worldmm.memory.visual.memory:Indexed 712 video clips up to 120321009
+INFO:__main__:ID 76 Answer: B, Gold: C, Correct: False // Accuracy: 5/17 = 0.2941
+ 14%|█▍        | 17/120 [03:36<18:54, 11.02s/it]INFO:__main__:Processing ID 79: Previously, Alice couldn't open the can. Who helpe...
+INFO:worldmm.memory.visual.memory:Indexed 737 video clips up to 120444009
+INFO:__main__:ID 79 Answer: B, Gold: B, Correct: True // Accuracy: 6/18 = 0.3333
+ 15%|█▌        | 18/120 [03:47<18:40, 10.99s/it]INFO:__main__:Processing ID 80: Who used the kitchen knife on the counter last tim...
+INFO:worldmm.memory.visual.memory:Indexed 749 video clips up to 121365110
+INFO:__main__:ID 80 Answer: B, Gold: B, Correct: True // Accuracy: 7/19 = 0.3684
+ 16%|█▌        | 19/120 [04:00<19:23, 11.52s/it]INFO:__main__:Processing ID 82: When I usually buy clothes, what type of clothing ...
+INFO:worldmm.memory.visual.memory:Indexed 763 video clips up to 121435319
+INFO:__main__:ID 82 Answer: B, Gold: A, Correct: False // Accuracy: 7/20 = 0.3500
+ 17%|█▋        | 20/120 [04:10<18:46, 11.27s/it]INFO:__main__:Processing ID 86: What do I always do when I go to the supermarket...
+INFO:__main__:ID 86 Answer: B, Gold: B, Correct: True // Accuracy: 8/21 = 0.3810
+ 18%|█▊        | 21/120 [04:23<19:23, 11.75s/it]INFO:__main__:Processing ID 91: Who is always the first to get off the car...
+INFO:__main__:ID 91 Answer: B, Gold: B, Correct: True // Accuracy: 9/22 = 0.4091
+ 18%|█▊        | 22/120 [04:35<19:04, 11.68s/it]INFO:__main__:Processing ID 92: What do I usually use to control the computer when...
+INFO:__main__:ID 92 Answer: B, Gold: B, Correct: True // Accuracy: 10/23 = 0.4348
+ 19%|█▉        | 23/120 [04:46<18:31, 11.46s/it]INFO:__main__:Processing ID 94: Whose hometown is close to mine...
+INFO:__main__:ID 94 Answer: C, Gold: D, Correct: False // Accuracy: 10/24 = 0.4167
+ 20%|██        | 24/120 [04:56<17:41, 11.05s/it]INFO:__main__:Processing ID 98: Who usually writes the shopping list on the whiteb...
+INFO:worldmm.memory.visual.memory:Indexed 777 video clips up to 121504104
+INFO:__main__:ID 98 Answer: B, Gold: B, Correct: True // Accuracy: 11/25 = 0.4400
+ 21%|██        | 25/120 [05:06<17:07, 10.81s/it]INFO:__main__:Processing ID 103: When was the last time items were taken from the r...
+INFO:worldmm.memory.visual.memory:Indexed 809 video clips up to 210443918
+INFO:__main__:ID 103 Answer: D, Gold: D, Correct: True // Accuracy: 12/26 = 0.4615
+ 22%|██▏       | 26/120 [05:17<16:48, 10.73s/it]INFO:__main__:Processing ID 106: What is my main responsibility when shopping in th...
+INFO:worldmm.memory.visual.memory:Indexed 854 video clips up to 211073011
+INFO:__main__:ID 106 Answer: A, Gold: D, Correct: False // Accuracy: 12/27 = 0.4444
+ 22%|██▎       | 27/120 [05:27<16:37, 10.73s/it]INFO:__main__:Processing ID 108: Who usually picks up the takeout from the delivery...
+INFO:worldmm.memory.visual.memory:Indexed 867 video clips up to 211141803
+INFO:__main__:ID 108 Answer: B, Gold: B, Correct: True // Accuracy: 13/28 = 0.4643
+ 23%|██▎       | 28/120 [05:39<16:52, 11.00s/it]INFO:__main__:Processing ID 109: What else do I need to purchase for delivery?...
+INFO:worldmm.memory.visual.memory:Indexed 869 video clips up to 211151710
+INFO:__main__:ID 109 Answer: C, Gold: B, Correct: False // Accuracy: 13/29 = 0.4483
+ 24%|██▍       | 29/120 [05:51<17:23, 11.47s/it]INFO:__main__:Processing ID 113: Last night during the chat, I discovered whose gla...
+INFO:worldmm.memory.visual.memory:Indexed 959 video clips up to 212002750
+INFO:__main__:ID 113 Answer: D, Gold: D, Correct: True // Accuracy: 14/30 = 0.4667
+ 25%|██▌       | 30/120 [06:02<16:44, 11.16s/it]INFO:__main__:Processing ID 114: Who did Tasha take off the headphones for yesterda...
+INFO:worldmm.memory.visual.memory:Indexed 984 video clips up to 212454203
+INFO:__main__:ID 114 Answer: C, Gold: C, Correct: True // Accuracy: 15/31 = 0.4839
+ 26%|██▌       | 31/120 [06:14<16:46, 11.31s/it]INFO:__main__:Processing ID 119: What do I usually do after picking up glasses that...
+INFO:worldmm.memory.visual.memory:Indexed 1059 video clips up to 213225715
+INFO:__main__:ID 119 Answer: A, Gold: C, Correct: False // Accuracy: 15/32 = 0.4688
+ 27%|██▋       | 32/120 [06:25<16:50, 11.49s/it]INFO:__main__:Processing ID 125: What is the paper boxes will be used for in plan o...
+INFO:worldmm.memory.visual.memory:Indexed 1291 video clips up to 217105413
+INFO:__main__:ID 125 Answer: A, Gold: B, Correct: False // Accuracy: 15/33 = 0.4545
+ 28%|██▊       | 33/120 [06:38<16:59, 11.72s/it]INFO:__main__:Processing ID 139: Who was beside me helping the last time I washed d...
+INFO:worldmm.memory.visual.memory:Indexed 1490 video clips up to 221080700
+INFO:__main__:ID 139 Answer: B, Gold: D, Correct: False // Accuracy: 15/34 = 0.4412
+ 28%|██▊       | 34/120 [06:48<16:12, 11.31s/it]INFO:__main__:Processing ID 140: What do I habitually use to wipe after washing kit...
+INFO:worldmm.memory.visual.memory:Indexed 1532 video clips up to 221290900
+INFO:__main__:ID 140 Answer: C, Gold: A, Correct: False // Accuracy: 15/35 = 0.4286
+ 29%|██▉       | 35/120 [06:59<15:48, 11.16s/it]INFO:__main__:Processing ID 146: Who used the computer with me to upload data...
+INFO:worldmm.memory.visual.memory:Indexed 1535 video clips up to 221303201
+INFO:__main__:ID 146 Answer: B, Gold: B, Correct: True // Accuracy: 16/36 = 0.4444
+ 30%|███       | 36/120 [07:11<15:49, 11.30s/it]INFO:__main__:Processing ID 149: What device should I use to scan the house...
+INFO:worldmm.memory.visual.memory:Indexed 1565 video clips up to 221453309
+INFO:__main__:ID 149 Answer: C, Gold: D, Correct: False // Accuracy: 16/37 = 0.4324
+ 31%|███       | 37/120 [07:21<15:24, 11.14s/it]INFO:__main__:Processing ID 155: Tonight, who is playing the guitar next to me and ...
+INFO:worldmm.memory.visual.memory:Indexed 1587 video clips up to 221563610
+INFO:__main__:ID 155 Answer: B, Gold: B, Correct: True // Accuracy: 17/38 = 0.4474
+ 32%|███▏      | 38/120 [07:32<14:58, 10.95s/it]INFO:__main__:Processing ID 156: Among us, who doesn't like eating durian...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110505
+INFO:__main__:ID 156 Answer: D, Gold: B, Correct: False // Accuracy: 17/39 = 0.4359
+ 32%|███▎      | 39/120 [07:43<14:42, 10.89s/it]INFO:__main__:Processing ID 158: What kind of music does Lucia like to dance to?...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110508
+INFO:__main__:ID 158 Answer: A, Gold: D, Correct: False // Accuracy: 17/40 = 0.4250
+ 33%|███▎      | 40/120 [07:53<14:18, 10.73s/it]INFO:__main__:Processing ID 160: Who did I eat green grapes with in the kitchen tod...
+INFO:worldmm.memory.visual.memory:Indexed 1632 video clips up to 222444619
+INFO:__main__:ID 160 Answer: D, Gold: D, Correct: True // Accuracy: 18/41 = 0.4390
+ 34%|███▍      | 41/120 [08:03<14:00, 10.64s/it]INFO:__main__:Processing ID 164: What does Lucia need to buy for decorating her roo...
+INFO:worldmm.memory.visual.memory:Indexed 1708 video clips up to 311410802
+INFO:__main__:ID 164 Answer: B, Gold: C, Correct: False // Accuracy: 18/42 = 0.4286
+ 35%|███▌      | 42/120 [08:14<13:45, 10.59s/it]INFO:__main__:Processing ID 168: Who put the takeout in the microwave the night bef...
+INFO:worldmm.memory.visual.memory:Indexed 1742 video clips up to 311580956
+INFO:__main__:ID 168 Answer: B, Gold: B, Correct: True // Accuracy: 19/43 = 0.4419
+ 36%|███▌      | 43/120 [08:25<13:49, 10.77s/it]INFO:__main__:Processing ID 170: Who did I sit next to while eating last night?...
+INFO:worldmm.memory.visual.memory:Indexed 1759 video clips up to 312063116
+INFO:__main__:ID 170 Answer: A, Gold: A, Correct: True // Accuracy: 20/44 = 0.4545
+ 37%|███▋      | 44/120 [08:37<14:07, 11.15s/it]INFO:__main__:Processing ID 172: What activities do we have in the afternoon?...
+INFO:worldmm.memory.visual.memory:Indexed 1763 video clips up to 312085702
+INFO:__main__:ID 172 Answer: B, Gold: B, Correct: True // Accuracy: 21/45 = 0.4667
+ 38%|███▊      | 45/120 [08:48<14:00, 11.21s/it]INFO:__main__:Processing ID 174: What other styles were mentioned the last time we ...
+INFO:worldmm.memory.visual.memory:Indexed 1787 video clips up to 312205419
+INFO:__main__:ID 174 Answer: D, Gold: D, Correct: True // Accuracy: 22/46 = 0.4783
+ 38%|███▊      | 46/120 [09:00<14:02, 11.38s/it]INFO:__main__:Processing ID 175: What are we planning to do outdoors?...
+INFO:worldmm.memory.visual.memory:Indexed 1826 video clips up to 314501909
+INFO:__main__:ID 175 Answer: B, Gold: B, Correct: True // Accuracy: 23/47 = 0.4894
+ 39%|███▉      | 47/120 [09:11<13:32, 11.13s/it]INFO:__main__:Processing ID 178: Alice mentioned whether AI can understand why we t...
+INFO:worldmm.memory.visual.memory:Indexed 1863 video clips up to 315085205
+INFO:__main__:ID 178 Answer: C, Gold: D, Correct: False // Accuracy: 23/48 = 0.4792
+ 40%|████      | 48/120 [09:22<13:19, 11.10s/it]INFO:__main__:Processing ID 181: Who wore a hat while walking in the park?...
+INFO:worldmm.memory.visual.memory:Indexed 1962 video clips up to 315582407
+INFO:__main__:ID 181 Answer: D, Gold: C, Correct: False // Accuracy: 23/49 = 0.4694
+ 41%|████      | 49/120 [09:34<13:39, 11.54s/it]INFO:__main__:Processing ID 192: Who usually pays when going out today?...
+INFO:worldmm.memory.visual.memory:Indexed 2040 video clips up to 316371300
+INFO:__main__:ID 192 Answer: C, Gold: C, Correct: True // Accuracy: 24/50 = 0.4800
+ 42%|████▏     | 50/120 [09:45<13:09, 11.28s/it]INFO:__main__:Processing ID 193: When was the last time you stood on the escalator?...
+INFO:worldmm.memory.visual.memory:Indexed 2042 video clips up to 316381803
+INFO:__main__:ID 193 Answer: C, Gold: A, Correct: False // Accuracy: 24/51 = 0.4706
+ 42%|████▎     | 51/120 [09:56<12:51, 11.18s/it]INFO:__main__:Processing ID 194: Which tool was not purchased last time in this sho...
+INFO:worldmm.memory.visual.memory:Indexed 2043 video clips up to 316384310
+INFO:__main__:ID 194 Answer: C, Gold: C, Correct: True // Accuracy: 25/52 = 0.4808
+ 43%|████▎     | 52/120 [10:08<12:56, 11.43s/it]INFO:__main__:Processing ID 196: What ingredients do we need to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 2045 video clips up to 316393510
+INFO:__main__:ID 196 Answer: C, Gold: A, Correct: False // Accuracy: 25/53 = 0.4717
+ 44%|████▍     | 53/120 [10:19<12:30, 11.21s/it]INFO:__main__:Processing ID 198: When was the last time eggs were bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2054 video clips up to 316441707
+INFO:__main__:ID 198 Answer: A, Gold: D, Correct: False // Accuracy: 25/54 = 0.4630
+ 45%|████▌     | 54/120 [10:30<12:20, 11.22s/it]INFO:__main__:Processing ID 206: Why did Tasha check out both times at the supermar...
+INFO:worldmm.memory.visual.memory:Indexed 2109 video clips up to 317113302
+INFO:__main__:ID 206 Answer: A, Gold: A, Correct: True // Accuracy: 26/55 = 0.4727
+ 46%|████▌     | 55/120 [10:42<12:31, 11.56s/it]INFO:__main__:Processing ID 217: What task does Tasha have tonight?...
+INFO:worldmm.memory.visual.memory:Indexed 2241 video clips up to 319582402
+INFO:__main__:ID 217 Answer: A, Gold: A, Correct: True // Accuracy: 27/56 = 0.4821
+ 47%|████▋     | 56/120 [10:54<12:26, 11.66s/it]INFO:__main__:Processing ID 224: Who helped Shure last time he lit the fire?...
+INFO:worldmm.memory.visual.memory:Indexed 2343 video clips up to 320490702
+INFO:__main__:ID 224 Answer: B, Gold: B, Correct: True // Accuracy: 28/57 = 0.4912
+ 48%|████▊     | 57/120 [11:04<11:49, 11.26s/it]INFO:__main__:Processing ID 225: What do we plan to do with the mangoes...
+INFO:worldmm.memory.visual.memory:Indexed 2346 video clips up to 321012656
+INFO:__main__:ID 225 Answer: A, Gold: A, Correct: True // Accuracy: 29/58 = 0.5000
+ 48%|████▊     | 58/120 [11:15<11:29, 11.11s/it]INFO:__main__:Processing ID 229: What drink combination can we try at this gatherin...
+INFO:worldmm.memory.visual.memory:Indexed 2389 video clips up to 321223302
+INFO:__main__:ID 229 Answer: B, Gold: C, Correct: False // Accuracy: 29/59 = 0.4915
+ 49%|████▉     | 59/120 [11:25<10:59, 10.82s/it]INFO:__main__:Processing ID 231: What other ingredients did I prepare the last time...
+INFO:worldmm.memory.visual.memory:Indexed 2417 video clips up to 321363410
+INFO:__main__:ID 231 Answer: D, Gold: A, Correct: False // Accuracy: 29/60 = 0.4833
+ 50%|█████     | 60/120 [11:39<11:41, 11.70s/it]INFO:__main__:Processing ID 245: How many times did I protect the fire seed?...
+INFO:worldmm.memory.visual.memory:Indexed 2561 video clips up to 322483306
+INFO:__main__:ID 245 Answer: B, Gold: B, Correct: True // Accuracy: 30/61 = 0.4918
+ 51%|█████     | 61/120 [11:51<11:32, 11.75s/it]INFO:__main__:Processing ID 251: What is Katrina's room decoration plan?...
+INFO:worldmm.memory.visual.memory:Indexed 2595 video clips up to 411014017
+INFO:__main__:ID 251 Answer: B, Gold: C, Correct: False // Accuracy: 30/62 = 0.4839
+ 52%|█████▏    | 62/120 [12:01<10:56, 11.32s/it]INFO:__main__:Processing ID 254: What does Tasha need to buy to decorate the room?...
+INFO:worldmm.memory.visual.memory:Indexed 2621 video clips up to 411145407
+INFO:__main__:ID 254 Answer: B, Gold: D, Correct: False // Accuracy: 30/63 = 0.4762
+ 52%|█████▎    | 63/120 [12:13<10:52, 11.44s/it]INFO:__main__:Processing ID 256: On the first day, who did Tasha ask to bring her a...
+INFO:worldmm.memory.visual.memory:Indexed 2646 video clips up to 411270750
+INFO:__main__:ID 256 Answer: B, Gold: D, Correct: False // Accuracy: 30/64 = 0.4688
+ 53%|█████▎    | 64/120 [12:26<10:59, 11.78s/it]INFO:__main__:Processing ID 258: When were the oysters bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2661 video clips up to 411345902
+INFO:__main__:ID 258 Answer: B, Gold: C, Correct: False // Accuracy: 30/65 = 0.4615
+ 54%|█████▍    | 65/120 [12:39<11:06, 12.12s/it]INFO:__main__:Processing ID 260: What did I take out the last time I opened the fri...
+INFO:worldmm.memory.visual.memory:Indexed 2665 video clips up to 411365009
+INFO:__main__:ID 260 Answer: D, Gold: C, Correct: False // Accuracy: 30/66 = 0.4545
+ 55%|█████▌    | 66/120 [12:51<10:54, 12.12s/it]INFO:__main__:Processing ID 263: Who navigated and led us all to Hema Fresh?...
+INFO:worldmm.memory.visual.memory:Indexed 2668 video clips up to 411381500
+INFO:__main__:ID 263 Answer: C, Gold: C, Correct: True // Accuracy: 31/67 = 0.4627
+ 56%|█████▌    | 67/120 [13:03<10:46, 12.20s/it]INFO:__main__:Processing ID 267: What activities can we hold in Shure's room?...
+INFO:worldmm.memory.visual.memory:Indexed 2708 video clips up to 411581510
+INFO:__main__:ID 267 Answer: A, Gold: A, Correct: True // Accuracy: 32/68 = 0.4706
+ 57%|█████▋    | 68/120 [13:13<10:04, 11.63s/it]INFO:__main__:Processing ID 275: Who was next to me the last time I made coffee?...
+INFO:worldmm.memory.visual.memory:Indexed 2799 video clips up to 412435200
+INFO:__main__:ID 275 Answer: A, Gold: D, Correct: False // Accuracy: 32/69 = 0.4638
+ 57%|█████▊    | 69/120 [13:24<09:31, 11.20s/it]INFO:__main__:Processing ID 276: Who was next to me the last time I made coffee?...
+INFO:__main__:ID 276 Answer: B, Gold: A, Correct: False // Accuracy: 32/70 = 0.4571
+ 58%|█████▊    | 70/120 [13:34<09:05, 10.90s/it]INFO:__main__:Processing ID 283: Where was the bread found?...
+INFO:worldmm.memory.visual.memory:Indexed 2880 video clips up to 413240213
+INFO:__main__:ID 283 Answer: C, Gold: C, Correct: True // Accuracy: 33/71 = 0.4648
+ 59%|█████▉    | 71/120 [13:44<08:49, 10.81s/it]INFO:__main__:Processing ID 286: Who do I usually sit with during meals?...
+INFO:worldmm.memory.visual.memory:Indexed 2889 video clips up to 413285000
+INFO:__main__:ID 286 Answer: B, Gold: C, Correct: False // Accuracy: 33/72 = 0.4583
+ 60%|██████    | 72/120 [13:56<08:56, 11.19s/it]INFO:__main__:Processing ID 293: What is the first ingredient in the shopping cart ...
+INFO:worldmm.memory.visual.memory:Indexed 3001 video clips up to 416132300
+INFO:__main__:ID 293 Answer: C, Gold: C, Correct: True // Accuracy: 34/73 = 0.4658
+ 61%|██████    | 73/120 [14:09<09:11, 11.74s/it]INFO:__main__:Processing ID 294: When was the last time Lucia took a picture?...
+INFO:worldmm.memory.visual.memory:Indexed 3068 video clips up to 416465813
+INFO:__main__:ID 294 Answer: A, Gold: C, Correct: False // Accuracy: 34/74 = 0.4595
+ 62%|██████▏   | 74/120 [14:20<08:41, 11.34s/it]INFO:__main__:Processing ID 296: Now Shure is playing the guitar, what was the envi...
+INFO:worldmm.memory.visual.memory:Indexed 3102 video clips up to 417045506
+INFO:__main__:ID 296 Answer: D, Gold: D, Correct: True // Accuracy: 35/75 = 0.4667
+ 62%|██████▎   | 75/120 [14:31<08:25, 11.23s/it]INFO:__main__:Processing ID 307: What do we plan to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 3261 video clips up to 418242219
+INFO:__main__:ID 307 Answer: A, Gold: A, Correct: True // Accuracy: 36/76 = 0.4737
+ 63%|██████▎   | 76/120 [14:43<08:25, 11.50s/it]INFO:__main__:Processing ID 308: Who usually sings when Shure plays the guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 3297 video clips up to 418422500
+INFO:__main__:ID 308 Answer: B, Gold: D, Correct: False // Accuracy: 36/77 = 0.4675
+ 64%|██████▍   | 77/120 [14:54<08:04, 11.26s/it]INFO:__main__:Processing ID 314: Who discussed renting clothes with me at noon toda...
+INFO:worldmm.memory.visual.memory:Indexed 3461 video clips up to 421563804
+INFO:__main__:ID 314 Answer: A, Gold: A, Correct: True // Accuracy: 37/78 = 0.4744
+ 65%|██████▌   | 78/120 [15:05<07:49, 11.17s/it]INFO:__main__:Processing ID 334: When was the last time I plugged a cable into the ...
+INFO:worldmm.memory.visual.memory:Indexed 3609 video clips up to 511464307
+INFO:__main__:ID 334 Answer: A, Gold: A, Correct: True // Accuracy: 38/79 = 0.4810
+ 66%|██████▌   | 79/120 [15:16<07:43, 11.31s/it]INFO:__main__:Processing ID 335: What is the milk used for?...
+INFO:worldmm.memory.visual.memory:Indexed 3613 video clips up to 511484717
+INFO:__main__:ID 335 Answer: C, Gold: C, Correct: True // Accuracy: 39/80 = 0.4875
+ 67%|██████▋   | 80/120 [15:27<07:21, 11.03s/it]INFO:__main__:Processing ID 337: Who gave Tasha the AD calcium milk she is holding?...
+INFO:worldmm.memory.visual.memory:Indexed 3674 video clips up to 512190913
+INFO:__main__:ID 337 Answer: C, Gold: C, Correct: True // Accuracy: 40/81 = 0.4938
+ 68%|██████▊   | 81/120 [15:38<07:12, 11.09s/it]INFO:__main__:Processing ID 352: Who joined the shopping trip this time compared to...
+INFO:worldmm.memory.visual.memory:Indexed 3852 video clips up to 516052304
+INFO:__main__:ID 352 Answer: C, Gold: A, Correct: False // Accuracy: 40/82 = 0.4878
+ 68%|██████▊   | 82/120 [15:51<07:25, 11.73s/it]INFO:__main__:Processing ID 354: Who was I with the last time I stood on the escala...
+INFO:worldmm.memory.visual.memory:Indexed 3854 video clips up to 516062618
+INFO:__main__:ID 354 Answer: D, Gold: D, Correct: True // Accuracy: 41/83 = 0.4940
+ 69%|██████▉   | 83/120 [16:02<07:03, 11.44s/it]INFO:__main__:Processing ID 357: Who do I usually shop with?...
+INFO:worldmm.memory.visual.memory:Indexed 3863 video clips up to 516103904
+INFO:__main__:ID 357 Answer: B, Gold: B, Correct: True // Accuracy: 42/84 = 0.5000
+ 70%|███████   | 84/120 [16:14<07:02, 11.74s/it]INFO:__main__:Processing ID 360: Who was next to me the last time I was taste-testi...
+INFO:worldmm.memory.visual.memory:Indexed 3871 video clips up to 516145504
+INFO:__main__:ID 360 Answer: D, Gold: D, Correct: True // Accuracy: 43/85 = 0.5059
+ 71%|███████   | 85/120 [16:25<06:45, 11.57s/it]INFO:__main__:Processing ID 366: When was the last time I used the ride-hailing app...
+INFO:worldmm.memory.visual.memory:Indexed 3919 video clips up to 516383108
+INFO:__main__:ID 366 Answer: B, Gold: D, Correct: False // Accuracy: 43/86 = 0.5000
+ 72%|███████▏  | 86/120 [16:29<05:16,  9.31s/it]INFO:__main__:Processing ID 369: How do we get home after shopping?...
+INFO:worldmm.memory.visual.memory:Indexed 3925 video clips up to 516414404
+INFO:__main__:ID 369 Answer: B, Gold: B, Correct: True // Accuracy: 44/87 = 0.5057
+ 72%|███████▎  | 87/120 [16:42<05:35, 10.17s/it]INFO:__main__:Processing ID 371: What do we plan to eat today?...
+INFO:worldmm.memory.visual.memory:Indexed 3949 video clips up to 518025517
+INFO:__main__:ID 371 Answer: C, Gold: D, Correct: False // Accuracy: 44/88 = 0.5000
+ 73%|███████▎  | 88/120 [16:53<05:40, 10.65s/it]INFO:__main__:Processing ID 374: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 3953 video clips up to 518045716
+INFO:__main__:ID 374 Answer: D, Gold: C, Correct: False // Accuracy: 44/89 = 0.4944
+ 74%|███████▍  | 89/120 [17:04<05:28, 10.61s/it]INFO:__main__:Processing ID 377: When was the last time the grill in the yard was u...
+INFO:worldmm.memory.visual.memory:Indexed 4005 video clips up to 518303001
+INFO:__main__:ID 377 Answer: A, Gold: D, Correct: False // Accuracy: 44/90 = 0.4889
+ 75%|███████▌  | 90/120 [17:16<05:28, 10.94s/it]INFO:__main__:Processing ID 380: When was the white microwave in the kitchen last u...
+INFO:worldmm.memory.visual.memory:Indexed 4015 video clips up to 518353711
+INFO:__main__:ID 380 Answer: B, Gold: D, Correct: False // Accuracy: 44/91 = 0.4835
+ 76%|███████▌  | 91/120 [17:26<05:14, 10.85s/it]INFO:__main__:Processing ID 382: When was the last time these oven mitts were used?...
+INFO:worldmm.memory.visual.memory:Indexed 4024 video clips up to 518401702
+INFO:__main__:ID 382 Answer: D, Gold: B, Correct: False // Accuracy: 44/92 = 0.4783
+ 77%|███████▋  | 92/120 [17:38<05:14, 11.24s/it]INFO:__main__:Processing ID 383: Who bought the blueberries?...
+INFO:worldmm.memory.visual.memory:Indexed 4025 video clips up to 518402915
+INFO:__main__:ID 383 Answer: B, Gold: C, Correct: False // Accuracy: 44/93 = 0.4731
+ 78%|███████▊  | 93/120 [17:51<05:12, 11.57s/it]INFO:__main__:Processing ID 392: Who made the egg tart on the table?...
+INFO:worldmm.memory.visual.memory:Indexed 4227 video clips up to 520220710
+INFO:__main__:ID 392 Answer: C, Gold: A, Correct: False // Accuracy: 44/94 = 0.4681
+ 78%|███████▊  | 94/120 [18:02<04:58, 11.49s/it]INFO:__main__:Processing ID 393: The last time Choiszt was mixing cream, what were ...
+INFO:worldmm.memory.visual.memory:Indexed 4230 video clips up to 520233904
+INFO:__main__:ID 393 Answer: A, Gold: B, Correct: False // Accuracy: 44/95 = 0.4632
+ 79%|███████▉  | 95/120 [18:23<05:59, 14.38s/it]INFO:__main__:Processing ID 402: What does Tasha want to drink?...
+INFO:worldmm.memory.visual.memory:Indexed 4308 video clips up to 521025517
+INFO:__main__:ID 402 Answer: D, Gold: D, Correct: True // Accuracy: 45/96 = 0.4688
+ 80%|████████  | 96/120 [18:49<07:07, 17.80s/it]INFO:__main__:Processing ID 403: Why doesn't Tasha eat stewed dishes?...
+INFO:__main__:ID 403 Answer: C, Gold: B, Correct: False // Accuracy: 45/97 = 0.4639
+ 81%|████████  | 97/120 [19:10<07:08, 18.64s/it]INFO:__main__:Processing ID 408: What should be arranged in Alice's room?...
+INFO:worldmm.memory.visual.memory:Indexed 4478 video clips up to 610010305
+INFO:__main__:ID 408 Answer: B, Gold: D, Correct: False // Accuracy: 45/98 = 0.4592
+ 82%|████████▏ | 98/120 [19:28<06:47, 18.53s/it]INFO:__main__:Processing ID 409: When did I last pick up the takeout?...
+INFO:worldmm.memory.visual.memory:Indexed 4480 video clips up to 610022614
+INFO:__main__:ID 409 Answer: D, Gold: D, Correct: True // Accuracy: 46/99 = 0.4646
+ 82%|████████▎ | 99/120 [19:52<07:05, 20.26s/it]INFO:__main__:Processing ID 414: Under what circumstances did I last inquire about ...
+INFO:worldmm.memory.visual.memory:Indexed 4494 video clips up to 610091303
+INFO:__main__:ID 414 Answer: D, Gold: B, Correct: False // Accuracy: 46/100 = 0.4600
+ 83%|████████▎ | 100/120 [20:17<07:10, 21.55s/it]INFO:__main__:Processing ID 417: Who used the kitchen knife before Nicous?...
+INFO:worldmm.memory.visual.memory:Indexed 4540 video clips up to 610322302
+INFO:__main__:ID 417 Answer: D, Gold: D, Correct: True // Accuracy: 47/101 = 0.4653
+ 84%|████████▍ | 101/120 [20:34<06:22, 20.15s/it]INFO:__main__:Processing ID 429: Now that I have opened the red refrigerator on the...
+INFO:worldmm.memory.visual.memory:Indexed 4836 video clips up to 613001417
+INFO:__main__:ID 429 Answer: B, Gold: D, Correct: False // Accuracy: 47/102 = 0.4608
+ 85%|████████▌ | 102/120 [21:01<06:43, 22.39s/it]INFO:__main__:Processing ID 430: Now I am lying in bed, what was I doing the last t...
+INFO:worldmm.memory.visual.memory:Indexed 4854 video clips up to 613091804
+INFO:__main__:ID 430 Answer: B, Gold: B, Correct: True // Accuracy: 48/103 = 0.4660
+ 86%|████████▌ | 103/120 [21:26<06:30, 22.97s/it]INFO:__main__:Processing ID 438: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 5065 video clips up to 616384716
+INFO:__main__:ID 438 Answer: A, Gold: D, Correct: False // Accuracy: 48/104 = 0.4615
+ 87%|████████▋ | 104/120 [21:44<05:47, 21.72s/it]INFO:__main__:Processing ID 445: When was the last time Alice made this puppy?...
+INFO:worldmm.memory.visual.memory:Indexed 5132 video clips up to 617170912
+INFO:__main__:ID 445 Answer: C, Gold: A, Correct: False // Accuracy: 48/105 = 0.4571
+ 88%|████████▊ | 105/120 [22:06<05:25, 21.71s/it]INFO:__main__:Processing ID 448: Shure is playing guitar, who else can play guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 5227 video clips up to 619494312
+INFO:__main__:ID 448 Answer: D, Gold: C, Correct: False // Accuracy: 48/106 = 0.4528
+ 88%|████████▊ | 106/120 [22:31<05:19, 22.83s/it]INFO:__main__:Processing ID 459: Who was listening nearby when Choiszt was playing ...
+INFO:worldmm.memory.visual.memory:Indexed 5377 video clips up to 621044820
+INFO:__main__:ID 459 Answer: D, Gold: A, Correct: False // Accuracy: 48/107 = 0.4486
+ 89%|████████▉ | 107/120 [22:53<04:53, 22.55s/it]INFO:__main__:Processing ID 465: Who introduced the product 'Cardboard Puppy' to ev...
+INFO:worldmm.memory.visual.memory:Indexed 5377 video clips up to 621044825
+INFO:__main__:ID 465 Answer: B, Gold: D, Correct: False // Accuracy: 48/108 = 0.4444
+ 90%|█████████ | 108/120 [23:14<04:24, 22.06s/it]INFO:__main__:Processing ID 469: What does Tasha like to eat?...
+INFO:worldmm.memory.visual.memory:Indexed 5496 video clips up to 622042507
+INFO:__main__:ID 469 Answer: B, Gold: A, Correct: False // Accuracy: 48/109 = 0.4404
+ 91%|█████████ | 109/120 [23:39<04:10, 22.78s/it]INFO:__main__:Processing ID 471: What flavor of porridge does Alice like?...
+INFO:worldmm.memory.visual.memory:Indexed 5496 video clips up to 622042509
+INFO:__main__:ID 471 Answer: A, Gold: A, Correct: True // Accuracy: 49/110 = 0.4455
+ 92%|█████████▏| 110/120 [24:02<03:49, 22.92s/it]INFO:__main__:Processing ID 473: Why do we conduct the QA activity first during the...
+INFO:worldmm.memory.visual.memory:Indexed 5508 video clips up to 622101420
+INFO:__main__:ID 473 Answer: B, Gold: A, Correct: False // Accuracy: 49/111 = 0.4414
+ 92%|█████████▎| 111/120 [24:22<03:17, 21.98s/it]INFO:__main__:Processing ID 476: What is the purpose of ego coins?...
+INFO:worldmm.memory.visual.memory:Indexed 5521 video clips up to 622164902
+INFO:__main__:ID 476 Answer: B, Gold: B, Correct: True // Accuracy: 50/112 = 0.4464
+ 93%|█████████▎| 112/120 [24:46<03:00, 22.60s/it]INFO:__main__:Processing ID 479: What is the purpose of the glasses we wear?...
+INFO:__main__:ID 479 Answer: D, Gold: D, Correct: True // Accuracy: 51/113 = 0.4513
+ 94%|█████████▍| 113/120 [25:11<02:43, 23.39s/it]INFO:__main__:Processing ID 481: What song does Jack plan to sing?...
+INFO:__main__:ID 481 Answer: B, Gold: D, Correct: False // Accuracy: 51/114 = 0.4474
+ 95%|█████████▌| 114/120 [25:29<02:10, 21.70s/it]INFO:__main__:Processing ID 485: Who fidgets with items the most during discussions...
+INFO:worldmm.memory.visual.memory:Indexed 5558 video clips up to 712141402
+INFO:__main__:ID 485 Answer: A, Gold: A, Correct: True // Accuracy: 52/115 = 0.4522
+ 96%|█████████▌| 115/120 [25:52<01:50, 22.17s/it]INFO:__main__:Processing ID 486: Who fidgets with items the most during discussions...
+INFO:__main__:ID 486 Answer: B, Gold: B, Correct: True // Accuracy: 53/116 = 0.4569
+ 97%|█████████▋| 116/120 [26:19<01:33, 23.48s/it]INFO:__main__:Processing ID 493: When was the last time I used my phone to scan the...
+INFO:worldmm.memory.visual.memory:Indexed 5858 video clips up to 715132705
+INFO:__main__:ID 493 Answer: A, Gold: C, Correct: False // Accuracy: 53/117 = 0.4530
+ 98%|█████████▊| 117/120 [26:39<01:07, 22.62s/it]INFO:__main__:Processing ID 495: Why do I label the SD cards?...
+INFO:worldmm.memory.visual.memory:Indexed 5913 video clips up to 717395355
+INFO:__main__:ID 495 Answer: B, Gold: D, Correct: False // Accuracy: 53/118 = 0.4492
+ 98%|█████████▊| 118/120 [26:59<00:43, 21.91s/it]INFO:__main__:Processing ID 496: What song did Shure suggest we sing together?...
+INFO:worldmm.memory.visual.memory:Indexed 5963 video clips up to 718045007
+INFO:__main__:ID 496 Answer: B, Gold: B, Correct: True // Accuracy: 54/119 = 0.4538
+ 99%|█████████▉| 119/120 [27:26<00:23, 23.16s/it]INFO:__main__:Processing ID 497: When was the last time I paid via phone?...
+INFO:worldmm.memory.visual.memory:Indexed 5966 video clips up to 718060700
+INFO:__main__:ID 497 Answer: B, Gold: D, Correct: False // Accuracy: 54/120 = 0.4500
+100%|██████████| 120/120 [27:47<00:00, 22.59s/it]100%|██████████| 120/120 [27:47<00:00, 13.89s/it]
+INFO:__main__:
+==================================================
+INFO:__main__:Evaluation Complete  [condition E_prime]
+INFO:__main__:Subject: A1_JAKE
+INFO:__main__:Total: 120
+INFO:__main__:Correct: 54
+INFO:__main__:Accuracy: 0.4500
+INFO:__main__:Results saved to: /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/full_k3/E_prime.json
+INFO:__main__:==================================================
+INFO:worldmm.memory.memory:Memory cleanup complete
+
+>>> E' with emb/gazef_05.pkl at visual-top-k=3 -> results_qa/gazef_05_k3
+/home/minyoy/WorldMM/experiments/visual_bottleneck/eval_egolife.py:406: SyntaxWarning: invalid escape sequence '\{'
+  The original does re.search(r'\{.*\}', DOTALL) and json.loads the match. That regex is greedy, so
+INFO:__main__:Initializing models...
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.08s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.27s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.29s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.10s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:04<00:00,  1.15s/it]
+INFO:worldmm.llm.qwen3vl:Initialized Qwen3VLModel with Qwen/Qwen3-VL-8B-Instruct
+INFO:__main__:Sharing one LLM instance for retriever and responder: qwen3vl-8b
+INFO:worldmm.llm.prompt_template_manager:Loading templates from directory: /home/minyoy/WorldMM/src/worldmm/llm/templates
+INFO:__main__:Initializing WorldMemory...
+INFO:__main__:Loading data...
+INFO:__main__:Loading data into WorldMemory...
+INFO:worldmm.memory.episodic.memory:Loaded 6223 captions for granularity 30sec
+INFO:worldmm.memory.episodic.memory:Loaded 1073 captions for granularity 3min
+INFO:worldmm.memory.episodic.memory:Loaded 341 captions for granularity 10min
+INFO:worldmm.memory.episodic.memory:Loaded 64 captions for granularity 1h
+INFO:worldmm.memory.semantic.memory:Loaded semantic triples across 623 timestamps
+INFO:worldmm.memory.visual.memory:Loaded 6222 video embeddings from /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05.pkl
+INFO:worldmm.memory.visual.memory:Loaded 6223 video clips
+INFO:__main__:Video root: /datasets/EgoLife (6223 clip paths remapped, 6222/6223 clips have embeddings)
+INFO:__main__:Condition E_prime: evaluating 120 questions ...
+  0%|          | 0/120 [00:00<?, ?it/s]INFO:__main__:Processing ID 6: Who plans to grow flowers...
+INFO:worldmm.memory.visual.memory:Indexed 96 video clips up to 111573606
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading processor from: VLM2Vec/VLM2Vec-V2.0
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s][AFetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 31.63it/s]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  4.59it/s][A
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  5.28it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  5.16it/s]
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+INFO:root:Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+INFO:__main__:ID 6 Answer: B, Gold: D, Correct: False // Accuracy: 0/1 = 0.0000
+  1%|          | 1/120 [00:32<1:05:00, 32.77s/it]INFO:__main__:Processing ID 13: Now Lucia asks, "What is this, is this a hedgehog?...
+INFO:worldmm.memory.visual.memory:Indexed 171 video clips up to 112351415
+INFO:__main__:ID 13 Answer: B, Gold: C, Correct: False // Accuracy: 0/2 = 0.0000
+  2%|▏         | 2/120 [00:43<38:28, 19.57s/it]  INFO:__main__:Processing ID 16: Who was the first to move the puzzle board on the ...
+INFO:worldmm.memory.visual.memory:Indexed 204 video clips up to 112512802
+INFO:__main__:ID 16 Answer: C, Gold: B, Correct: False // Accuracy: 0/3 = 0.0000
+  2%|▎         | 3/120 [00:53<30:12, 15.49s/it]INFO:__main__:Processing ID 25: Who originally used the scissors in my hand?...
+INFO:worldmm.memory.visual.memory:Indexed 320 video clips up to 113495310
+INFO:__main__:ID 25 Answer: D, Gold: D, Correct: True // Accuracy: 1/4 = 0.2500
+  3%|▎         | 4/120 [01:05<27:04, 14.01s/it]INFO:__main__:Processing ID 26: Who has been assembling the shelf...
+INFO:worldmm.memory.visual.memory:Indexed 329 video clips up to 113541007
+INFO:__main__:ID 26 Answer: D, Gold: C, Correct: False // Accuracy: 1/5 = 0.2000
+  4%|▍         | 5/120 [01:16<25:02, 13.07s/it]INFO:__main__:Processing ID 28: Who am I always busy with in the kitchen today...
+INFO:worldmm.memory.visual.memory:Indexed 336 video clips up to 113575015
+INFO:__main__:ID 28 Answer: B, Gold: C, Correct: False // Accuracy: 1/6 = 0.1667
+  5%|▌         | 6/120 [01:27<23:20, 12.28s/it]INFO:__main__:Processing ID 34: What do we decide to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 379 video clips up to 115473415
+INFO:__main__:ID 34 Answer: A, Gold: A, Correct: True // Accuracy: 2/7 = 0.2857
+  6%|▌         | 7/120 [01:37<21:54, 11.63s/it]INFO:__main__:Processing ID 36: What other drinks are needed to mix with rum?...
+INFO:worldmm.memory.visual.memory:Indexed 399 video clips up to 117210410
+INFO:__main__:ID 36 Answer: D, Gold: D, Correct: True // Accuracy: 3/8 = 0.3750
+  7%|▋         | 8/120 [01:48<20:56, 11.22s/it]INFO:__main__:Processing ID 42: What drinks are you planning to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 450 video clips up to 117463818
+INFO:__main__:ID 42 Answer: D, Gold: B, Correct: False // Accuracy: 3/9 = 0.3333
+  8%|▊         | 9/120 [02:00<21:36, 11.68s/it]INFO:__main__:Processing ID 55: Who among us hasn't eaten century eggs...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375108
+INFO:__main__:ID 55 Answer: C, Gold: D, Correct: False // Accuracy: 3/10 = 0.3000
+  8%|▊         | 10/120 [02:12<21:35, 11.78s/it]INFO:__main__:Processing ID 56: While I was cleaning the egg mixer, who joined in ...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375109
+INFO:__main__:ID 56 Answer: C, Gold: C, Correct: True // Accuracy: 4/11 = 0.3636
+  9%|▉         | 11/120 [02:23<20:43, 11.41s/it]INFO:__main__:Processing ID 65: We decided to buy how many boxes of green grapes...
+INFO:worldmm.memory.visual.memory:Indexed 652 video clips up to 119473415
+INFO:__main__:ID 65 Answer: A, Gold: A, Correct: True // Accuracy: 5/12 = 0.4167
+ 10%|█         | 12/120 [02:34<20:09, 11.20s/it]INFO:__main__:Processing ID 67: Why did the clerk not agree when we asked them to ...
+INFO:__main__:ID 67 Answer: A, Gold: D, Correct: False // Accuracy: 5/13 = 0.3846
+ 11%|█         | 13/120 [02:45<19:50, 11.13s/it]INFO:__main__:Processing ID 68: Why didn't we buy chestnut kernels...
+INFO:__main__:ID 68 Answer: C, Gold: A, Correct: False // Accuracy: 5/14 = 0.3571
+ 12%|█▏        | 14/120 [02:56<19:45, 11.18s/it]INFO:__main__:Processing ID 72: What does Lucia plan to make on World Earth Day?...
+INFO:__main__:ID 72 Answer: A, Gold: A, Correct: True // Accuracy: 6/15 = 0.4000
+ 12%|█▎        | 15/120 [03:06<19:08, 10.94s/it]INFO:__main__:Processing ID 74: Among us, who often goes out wearing slippers...
+INFO:__main__:ID 74 Answer: D, Gold: A, Correct: False // Accuracy: 6/16 = 0.3750
+ 13%|█▎        | 16/120 [03:18<19:23, 11.18s/it]INFO:__main__:Processing ID 76: What am I usually doing on the second floor today?...
+INFO:worldmm.memory.visual.memory:Indexed 712 video clips up to 120321009
+INFO:__main__:ID 76 Answer: B, Gold: C, Correct: False // Accuracy: 6/17 = 0.3529
+ 14%|█▍        | 17/120 [03:29<18:56, 11.04s/it]INFO:__main__:Processing ID 79: Previously, Alice couldn't open the can. Who helpe...
+INFO:worldmm.memory.visual.memory:Indexed 737 video clips up to 120444009
+INFO:__main__:ID 79 Answer: B, Gold: B, Correct: True // Accuracy: 7/18 = 0.3889
+ 15%|█▌        | 18/120 [03:41<19:04, 11.22s/it]INFO:__main__:Processing ID 80: Who used the kitchen knife on the counter last tim...
+INFO:worldmm.memory.visual.memory:Indexed 749 video clips up to 121365110
+INFO:__main__:ID 80 Answer: C, Gold: B, Correct: False // Accuracy: 7/19 = 0.3684
+ 16%|█▌        | 19/120 [03:54<19:50, 11.79s/it]INFO:__main__:Processing ID 82: When I usually buy clothes, what type of clothing ...
+INFO:worldmm.memory.visual.memory:Indexed 763 video clips up to 121435319
+INFO:__main__:ID 82 Answer: B, Gold: A, Correct: False // Accuracy: 7/20 = 0.3500
+ 17%|█▋        | 20/120 [04:04<19:04, 11.45s/it]INFO:__main__:Processing ID 86: What do I always do when I go to the supermarket...
+INFO:__main__:ID 86 Answer: B, Gold: B, Correct: True // Accuracy: 8/21 = 0.3810
+ 18%|█▊        | 21/120 [04:18<19:48, 12.01s/it]INFO:__main__:Processing ID 91: Who is always the first to get off the car...
+INFO:__main__:ID 91 Answer: B, Gold: B, Correct: True // Accuracy: 9/22 = 0.4091
+ 18%|█▊        | 22/120 [04:29<19:28, 11.93s/it]INFO:__main__:Processing ID 92: What do I usually use to control the computer when...
+INFO:__main__:ID 92 Answer: B, Gold: B, Correct: True // Accuracy: 10/23 = 0.4348
+ 19%|█▉        | 23/120 [04:40<18:34, 11.49s/it]INFO:__main__:Processing ID 94: Whose hometown is close to mine...
+INFO:__main__:ID 94 Answer: D, Gold: D, Correct: True // Accuracy: 11/24 = 0.4583
+ 20%|██        | 24/120 [04:51<18:11, 11.37s/it]INFO:__main__:Processing ID 98: Who usually writes the shopping list on the whiteb...
+INFO:worldmm.memory.visual.memory:Indexed 777 video clips up to 121504104
+INFO:__main__:ID 98 Answer: B, Gold: B, Correct: True // Accuracy: 12/25 = 0.4800
+ 21%|██        | 25/120 [05:01<17:29, 11.05s/it]INFO:__main__:Processing ID 103: When was the last time items were taken from the r...
+INFO:worldmm.memory.visual.memory:Indexed 809 video clips up to 210443918
+INFO:__main__:ID 103 Answer: D, Gold: D, Correct: True // Accuracy: 13/26 = 0.5000
+ 22%|██▏       | 26/120 [05:12<17:13, 10.99s/it]INFO:__main__:Processing ID 106: What is my main responsibility when shopping in th...
+INFO:worldmm.memory.visual.memory:Indexed 854 video clips up to 211073011
+INFO:__main__:ID 106 Answer: A, Gold: D, Correct: False // Accuracy: 13/27 = 0.4815
+ 22%|██▎       | 27/120 [05:23<16:56, 10.93s/it]INFO:__main__:Processing ID 108: Who usually picks up the takeout from the delivery...
+INFO:worldmm.memory.visual.memory:Indexed 867 video clips up to 211141803
+INFO:__main__:ID 108 Answer: B, Gold: B, Correct: True // Accuracy: 14/28 = 0.5000
+ 23%|██▎       | 28/120 [05:34<16:54, 11.03s/it]INFO:__main__:Processing ID 109: What else do I need to purchase for delivery?...
+INFO:worldmm.memory.visual.memory:Indexed 869 video clips up to 211151710
+INFO:__main__:ID 109 Answer: C, Gold: B, Correct: False // Accuracy: 14/29 = 0.4828
+ 24%|██▍       | 29/120 [05:47<17:27, 11.51s/it]INFO:__main__:Processing ID 113: Last night during the chat, I discovered whose gla...
+INFO:worldmm.memory.visual.memory:Indexed 959 video clips up to 212002750
+INFO:__main__:ID 113 Answer: D, Gold: D, Correct: True // Accuracy: 15/30 = 0.5000
+ 25%|██▌       | 30/120 [05:57<16:52, 11.25s/it]INFO:__main__:Processing ID 114: Who did Tasha take off the headphones for yesterda...
+INFO:worldmm.memory.visual.memory:Indexed 984 video clips up to 212454203
+INFO:__main__:ID 114 Answer: C, Gold: C, Correct: True // Accuracy: 16/31 = 0.5161
+ 26%|██▌       | 31/120 [06:10<17:05, 11.52s/it]INFO:__main__:Processing ID 119: What do I usually do after picking up glasses that...
+INFO:worldmm.memory.visual.memory:Indexed 1059 video clips up to 213225715
+INFO:__main__:ID 119 Answer: C, Gold: C, Correct: True // Accuracy: 17/32 = 0.5312
+ 27%|██▋       | 32/120 [06:22<17:29, 11.92s/it]INFO:__main__:Processing ID 125: What is the paper boxes will be used for in plan o...
+INFO:worldmm.memory.visual.memory:Indexed 1291 video clips up to 217105413
+INFO:__main__:ID 125 Answer: A, Gold: B, Correct: False // Accuracy: 17/33 = 0.5152
+ 28%|██▊       | 33/120 [06:35<17:45, 12.24s/it]INFO:__main__:Processing ID 139: Who was beside me helping the last time I washed d...
+INFO:worldmm.memory.visual.memory:Indexed 1490 video clips up to 221080700
+INFO:__main__:ID 139 Answer: B, Gold: D, Correct: False // Accuracy: 17/34 = 0.5000
+ 28%|██▊       | 34/120 [06:46<16:58, 11.84s/it]INFO:__main__:Processing ID 140: What do I habitually use to wipe after washing kit...
+INFO:worldmm.memory.visual.memory:Indexed 1532 video clips up to 221290900
+INFO:__main__:ID 140 Answer: C, Gold: A, Correct: False // Accuracy: 17/35 = 0.4857
+ 29%|██▉       | 35/120 [06:57<16:09, 11.40s/it]INFO:__main__:Processing ID 146: Who used the computer with me to upload data...
+INFO:worldmm.memory.visual.memory:Indexed 1535 video clips up to 221303201
+INFO:__main__:ID 146 Answer: A, Gold: B, Correct: False // Accuracy: 17/36 = 0.4722
+ 30%|███       | 36/120 [07:08<16:02, 11.46s/it]INFO:__main__:Processing ID 149: What device should I use to scan the house...
+INFO:worldmm.memory.visual.memory:Indexed 1565 video clips up to 221453309
+INFO:__main__:ID 149 Answer: B, Gold: D, Correct: False // Accuracy: 17/37 = 0.4595
+ 31%|███       | 37/120 [07:19<15:35, 11.28s/it]INFO:__main__:Processing ID 155: Tonight, who is playing the guitar next to me and ...
+INFO:worldmm.memory.visual.memory:Indexed 1587 video clips up to 221563610
+INFO:__main__:ID 155 Answer: B, Gold: B, Correct: True // Accuracy: 18/38 = 0.4737
+ 32%|███▏      | 38/120 [07:30<15:07, 11.06s/it]INFO:__main__:Processing ID 156: Among us, who doesn't like eating durian...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110505
+INFO:__main__:ID 156 Answer: C, Gold: B, Correct: False // Accuracy: 18/39 = 0.4615
+ 32%|███▎      | 39/120 [07:40<14:48, 10.96s/it]INFO:__main__:Processing ID 158: What kind of music does Lucia like to dance to?...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110508
+INFO:__main__:ID 158 Answer: A, Gold: D, Correct: False // Accuracy: 18/40 = 0.4500
+ 33%|███▎      | 40/120 [07:51<14:34, 10.93s/it]INFO:__main__:Processing ID 160: Who did I eat green grapes with in the kitchen tod...
+INFO:worldmm.memory.visual.memory:Indexed 1632 video clips up to 222444619
+INFO:__main__:ID 160 Answer: D, Gold: D, Correct: True // Accuracy: 19/41 = 0.4634
+ 34%|███▍      | 41/120 [08:02<14:14, 10.81s/it]INFO:__main__:Processing ID 164: What does Lucia need to buy for decorating her roo...
+INFO:worldmm.memory.visual.memory:Indexed 1708 video clips up to 311410802
+INFO:__main__:ID 164 Answer: B, Gold: C, Correct: False // Accuracy: 19/42 = 0.4524
+ 35%|███▌      | 42/120 [08:12<13:41, 10.53s/it]INFO:__main__:Processing ID 168: Who put the takeout in the microwave the night bef...
+INFO:worldmm.memory.visual.memory:Indexed 1742 video clips up to 311580956
+INFO:__main__:ID 168 Answer: B, Gold: B, Correct: True // Accuracy: 20/43 = 0.4651
+ 36%|███▌      | 43/120 [08:23<13:44, 10.71s/it]INFO:__main__:Processing ID 170: Who did I sit next to while eating last night?...
+INFO:worldmm.memory.visual.memory:Indexed 1759 video clips up to 312063116
+INFO:__main__:ID 170 Answer: C, Gold: A, Correct: False // Accuracy: 20/44 = 0.4545
+ 37%|███▋      | 44/120 [08:35<14:12, 11.22s/it]INFO:__main__:Processing ID 172: What activities do we have in the afternoon?...
+INFO:worldmm.memory.visual.memory:Indexed 1763 video clips up to 312085702
+INFO:__main__:ID 172 Answer: B, Gold: B, Correct: True // Accuracy: 21/45 = 0.4667
+ 38%|███▊      | 45/120 [08:47<14:05, 11.27s/it]INFO:__main__:Processing ID 174: What other styles were mentioned the last time we ...
+INFO:worldmm.memory.visual.memory:Indexed 1787 video clips up to 312205419
+INFO:__main__:ID 174 Answer: D, Gold: D, Correct: True // Accuracy: 22/46 = 0.4783
+ 38%|███▊      | 46/120 [09:00<14:33, 11.80s/it]INFO:__main__:Processing ID 175: What are we planning to do outdoors?...
+INFO:worldmm.memory.visual.memory:Indexed 1826 video clips up to 314501909
+INFO:__main__:ID 175 Answer: B, Gold: B, Correct: True // Accuracy: 23/47 = 0.4894
+ 39%|███▉      | 47/120 [09:10<13:51, 11.39s/it]INFO:__main__:Processing ID 178: Alice mentioned whether AI can understand why we t...
+INFO:worldmm.memory.visual.memory:Indexed 1863 video clips up to 315085205
+INFO:__main__:ID 178 Answer: C, Gold: D, Correct: False // Accuracy: 23/48 = 0.4792
+ 40%|████      | 48/120 [09:21<13:29, 11.25s/it]INFO:__main__:Processing ID 181: Who wore a hat while walking in the park?...
+INFO:worldmm.memory.visual.memory:Indexed 1962 video clips up to 315582407
+INFO:__main__:ID 181 Answer: D, Gold: C, Correct: False // Accuracy: 23/49 = 0.4694
+ 41%|████      | 49/120 [09:33<13:34, 11.47s/it]INFO:__main__:Processing ID 192: Who usually pays when going out today?...
+INFO:worldmm.memory.visual.memory:Indexed 2040 video clips up to 316371300
+INFO:__main__:ID 192 Answer: C, Gold: C, Correct: True // Accuracy: 24/50 = 0.4800
+ 42%|████▏     | 50/120 [09:44<13:03, 11.20s/it]INFO:__main__:Processing ID 193: When was the last time you stood on the escalator?...
+INFO:worldmm.memory.visual.memory:Indexed 2042 video clips up to 316381803
+INFO:__main__:ID 193 Answer: C, Gold: A, Correct: False // Accuracy: 24/51 = 0.4706
+ 42%|████▎     | 51/120 [09:55<12:58, 11.29s/it]INFO:__main__:Processing ID 194: Which tool was not purchased last time in this sho...
+INFO:worldmm.memory.visual.memory:Indexed 2043 video clips up to 316384310
+INFO:__main__:ID 194 Answer: C, Gold: C, Correct: True // Accuracy: 25/52 = 0.4808
+ 43%|████▎     | 52/120 [10:08<13:17, 11.73s/it]INFO:__main__:Processing ID 196: What ingredients do we need to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 2045 video clips up to 316393510
+INFO:__main__:ID 196 Answer: D, Gold: A, Correct: False // Accuracy: 25/53 = 0.4717
+ 44%|████▍     | 53/120 [10:19<12:46, 11.44s/it]INFO:__main__:Processing ID 198: When was the last time eggs were bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2054 video clips up to 316441707
+INFO:__main__:ID 198 Answer: A, Gold: D, Correct: False // Accuracy: 25/54 = 0.4630
+ 45%|████▌     | 54/120 [10:29<12:19, 11.21s/it]INFO:__main__:Processing ID 206: Why did Tasha check out both times at the supermar...
+INFO:worldmm.memory.visual.memory:Indexed 2109 video clips up to 317113302
+INFO:__main__:ID 206 Answer: A, Gold: A, Correct: True // Accuracy: 26/55 = 0.4727
+ 46%|████▌     | 55/120 [10:41<12:29, 11.53s/it]INFO:__main__:Processing ID 217: What task does Tasha have tonight?...
+INFO:worldmm.memory.visual.memory:Indexed 2241 video clips up to 319582402
+INFO:__main__:ID 217 Answer: A, Gold: A, Correct: True // Accuracy: 27/56 = 0.4821
+ 47%|████▋     | 56/120 [10:54<12:28, 11.70s/it]INFO:__main__:Processing ID 224: Who helped Shure last time he lit the fire?...
+INFO:worldmm.memory.visual.memory:Indexed 2343 video clips up to 320490702
+INFO:__main__:ID 224 Answer: B, Gold: B, Correct: True // Accuracy: 28/57 = 0.4912
+ 48%|████▊     | 57/120 [11:04<11:54, 11.33s/it]INFO:__main__:Processing ID 225: What do we plan to do with the mangoes...
+INFO:worldmm.memory.visual.memory:Indexed 2346 video clips up to 321012656
+INFO:__main__:ID 225 Answer: A, Gold: A, Correct: True // Accuracy: 29/58 = 0.5000
+ 48%|████▊     | 58/120 [11:15<11:30, 11.14s/it]INFO:__main__:Processing ID 229: What drink combination can we try at this gatherin...
+INFO:worldmm.memory.visual.memory:Indexed 2389 video clips up to 321223302
+INFO:__main__:ID 229 Answer: A, Gold: C, Correct: False // Accuracy: 29/59 = 0.4915
+ 49%|████▉     | 59/120 [11:25<11:07, 10.94s/it]INFO:__main__:Processing ID 231: What other ingredients did I prepare the last time...
+INFO:worldmm.memory.visual.memory:Indexed 2417 video clips up to 321363410
+INFO:__main__:ID 231 Answer: D, Gold: A, Correct: False // Accuracy: 29/60 = 0.4833
+ 50%|█████     | 60/120 [11:39<11:49, 11.83s/it]INFO:__main__:Processing ID 245: How many times did I protect the fire seed?...
+INFO:worldmm.memory.visual.memory:Indexed 2561 video clips up to 322483306
+INFO:__main__:ID 245 Answer: D, Gold: B, Correct: False // Accuracy: 29/61 = 0.4754
+ 51%|█████     | 61/120 [11:51<11:36, 11.81s/it]INFO:__main__:Processing ID 251: What is Katrina's room decoration plan?...
+INFO:worldmm.memory.visual.memory:Indexed 2595 video clips up to 411014017
+INFO:__main__:ID 251 Answer: B, Gold: C, Correct: False // Accuracy: 29/62 = 0.4677
+ 52%|█████▏    | 62/120 [12:01<10:57, 11.34s/it]INFO:__main__:Processing ID 254: What does Tasha need to buy to decorate the room?...
+INFO:worldmm.memory.visual.memory:Indexed 2621 video clips up to 411145407
+INFO:__main__:ID 254 Answer: D, Gold: D, Correct: True // Accuracy: 30/63 = 0.4762
+ 52%|█████▎    | 63/120 [12:13<10:53, 11.46s/it]INFO:__main__:Processing ID 256: On the first day, who did Tasha ask to bring her a...
+INFO:worldmm.memory.visual.memory:Indexed 2646 video clips up to 411270750
+INFO:__main__:ID 256 Answer: B, Gold: D, Correct: False // Accuracy: 30/64 = 0.4688
+ 53%|█████▎    | 64/120 [12:25<11:00, 11.80s/it]INFO:__main__:Processing ID 258: When were the oysters bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2661 video clips up to 411345902
+INFO:__main__:ID 258 Answer: B, Gold: C, Correct: False // Accuracy: 30/65 = 0.4615
+ 54%|█████▍    | 65/120 [12:38<11:07, 12.14s/it]INFO:__main__:Processing ID 260: What did I take out the last time I opened the fri...
+INFO:worldmm.memory.visual.memory:Indexed 2665 video clips up to 411365009
+INFO:__main__:ID 260 Answer: D, Gold: C, Correct: False // Accuracy: 30/66 = 0.4545
+ 55%|█████▌    | 66/120 [12:50<10:51, 12.07s/it]INFO:__main__:Processing ID 263: Who navigated and led us all to Hema Fresh?...
+INFO:worldmm.memory.visual.memory:Indexed 2668 video clips up to 411381500
+INFO:__main__:ID 263 Answer: C, Gold: C, Correct: True // Accuracy: 31/67 = 0.4627
+ 56%|█████▌    | 67/120 [13:11<12:51, 14.56s/it]INFO:__main__:Processing ID 267: What activities can we hold in Shure's room?...
+INFO:worldmm.memory.visual.memory:Indexed 2708 video clips up to 411581510
+INFO:__main__:ID 267 Answer: A, Gold: A, Correct: True // Accuracy: 32/68 = 0.4706
+ 57%|█████▋    | 68/120 [13:35<15:07, 17.45s/it]INFO:__main__:Processing ID 275: Who was next to me the last time I made coffee?...
+INFO:worldmm.memory.visual.memory:Indexed 2799 video clips up to 412435200
+INFO:__main__:ID 275 Answer: A, Gold: D, Correct: False // Accuracy: 32/69 = 0.4638
+ 57%|█████▊    | 69/120 [14:04<17:42, 20.84s/it]INFO:__main__:Processing ID 276: Who was next to me the last time I made coffee?...
+INFO:__main__:ID 276 Answer: B, Gold: A, Correct: False // Accuracy: 32/70 = 0.4571
+ 58%|█████▊    | 70/120 [14:21<16:31, 19.83s/it]INFO:__main__:Processing ID 283: Where was the bread found?...
+INFO:worldmm.memory.visual.memory:Indexed 2880 video clips up to 413240213
+INFO:__main__:ID 283 Answer: C, Gold: C, Correct: True // Accuracy: 33/71 = 0.4648
+ 59%|█████▉    | 71/120 [14:52<19:01, 23.30s/it]INFO:__main__:Processing ID 286: Who do I usually sit with during meals?...
+INFO:worldmm.memory.visual.memory:Indexed 2889 video clips up to 413285000
+INFO:__main__:ID 286 Answer: B, Gold: C, Correct: False // Accuracy: 33/72 = 0.4583
+ 60%|██████    | 72/120 [15:25<20:53, 26.12s/it]INFO:__main__:Processing ID 293: What is the first ingredient in the shopping cart ...
+INFO:worldmm.memory.visual.memory:Indexed 3000 video clips up to 416132300
+INFO:__main__:ID 293 Answer: A, Gold: C, Correct: False // Accuracy: 33/73 = 0.4521
+ 61%|██████    | 73/120 [15:48<19:45, 25.22s/it]INFO:__main__:Processing ID 294: When was the last time Lucia took a picture?...
+INFO:worldmm.memory.visual.memory:Indexed 3067 video clips up to 416465813
+INFO:__main__:ID 294 Answer: A, Gold: C, Correct: False // Accuracy: 33/74 = 0.4459
+ 62%|██████▏   | 74/120 [16:21<21:03, 27.47s/it]INFO:__main__:Processing ID 296: Now Shure is playing the guitar, what was the envi...
+INFO:worldmm.memory.visual.memory:Indexed 3101 video clips up to 417045506
+INFO:__main__:ID 296 Answer: D, Gold: D, Correct: True // Accuracy: 34/75 = 0.4533
+ 62%|██████▎   | 75/120 [16:46<20:07, 26.83s/it]INFO:__main__:Processing ID 307: What do we plan to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 3260 video clips up to 418242219
+INFO:__main__:ID 307 Answer: A, Gold: A, Correct: True // Accuracy: 35/76 = 0.4605
+ 63%|██████▎   | 76/120 [17:14<19:55, 27.16s/it]INFO:__main__:Processing ID 308: Who usually sings when Shure plays the guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 3296 video clips up to 418422500
+INFO:__main__:ID 308 Answer: B, Gold: D, Correct: False // Accuracy: 35/77 = 0.4545
+ 64%|██████▍   | 77/120 [17:47<20:41, 28.86s/it]INFO:__main__:Processing ID 314: Who discussed renting clothes with me at noon toda...
+INFO:worldmm.memory.visual.memory:Indexed 3460 video clips up to 421563804
+INFO:__main__:ID 314 Answer: A, Gold: A, Correct: True // Accuracy: 36/78 = 0.4615
+ 65%|██████▌   | 78/120 [18:08<18:35, 26.56s/it]INFO:__main__:Processing ID 334: When was the last time I plugged a cable into the ...
+INFO:worldmm.memory.visual.memory:Indexed 3608 video clips up to 511464307
+INFO:__main__:ID 334 Answer: A, Gold: A, Correct: True // Accuracy: 37/79 = 0.4684
+ 66%|██████▌   | 79/120 [18:42<19:32, 28.59s/it]INFO:__main__:Processing ID 335: What is the milk used for?...
+INFO:worldmm.memory.visual.memory:Indexed 3612 video clips up to 511484717
+INFO:__main__:ID 335 Answer: C, Gold: C, Correct: True // Accuracy: 38/80 = 0.4750
+ 67%|██████▋   | 80/120 [19:07<18:30, 27.75s/it]INFO:__main__:Processing ID 337: Who gave Tasha the AD calcium milk she is holding?...
+INFO:worldmm.memory.visual.memory:Indexed 3673 video clips up to 512190913
+INFO:__main__:ID 337 Answer: C, Gold: C, Correct: True // Accuracy: 39/81 = 0.4815
+ 68%|██████▊   | 81/120 [19:50<21:00, 32.31s/it]INFO:__main__:Processing ID 352: Who joined the shopping trip this time compared to...
+INFO:worldmm.memory.visual.memory:Indexed 3851 video clips up to 516052304
+INFO:__main__:ID 352 Answer: D, Gold: A, Correct: False // Accuracy: 39/82 = 0.4756
+ 68%|██████▊   | 82/120 [20:21<20:08, 31.79s/it]INFO:__main__:Processing ID 354: Who was I with the last time I stood on the escala...
+INFO:worldmm.memory.visual.memory:Indexed 3853 video clips up to 516062618
+INFO:__main__:ID 354 Answer: D, Gold: D, Correct: True // Accuracy: 40/83 = 0.4819
+ 69%|██████▉   | 83/120 [20:52<19:26, 31.51s/it]INFO:__main__:Processing ID 357: Who do I usually shop with?...
+INFO:worldmm.memory.visual.memory:Indexed 3862 video clips up to 516103904
+INFO:__main__:ID 357 Answer: B, Gold: B, Correct: True // Accuracy: 41/84 = 0.4881
+ 70%|███████   | 84/120 [21:27<19:28, 32.46s/it]INFO:__main__:Processing ID 360: Who was next to me the last time I was taste-testi...
+INFO:worldmm.memory.visual.memory:Indexed 3870 video clips up to 516145504
+INFO:__main__:ID 360 Answer: D, Gold: D, Correct: True // Accuracy: 42/85 = 0.4941
+ 71%|███████   | 85/120 [21:48<17:04, 29.28s/it]INFO:__main__:Processing ID 366: When was the last time I used the ride-hailing app...
+INFO:worldmm.memory.visual.memory:Indexed 3918 video clips up to 516383108
+INFO:__main__:ID 366 Answer: B, Gold: D, Correct: False // Accuracy: 42/86 = 0.4884
+ 72%|███████▏  | 86/120 [22:20<16:55, 29.88s/it]INFO:__main__:Processing ID 369: How do we get home after shopping?...
+INFO:worldmm.memory.visual.memory:Indexed 3924 video clips up to 516414404
+INFO:__main__:ID 369 Answer: B, Gold: B, Correct: True // Accuracy: 43/87 = 0.4943
+ 72%|███████▎  | 87/120 [22:48<16:06, 29.30s/it]INFO:__main__:Processing ID 371: What do we plan to eat today?...
+INFO:worldmm.memory.visual.memory:Indexed 3948 video clips up to 518025517
+INFO:__main__:ID 371 Answer: C, Gold: D, Correct: False // Accuracy: 43/88 = 0.4886
+ 73%|███████▎  | 88/120 [23:15<15:19, 28.74s/it]INFO:__main__:Processing ID 374: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 3952 video clips up to 518045716
+INFO:__main__:ID 374 Answer: D, Gold: C, Correct: False // Accuracy: 43/89 = 0.4831
+ 74%|███████▍  | 89/120 [23:48<15:30, 30.02s/it]INFO:__main__:Processing ID 377: When was the last time the grill in the yard was u...
+INFO:worldmm.memory.visual.memory:Indexed 4004 video clips up to 518303001
+INFO:__main__:ID 377 Answer: A, Gold: D, Correct: False // Accuracy: 43/90 = 0.4778
+ 75%|███████▌  | 90/120 [24:11<13:55, 27.85s/it]INFO:__main__:Processing ID 380: When was the white microwave in the kitchen last u...
+INFO:worldmm.memory.visual.memory:Indexed 4014 video clips up to 518353711
+INFO:__main__:ID 380 Answer: B, Gold: D, Correct: False // Accuracy: 43/91 = 0.4725
+ 76%|███████▌  | 91/120 [24:43<14:08, 29.26s/it]INFO:__main__:Processing ID 382: When was the last time these oven mitts were used?...
+INFO:worldmm.memory.visual.memory:Indexed 4023 video clips up to 518401702
+INFO:__main__:ID 382 Answer: B, Gold: B, Correct: True // Accuracy: 44/92 = 0.4783
+ 77%|███████▋  | 92/120 [25:16<14:03, 30.12s/it]INFO:__main__:Processing ID 383: Who bought the blueberries?...
+INFO:worldmm.memory.visual.memory:Indexed 4024 video clips up to 518402915
+INFO:__main__:ID 383 Answer: B, Gold: C, Correct: False // Accuracy: 44/93 = 0.4731
+ 78%|███████▊  | 93/120 [25:45<13:30, 30.02s/it]INFO:__main__:Processing ID 392: Who made the egg tart on the table?...
+INFO:worldmm.memory.visual.memory:Indexed 4226 video clips up to 520220710
+INFO:__main__:ID 392 Answer: C, Gold: A, Correct: False // Accuracy: 44/94 = 0.4681
+ 78%|███████▊  | 94/120 [26:19<13:27, 31.07s/it]INFO:__main__:Processing ID 393: The last time Choiszt was mixing cream, what were ...
+INFO:worldmm.memory.visual.memory:Indexed 4229 video clips up to 520233904
+INFO:__main__:ID 393 Answer: A, Gold: B, Correct: False // Accuracy: 44/95 = 0.4632
+ 79%|███████▉  | 95/120 [26:41<11:50, 28.42s/it]INFO:__main__:Processing ID 402: What does Tasha want to drink?...
+INFO:worldmm.memory.visual.memory:Indexed 4307 video clips up to 521025517
+INFO:__main__:ID 402 Answer: D, Gold: D, Correct: True // Accuracy: 45/96 = 0.4688
+ 80%|████████  | 96/120 [27:15<12:00, 30.03s/it]INFO:__main__:Processing ID 403: Why doesn't Tasha eat stewed dishes?...
+INFO:__main__:ID 403 Answer: C, Gold: B, Correct: False // Accuracy: 45/97 = 0.4639
+ 81%|████████  | 97/120 [27:41<11:05, 28.93s/it]INFO:__main__:Processing ID 408: What should be arranged in Alice's room?...
+INFO:worldmm.memory.visual.memory:Indexed 4477 video clips up to 610010305
+INFO:__main__:ID 408 Answer: B, Gold: D, Correct: False // Accuracy: 45/98 = 0.4592
+ 82%|████████▏ | 98/120 [28:08<10:20, 28.20s/it]INFO:__main__:Processing ID 409: When did I last pick up the takeout?...
+INFO:worldmm.memory.visual.memory:Indexed 4479 video clips up to 610022614
+INFO:__main__:ID 409 Answer: A, Gold: D, Correct: False // Accuracy: 45/99 = 0.4545
+ 82%|████████▎ | 99/120 [28:41<10:21, 29.59s/it]INFO:__main__:Processing ID 414: Under what circumstances did I last inquire about ...
+INFO:worldmm.memory.visual.memory:Indexed 4493 video clips up to 610091303
+INFO:__main__:ID 414 Answer: D, Gold: B, Correct: False // Accuracy: 45/100 = 0.4500
+ 83%|████████▎ | 100/120 [29:05<09:19, 27.99s/it]INFO:__main__:Processing ID 417: Who used the kitchen knife before Nicous?...
+INFO:worldmm.memory.visual.memory:Indexed 4539 video clips up to 610322302
+INFO:__main__:ID 417 Answer: D, Gold: D, Correct: True // Accuracy: 46/101 = 0.4554
+ 84%|████████▍ | 101/120 [29:36<09:08, 28.89s/it]INFO:__main__:Processing ID 429: Now that I have opened the red refrigerator on the...
+INFO:worldmm.memory.visual.memory:Indexed 4835 video clips up to 613001417
+INFO:__main__:ID 429 Answer: D, Gold: D, Correct: True // Accuracy: 47/102 = 0.4608
+ 85%|████████▌ | 102/120 [30:11<09:16, 30.90s/it]INFO:__main__:Processing ID 430: Now I am lying in bed, what was I doing the last t...
+INFO:worldmm.memory.visual.memory:Indexed 4853 video clips up to 613091804
+INFO:__main__:ID 430 Answer: B, Gold: B, Correct: True // Accuracy: 48/103 = 0.4660
+ 86%|████████▌ | 103/120 [30:37<08:16, 29.21s/it]INFO:__main__:Processing ID 438: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 5064 video clips up to 616384716
+INFO:__main__:ID 438 Answer: A, Gold: D, Correct: False // Accuracy: 48/104 = 0.4615
+ 87%|████████▋ | 104/120 [31:10<08:06, 30.42s/it]INFO:__main__:Processing ID 445: When was the last time Alice made this puppy?...
+INFO:worldmm.memory.visual.memory:Indexed 5131 video clips up to 617170912
+INFO:__main__:ID 445 Answer: D, Gold: A, Correct: False // Accuracy: 48/105 = 0.4571
+ 88%|████████▊ | 105/120 [31:34<07:07, 28.49s/it]INFO:__main__:Processing ID 448: Shure is playing guitar, who else can play guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 5226 video clips up to 619494312
+INFO:__main__:ID 448 Answer: D, Gold: C, Correct: False // Accuracy: 48/106 = 0.4528
+ 88%|████████▊ | 106/120 [32:08<07:03, 30.28s/it]INFO:__main__:Processing ID 459: Who was listening nearby when Choiszt was playing ...
+INFO:worldmm.memory.visual.memory:Indexed 5376 video clips up to 621044820
+INFO:__main__:ID 459 Answer: D, Gold: A, Correct: False // Accuracy: 48/107 = 0.4486
+ 89%|████████▉ | 107/120 [32:37<06:25, 29.69s/it]INFO:__main__:Processing ID 465: Who introduced the product 'Cardboard Puppy' to ev...
+INFO:worldmm.memory.visual.memory:Indexed 5376 video clips up to 621044825
+INFO:__main__:ID 465 Answer: A, Gold: D, Correct: False // Accuracy: 48/108 = 0.4444
+ 90%|█████████ | 108/120 [33:04<05:49, 29.12s/it]INFO:__main__:Processing ID 469: What does Tasha like to eat?...
+INFO:worldmm.memory.visual.memory:Indexed 5495 video clips up to 622042507
+INFO:__main__:ID 469 Answer: B, Gold: A, Correct: False // Accuracy: 48/109 = 0.4404
+ 91%|█████████ | 109/120 [33:37<05:32, 30.26s/it]INFO:__main__:Processing ID 471: What flavor of porridge does Alice like?...
+INFO:worldmm.memory.visual.memory:Indexed 5495 video clips up to 622042509
+INFO:__main__:ID 471 Answer: A, Gold: A, Correct: True // Accuracy: 49/110 = 0.4455
+ 92%|█████████▏| 110/120 [34:06<04:59, 29.90s/it]INFO:__main__:Processing ID 473: Why do we conduct the QA activity first during the...
+INFO:worldmm.memory.visual.memory:Indexed 5507 video clips up to 622101420
+INFO:__main__:ID 473 Answer: B, Gold: A, Correct: False // Accuracy: 49/111 = 0.4414
+ 92%|█████████▎| 111/120 [34:40<04:39, 31.10s/it]INFO:__main__:Processing ID 476: What is the purpose of ego coins?...
+INFO:worldmm.memory.visual.memory:Indexed 5520 video clips up to 622164902
+INFO:__main__:ID 476 Answer: C, Gold: B, Correct: False // Accuracy: 49/112 = 0.4375
+ 93%|█████████▎| 112/120 [35:06<03:56, 29.57s/it]INFO:__main__:Processing ID 479: What is the purpose of the glasses we wear?...
+INFO:__main__:ID 479 Answer: D, Gold: D, Correct: True // Accuracy: 50/113 = 0.4425
+ 94%|█████████▍| 113/120 [35:59<04:16, 36.58s/it]INFO:__main__:Processing ID 481: What song does Jack plan to sing?...
+INFO:__main__:ID 481 Answer: B, Gold: D, Correct: False // Accuracy: 50/114 = 0.4386
+ 95%|█████████▌| 114/120 [36:27<03:23, 33.95s/it]INFO:__main__:Processing ID 485: Who fidgets with items the most during discussions...
+INFO:worldmm.memory.visual.memory:Indexed 5557 video clips up to 712141402
+INFO:__main__:ID 485 Answer: A, Gold: A, Correct: True // Accuracy: 51/115 = 0.4435
+ 96%|█████████▌| 115/120 [36:56<02:41, 32.32s/it]INFO:__main__:Processing ID 486: Who fidgets with items the most during discussions...
+INFO:__main__:ID 486 Answer: B, Gold: B, Correct: True // Accuracy: 52/116 = 0.4483
+ 97%|█████████▋| 116/120 [37:34<02:16, 34.06s/it]INFO:__main__:Processing ID 493: When was the last time I used my phone to scan the...
+INFO:worldmm.memory.visual.memory:Indexed 5857 video clips up to 715132705
+INFO:__main__:ID 493 Answer: D, Gold: C, Correct: False // Accuracy: 52/117 = 0.4444
+ 98%|█████████▊| 117/120 [37:50<01:26, 28.68s/it]INFO:__main__:Processing ID 495: Why do I label the SD cards?...
+INFO:worldmm.memory.visual.memory:Indexed 5912 video clips up to 717395355
+INFO:__main__:ID 495 Answer: D, Gold: D, Correct: True // Accuracy: 53/118 = 0.4492
+ 98%|█████████▊| 118/120 [38:18<00:56, 28.41s/it]INFO:__main__:Processing ID 496: What song did Shure suggest we sing together?...
+INFO:worldmm.memory.visual.memory:Indexed 5962 video clips up to 718045007
+INFO:__main__:ID 496 Answer: B, Gold: B, Correct: True // Accuracy: 54/119 = 0.4538
+ 99%|█████████▉| 119/120 [38:50<00:29, 29.68s/it]INFO:__main__:Processing ID 497: When was the last time I paid via phone?...
+INFO:worldmm.memory.visual.memory:Indexed 5965 video clips up to 718060700
+INFO:__main__:ID 497 Answer: B, Gold: D, Correct: False // Accuracy: 54/120 = 0.4500
+100%|██████████| 120/120 [39:10<00:00, 26.80s/it]100%|██████████| 120/120 [39:10<00:00, 19.59s/it]
+INFO:__main__:
+==================================================
+INFO:__main__:Evaluation Complete  [condition E_prime]
+INFO:__main__:Subject: A1_JAKE
+INFO:__main__:Total: 120
+INFO:__main__:Correct: 54
+INFO:__main__:Accuracy: 0.4500
+INFO:__main__:Results saved to: /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/gazef_05_k3/E_prime.json
+INFO:__main__:==================================================
+INFO:worldmm.memory.memory:Memory cleanup complete
+
+>>> E' with emb/full.pkl at visual-top-k=20 -> results_qa/full_k20
+/home/minyoy/WorldMM/experiments/visual_bottleneck/eval_egolife.py:406: SyntaxWarning: invalid escape sequence '\{'
+  The original does re.search(r'\{.*\}', DOTALL) and json.loads the match. That regex is greedy, so
+INFO:__main__:Initializing models...
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.10it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.02it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.10s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.07it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.04it/s]
+INFO:worldmm.llm.qwen3vl:Initialized Qwen3VLModel with Qwen/Qwen3-VL-8B-Instruct
+INFO:__main__:Sharing one LLM instance for retriever and responder: qwen3vl-8b
+INFO:worldmm.llm.prompt_template_manager:Loading templates from directory: /home/minyoy/WorldMM/src/worldmm/llm/templates
+INFO:__main__:Initializing WorldMemory...
+INFO:__main__:Loading data...
+INFO:__main__:Loading data into WorldMemory...
+INFO:worldmm.memory.episodic.memory:Loaded 6223 captions for granularity 30sec
+INFO:worldmm.memory.episodic.memory:Loaded 1073 captions for granularity 3min
+INFO:worldmm.memory.episodic.memory:Loaded 341 captions for granularity 10min
+INFO:worldmm.memory.episodic.memory:Loaded 64 captions for granularity 1h
+INFO:worldmm.memory.semantic.memory:Loaded semantic triples across 623 timestamps
+INFO:worldmm.memory.visual.memory:Loaded 6223 video embeddings from /home/minyoy/WorldMM/experiments/gaze_crop/emb/full.pkl
+INFO:worldmm.memory.visual.memory:Loaded 6223 video clips
+INFO:__main__:Video root: /datasets/EgoLife (6223 clip paths remapped, 6223/6223 clips have embeddings)
+INFO:__main__:Condition E_prime: evaluating 120 questions ...
+  0%|          | 0/120 [00:00<?, ?it/s]INFO:__main__:Processing ID 6: Who plans to grow flowers...
+INFO:worldmm.memory.visual.memory:Indexed 96 video clips up to 111573606
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading processor from: VLM2Vec/VLM2Vec-V2.0
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s][AFetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 32.32it/s]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 15.67it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 15.65it/s]
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+INFO:root:Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+INFO:__main__:ID 6 Answer: B, Gold: D, Correct: False // Accuracy: 0/1 = 0.0000
+  1%|          | 1/120 [03:03<6:03:45, 183.41s/it]INFO:__main__:Processing ID 13: Now Lucia asks, "What is this, is this a hedgehog?...
+INFO:worldmm.memory.visual.memory:Indexed 171 video clips up to 112351415
+INFO:__main__:ID 13 Answer: B, Gold: C, Correct: False // Accuracy: 0/2 = 0.0000
+  2%|▏         | 2/120 [06:04<5:58:25, 182.25s/it]INFO:__main__:Processing ID 16: Who was the first to move the puzzle board on the ...
+INFO:worldmm.memory.visual.memory:Indexed 204 video clips up to 112512802
+INFO:__main__:ID 16 Answer: C, Gold: B, Correct: False // Accuracy: 0/3 = 0.0000
+  2%|▎         | 3/120 [09:06<5:55:15, 182.18s/it]INFO:__main__:Processing ID 25: Who originally used the scissors in my hand?...
+INFO:worldmm.memory.visual.memory:Indexed 320 video clips up to 113495310
+INFO:__main__:ID 25 Answer: C, Gold: D, Correct: False // Accuracy: 0/4 = 0.0000
+  3%|▎         | 4/120 [12:08<5:51:56, 182.04s/it]INFO:__main__:Processing ID 26: Who has been assembling the shelf...
+INFO:worldmm.memory.visual.memory:Indexed 329 video clips up to 113541007
+INFO:__main__:ID 26 Answer: B, Gold: C, Correct: False // Accuracy: 0/5 = 0.0000
+  4%|▍         | 5/120 [15:12<5:49:44, 182.48s/it]INFO:__main__:Processing ID 28: Who am I always busy with in the kitchen today...
+INFO:worldmm.memory.visual.memory:Indexed 336 video clips up to 113575015
+INFO:__main__:ID 28 Answer: C, Gold: C, Correct: True // Accuracy: 1/6 = 0.1667
+  5%|▌         | 6/120 [18:14<5:46:28, 182.36s/it]INFO:__main__:Processing ID 34: What do we decide to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 379 video clips up to 115473415
+INFO:__main__:ID 34 Answer: A, Gold: A, Correct: True // Accuracy: 2/7 = 0.2857
+  6%|▌         | 7/120 [21:15<5:43:04, 182.16s/it]INFO:__main__:Processing ID 36: What other drinks are needed to mix with rum?...
+INFO:worldmm.memory.visual.memory:Indexed 399 video clips up to 117210410
+INFO:__main__:ID 36 Answer: D, Gold: D, Correct: True // Accuracy: 3/8 = 0.3750
+  7%|▋         | 8/120 [21:39<4:06:04, 131.83s/it]INFO:__main__:Processing ID 42: What drinks are you planning to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 450 video clips up to 117463818
+INFO:__main__:ID 42 Answer: D, Gold: B, Correct: False // Accuracy: 3/9 = 0.3333
+  8%|▊         | 9/120 [22:09<3:04:27, 99.71s/it] INFO:__main__:Processing ID 55: Who among us hasn't eaten century eggs...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375108
+INFO:__main__:ID 55 Answer: C, Gold: D, Correct: False // Accuracy: 3/10 = 0.3000
+  8%|▊         | 10/120 [22:36<2:21:59, 77.45s/it]INFO:__main__:Processing ID 56: While I was cleaning the egg mixer, who joined in ...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375109
+INFO:__main__:ID 56 Answer: C, Gold: C, Correct: True // Accuracy: 4/11 = 0.3636
+  9%|▉         | 11/120 [23:01<1:51:39, 61.47s/it]INFO:__main__:Processing ID 65: We decided to buy how many boxes of green grapes...
+INFO:worldmm.memory.visual.memory:Indexed 652 video clips up to 119473415
+INFO:__main__:ID 65 Answer: A, Gold: A, Correct: True // Accuracy: 5/12 = 0.4167
+ 10%|█         | 12/120 [23:29<1:32:00, 51.11s/it]INFO:__main__:Processing ID 67: Why did the clerk not agree when we asked them to ...
+INFO:__main__:ID 67 Answer: A, Gold: D, Correct: False // Accuracy: 5/13 = 0.3846
+ 11%|█         | 13/120 [23:55<1:17:52, 43.67s/it]INFO:__main__:Processing ID 68: Why didn't we buy chestnut kernels...
+INFO:__main__:ID 68 Answer: C, Gold: A, Correct: False // Accuracy: 5/14 = 0.3571
+ 12%|█▏        | 14/120 [24:21<1:07:46, 38.37s/it]INFO:__main__:Processing ID 72: What does Lucia plan to make on World Earth Day?...
+INFO:__main__:ID 72 Answer: A, Gold: A, Correct: True // Accuracy: 6/15 = 0.4000
+ 12%|█▎        | 15/120 [24:45<59:32, 34.03s/it]  INFO:__main__:Processing ID 74: Among us, who often goes out wearing slippers...
+INFO:__main__:ID 74 Answer: C, Gold: A, Correct: False // Accuracy: 6/16 = 0.3750
+ 13%|█▎        | 16/120 [25:12<55:08, 31.81s/it]INFO:__main__:Processing ID 76: What am I usually doing on the second floor today?...
+INFO:worldmm.memory.visual.memory:Indexed 712 video clips up to 120321009
+INFO:__main__:ID 76 Answer: B, Gold: C, Correct: False // Accuracy: 6/17 = 0.3529
+ 14%|█▍        | 17/120 [25:38<51:32, 30.03s/it]INFO:__main__:Processing ID 79: Previously, Alice couldn't open the can. Who helpe...
+INFO:worldmm.memory.visual.memory:Indexed 737 video clips up to 120444009
+INFO:__main__:ID 79 Answer: B, Gold: B, Correct: True // Accuracy: 7/18 = 0.3889
+ 15%|█▌        | 18/120 [26:05<49:16, 28.99s/it]INFO:__main__:Processing ID 80: Who used the kitchen knife on the counter last tim...
+INFO:worldmm.memory.visual.memory:Indexed 749 video clips up to 121365110
+INFO:__main__:ID 80 Answer: B, Gold: B, Correct: True // Accuracy: 8/19 = 0.4211
+ 16%|█▌        | 19/120 [26:33<48:16, 28.68s/it]INFO:__main__:Processing ID 82: When I usually buy clothes, what type of clothing ...
+INFO:worldmm.memory.visual.memory:Indexed 763 video clips up to 121435319
+INFO:__main__:ID 82 Answer: B, Gold: A, Correct: False // Accuracy: 8/20 = 0.4000
+ 17%|█▋        | 20/120 [27:00<47:10, 28.30s/it]INFO:__main__:Processing ID 86: What do I always do when I go to the supermarket...
+INFO:__main__:ID 86 Answer: B, Gold: B, Correct: True // Accuracy: 9/21 = 0.4286
+ 18%|█▊        | 21/120 [27:30<47:19, 28.68s/it]INFO:__main__:Processing ID 91: Who is always the first to get off the car...
+INFO:__main__:ID 91 Answer: B, Gold: B, Correct: True // Accuracy: 10/22 = 0.4545
+ 18%|█▊        | 22/120 [27:57<46:03, 28.19s/it]INFO:__main__:Processing ID 92: What do I usually use to control the computer when...
+INFO:__main__:ID 92 Answer: B, Gold: B, Correct: True // Accuracy: 11/23 = 0.4783
+ 19%|█▉        | 23/120 [28:23<44:37, 27.61s/it]INFO:__main__:Processing ID 94: Whose hometown is close to mine...
+INFO:__main__:ID 94 Answer: C, Gold: D, Correct: False // Accuracy: 11/24 = 0.4583
+ 20%|██        | 24/120 [30:54<1:43:42, 64.81s/it]INFO:__main__:Processing ID 98: Who usually writes the shopping list on the whiteb...
+INFO:worldmm.memory.visual.memory:Indexed 777 video clips up to 121504104
+INFO:__main__:ID 98 Answer: B, Gold: B, Correct: True // Accuracy: 12/25 = 0.4800
+ 21%|██        | 25/120 [31:20<1:24:02, 53.08s/it]INFO:__main__:Processing ID 103: When was the last time items were taken from the r...
+INFO:worldmm.memory.visual.memory:Indexed 809 video clips up to 210443918
+INFO:__main__:ID 103 Answer: D, Gold: D, Correct: True // Accuracy: 13/26 = 0.5000
+ 22%|██▏       | 26/120 [31:47<1:10:38, 45.09s/it]INFO:__main__:Processing ID 106: What is my main responsibility when shopping in th...
+INFO:worldmm.memory.visual.memory:Indexed 854 video clips up to 211073011
+INFO:__main__:ID 106 Answer: A, Gold: D, Correct: False // Accuracy: 13/27 = 0.4815
+ 22%|██▎       | 27/120 [32:14<1:01:30, 39.68s/it]INFO:__main__:Processing ID 108: Who usually picks up the takeout from the delivery...
+INFO:worldmm.memory.visual.memory:Indexed 867 video clips up to 211141803
+INFO:__main__:ID 108 Answer: B, Gold: B, Correct: True // Accuracy: 14/28 = 0.5000
+ 23%|██▎       | 28/120 [32:40<54:44, 35.70s/it]  INFO:__main__:Processing ID 109: What else do I need to purchase for delivery?...
+INFO:worldmm.memory.visual.memory:Indexed 869 video clips up to 211151710
+INFO:__main__:ID 109 Answer: A, Gold: B, Correct: False // Accuracy: 14/29 = 0.4828
+ 24%|██▍       | 29/120 [33:07<50:21, 33.20s/it]INFO:__main__:Processing ID 113: Last night during the chat, I discovered whose gla...
+INFO:worldmm.memory.visual.memory:Indexed 959 video clips up to 212002750
+INFO:__main__:ID 113 Answer: D, Gold: D, Correct: True // Accuracy: 15/30 = 0.5000
+ 25%|██▌       | 30/120 [33:32<45:54, 30.60s/it]INFO:__main__:Processing ID 114: Who did Tasha take off the headphones for yesterda...
+INFO:worldmm.memory.visual.memory:Indexed 984 video clips up to 212454203
+INFO:__main__:ID 114 Answer: C, Gold: C, Correct: True // Accuracy: 16/31 = 0.5161
+ 26%|██▌       | 31/120 [33:58<43:31, 29.35s/it]INFO:__main__:Processing ID 119: What do I usually do after picking up glasses that...
+INFO:worldmm.memory.visual.memory:Indexed 1059 video clips up to 213225715
+INFO:__main__:ID 119 Answer: C, Gold: C, Correct: True // Accuracy: 17/32 = 0.5312
+ 27%|██▋       | 32/120 [34:25<41:50, 28.53s/it]INFO:__main__:Processing ID 125: What is the paper boxes will be used for in plan o...
+INFO:worldmm.memory.visual.memory:Indexed 1291 video clips up to 217105413
+INFO:__main__:ID 125 Answer: A, Gold: B, Correct: False // Accuracy: 17/33 = 0.5152
+ 28%|██▊       | 33/120 [34:51<40:23, 27.86s/it]INFO:__main__:Processing ID 139: Who was beside me helping the last time I washed d...
+INFO:worldmm.memory.visual.memory:Indexed 1490 video clips up to 221080700
+INFO:__main__:ID 139 Answer: D, Gold: D, Correct: True // Accuracy: 18/34 = 0.5294
+ 28%|██▊       | 34/120 [35:17<39:01, 27.23s/it]INFO:__main__:Processing ID 140: What do I habitually use to wipe after washing kit...
+INFO:worldmm.memory.visual.memory:Indexed 1532 video clips up to 221290900
+INFO:__main__:ID 140 Answer: C, Gold: A, Correct: False // Accuracy: 18/35 = 0.5143
+ 29%|██▉       | 35/120 [35:52<41:49, 29.52s/it]INFO:__main__:Processing ID 146: Who used the computer with me to upload data...
+INFO:worldmm.memory.visual.memory:Indexed 1535 video clips up to 221303201
+INFO:__main__:ID 146 Answer: B, Gold: B, Correct: True // Accuracy: 19/36 = 0.5278
+ 30%|███       | 36/120 [36:18<40:02, 28.60s/it]INFO:__main__:Processing ID 149: What device should I use to scan the house...
+INFO:worldmm.memory.visual.memory:Indexed 1565 video clips up to 221453309
+INFO:__main__:ID 149 Answer: B, Gold: D, Correct: False // Accuracy: 19/37 = 0.5135
+ 31%|███       | 37/120 [36:42<37:41, 27.25s/it]INFO:__main__:Processing ID 155: Tonight, who is playing the guitar next to me and ...
+INFO:worldmm.memory.visual.memory:Indexed 1587 video clips up to 221563610
+INFO:__main__:ID 155 Answer: B, Gold: B, Correct: True // Accuracy: 20/38 = 0.5263
+ 32%|███▏      | 38/120 [37:09<36:51, 26.97s/it]INFO:__main__:Processing ID 156: Among us, who doesn't like eating durian...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110505
+INFO:__main__:ID 156 Answer: C, Gold: B, Correct: False // Accuracy: 20/39 = 0.5128
+ 32%|███▎      | 39/120 [37:37<36:56, 27.36s/it]INFO:__main__:Processing ID 158: What kind of music does Lucia like to dance to?...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110508
+INFO:__main__:ID 158 Answer: A, Gold: D, Correct: False // Accuracy: 20/40 = 0.5000
+ 33%|███▎      | 40/120 [38:03<35:54, 26.94s/it]INFO:__main__:Processing ID 160: Who did I eat green grapes with in the kitchen tod...
+INFO:worldmm.memory.visual.memory:Indexed 1632 video clips up to 222444619
+INFO:__main__:ID 160 Answer: D, Gold: D, Correct: True // Accuracy: 21/41 = 0.5122
+ 34%|███▍      | 41/120 [38:28<34:50, 26.46s/it]INFO:__main__:Processing ID 164: What does Lucia need to buy for decorating her roo...
+INFO:worldmm.memory.visual.memory:Indexed 1708 video clips up to 311410802
+INFO:__main__:ID 164 Answer: B, Gold: C, Correct: False // Accuracy: 21/42 = 0.5000
+ 35%|███▌      | 42/120 [38:54<34:07, 26.25s/it]INFO:__main__:Processing ID 168: Who put the takeout in the microwave the night bef...
+INFO:worldmm.memory.visual.memory:Indexed 1742 video clips up to 311580956
+INFO:__main__:ID 168 Answer: B, Gold: B, Correct: True // Accuracy: 22/43 = 0.5116
+ 36%|███▌      | 43/120 [39:21<34:01, 26.51s/it]INFO:__main__:Processing ID 170: Who did I sit next to while eating last night?...
+INFO:worldmm.memory.visual.memory:Indexed 1759 video clips up to 312063116
+INFO:__main__:ID 170 Answer: C, Gold: A, Correct: False // Accuracy: 22/44 = 0.5000
+ 37%|███▋      | 44/120 [39:48<33:48, 26.69s/it]INFO:__main__:Processing ID 172: What activities do we have in the afternoon?...
+INFO:worldmm.memory.visual.memory:Indexed 1763 video clips up to 312085702
+INFO:__main__:ID 172 Answer: B, Gold: B, Correct: True // Accuracy: 23/45 = 0.5111
+ 38%|███▊      | 45/120 [40:15<33:24, 26.73s/it]INFO:__main__:Processing ID 174: What other styles were mentioned the last time we ...
+INFO:worldmm.memory.visual.memory:Indexed 1787 video clips up to 312205419
+INFO:__main__:ID 174 Answer: D, Gold: D, Correct: True // Accuracy: 24/46 = 0.5217
+ 38%|███▊      | 46/120 [40:42<32:53, 26.67s/it]INFO:__main__:Processing ID 175: What are we planning to do outdoors?...
+INFO:worldmm.memory.visual.memory:Indexed 1826 video clips up to 314501909
+INFO:__main__:ID 175 Answer: B, Gold: B, Correct: True // Accuracy: 25/47 = 0.5319
+ 39%|███▉      | 47/120 [41:07<32:01, 26.32s/it]INFO:__main__:Processing ID 178: Alice mentioned whether AI can understand why we t...
+INFO:worldmm.memory.visual.memory:Indexed 1863 video clips up to 315085205
+INFO:__main__:ID 178 Answer: C, Gold: D, Correct: False // Accuracy: 25/48 = 0.5208
+ 40%|████      | 48/120 [41:33<31:13, 26.02s/it]INFO:__main__:Processing ID 181: Who wore a hat while walking in the park?...
+INFO:worldmm.memory.visual.memory:Indexed 1962 video clips up to 315582407
+INFO:__main__:ID 181 Answer: D, Gold: C, Correct: False // Accuracy: 25/49 = 0.5102
+ 41%|████      | 49/120 [42:03<32:11, 27.21s/it]INFO:__main__:Processing ID 192: Who usually pays when going out today?...
+INFO:worldmm.memory.visual.memory:Indexed 2040 video clips up to 316371300
+INFO:__main__:ID 192 Answer: C, Gold: C, Correct: True // Accuracy: 26/50 = 0.5200
+ 42%|████▏     | 50/120 [42:30<31:42, 27.18s/it]INFO:__main__:Processing ID 193: When was the last time you stood on the escalator?...
+INFO:worldmm.memory.visual.memory:Indexed 2042 video clips up to 316381803
+INFO:__main__:ID 193 Answer: C, Gold: A, Correct: False // Accuracy: 26/51 = 0.5098
+ 42%|████▎     | 51/120 [42:56<30:55, 26.89s/it]INFO:__main__:Processing ID 194: Which tool was not purchased last time in this sho...
+INFO:worldmm.memory.visual.memory:Indexed 2043 video clips up to 316384310
+INFO:__main__:ID 194 Answer: C, Gold: C, Correct: True // Accuracy: 27/52 = 0.5192
+ 43%|████▎     | 52/120 [43:23<30:40, 27.06s/it]INFO:__main__:Processing ID 196: What ingredients do we need to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 2045 video clips up to 316393510
+INFO:__main__:ID 196 Answer: D, Gold: A, Correct: False // Accuracy: 27/53 = 0.5094
+ 44%|████▍     | 53/120 [43:50<30:14, 27.08s/it]INFO:__main__:Processing ID 198: When was the last time eggs were bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2054 video clips up to 316441707
+INFO:__main__:ID 198 Answer: A, Gold: D, Correct: False // Accuracy: 27/54 = 0.5000
+ 45%|████▌     | 54/120 [44:18<30:05, 27.36s/it]INFO:__main__:Processing ID 206: Why did Tasha check out both times at the supermar...
+INFO:worldmm.memory.visual.memory:Indexed 2109 video clips up to 317113302
+INFO:__main__:ID 206 Answer: A, Gold: A, Correct: True // Accuracy: 28/55 = 0.5091
+ 46%|████▌     | 55/120 [44:47<30:01, 27.72s/it]INFO:__main__:Processing ID 217: What task does Tasha have tonight?...
+INFO:worldmm.memory.visual.memory:Indexed 2241 video clips up to 319582402
+INFO:__main__:ID 217 Answer: A, Gold: A, Correct: True // Accuracy: 29/56 = 0.5179
+ 47%|████▋     | 56/120 [45:15<29:34, 27.72s/it]INFO:__main__:Processing ID 224: Who helped Shure last time he lit the fire?...
+INFO:worldmm.memory.visual.memory:Indexed 2343 video clips up to 320490702
+INFO:__main__:ID 224 Answer: C, Gold: B, Correct: False // Accuracy: 29/57 = 0.5088
+ 48%|████▊     | 57/120 [45:41<28:36, 27.25s/it]INFO:__main__:Processing ID 225: What do we plan to do with the mangoes...
+INFO:worldmm.memory.visual.memory:Indexed 2346 video clips up to 321012656
+INFO:__main__:ID 225 Answer: A, Gold: A, Correct: True // Accuracy: 30/58 = 0.5172
+ 48%|████▊     | 58/120 [46:08<28:03, 27.15s/it]INFO:__main__:Processing ID 229: What drink combination can we try at this gatherin...
+INFO:worldmm.memory.visual.memory:Indexed 2389 video clips up to 321223302
+INFO:__main__:ID 229 Answer: C, Gold: C, Correct: True // Accuracy: 31/59 = 0.5254
+ 49%|████▉     | 59/120 [46:33<27:06, 26.66s/it]INFO:__main__:Processing ID 231: What other ingredients did I prepare the last time...
+INFO:worldmm.memory.visual.memory:Indexed 2417 video clips up to 321363410
+INFO:__main__:ID 231 Answer: D, Gold: A, Correct: False // Accuracy: 31/60 = 0.5167
+ 50%|█████     | 60/120 [47:03<27:37, 27.63s/it]INFO:__main__:Processing ID 245: How many times did I protect the fire seed?...
+INFO:worldmm.memory.visual.memory:Indexed 2561 video clips up to 322483306
+INFO:__main__:ID 245 Answer: D, Gold: B, Correct: False // Accuracy: 31/61 = 0.5082
+ 51%|█████     | 61/120 [47:30<26:55, 27.38s/it]INFO:__main__:Processing ID 251: What is Katrina's room decoration plan?...
+INFO:worldmm.memory.visual.memory:Indexed 2595 video clips up to 411014017
+INFO:__main__:ID 251 Answer: B, Gold: C, Correct: False // Accuracy: 31/62 = 0.5000
+ 52%|█████▏    | 62/120 [47:55<25:54, 26.80s/it]INFO:__main__:Processing ID 254: What does Tasha need to buy to decorate the room?...
+INFO:worldmm.memory.visual.memory:Indexed 2621 video clips up to 411145407
+INFO:__main__:ID 254 Answer: D, Gold: D, Correct: True // Accuracy: 32/63 = 0.5079
+ 52%|█████▎    | 63/120 [48:22<25:16, 26.60s/it]INFO:__main__:Processing ID 256: On the first day, who did Tasha ask to bring her a...
+INFO:worldmm.memory.visual.memory:Indexed 2646 video clips up to 411270750
+INFO:__main__:ID 256 Answer: B, Gold: D, Correct: False // Accuracy: 32/64 = 0.5000
+ 53%|█████▎    | 64/120 [48:49<25:07, 26.92s/it]INFO:__main__:Processing ID 258: When were the oysters bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2661 video clips up to 411345902
+INFO:__main__:ID 258 Answer: B, Gold: C, Correct: False // Accuracy: 32/65 = 0.4923
+ 54%|█████▍    | 65/120 [49:19<25:31, 27.84s/it]INFO:__main__:Processing ID 260: What did I take out the last time I opened the fri...
+INFO:worldmm.memory.visual.memory:Indexed 2665 video clips up to 411365009
+INFO:__main__:ID 260 Answer: B, Gold: C, Correct: False // Accuracy: 32/66 = 0.4848
+ 55%|█████▌    | 66/120 [49:47<24:55, 27.70s/it]INFO:__main__:Processing ID 263: Who navigated and led us all to Hema Fresh?...
+INFO:worldmm.memory.visual.memory:Indexed 2668 video clips up to 411381500
+INFO:__main__:ID 263 Answer: C, Gold: C, Correct: True // Accuracy: 33/67 = 0.4925
+ 56%|█████▌    | 67/120 [50:15<24:37, 27.87s/it]INFO:__main__:Processing ID 267: What activities can we hold in Shure's room?...
+INFO:worldmm.memory.visual.memory:Indexed 2708 video clips up to 411581510
+INFO:__main__:ID 267 Answer: A, Gold: A, Correct: True // Accuracy: 34/68 = 0.5000
+ 57%|█████▋    | 68/120 [50:40<23:27, 27.07s/it]INFO:__main__:Processing ID 275: Who was next to me the last time I made coffee?...
+INFO:worldmm.memory.visual.memory:Indexed 2799 video clips up to 412435200
+INFO:__main__:ID 275 Answer: A, Gold: D, Correct: False // Accuracy: 34/69 = 0.4928
+ 57%|█████▊    | 69/120 [51:05<22:23, 26.34s/it]INFO:__main__:Processing ID 276: Who was next to me the last time I made coffee?...
+INFO:__main__:ID 276 Answer: B, Gold: A, Correct: False // Accuracy: 34/70 = 0.4857
+ 58%|█████▊    | 70/120 [51:29<21:32, 25.85s/it]INFO:__main__:Processing ID 283: Where was the bread found?...
+INFO:worldmm.memory.visual.memory:Indexed 2880 video clips up to 413240213
+INFO:__main__:ID 283 Answer: C, Gold: C, Correct: True // Accuracy: 35/71 = 0.4930
+ 59%|█████▉    | 71/120 [51:57<21:33, 26.39s/it]INFO:__main__:Processing ID 286: Who do I usually sit with during meals?...
+INFO:worldmm.memory.visual.memory:Indexed 2889 video clips up to 413285000
+INFO:__main__:ID 286 Answer: A, Gold: C, Correct: False // Accuracy: 35/72 = 0.4861
+ 60%|██████    | 72/120 [52:23<21:07, 26.41s/it]INFO:__main__:Processing ID 293: What is the first ingredient in the shopping cart ...
+INFO:worldmm.memory.visual.memory:Indexed 3001 video clips up to 416132300
+INFO:__main__:ID 293 Answer: B, Gold: C, Correct: False // Accuracy: 35/73 = 0.4795
+ 61%|██████    | 73/120 [52:53<21:27, 27.40s/it]INFO:__main__:Processing ID 294: When was the last time Lucia took a picture?...
+INFO:worldmm.memory.visual.memory:Indexed 3068 video clips up to 416465813
+INFO:__main__:ID 294 Answer: A, Gold: C, Correct: False // Accuracy: 35/74 = 0.4730
+ 62%|██████▏   | 74/120 [53:19<20:35, 26.87s/it]INFO:__main__:Processing ID 296: Now Shure is playing the guitar, what was the envi...
+INFO:worldmm.memory.visual.memory:Indexed 3102 video clips up to 417045506
+INFO:__main__:ID 296 Answer: D, Gold: D, Correct: True // Accuracy: 36/75 = 0.4800
+ 62%|██████▎   | 75/120 [53:46<20:09, 26.88s/it]INFO:__main__:Processing ID 307: What do we plan to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 3261 video clips up to 418242219
+INFO:__main__:ID 307 Answer: A, Gold: A, Correct: True // Accuracy: 37/76 = 0.4868
+ 63%|██████▎   | 76/120 [54:12<19:32, 26.64s/it]INFO:__main__:Processing ID 308: Who usually sings when Shure plays the guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 3297 video clips up to 418422500
+INFO:__main__:ID 308 Answer: B, Gold: D, Correct: False // Accuracy: 37/77 = 0.4805
+ 64%|██████▍   | 77/120 [54:38<18:54, 26.39s/it]INFO:__main__:Processing ID 314: Who discussed renting clothes with me at noon toda...
+INFO:worldmm.memory.visual.memory:Indexed 3461 video clips up to 421563804
+INFO:__main__:ID 314 Answer: A, Gold: A, Correct: True // Accuracy: 38/78 = 0.4872
+ 65%|██████▌   | 78/120 [55:04<18:32, 26.49s/it]INFO:__main__:Processing ID 334: When was the last time I plugged a cable into the ...
+INFO:worldmm.memory.visual.memory:Indexed 3609 video clips up to 511464307
+INFO:__main__:ID 334 Answer: A, Gold: A, Correct: True // Accuracy: 39/79 = 0.4937
+ 66%|██████▌   | 79/120 [55:31<18:10, 26.59s/it]INFO:__main__:Processing ID 335: What is the milk used for?...
+INFO:worldmm.memory.visual.memory:Indexed 3613 video clips up to 511484717
+INFO:__main__:ID 335 Answer: C, Gold: C, Correct: True // Accuracy: 40/80 = 0.5000
+ 67%|██████▋   | 80/120 [55:56<17:24, 26.11s/it]INFO:__main__:Processing ID 337: Who gave Tasha the AD calcium milk she is holding?...
+INFO:worldmm.memory.visual.memory:Indexed 3674 video clips up to 512190913
+INFO:__main__:ID 337 Answer: C, Gold: C, Correct: True // Accuracy: 41/81 = 0.5062
+ 68%|██████▊   | 81/120 [56:22<16:59, 26.14s/it]INFO:__main__:Processing ID 352: Who joined the shopping trip this time compared to...
+INFO:worldmm.memory.visual.memory:Indexed 3852 video clips up to 516052304
+INFO:__main__:ID 352 Answer: B, Gold: A, Correct: False // Accuracy: 41/82 = 0.5000
+ 68%|██████▊   | 82/120 [56:52<17:16, 27.26s/it]INFO:__main__:Processing ID 354: Who was I with the last time I stood on the escala...
+INFO:worldmm.memory.visual.memory:Indexed 3854 video clips up to 516062618
+INFO:__main__:ID 354 Answer: D, Gold: D, Correct: True // Accuracy: 42/83 = 0.5060
+ 69%|██████▉   | 83/120 [57:19<16:48, 27.26s/it]INFO:__main__:Processing ID 357: Who do I usually shop with?...
+INFO:worldmm.memory.visual.memory:Indexed 3863 video clips up to 516103904
+INFO:__main__:ID 357 Answer: B, Gold: B, Correct: True // Accuracy: 43/84 = 0.5119
+ 70%|███████   | 84/120 [57:48<16:39, 27.77s/it]INFO:__main__:Processing ID 360: Who was next to me the last time I was taste-testi...
+INFO:worldmm.memory.visual.memory:Indexed 3871 video clips up to 516145504
+INFO:__main__:ID 360 Answer: D, Gold: D, Correct: True // Accuracy: 44/85 = 0.5176
+ 71%|███████   | 85/120 [58:15<16:03, 27.53s/it]INFO:__main__:Processing ID 366: When was the last time I used the ride-hailing app...
+INFO:worldmm.memory.visual.memory:Indexed 3919 video clips up to 516383108
+INFO:__main__:ID 366 Answer: B, Gold: D, Correct: False // Accuracy: 44/86 = 0.5116
+ 72%|███████▏  | 86/120 [58:38<14:40, 25.91s/it]INFO:__main__:Processing ID 369: How do we get home after shopping?...
+INFO:worldmm.memory.visual.memory:Indexed 3925 video clips up to 516414404
+INFO:__main__:ID 369 Answer: B, Gold: B, Correct: True // Accuracy: 45/87 = 0.5172
+ 72%|███████▎  | 87/120 [59:07<14:51, 27.00s/it]INFO:__main__:Processing ID 371: What do we plan to eat today?...
+INFO:worldmm.memory.visual.memory:Indexed 3949 video clips up to 518025517
+INFO:__main__:ID 371 Answer: C, Gold: D, Correct: False // Accuracy: 45/88 = 0.5114
+ 73%|███████▎  | 88/120 [59:33<14:17, 26.80s/it]INFO:__main__:Processing ID 374: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 3953 video clips up to 518045716
+INFO:__main__:ID 374 Answer: D, Gold: C, Correct: False // Accuracy: 45/89 = 0.5056
+ 74%|███████▍  | 89/120 [1:00:00<13:44, 26.59s/it]INFO:__main__:Processing ID 377: When was the last time the grill in the yard was u...
+INFO:worldmm.memory.visual.memory:Indexed 4005 video clips up to 518303001
+INFO:__main__:ID 377 Answer: A, Gold: D, Correct: False // Accuracy: 45/90 = 0.5000
+ 75%|███████▌  | 90/120 [1:00:30<13:48, 27.62s/it]INFO:__main__:Processing ID 380: When was the white microwave in the kitchen last u...
+INFO:worldmm.memory.visual.memory:Indexed 4015 video clips up to 518353711
+INFO:__main__:ID 380 Answer: B, Gold: D, Correct: False // Accuracy: 45/91 = 0.4945
+ 76%|███████▌  | 91/120 [1:00:55<13:01, 26.96s/it]INFO:__main__:Processing ID 382: When was the last time these oven mitts were used?...
+INFO:worldmm.memory.visual.memory:Indexed 4024 video clips up to 518401702
+INFO:__main__:ID 382 Answer: B, Gold: B, Correct: True // Accuracy: 46/92 = 0.5000
+ 77%|███████▋  | 92/120 [1:01:22<12:33, 26.92s/it]INFO:__main__:Processing ID 383: Who bought the blueberries?...
+INFO:worldmm.memory.visual.memory:Indexed 4025 video clips up to 518402915
+INFO:__main__:ID 383 Answer: B, Gold: C, Correct: False // Accuracy: 46/93 = 0.4946
+ 78%|███████▊  | 93/120 [1:01:51<12:23, 27.53s/it]INFO:__main__:Processing ID 392: Who made the egg tart on the table?...
+INFO:worldmm.memory.visual.memory:Indexed 4227 video clips up to 520220710
+INFO:__main__:ID 392 Answer: C, Gold: A, Correct: False // Accuracy: 46/94 = 0.4894
+ 78%|███████▊  | 94/120 [1:02:18<11:50, 27.31s/it]INFO:__main__:Processing ID 393: The last time Choiszt was mixing cream, what were ...
+INFO:worldmm.memory.visual.memory:Indexed 4230 video clips up to 520233904
+INFO:__main__:ID 393 Answer: A, Gold: B, Correct: False // Accuracy: 46/95 = 0.4842
+ 79%|███████▉  | 95/120 [1:02:49<11:54, 28.56s/it]INFO:__main__:Processing ID 402: What does Tasha want to drink?...
+INFO:worldmm.memory.visual.memory:Indexed 4308 video clips up to 521025517
+INFO:__main__:ID 402 Answer: D, Gold: D, Correct: True // Accuracy: 47/96 = 0.4896
+ 80%|████████  | 96/120 [1:03:16<11:14, 28.10s/it]INFO:__main__:Processing ID 403: Why doesn't Tasha eat stewed dishes?...
+INFO:__main__:ID 403 Answer: C, Gold: B, Correct: False // Accuracy: 47/97 = 0.4845
+ 81%|████████  | 97/120 [1:03:41<10:21, 27.04s/it]INFO:__main__:Processing ID 408: What should be arranged in Alice's room?...
+INFO:worldmm.memory.visual.memory:Indexed 4478 video clips up to 610010305
+INFO:__main__:ID 408 Answer: B, Gold: D, Correct: False // Accuracy: 47/98 = 0.4796
+ 82%|████████▏ | 98/120 [1:04:05<09:38, 26.30s/it]INFO:__main__:Processing ID 409: When did I last pick up the takeout?...
+INFO:worldmm.memory.visual.memory:Indexed 4480 video clips up to 610022614
+INFO:__main__:ID 409 Answer: D, Gold: D, Correct: True // Accuracy: 48/99 = 0.4848
+ 82%|████████▎ | 99/120 [1:04:31<09:08, 26.12s/it]INFO:__main__:Processing ID 414: Under what circumstances did I last inquire about ...
+INFO:worldmm.memory.visual.memory:Indexed 4494 video clips up to 610091303
+INFO:__main__:ID 414 Answer: D, Gold: B, Correct: False // Accuracy: 48/100 = 0.4800
+ 83%|████████▎ | 100/120 [1:04:56<08:34, 25.73s/it]INFO:__main__:Processing ID 417: Who used the kitchen knife before Nicous?...
+INFO:worldmm.memory.visual.memory:Indexed 4540 video clips up to 610322302
+INFO:__main__:ID 417 Answer: D, Gold: D, Correct: True // Accuracy: 49/101 = 0.4851
+ 84%|████████▍ | 101/120 [1:05:23<08:18, 26.21s/it]INFO:__main__:Processing ID 429: Now that I have opened the red refrigerator on the...
+INFO:worldmm.memory.visual.memory:Indexed 4836 video clips up to 613001417
+INFO:__main__:ID 429 Answer: B, Gold: D, Correct: False // Accuracy: 49/102 = 0.4804
+ 85%|████████▌ | 102/120 [1:05:51<08:03, 26.87s/it]INFO:__main__:Processing ID 430: Now I am lying in bed, what was I doing the last t...
+INFO:worldmm.memory.visual.memory:Indexed 4854 video clips up to 613091804
+INFO:__main__:ID 430 Answer: A, Gold: B, Correct: False // Accuracy: 49/103 = 0.4757
+ 86%|████████▌ | 103/120 [1:06:14<07:13, 25.50s/it]INFO:__main__:Processing ID 438: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 5065 video clips up to 616384716
+INFO:__main__:ID 438 Answer: A, Gold: D, Correct: False // Accuracy: 49/104 = 0.4712
+ 87%|████████▋ | 104/120 [1:06:40<06:51, 25.73s/it]INFO:__main__:Processing ID 445: When was the last time Alice made this puppy?...
+INFO:worldmm.memory.visual.memory:Indexed 5132 video clips up to 617170912
+INFO:__main__:ID 445 Answer: B, Gold: A, Correct: False // Accuracy: 49/105 = 0.4667
+ 88%|████████▊ | 105/120 [1:07:06<06:25, 25.69s/it]INFO:__main__:Processing ID 448: Shure is playing guitar, who else can play guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 5227 video clips up to 619494312
+INFO:__main__:ID 448 Answer: D, Gold: C, Correct: False // Accuracy: 49/106 = 0.4623
+ 88%|████████▊ | 106/120 [1:07:33<06:07, 26.23s/it]INFO:__main__:Processing ID 459: Who was listening nearby when Choiszt was playing ...
+INFO:worldmm.memory.visual.memory:Indexed 5377 video clips up to 621044820
+INFO:__main__:ID 459 Answer: D, Gold: A, Correct: False // Accuracy: 49/107 = 0.4579
+ 89%|████████▉ | 107/120 [1:08:00<05:43, 26.45s/it]INFO:__main__:Processing ID 465: Who introduced the product 'Cardboard Puppy' to ev...
+INFO:worldmm.memory.visual.memory:Indexed 5377 video clips up to 621044825
+INFO:__main__:ID 465 Answer: B, Gold: D, Correct: False // Accuracy: 49/108 = 0.4537
+ 90%|█████████ | 108/120 [1:08:29<05:24, 27.07s/it]INFO:__main__:Processing ID 469: What does Tasha like to eat?...
+INFO:worldmm.memory.visual.memory:Indexed 5496 video clips up to 622042507
+INFO:__main__:ID 469 Answer: B, Gold: A, Correct: False // Accuracy: 49/109 = 0.4495
+ 91%|█████████ | 109/120 [1:08:54<04:53, 26.71s/it]INFO:__main__:Processing ID 471: What flavor of porridge does Alice like?...
+INFO:worldmm.memory.visual.memory:Indexed 5496 video clips up to 622042509
+INFO:__main__:ID 471 Answer: A, Gold: A, Correct: True // Accuracy: 50/110 = 0.4545
+ 92%|█████████▏| 110/120 [1:09:21<04:26, 26.65s/it]INFO:__main__:Processing ID 473: Why do we conduct the QA activity first during the...
+INFO:worldmm.memory.visual.memory:Indexed 5508 video clips up to 622101420
+INFO:__main__:ID 473 Answer: B, Gold: A, Correct: False // Accuracy: 50/111 = 0.4505
+ 92%|█████████▎| 111/120 [1:09:48<04:01, 26.80s/it]INFO:__main__:Processing ID 476: What is the purpose of ego coins?...
+INFO:worldmm.memory.visual.memory:Indexed 5521 video clips up to 622164902
+INFO:__main__:ID 476 Answer: B, Gold: B, Correct: True // Accuracy: 51/112 = 0.4554
+ 93%|█████████▎| 112/120 [1:10:14<03:32, 26.54s/it]INFO:__main__:Processing ID 479: What is the purpose of the glasses we wear?...
+INFO:__main__:ID 479 Answer: D, Gold: D, Correct: True // Accuracy: 52/113 = 0.4602
+ 94%|█████████▍| 113/120 [1:10:39<03:02, 26.06s/it]INFO:__main__:Processing ID 481: What song does Jack plan to sing?...
+INFO:__main__:ID 481 Answer: D, Gold: D, Correct: True // Accuracy: 53/114 = 0.4649
+ 95%|█████████▌| 114/120 [1:11:05<02:36, 26.09s/it]INFO:__main__:Processing ID 485: Who fidgets with items the most during discussions...
+INFO:worldmm.memory.visual.memory:Indexed 5558 video clips up to 712141402
+INFO:__main__:ID 485 Answer: A, Gold: A, Correct: True // Accuracy: 54/115 = 0.4696
+ 96%|█████████▌| 115/120 [1:11:31<02:09, 25.93s/it]INFO:__main__:Processing ID 486: Who fidgets with items the most during discussions...
+INFO:__main__:ID 486 Answer: B, Gold: B, Correct: True // Accuracy: 55/116 = 0.4741
+ 97%|█████████▋| 116/120 [1:11:56<01:43, 25.83s/it]INFO:__main__:Processing ID 493: When was the last time I used my phone to scan the...
+INFO:worldmm.memory.visual.memory:Indexed 5858 video clips up to 715132705
+INFO:__main__:ID 493 Answer: D, Gold: C, Correct: False // Accuracy: 55/117 = 0.4701
+ 98%|█████████▊| 117/120 [1:12:21<01:16, 25.57s/it]INFO:__main__:Processing ID 495: Why do I label the SD cards?...
+INFO:worldmm.memory.visual.memory:Indexed 5913 video clips up to 717395355
+INFO:__main__:ID 495 Answer: B, Gold: D, Correct: False // Accuracy: 55/118 = 0.4661
+ 98%|█████████▊| 118/120 [1:12:47<00:51, 25.59s/it]INFO:__main__:Processing ID 496: What song did Shure suggest we sing together?...
+INFO:worldmm.memory.visual.memory:Indexed 5963 video clips up to 718045007
+INFO:__main__:ID 496 Answer: B, Gold: B, Correct: True // Accuracy: 56/119 = 0.4706
+ 99%|█████████▉| 119/120 [1:13:14<00:25, 25.92s/it]INFO:__main__:Processing ID 497: When was the last time I paid via phone?...
+INFO:worldmm.memory.visual.memory:Indexed 5966 video clips up to 718060700
+INFO:__main__:ID 497 Answer: A, Gold: D, Correct: False // Accuracy: 56/120 = 0.4667
+100%|██████████| 120/120 [1:13:36<00:00, 24.95s/it]100%|██████████| 120/120 [1:13:36<00:00, 36.81s/it]
+INFO:__main__:
+==================================================
+INFO:__main__:Evaluation Complete  [condition E_prime]
+INFO:__main__:Subject: A1_JAKE
+INFO:__main__:Total: 120
+INFO:__main__:Correct: 56
+INFO:__main__:Accuracy: 0.4667
+INFO:__main__:Results saved to: /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/full_k20/E_prime.json
+INFO:__main__:==================================================
+INFO:worldmm.memory.memory:Memory cleanup complete
+
+>>> E' with emb/gazef_05.pkl at visual-top-k=20 -> results_qa/gazef_05_k20
+/home/minyoy/WorldMM/experiments/visual_bottleneck/eval_egolife.py:406: SyntaxWarning: invalid escape sequence '\{'
+  The original does re.search(r'\{.*\}', DOTALL) and json.loads the match. That regex is greedy, so
+INFO:__main__:Initializing models...
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/requests/__init__.py:109: RequestsDependencyWarning: urllib3 (1.26.13) or chardet (7.3.0)/charset_normalizer (2.1.1) doesn't match a supported version!
+  warnings.warn(
+`torch_dtype` is deprecated! Use `dtype` instead!
+INFO:accelerate.utils.modeling:We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:01<00:03,  1.08s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:02<00:02,  1.06s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:03<00:01,  1.03s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.15it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:03<00:00,  1.07it/s]
+INFO:worldmm.llm.qwen3vl:Initialized Qwen3VLModel with Qwen/Qwen3-VL-8B-Instruct
+INFO:__main__:Sharing one LLM instance for retriever and responder: qwen3vl-8b
+INFO:worldmm.llm.prompt_template_manager:Loading templates from directory: /home/minyoy/WorldMM/src/worldmm/llm/templates
+INFO:__main__:Initializing WorldMemory...
+INFO:__main__:Loading data...
+INFO:__main__:Loading data into WorldMemory...
+INFO:worldmm.memory.episodic.memory:Loaded 6223 captions for granularity 30sec
+INFO:worldmm.memory.episodic.memory:Loaded 1073 captions for granularity 3min
+INFO:worldmm.memory.episodic.memory:Loaded 341 captions for granularity 10min
+INFO:worldmm.memory.episodic.memory:Loaded 64 captions for granularity 1h
+INFO:worldmm.memory.semantic.memory:Loaded semantic triples across 623 timestamps
+INFO:worldmm.memory.visual.memory:Loaded 6222 video embeddings from /home/minyoy/WorldMM/experiments/gaze_crop/emb/gazef_05.pkl
+INFO:worldmm.memory.visual.memory:Loaded 6223 video clips
+INFO:__main__:Video root: /datasets/EgoLife (6223 clip paths remapped, 6222/6223 clips have embeddings)
+INFO:__main__:Condition E_prime: evaluating 120 questions ...
+  0%|          | 0/120 [00:00<?, ?it/s]INFO:__main__:Processing ID 6: Who plans to grow flowers...
+INFO:worldmm.memory.visual.memory:Indexed 96 video clips up to 111573606
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading processor from: VLM2Vec/VLM2Vec-V2.0
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading backbone [qwen2_vl] from VLM2Vec/VLM2Vec-V2.0
+
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s][AFetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 1192.24it/s]
+
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s][A
+Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 19.78it/s][ALoading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 19.74it/s]
+INFO:worldmm.embedding.VLM2Vec.src.utils:Loading LoRA from VLM2Vec/VLM2Vec-V2.0
+/tmp/minyoy/worldmm-venv/lib/python3.13/site-packages/peft/tuners/tuners_utils.py:285: UserWarning: Already found a `peft_config` attribute in the model. This will lead to having multiple adapters in the model. Make sure to know what you are doing!
+  warnings.warn(
+INFO:root:Successfully loaded VLM2Vec V2.0 model: VLM2Vec/VLM2Vec-V2.0
+INFO:__main__:ID 6 Answer: B, Gold: D, Correct: False // Accuracy: 0/1 = 0.0000
+  1%|          | 1/120 [00:52<1:43:10, 52.02s/it]INFO:__main__:Processing ID 13: Now Lucia asks, "What is this, is this a hedgehog?...
+INFO:worldmm.memory.visual.memory:Indexed 171 video clips up to 112351415
+INFO:__main__:ID 13 Answer: B, Gold: C, Correct: False // Accuracy: 0/2 = 0.0000
+  2%|▏         | 2/120 [01:17<1:11:16, 36.24s/it]INFO:__main__:Processing ID 16: Who was the first to move the puzzle board on the ...
+INFO:worldmm.memory.visual.memory:Indexed 204 video clips up to 112512802
+INFO:__main__:ID 16 Answer: A, Gold: B, Correct: False // Accuracy: 0/3 = 0.0000
+  2%|▎         | 3/120 [01:41<1:00:25, 30.98s/it]INFO:__main__:Processing ID 25: Who originally used the scissors in my hand?...
+INFO:worldmm.memory.visual.memory:Indexed 320 video clips up to 113495310
+INFO:__main__:ID 25 Answer: D, Gold: D, Correct: True // Accuracy: 1/4 = 0.2500
+  3%|▎         | 4/120 [02:08<56:12, 29.07s/it]  INFO:__main__:Processing ID 26: Who has been assembling the shelf...
+INFO:worldmm.memory.visual.memory:Indexed 329 video clips up to 113541007
+INFO:__main__:ID 26 Answer: B, Gold: C, Correct: False // Accuracy: 1/5 = 0.2000
+  4%|▍         | 5/120 [02:33<53:26, 27.88s/it]INFO:__main__:Processing ID 28: Who am I always busy with in the kitchen today...
+INFO:worldmm.memory.visual.memory:Indexed 336 video clips up to 113575015
+INFO:__main__:ID 28 Answer: D, Gold: C, Correct: False // Accuracy: 1/6 = 0.1667
+  5%|▌         | 6/120 [02:58<51:09, 26.93s/it]INFO:__main__:Processing ID 34: What do we decide to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 379 video clips up to 115473415
+INFO:__main__:ID 34 Answer: A, Gold: A, Correct: True // Accuracy: 2/7 = 0.2857
+  6%|▌         | 7/120 [03:23<49:08, 26.09s/it]INFO:__main__:Processing ID 36: What other drinks are needed to mix with rum?...
+INFO:worldmm.memory.visual.memory:Indexed 399 video clips up to 117210410
+INFO:__main__:ID 36 Answer: D, Gold: D, Correct: True // Accuracy: 3/8 = 0.3750
+  7%|▋         | 8/120 [03:47<47:38, 25.52s/it]INFO:__main__:Processing ID 42: What drinks are you planning to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 450 video clips up to 117463818
+INFO:__main__:ID 42 Answer: D, Gold: B, Correct: False // Accuracy: 3/9 = 0.3333
+  8%|▊         | 9/120 [04:17<49:31, 26.77s/it]INFO:__main__:Processing ID 55: Who among us hasn't eaten century eggs...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375108
+INFO:__main__:ID 55 Answer: C, Gold: D, Correct: False // Accuracy: 3/10 = 0.3000
+  8%|▊         | 10/120 [04:43<49:07, 26.79s/it]INFO:__main__:Processing ID 56: While I was cleaning the egg mixer, who joined in ...
+INFO:worldmm.memory.visual.memory:Indexed 632 video clips up to 119375109
+INFO:__main__:ID 56 Answer: C, Gold: C, Correct: True // Accuracy: 4/11 = 0.3636
+  9%|▉         | 11/120 [05:09<47:42, 26.26s/it]INFO:__main__:Processing ID 65: We decided to buy how many boxes of green grapes...
+INFO:worldmm.memory.visual.memory:Indexed 652 video clips up to 119473415
+INFO:__main__:ID 65 Answer: A, Gold: A, Correct: True // Accuracy: 5/12 = 0.4167
+ 10%|█         | 12/120 [05:36<47:53, 26.60s/it]INFO:__main__:Processing ID 67: Why did the clerk not agree when we asked them to ...
+INFO:__main__:ID 67 Answer: A, Gold: D, Correct: False // Accuracy: 5/13 = 0.3846
+ 11%|█         | 13/120 [06:03<47:46, 26.79s/it]INFO:__main__:Processing ID 68: Why didn't we buy chestnut kernels...
+INFO:__main__:ID 68 Answer: C, Gold: A, Correct: False // Accuracy: 5/14 = 0.3571
+ 12%|█▏        | 14/120 [06:29<47:00, 26.61s/it]INFO:__main__:Processing ID 72: What does Lucia plan to make on World Earth Day?...
+INFO:__main__:ID 72 Answer: A, Gold: A, Correct: True // Accuracy: 6/15 = 0.4000
+ 12%|█▎        | 15/120 [06:53<45:08, 25.80s/it]INFO:__main__:Processing ID 74: Among us, who often goes out wearing slippers...
+INFO:__main__:ID 74 Answer: B, Gold: A, Correct: False // Accuracy: 6/16 = 0.3750
+ 13%|█▎        | 16/120 [07:20<45:06, 26.02s/it]INFO:__main__:Processing ID 76: What am I usually doing on the second floor today?...
+INFO:worldmm.memory.visual.memory:Indexed 712 video clips up to 120321009
+INFO:__main__:ID 76 Answer: B, Gold: C, Correct: False // Accuracy: 6/17 = 0.3529
+ 14%|█▍        | 17/120 [07:45<44:19, 25.82s/it]INFO:__main__:Processing ID 79: Previously, Alice couldn't open the can. Who helpe...
+INFO:worldmm.memory.visual.memory:Indexed 737 video clips up to 120444009
+INFO:__main__:ID 79 Answer: B, Gold: B, Correct: True // Accuracy: 7/18 = 0.3889
+ 15%|█▌        | 18/120 [08:12<44:21, 26.10s/it]INFO:__main__:Processing ID 80: Who used the kitchen knife on the counter last tim...
+INFO:worldmm.memory.visual.memory:Indexed 749 video clips up to 121365110
+INFO:__main__:ID 80 Answer: B, Gold: B, Correct: True // Accuracy: 8/19 = 0.4211
+ 16%|█▌        | 19/120 [08:39<44:18, 26.32s/it]INFO:__main__:Processing ID 82: When I usually buy clothes, what type of clothing ...
+INFO:worldmm.memory.visual.memory:Indexed 763 video clips up to 121435319
+INFO:__main__:ID 82 Answer: B, Gold: A, Correct: False // Accuracy: 8/20 = 0.4000
+ 17%|█▋        | 20/120 [09:06<44:13, 26.54s/it]INFO:__main__:Processing ID 86: What do I always do when I go to the supermarket...
+INFO:__main__:ID 86 Answer: B, Gold: B, Correct: True // Accuracy: 9/21 = 0.4286
+ 18%|█▊        | 21/120 [09:35<45:21, 27.49s/it]INFO:__main__:Processing ID 91: Who is always the first to get off the car...
+INFO:__main__:ID 91 Answer: B, Gold: B, Correct: True // Accuracy: 10/22 = 0.4545
+ 18%|█▊        | 22/120 [10:01<44:07, 27.01s/it]INFO:__main__:Processing ID 92: What do I usually use to control the computer when...
+INFO:__main__:ID 92 Answer: B, Gold: B, Correct: True // Accuracy: 11/23 = 0.4783
+ 19%|█▉        | 23/120 [10:27<43:05, 26.65s/it]INFO:__main__:Processing ID 94: Whose hometown is close to mine...
+INFO:__main__:ID 94 Answer: D, Gold: D, Correct: True // Accuracy: 12/24 = 0.5000
+ 20%|██        | 24/120 [10:52<41:36, 26.00s/it]INFO:__main__:Processing ID 98: Who usually writes the shopping list on the whiteb...
+INFO:worldmm.memory.visual.memory:Indexed 777 video clips up to 121504104
+INFO:__main__:ID 98 Answer: B, Gold: B, Correct: True // Accuracy: 13/25 = 0.5200
+ 21%|██        | 25/120 [11:15<40:06, 25.33s/it]INFO:__main__:Processing ID 103: When was the last time items were taken from the r...
+INFO:worldmm.memory.visual.memory:Indexed 809 video clips up to 210443918
+INFO:__main__:ID 103 Answer: D, Gold: D, Correct: True // Accuracy: 14/26 = 0.5385
+ 22%|██▏       | 26/120 [11:43<40:32, 25.88s/it]INFO:__main__:Processing ID 106: What is my main responsibility when shopping in th...
+INFO:worldmm.memory.visual.memory:Indexed 854 video clips up to 211073011
+INFO:__main__:ID 106 Answer: D, Gold: D, Correct: True // Accuracy: 15/27 = 0.5556
+ 22%|██▎       | 27/120 [12:10<40:43, 26.28s/it]INFO:__main__:Processing ID 108: Who usually picks up the takeout from the delivery...
+INFO:worldmm.memory.visual.memory:Indexed 867 video clips up to 211141803
+INFO:__main__:ID 108 Answer: B, Gold: B, Correct: True // Accuracy: 16/28 = 0.5714
+ 23%|██▎       | 28/120 [12:35<40:01, 26.11s/it]INFO:__main__:Processing ID 109: What else do I need to purchase for delivery?...
+INFO:worldmm.memory.visual.memory:Indexed 869 video clips up to 211151710
+INFO:__main__:ID 109 Answer: D, Gold: B, Correct: False // Accuracy: 16/29 = 0.5517
+ 24%|██▍       | 29/120 [13:03<40:09, 26.47s/it]INFO:__main__:Processing ID 113: Last night during the chat, I discovered whose gla...
+INFO:worldmm.memory.visual.memory:Indexed 959 video clips up to 212002750
+INFO:__main__:ID 113 Answer: D, Gold: D, Correct: True // Accuracy: 17/30 = 0.5667
+ 25%|██▌       | 30/120 [13:27<38:50, 25.90s/it]INFO:__main__:Processing ID 114: Who did Tasha take off the headphones for yesterda...
+INFO:worldmm.memory.visual.memory:Indexed 984 video clips up to 212454203
+INFO:__main__:ID 114 Answer: C, Gold: C, Correct: True // Accuracy: 18/31 = 0.5806
+ 26%|██▌       | 31/120 [13:54<38:47, 26.15s/it]INFO:__main__:Processing ID 119: What do I usually do after picking up glasses that...
+INFO:worldmm.memory.visual.memory:Indexed 1059 video clips up to 213225715
+INFO:__main__:ID 119 Answer: C, Gold: C, Correct: True // Accuracy: 19/32 = 0.5938
+ 27%|██▋       | 32/120 [14:21<38:36, 26.33s/it]INFO:__main__:Processing ID 125: What is the paper boxes will be used for in plan o...
+INFO:worldmm.memory.visual.memory:Indexed 1291 video clips up to 217105413
+INFO:__main__:ID 125 Answer: A, Gold: B, Correct: False // Accuracy: 19/33 = 0.5758
+ 28%|██▊       | 33/120 [14:47<38:09, 26.32s/it]INFO:__main__:Processing ID 139: Who was beside me helping the last time I washed d...
+INFO:worldmm.memory.visual.memory:Indexed 1490 video clips up to 221080700
+INFO:__main__:ID 139 Answer: B, Gold: D, Correct: False // Accuracy: 19/34 = 0.5588
+ 28%|██▊       | 34/120 [15:13<37:24, 26.10s/it]INFO:__main__:Processing ID 140: What do I habitually use to wipe after washing kit...
+INFO:worldmm.memory.visual.memory:Indexed 1532 video clips up to 221290900
+INFO:__main__:ID 140 Answer: C, Gold: A, Correct: False // Accuracy: 19/35 = 0.5429
+ 29%|██▉       | 35/120 [15:39<36:57, 26.09s/it]INFO:__main__:Processing ID 146: Who used the computer with me to upload data...
+INFO:worldmm.memory.visual.memory:Indexed 1535 video clips up to 221303201
+INFO:__main__:ID 146 Answer: B, Gold: B, Correct: True // Accuracy: 20/36 = 0.5556
+ 30%|███       | 36/120 [16:05<36:31, 26.09s/it]INFO:__main__:Processing ID 149: What device should I use to scan the house...
+INFO:worldmm.memory.visual.memory:Indexed 1565 video clips up to 221453309
+INFO:__main__:ID 149 Answer: B, Gold: D, Correct: False // Accuracy: 20/37 = 0.5405
+ 31%|███       | 37/120 [16:29<35:20, 25.55s/it]INFO:__main__:Processing ID 155: Tonight, who is playing the guitar next to me and ...
+INFO:worldmm.memory.visual.memory:Indexed 1587 video clips up to 221563610
+INFO:__main__:ID 155 Answer: B, Gold: B, Correct: True // Accuracy: 21/38 = 0.5526
+ 32%|███▏      | 38/120 [16:55<35:08, 25.72s/it]INFO:__main__:Processing ID 156: Among us, who doesn't like eating durian...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110505
+INFO:__main__:ID 156 Answer: D, Gold: B, Correct: False // Accuracy: 21/39 = 0.5385
+ 32%|███▎      | 39/120 [17:21<34:52, 25.83s/it]INFO:__main__:Processing ID 158: What kind of music does Lucia like to dance to?...
+INFO:worldmm.memory.visual.memory:Indexed 1616 video clips up to 222110508
+INFO:__main__:ID 158 Answer: A, Gold: D, Correct: False // Accuracy: 21/40 = 0.5250
+ 33%|███▎      | 40/120 [17:48<34:39, 26.00s/it]INFO:__main__:Processing ID 160: Who did I eat green grapes with in the kitchen tod...
+INFO:worldmm.memory.visual.memory:Indexed 1632 video clips up to 222444619
+INFO:__main__:ID 160 Answer: D, Gold: D, Correct: True // Accuracy: 22/41 = 0.5366
+ 34%|███▍      | 41/120 [18:14<34:12, 25.98s/it]INFO:__main__:Processing ID 164: What does Lucia need to buy for decorating her roo...
+INFO:worldmm.memory.visual.memory:Indexed 1708 video clips up to 311410802
+INFO:__main__:ID 164 Answer: B, Gold: C, Correct: False // Accuracy: 22/42 = 0.5238
+ 35%|███▌      | 42/120 [18:38<33:16, 25.60s/it]INFO:__main__:Processing ID 168: Who put the takeout in the microwave the night bef...
+INFO:worldmm.memory.visual.memory:Indexed 1742 video clips up to 311580956
+INFO:__main__:ID 168 Answer: B, Gold: B, Correct: True // Accuracy: 23/43 = 0.5349
+ 36%|███▌      | 43/120 [19:05<33:11, 25.86s/it]INFO:__main__:Processing ID 170: Who did I sit next to while eating last night?...
+INFO:worldmm.memory.visual.memory:Indexed 1759 video clips up to 312063116
+INFO:__main__:ID 170 Answer: C, Gold: A, Correct: False // Accuracy: 23/44 = 0.5227
+ 37%|███▋      | 44/120 [19:32<33:07, 26.16s/it]INFO:__main__:Processing ID 172: What activities do we have in the afternoon?...
+INFO:worldmm.memory.visual.memory:Indexed 1763 video clips up to 312085702
+INFO:__main__:ID 172 Answer: B, Gold: B, Correct: True // Accuracy: 24/45 = 0.5333
+ 38%|███▊      | 45/120 [19:58<32:33, 26.04s/it]INFO:__main__:Processing ID 174: What other styles were mentioned the last time we ...
+INFO:worldmm.memory.visual.memory:Indexed 1787 video clips up to 312205419
+INFO:__main__:ID 174 Answer: D, Gold: D, Correct: True // Accuracy: 25/46 = 0.5435
+ 38%|███▊      | 46/120 [20:24<32:18, 26.20s/it]INFO:__main__:Processing ID 175: What are we planning to do outdoors?...
+INFO:worldmm.memory.visual.memory:Indexed 1826 video clips up to 314501909
+INFO:__main__:ID 175 Answer: B, Gold: B, Correct: True // Accuracy: 26/47 = 0.5532
+ 39%|███▉      | 47/120 [20:49<31:14, 25.67s/it]INFO:__main__:Processing ID 178: Alice mentioned whether AI can understand why we t...
+INFO:worldmm.memory.visual.memory:Indexed 1863 video clips up to 315085205
+INFO:__main__:ID 178 Answer: C, Gold: D, Correct: False // Accuracy: 26/48 = 0.5417
+ 40%|████      | 48/120 [21:14<30:37, 25.53s/it]INFO:__main__:Processing ID 181: Who wore a hat while walking in the park?...
+INFO:worldmm.memory.visual.memory:Indexed 1962 video clips up to 315582407
+INFO:__main__:ID 181 Answer: D, Gold: C, Correct: False // Accuracy: 26/49 = 0.5306
+ 41%|████      | 49/120 [21:43<31:38, 26.74s/it]INFO:__main__:Processing ID 192: Who usually pays when going out today?...
+INFO:worldmm.memory.visual.memory:Indexed 2040 video clips up to 316371300
+INFO:__main__:ID 192 Answer: C, Gold: C, Correct: True // Accuracy: 27/50 = 0.5400
+ 42%|████▏     | 50/120 [22:10<31:13, 26.77s/it]INFO:__main__:Processing ID 193: When was the last time you stood on the escalator?...
+INFO:worldmm.memory.visual.memory:Indexed 2042 video clips up to 316381803
+INFO:__main__:ID 193 Answer: C, Gold: A, Correct: False // Accuracy: 27/51 = 0.5294
+ 42%|████▎     | 51/120 [22:37<30:58, 26.94s/it]INFO:__main__:Processing ID 194: Which tool was not purchased last time in this sho...
+INFO:worldmm.memory.visual.memory:Indexed 2043 video clips up to 316384310
+INFO:__main__:ID 194 Answer: C, Gold: C, Correct: True // Accuracy: 28/52 = 0.5385
+ 43%|████▎     | 52/120 [23:05<30:35, 26.99s/it]INFO:__main__:Processing ID 196: What ingredients do we need to buy?...
+INFO:worldmm.memory.visual.memory:Indexed 2045 video clips up to 316393510
+INFO:__main__:ID 196 Answer: D, Gold: A, Correct: False // Accuracy: 28/53 = 0.5283
+ 44%|████▍     | 53/120 [23:30<29:41, 26.59s/it]INFO:__main__:Processing ID 198: When was the last time eggs were bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2054 video clips up to 316441707
+INFO:__main__:ID 198 Answer: A, Gold: D, Correct: False // Accuracy: 28/54 = 0.5185
+ 45%|████▌     | 54/120 [23:57<29:18, 26.65s/it]INFO:__main__:Processing ID 206: Why did Tasha check out both times at the supermar...
+INFO:worldmm.memory.visual.memory:Indexed 2109 video clips up to 317113302
+INFO:__main__:ID 206 Answer: A, Gold: A, Correct: True // Accuracy: 29/55 = 0.5273
+ 46%|████▌     | 55/120 [24:25<29:27, 27.19s/it]INFO:__main__:Processing ID 217: What task does Tasha have tonight?...
+INFO:worldmm.memory.visual.memory:Indexed 2241 video clips up to 319582402
+INFO:__main__:ID 217 Answer: A, Gold: A, Correct: True // Accuracy: 30/56 = 0.5357
+ 47%|████▋     | 56/120 [24:52<28:51, 27.05s/it]INFO:__main__:Processing ID 224: Who helped Shure last time he lit the fire?...
+INFO:worldmm.memory.visual.memory:Indexed 2343 video clips up to 320490702
+INFO:__main__:ID 224 Answer: B, Gold: B, Correct: True // Accuracy: 31/57 = 0.5439
+ 48%|████▊     | 57/120 [25:18<28:00, 26.67s/it]INFO:__main__:Processing ID 225: What do we plan to do with the mangoes...
+INFO:worldmm.memory.visual.memory:Indexed 2346 video clips up to 321012656
+INFO:__main__:ID 225 Answer: A, Gold: A, Correct: True // Accuracy: 32/58 = 0.5517
+ 48%|████▊     | 58/120 [25:45<27:41, 26.80s/it]INFO:__main__:Processing ID 229: What drink combination can we try at this gatherin...
+INFO:worldmm.memory.visual.memory:Indexed 2389 video clips up to 321223302
+INFO:__main__:ID 229 Answer: A, Gold: C, Correct: False // Accuracy: 32/59 = 0.5424
+ 49%|████▉     | 59/120 [26:10<26:46, 26.33s/it]INFO:__main__:Processing ID 231: What other ingredients did I prepare the last time...
+INFO:worldmm.memory.visual.memory:Indexed 2417 video clips up to 321363410
+INFO:__main__:ID 231 Answer: D, Gold: A, Correct: False // Accuracy: 32/60 = 0.5333
+ 50%|█████     | 60/120 [26:40<27:28, 27.48s/it]INFO:__main__:Processing ID 245: How many times did I protect the fire seed?...
+INFO:worldmm.memory.visual.memory:Indexed 2561 video clips up to 322483306
+INFO:__main__:ID 245 Answer: D, Gold: B, Correct: False // Accuracy: 32/61 = 0.5246
+ 51%|█████     | 61/120 [27:08<27:00, 27.46s/it]INFO:__main__:Processing ID 251: What is Katrina's room decoration plan?...
+INFO:worldmm.memory.visual.memory:Indexed 2595 video clips up to 411014017
+INFO:__main__:ID 251 Answer: B, Gold: C, Correct: False // Accuracy: 32/62 = 0.5161
+ 52%|█████▏    | 62/120 [27:32<25:38, 26.53s/it]INFO:__main__:Processing ID 254: What does Tasha need to buy to decorate the room?...
+INFO:worldmm.memory.visual.memory:Indexed 2621 video clips up to 411145407
+INFO:__main__:ID 254 Answer: B, Gold: D, Correct: False // Accuracy: 32/63 = 0.5079
+ 52%|█████▎    | 63/120 [27:59<25:07, 26.45s/it]INFO:__main__:Processing ID 256: On the first day, who did Tasha ask to bring her a...
+INFO:worldmm.memory.visual.memory:Indexed 2646 video clips up to 411270750
+INFO:__main__:ID 256 Answer: B, Gold: D, Correct: False // Accuracy: 32/64 = 0.5000
+ 53%|█████▎    | 64/120 [28:26<24:59, 26.78s/it]INFO:__main__:Processing ID 258: When were the oysters bought?...
+INFO:worldmm.memory.visual.memory:Indexed 2661 video clips up to 411345902
+INFO:__main__:ID 258 Answer: B, Gold: C, Correct: False // Accuracy: 32/65 = 0.4923
+ 54%|█████▍    | 65/120 [28:56<25:18, 27.61s/it]INFO:__main__:Processing ID 260: What did I take out the last time I opened the fri...
+INFO:worldmm.memory.visual.memory:Indexed 2665 video clips up to 411365009
+INFO:__main__:ID 260 Answer: D, Gold: C, Correct: False // Accuracy: 32/66 = 0.4848
+ 55%|█████▌    | 66/120 [29:24<25:02, 27.82s/it]INFO:__main__:Processing ID 263: Who navigated and led us all to Hema Fresh?...
+INFO:worldmm.memory.visual.memory:Indexed 2668 video clips up to 411381500
+INFO:__main__:ID 263 Answer: C, Gold: C, Correct: True // Accuracy: 33/67 = 0.4925
+ 56%|█████▌    | 67/120 [29:52<24:43, 27.99s/it]INFO:__main__:Processing ID 267: What activities can we hold in Shure's room?...
+INFO:worldmm.memory.visual.memory:Indexed 2708 video clips up to 411581510
+INFO:__main__:ID 267 Answer: A, Gold: A, Correct: True // Accuracy: 34/68 = 0.5000
+ 57%|█████▋    | 68/120 [30:17<23:29, 27.10s/it]INFO:__main__:Processing ID 275: Who was next to me the last time I made coffee?...
+INFO:worldmm.memory.visual.memory:Indexed 2799 video clips up to 412435200
+INFO:__main__:ID 275 Answer: A, Gold: D, Correct: False // Accuracy: 34/69 = 0.4928
+ 57%|█████▊    | 69/120 [30:42<22:28, 26.43s/it]INFO:__main__:Processing ID 276: Who was next to me the last time I made coffee?...
+INFO:__main__:ID 276 Answer: B, Gold: A, Correct: False // Accuracy: 34/70 = 0.4857
+ 58%|█████▊    | 70/120 [31:07<21:35, 25.90s/it]INFO:__main__:Processing ID 283: Where was the bread found?...
+INFO:worldmm.memory.visual.memory:Indexed 2880 video clips up to 413240213
+INFO:__main__:ID 283 Answer: C, Gold: C, Correct: True // Accuracy: 35/71 = 0.4930
+ 59%|█████▉    | 71/120 [31:32<20:58, 25.69s/it]INFO:__main__:Processing ID 286: Who do I usually sit with during meals?...
+INFO:worldmm.memory.visual.memory:Indexed 2889 video clips up to 413285000
+INFO:__main__:ID 286 Answer: A, Gold: C, Correct: False // Accuracy: 35/72 = 0.4861
+ 60%|██████    | 72/120 [31:59<20:48, 26.02s/it]INFO:__main__:Processing ID 293: What is the first ingredient in the shopping cart ...
+INFO:worldmm.memory.visual.memory:Indexed 3000 video clips up to 416132300
+INFO:__main__:ID 293 Answer: B, Gold: C, Correct: False // Accuracy: 35/73 = 0.4795
+ 61%|██████    | 73/120 [32:28<21:10, 27.02s/it]INFO:__main__:Processing ID 294: When was the last time Lucia took a picture?...
+INFO:worldmm.memory.visual.memory:Indexed 3067 video clips up to 416465813
+INFO:__main__:ID 294 Answer: A, Gold: C, Correct: False // Accuracy: 35/74 = 0.4730
+ 62%|██████▏   | 74/120 [32:53<20:16, 26.45s/it]INFO:__main__:Processing ID 296: Now Shure is playing the guitar, what was the envi...
+INFO:worldmm.memory.visual.memory:Indexed 3101 video clips up to 417045506
+INFO:__main__:ID 296 Answer: D, Gold: D, Correct: True // Accuracy: 36/75 = 0.4800
+ 62%|██████▎   | 75/120 [33:19<19:44, 26.32s/it]INFO:__main__:Processing ID 307: What do we plan to eat for lunch?...
+INFO:worldmm.memory.visual.memory:Indexed 3260 video clips up to 418242219
+INFO:__main__:ID 307 Answer: A, Gold: A, Correct: True // Accuracy: 37/76 = 0.4868
+ 63%|██████▎   | 76/120 [33:45<19:09, 26.13s/it]INFO:__main__:Processing ID 308: Who usually sings when Shure plays the guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 3296 video clips up to 418422500
+INFO:__main__:ID 308 Answer: B, Gold: D, Correct: False // Accuracy: 37/77 = 0.4805
+ 64%|██████▍   | 77/120 [34:11<18:36, 25.97s/it]INFO:__main__:Processing ID 314: Who discussed renting clothes with me at noon toda...
+INFO:worldmm.memory.visual.memory:Indexed 3460 video clips up to 421563804
+INFO:__main__:ID 314 Answer: A, Gold: A, Correct: True // Accuracy: 38/78 = 0.4872
+ 65%|██████▌   | 78/120 [34:36<18:03, 25.81s/it]INFO:__main__:Processing ID 334: When was the last time I plugged a cable into the ...
+INFO:worldmm.memory.visual.memory:Indexed 3608 video clips up to 511464307
+INFO:__main__:ID 334 Answer: A, Gold: A, Correct: True // Accuracy: 39/79 = 0.4937
+ 66%|██████▌   | 79/120 [35:03<17:48, 26.05s/it]INFO:__main__:Processing ID 335: What is the milk used for?...
+INFO:worldmm.memory.visual.memory:Indexed 3612 video clips up to 511484717
+INFO:__main__:ID 335 Answer: C, Gold: C, Correct: True // Accuracy: 40/80 = 0.5000
+ 67%|██████▋   | 80/120 [35:28<17:17, 25.93s/it]INFO:__main__:Processing ID 337: Who gave Tasha the AD calcium milk she is holding?...
+INFO:worldmm.memory.visual.memory:Indexed 3673 video clips up to 512190913
+INFO:__main__:ID 337 Answer: C, Gold: C, Correct: True // Accuracy: 41/81 = 0.5062
+ 68%|██████▊   | 81/120 [35:56<17:14, 26.54s/it]INFO:__main__:Processing ID 352: Who joined the shopping trip this time compared to...
+INFO:worldmm.memory.visual.memory:Indexed 3851 video clips up to 516052304
+INFO:__main__:ID 352 Answer: B, Gold: A, Correct: False // Accuracy: 41/82 = 0.5000
+ 68%|██████▊   | 82/120 [36:26<17:22, 27.43s/it]INFO:__main__:Processing ID 354: Who was I with the last time I stood on the escala...
+INFO:worldmm.memory.visual.memory:Indexed 3853 video clips up to 516062618
+INFO:__main__:ID 354 Answer: D, Gold: D, Correct: True // Accuracy: 42/83 = 0.5060
+ 69%|██████▉   | 83/120 [36:53<16:52, 27.36s/it]INFO:__main__:Processing ID 357: Who do I usually shop with?...
+INFO:worldmm.memory.visual.memory:Indexed 3862 video clips up to 516103904
+INFO:__main__:ID 357 Answer: B, Gold: B, Correct: True // Accuracy: 43/84 = 0.5119
+ 70%|███████   | 84/120 [37:22<16:42, 27.85s/it]INFO:__main__:Processing ID 360: Who was next to me the last time I was taste-testi...
+INFO:worldmm.memory.visual.memory:Indexed 3870 video clips up to 516145504
+INFO:__main__:ID 360 Answer: D, Gold: D, Correct: True // Accuracy: 44/85 = 0.5176
+ 71%|███████   | 85/120 [37:49<16:10, 27.73s/it]INFO:__main__:Processing ID 366: When was the last time I used the ride-hailing app...
+INFO:worldmm.memory.visual.memory:Indexed 3918 video clips up to 516383108
+INFO:__main__:ID 366 Answer: B, Gold: D, Correct: False // Accuracy: 44/86 = 0.5116
+ 72%|███████▏  | 86/120 [38:13<14:55, 26.35s/it]INFO:__main__:Processing ID 369: How do we get home after shopping?...
+INFO:worldmm.memory.visual.memory:Indexed 3924 video clips up to 516414404
+INFO:__main__:ID 369 Answer: B, Gold: B, Correct: True // Accuracy: 45/87 = 0.5172
+ 72%|███████▎  | 87/120 [38:42<14:57, 27.18s/it]INFO:__main__:Processing ID 371: What do we plan to eat today?...
+INFO:worldmm.memory.visual.memory:Indexed 3948 video clips up to 518025517
+INFO:__main__:ID 371 Answer: C, Gold: D, Correct: False // Accuracy: 45/88 = 0.5114
+ 73%|███████▎  | 88/120 [39:08<14:23, 26.97s/it]INFO:__main__:Processing ID 374: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 3952 video clips up to 518045716
+INFO:__main__:ID 374 Answer: D, Gold: C, Correct: False // Accuracy: 45/89 = 0.5056
+ 74%|███████▍  | 89/120 [39:35<13:51, 26.83s/it]INFO:__main__:Processing ID 377: When was the last time the grill in the yard was u...
+INFO:worldmm.memory.visual.memory:Indexed 4004 video clips up to 518303001
+INFO:__main__:ID 377 Answer: A, Gold: D, Correct: False // Accuracy: 45/90 = 0.5000
+ 75%|███████▌  | 90/120 [40:02<13:26, 26.88s/it]INFO:__main__:Processing ID 380: When was the white microwave in the kitchen last u...
+INFO:worldmm.memory.visual.memory:Indexed 4014 video clips up to 518353711
+INFO:__main__:ID 380 Answer: B, Gold: D, Correct: False // Accuracy: 45/91 = 0.4945
+ 76%|███████▌  | 91/120 [40:28<12:50, 26.57s/it]INFO:__main__:Processing ID 382: When was the last time these oven mitts were used?...
+INFO:worldmm.memory.visual.memory:Indexed 4023 video clips up to 518401702
+INFO:__main__:ID 382 Answer: A, Gold: B, Correct: False // Accuracy: 45/92 = 0.4891
+ 77%|███████▋  | 92/120 [40:55<12:33, 26.89s/it]INFO:__main__:Processing ID 383: Who bought the blueberries?...
+INFO:worldmm.memory.visual.memory:Indexed 4024 video clips up to 518402915
+INFO:__main__:ID 383 Answer: B, Gold: C, Correct: False // Accuracy: 45/93 = 0.4839
+ 78%|███████▊  | 93/120 [41:24<12:23, 27.54s/it]INFO:__main__:Processing ID 392: Who made the egg tart on the table?...
+INFO:worldmm.memory.visual.memory:Indexed 4226 video clips up to 520220710
+INFO:__main__:ID 392 Answer: C, Gold: A, Correct: False // Accuracy: 45/94 = 0.4787
+ 78%|███████▊  | 94/120 [41:51<11:51, 27.35s/it]INFO:__main__:Processing ID 393: The last time Choiszt was mixing cream, what were ...
+INFO:worldmm.memory.visual.memory:Indexed 4229 video clips up to 520233904
+INFO:__main__:ID 393 Answer: A, Gold: B, Correct: False // Accuracy: 45/95 = 0.4737
+ 79%|███████▉  | 95/120 [42:18<11:21, 27.28s/it]INFO:__main__:Processing ID 402: What does Tasha want to drink?...
+INFO:worldmm.memory.visual.memory:Indexed 4307 video clips up to 521025517
+INFO:__main__:ID 402 Answer: D, Gold: D, Correct: True // Accuracy: 46/96 = 0.4792
+ 80%|████████  | 96/120 [42:45<10:53, 27.21s/it]INFO:__main__:Processing ID 403: Why doesn't Tasha eat stewed dishes?...
+INFO:__main__:ID 403 Answer: C, Gold: B, Correct: False // Accuracy: 46/97 = 0.4742
+ 81%|████████  | 97/120 [43:10<10:11, 26.58s/it]INFO:__main__:Processing ID 408: What should be arranged in Alice's room?...
+INFO:worldmm.memory.visual.memory:Indexed 4477 video clips up to 610010305
+INFO:__main__:ID 408 Answer: B, Gold: D, Correct: False // Accuracy: 46/98 = 0.4694
+ 82%|████████▏ | 98/120 [43:35<09:31, 25.98s/it]INFO:__main__:Processing ID 409: When did I last pick up the takeout?...
+INFO:worldmm.memory.visual.memory:Indexed 4479 video clips up to 610022614
+INFO:__main__:ID 409 Answer: A, Gold: D, Correct: False // Accuracy: 46/99 = 0.4646
+ 82%|████████▎ | 99/120 [44:00<09:01, 25.81s/it]INFO:__main__:Processing ID 414: Under what circumstances did I last inquire about ...
+INFO:worldmm.memory.visual.memory:Indexed 4493 video clips up to 610091303
+INFO:__main__:ID 414 Answer: D, Gold: B, Correct: False // Accuracy: 46/100 = 0.4600
+ 83%|████████▎ | 100/120 [44:25<08:31, 25.58s/it]INFO:__main__:Processing ID 417: Who used the kitchen knife before Nicous?...
+INFO:worldmm.memory.visual.memory:Indexed 4539 video clips up to 610322302
+INFO:__main__:ID 417 Answer: D, Gold: D, Correct: True // Accuracy: 47/101 = 0.4653
+ 84%|████████▍ | 101/120 [44:53<08:17, 26.19s/it]INFO:__main__:Processing ID 429: Now that I have opened the red refrigerator on the...
+INFO:worldmm.memory.visual.memory:Indexed 4835 video clips up to 613001417
+INFO:__main__:ID 429 Answer: B, Gold: D, Correct: False // Accuracy: 47/102 = 0.4608
+ 85%|████████▌ | 102/120 [45:22<08:08, 27.13s/it]INFO:__main__:Processing ID 430: Now I am lying in bed, what was I doing the last t...
+INFO:worldmm.memory.visual.memory:Indexed 4853 video clips up to 613091804
+INFO:__main__:ID 430 Answer: A, Gold: B, Correct: False // Accuracy: 47/103 = 0.4563
+ 86%|████████▌ | 103/120 [45:45<07:16, 25.68s/it]INFO:__main__:Processing ID 438: When was the last time the microwave in the kitche...
+INFO:worldmm.memory.visual.memory:Indexed 5064 video clips up to 616384716
+INFO:__main__:ID 438 Answer: A, Gold: D, Correct: False // Accuracy: 47/104 = 0.4519
+ 87%|████████▋ | 104/120 [46:11<06:54, 25.89s/it]INFO:__main__:Processing ID 445: When was the last time Alice made this puppy?...
+INFO:worldmm.memory.visual.memory:Indexed 5131 video clips up to 617170912
+INFO:__main__:ID 445 Answer: B, Gold: A, Correct: False // Accuracy: 47/105 = 0.4476
+ 88%|████████▊ | 105/120 [46:37<06:28, 25.91s/it]INFO:__main__:Processing ID 448: Shure is playing guitar, who else can play guitar?...
+INFO:worldmm.memory.visual.memory:Indexed 5226 video clips up to 619494312
+INFO:__main__:ID 448 Answer: D, Gold: C, Correct: False // Accuracy: 47/106 = 0.4434
+ 88%|████████▊ | 106/120 [47:04<06:07, 26.23s/it]INFO:__main__:Processing ID 459: Who was listening nearby when Choiszt was playing ...
+INFO:worldmm.memory.visual.memory:Indexed 5376 video clips up to 621044820
+INFO:__main__:ID 459 Answer: D, Gold: A, Correct: False // Accuracy: 47/107 = 0.4393
+ 89%|████████▉ | 107/120 [47:31<05:42, 26.36s/it]INFO:__main__:Processing ID 465: Who introduced the product 'Cardboard Puppy' to ev...
+INFO:worldmm.memory.visual.memory:Indexed 5376 video clips up to 621044825
+INFO:__main__:ID 465 Answer: D, Gold: D, Correct: True // Accuracy: 48/108 = 0.4444
+ 90%|█████████ | 108/120 [47:57<05:17, 26.44s/it]INFO:__main__:Processing ID 469: What does Tasha like to eat?...
+INFO:worldmm.memory.visual.memory:Indexed 5495 video clips up to 622042507
+INFO:__main__:ID 469 Answer: B, Gold: A, Correct: False // Accuracy: 48/109 = 0.4404
+ 91%|█████████ | 109/120 [48:23<04:49, 26.31s/it]INFO:__main__:Processing ID 471: What flavor of porridge does Alice like?...
+INFO:worldmm.memory.visual.memory:Indexed 5495 video clips up to 622042509
+INFO:__main__:ID 471 Answer: A, Gold: A, Correct: True // Accuracy: 49/110 = 0.4455
+ 92%|█████████▏| 110/120 [48:48<04:19, 25.93s/it]INFO:__main__:Processing ID 473: Why do we conduct the QA activity first during the...
+INFO:worldmm.memory.visual.memory:Indexed 5507 video clips up to 622101420
+INFO:__main__:ID 473 Answer: B, Gold: A, Correct: False // Accuracy: 49/111 = 0.4414
+ 92%|█████████▎| 111/120 [49:16<03:57, 26.36s/it]INFO:__main__:Processing ID 476: What is the purpose of ego coins?...
+INFO:worldmm.memory.visual.memory:Indexed 5520 video clips up to 622164902
+INFO:__main__:ID 476 Answer: B, Gold: B, Correct: True // Accuracy: 50/112 = 0.4464
+ 93%|█████████▎| 112/120 [49:42<03:29, 26.22s/it]INFO:__main__:Processing ID 479: What is the purpose of the glasses we wear?...
+INFO:__main__:ID 479 Answer: D, Gold: D, Correct: True // Accuracy: 51/113 = 0.4513
+ 94%|█████████▍| 113/120 [50:07<03:01, 25.95s/it]INFO:__main__:Processing ID 481: What song does Jack plan to sing?...
+INFO:__main__:ID 481 Answer: B, Gold: D, Correct: False // Accuracy: 51/114 = 0.4474
+ 95%|█████████▌| 114/120 [50:33<02:36, 26.01s/it]INFO:__main__:Processing ID 485: Who fidgets with items the most during discussions...
+INFO:worldmm.memory.visual.memory:Indexed 5557 video clips up to 712141402
+INFO:__main__:ID 485 Answer: A, Gold: A, Correct: True // Accuracy: 52/115 = 0.4522
+ 96%|█████████▌| 115/120 [50:59<02:09, 25.95s/it]INFO:__main__:Processing ID 486: Who fidgets with items the most during discussions...
+INFO:__main__:ID 486 Answer: B, Gold: B, Correct: True // Accuracy: 53/116 = 0.4569
+ 97%|█████████▋| 116/120 [51:25<01:43, 25.94s/it]INFO:__main__:Processing ID 493: When was the last time I used my phone to scan the...
+INFO:worldmm.memory.visual.memory:Indexed 5857 video clips up to 715132705
+INFO:__main__:ID 493 Answer: D, Gold: C, Correct: False // Accuracy: 53/117 = 0.4530
+ 98%|█████████▊| 117/120 [51:49<01:16, 25.49s/it]INFO:__main__:Processing ID 495: Why do I label the SD cards?...
+INFO:worldmm.memory.visual.memory:Indexed 5912 video clips up to 717395355
+INFO:__main__:ID 495 Answer: B, Gold: D, Correct: False // Accuracy: 53/118 = 0.4492
+ 98%|█████████▊| 118/120 [52:13<00:50, 25.13s/it]INFO:__main__:Processing ID 496: What song did Shure suggest we sing together?...
+INFO:worldmm.memory.visual.memory:Indexed 5962 video clips up to 718045007
+INFO:__main__:ID 496 Answer: B, Gold: B, Correct: True // Accuracy: 54/119 = 0.4538
+ 99%|█████████▉| 119/120 [52:40<00:25, 25.52s/it]INFO:__main__:Processing ID 497: When was the last time I paid via phone?...
+INFO:worldmm.memory.visual.memory:Indexed 5965 video clips up to 718060700
+INFO:__main__:ID 497 Answer: B, Gold: D, Correct: False // Accuracy: 54/120 = 0.4500
+100%|██████████| 120/120 [53:05<00:00, 25.25s/it]100%|██████████| 120/120 [53:05<00:00, 26.54s/it]
+INFO:__main__:
+==================================================
+INFO:__main__:Evaluation Complete  [condition E_prime]
+INFO:__main__:Subject: A1_JAKE
+INFO:__main__:Total: 120
+INFO:__main__:Correct: 54
+INFO:__main__:Accuracy: 0.4500
+INFO:__main__:Results saved to: /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/gazef_05_k20/E_prime.json
+INFO:__main__:==================================================
+INFO:worldmm.memory.memory:Memory cleanup complete
+
+=== 7. parser sanity check ==================================================
+<unknown>:406: SyntaxWarning: invalid escape sequence '\{'
+/home/minyoy/WorldMM/experiments/gaze_crop/results_qa/full_k20/E_prime.json
+  n=120  strict 56/120 = 46.7%   lenient 56/120 = 46.7%   (+0.0pp, 0 changed)
+/home/minyoy/WorldMM/experiments/gaze_crop/results_qa/full_k3/E_prime.json
+  n=120  strict 54/120 = 45.0%   lenient 54/120 = 45.0%   (+0.0pp, 0 changed)
+/home/minyoy/WorldMM/experiments/gaze_crop/results_qa/gazef_05_k20/E_prime.json
+  n=120  strict 54/120 = 45.0%   lenient 54/120 = 45.0%   (+0.0pp, 0 changed)
+/home/minyoy/WorldMM/experiments/gaze_crop/results_qa/gazef_05_k3/E_prime.json
+  n=120  strict 54/120 = 45.0%   lenient 54/120 = 45.0%   (+0.0pp, 0 changed)
+
+=== 8. digest ==================================================
+# gaze-crop 실험 다이제스트
+
+### gaze→이미지 transform
+
+- 실제로 쓴 값: **flipx+flipy** (사람이 고름; 근거 이미지는 `overlay/`, `variants/`)
+- 캡션 코사인 순위(참고): flipy > flipx+flipy / 36클립
+- 1위 `flipy` vs 2위 `flipx+flipy`: **tie(구분 안 됨)** (95% CI -0.0090..+0.0124)
+- 참고: 점수 1위는 `flipy` 인데 `flipx+flipy` 를 골랐음 — 이미지 판단을 우선한 결과
+
+### 1단계 recall (623클립 풀)
+
+pool pool.json, 120/120 문항 채점
+
+| arm | R@1 | R@3 | R@5 | R@10 | R@20 | R@50 | median rank |
+|---|---|---|---|---|---|---|---|
+| `center_05` | 0.8% | 3.3% | 5.0% | 7.5% | 12.5% | 22.5% | 118 |
+| `full` | 0.8% | 2.5% | 2.5% | 6.7% | 15.8% | 27.5% | 114 |
+| `gaze_05` | 0.8% | 2.5% | 3.3% | 6.7% | 12.5% | 26.7% | 98 |
+| `gazef_05` | 1.7% | 3.3% | 4.2% | 7.5% | 12.5% | 28.3% | 109 |
+| `gazef_05_rand` | 0.8% | 2.5% | 2.5% | 5.8% | 7.5% | 24.2% | 120 |
+| `pkl` | 1.7% | 1.7% | 4.2% | 8.3% | 14.2% | 30.8% | 111 |
+
+paired diff at k=3:
+- `center_05` − `full` = **+0.8pp** (95% CI +0.0..+2.5; center_05 only 1, full only 0)
+- `center_05` − `gaze_05` = **+0.8pp** (95% CI -1.7..+4.2; center_05 only 2, gaze_05 only 1)
+- `center_05` − `gazef_05` = **+0.0pp** (95% CI -2.5..+2.5; center_05 only 1, gazef_05 only 1)
+- `center_05` − `gazef_05_rand` = **+0.8pp** (95% CI -1.7..+3.3; center_05 only 2, gazef_05_rand only 1)
+- `center_05` − `pkl` = **+1.7pp** (95% CI +0.0..+4.2; center_05 only 2, pkl only 0)
+- `full` − `gaze_05` = **+0.0pp** (95% CI -2.5..+2.5; full only 1, gaze_05 only 1)
+- `full` − `gazef_05` = **-0.8pp** (95% CI -2.5..+0.0; full only 0, gazef_05 only 1)
+- `full` − `gazef_05_rand` = **+0.0pp** (95% CI -2.5..+2.5; full only 1, gazef_05_rand only 1)
+- `full` − `pkl` = **+0.8pp** (95% CI +0.0..+2.5; full only 1, pkl only 0)
+- `gaze_05` − `gazef_05` = **-0.8pp** (95% CI -3.3..+1.7; gaze_05 only 1, gazef_05 only 2)
+- `gaze_05` − `gazef_05_rand` = **+0.0pp** (95% CI -2.5..+2.5; gaze_05 only 1, gazef_05_rand only 1)
+- `gaze_05` − `pkl` = **+0.8pp** (95% CI +0.0..+2.5; gaze_05 only 1, pkl only 0)
+- `gazef_05` − `gazef_05_rand` = **+0.8pp** (95% CI -1.7..+3.3; gazef_05 only 2, gazef_05_rand only 1)
+- `gazef_05` − `pkl` = **+1.7pp** (95% CI +0.0..+4.2; gazef_05 only 2, pkl only 0)
+- `gazef_05_rand` − `pkl` = **+0.8pp** (95% CI +0.0..+2.5; gazef_05_rand only 1, pkl only 0)
+
+need_audio 분해 (False 행이 실제 여유분):
+- False (n=70): center_05 2.9%, full 1.4%, gaze_05 1.4%, gazef_05 1.4%, gazef_05_rand 1.4%, pkl 1.4%
+- True (n=50): center_05 4.0%, full 4.0%, gaze_05 4.0%, gazef_05 6.0%, gazef_05_rand 4.0%, pkl 2.0%
+
+### 2단계 recall (6,223클립 = 실제 인덱스 크기)
+
+pool pool_all.json, 120/120 문항 채점
+
+| arm | R@1 | R@3 | R@5 | R@10 | R@20 | R@50 | median rank |
+|---|---|---|---|---|---|---|---|
+| `full` | 0.0% | 0.8% | 0.8% | 1.7% | 2.5% | 3.3% | 878 |
+| `gazef_05` | 0.8% | 0.8% | 1.7% | 2.5% | 2.5% | 5.8% | 909 |
+
+paired diff at k=3:
+- `full` − `gazef_05` = **+0.0pp** (95% CI -2.5..+2.5; full only 1, gazef_05 only 1)
+
+need_audio 분해 (False 행이 실제 여유분):
+- False (n=70): full 1.4%, gazef_05 0.0%
+- True (n=50): full 0.0%, gazef_05 2.0%
+
+### 2단계 정확도 (조건 E′, 인덱스만 교체)
+
+| arm | 정확도 |
+|---|---|
+| _B (텍스트만)_ | _40.8%_ |
+| _E (에이전트 자율)_ | _41.7%_ |
+| _E' (저자 임베딩, visual 강제)_ | _45.8%_ |
+| `full_k20` | **46.7%** |
+| `full_k3` | **45.0%** |
+| `gazef_05_k20` | **45.0%** |
+| `gazef_05_k3` | **45.0%** |
+
+- k=3: `gazef_05` − `full` = **+0.0pp** (같은 풀·같은 플래그·같은 k의 자체 대조)
+- k=20: `gazef_05` − `full` = **-1.7pp** (같은 풀·같은 플래그·같은 k의 자체 대조)
+
+파서 확인: `python experiments/gaze_crop/rescore.py /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/*/E_prime.json`
+
+
+wrote /home/minyoy/WorldMM/experiments/gaze_crop/analysis/DIGEST.md
+
+=== 2026-09-27 07:27:56  stage 2 done. log: /home/minyoy/WorldMM/experiments/gaze_crop/logs/stage2_20260927_010606.log ==================================================
