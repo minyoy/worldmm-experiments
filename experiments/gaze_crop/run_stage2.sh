@@ -69,7 +69,7 @@ echo "cpus: ${MAX_CPUS:-unbounded}${MAX_CPUS:+ cores (taskset 0-$((MAX_CPUS - 1)
 say "0. preflight"
 FATAL=0
 [ -d "$VIDEO_ROOT" ] || { echo "FATAL: video root missing: $VIDEO_ROOT"; FATAL=1; }
-[ -f "$HERE/results/recall_question.json" ] || { echo "FATAL: stage 1 has not run (no results/recall_question.json)"; FATAL=1; }
+[ -f "$HERE/results/recall_stage1_question_tol0.json" ] || { echo "FATAL: stage 1 has not run (no results/recall_stage1_question_tol0.json)"; FATAL=1; }
 
 # E' replays condition B's cached text context; without it eval_egolife.py refuses
 N_CTX=$(ls "$VB/text_context"/*.json 2>/dev/null | wc -l | tr -d ' ')
@@ -81,7 +81,7 @@ if [ "$N_CTX" -lt 120 ] && [ "$SKIP_QA" != "1" ]; then
 fi
 
 # which arm goes forward, and was it actually worth it
-GATE_OUT=$("$PY" "$HERE/gate.py" --results "$HERE/results/recall_question.json" \
+GATE_OUT=$("$PY" "$HERE/gate.py" --results "$HERE/results/recall_stage1_question_tol0.json" \
            --min-gain-pp "$MIN_GAIN_PP" 2>&1)
 GATE_RC=$?
 echo "$GATE_OUT"
@@ -121,19 +121,26 @@ say "3. embeddings: full + $ARM  (stage 1's 623 clips are reused; ~5,600 left pe
 say "4. recall at the real index size"
 # --arms is explicit: recall_eval scores a question only when every loaded arm can score it, so a
 # leftover 623-clip arm in emb/ would gut the comparison
-"$PY" "$HERE/recall_eval.py" --pool "$POOL_ALL" --arms full "$ARM" \
-    --out "$HERE/results/recall_allclips.json" \
-    --markdown "$HERE/analysis/recall_allclips.md"
+"$PY" "$HERE/recall_eval.py" --pool "$POOL_ALL" --arms full "$ARM" --target-tolerance-sec 0 \
+    --out "$HERE/results/recall_main_tol0.json" \
+    --markdown "$HERE/analysis/recall_main_tol0.md"
 
 # How far apart the two arms actually are at each k. Recall alone cannot say: two arms can score the
 # same and still disagree on which questions they got. Only the discordant counts (a_only + b_only)
 # bound how much the accuracy numbers in step 6 could possibly differ -- if they are ~0 at some k,
 # the LLM sees the same context in both arms there and any gap it reports is noise. Scoring only,
 # no embedding, so this is seconds per k. Printed for reading in the morning; nothing branches on it.
+# Output goes to results/discordance/ (gitignored), not results/: every one of these files is the
+# same run as step 4 with a different --main-k -- identical recall and identical per-question ranks --
+# so they are recomputable from recall_main_tol0.json and only the printed lines are wanted here.
+# Leaving --markdown unset would drop these into analysis/ as recall_scratch_* files; before that
+# default changed, it overwrote the stage-1 623-clip table.
 say "4b. how much do the arms disagree at each k?"
+mkdir -p "$HERE/results/discordance"
 for K in 1 3 5 10 20 50; do
   "$PY" "$HERE/recall_eval.py" --pool "$POOL_ALL" --arms full "$ARM" --main-k "$K" \
-      --out "$HERE/results/recall_allclips_k$K.json" 2>/dev/null \
+      --out "$HERE/results/discordance/recall_k$K.json" \
+      --markdown "$HERE/results/discordance/recall_k$K.md" 2>/dev/null \
       | sed -n "/paired comparisons at k=$K/,/^$/p"
 done
 

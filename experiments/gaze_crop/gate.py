@@ -3,7 +3,7 @@
 Did a gaze arm beat `full` in stage 1? Prints the comparison and exits 0 if yes, 1 if no, so a
 shell script can branch on it without parsing numbers out of a log.
 
-    python experiments/gaze_crop/gate.py --arms gaze@0.5 gazef@0.5
+    python experiments/gaze_crop/gate.py --arms gazef@0.5
     python experiments/gaze_crop/gate.py --min-gain-pp 2.0 --quiet && echo "worth stage 2"
 
 The winning arm's name is printed as  BEST=<arm>  so run_stage2.sh can carry that one forward.
@@ -24,8 +24,9 @@ def canon(n: str) -> str:
 
 def main() -> int:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--results", default=os.path.join(RESULTS_DIR, "recall_question.json"))
-    ap.add_argument("--arms", nargs="+", default=["gaze@0.5", "gazef@0.5"],
+    ap.add_argument("--results",
+                    default=os.path.join(RESULTS_DIR, "recall_stage1_question_tol0.json"))
+    ap.add_argument("--arms", nargs="+", default=["gazef@0.5"],
                     help="candidate gaze arms; the best one is reported")
     ap.add_argument("--baseline", default="full")
     ap.add_argument("--min-gain-pp", type=float, default=0.0,

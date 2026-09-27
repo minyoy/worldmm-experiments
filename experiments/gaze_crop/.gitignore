@@ -3,9 +3,10 @@ emb/
 frames/
 gaze_raw/
 gaze_points.json
-gaze_random.json
+gaze_random*.json
 pool_all.json
 overlay/
 results_qa/
+results/discordance/
 .cache_queries.npz
 __pycache__/

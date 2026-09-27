@@ -32,25 +32,30 @@ A1_JAKE 120문항에 대한 visual-bottleneck 실험 결과:
 | arm | 픽셀 | 역할 |
 |---|---|---|
 | `full` | 전체 화면 | 베이스라인 (기존 임베딩이 본 것과 같은 픽셀) |
-| `center@R` | 정사각 crop, 한 변 = R × 짧은 변, 화면 중앙 | **핵심 대조군** |
-| `gaze@R` | 같은 박스를 **클립 median gaze** 지점 중심으로 | 실험군 (약함, 아래 참고) |
+| `center@R` | 정사각 crop, 한 변 = R × 짧은 변, 화면 중앙 고정 | **자르기 자체의 효과** |
 | `gazef@R` | 같은 박스가 **프레임별 gaze**를 따라감 | 실험군 (본진) |
-| `gaze@R` + `--gaze gaze_random.json` | 같은 박스를 무작위 위치에 | crop-anywhere 대조군 |
+| `gazef@R` + `--gaze gaze_random_frames.json` (`_randf`) | 같은 박스가 **프레임마다 무작위 위치**로 | **움직임 자체의 효과** |
 | `pkl` | 저자의 `visual_embeddings.pkl` 행 | 참조용 (아래 주의사항 참고) |
 
 **핵심 비교는 `gazef@R` vs `full`입니다** — 프레임마다 시선 지점을 따라가며 자른 것이 전체 프레임보다
 나은가. 그게 1단계와 2단계의 헤드라인 숫자입니다.
 
-`gaze@R`(클립 median 1개로 박스 고정)은 헤드라인이 아닙니다. 실제 데이터에서 클립별 median gaze는
-x p10–p90 **0.48–0.55**, y **0.51–0.62** — 거의 화면 중앙에 뭉쳐 있습니다. 30초간의 saccade를 median으로
-평균 내면 중앙으로 수렴하기 때문입니다. 그래서 `gaze@R`은 구조적으로 `center@R`에 가깝고, 시선의 위치
-정보는 프레임별로 따라갈 때만 살아남습니다.
+박스를 **고정**하는 gaze 계열 arm은 제거했습니다(2026-09-27). 실제 데이터에서 클립별 median gaze는
+x p10–p90 **0.48–0.55**, y **0.51–0.62** — 30초간의 saccade를 median으로 평균 내면 거의 화면 중앙으로
+수렴합니다. 그래서 median에 박스를 고정한 `gaze@R`은 `center@R`과 거의 같은 픽셀을 자르고, 고정 무작위
+박스도 `center@R`과 "중앙이냐 아니냐"만 다릅니다. 둘 다 1단계에서 한 번 재보고 코드에서 뺐습니다
+(`gaze@R` arm과 `--pseudo random` 옵션 자체를 삭제). 남은 대조군 둘이 `gazef@R`의 승리를 설명할 수 있는 두 대안을
+각각 끊습니다.
 
-그럼에도 두 arm을 같이 돌리는 이유는 **`gazef@R`이 지는 두 가지 경로를 갈라내기 위해서**입니다.
-박스가 프레임마다 튀면 16프레임이 연속된 영상처럼 보이지 않고, VLM2Vec은 연속 영상으로 학습된 모델이라
-위치를 정확히 맞춰도 그 흔들림 때문에 임베딩이 나빠질 수 있습니다. `gaze@R`은 박스가 고정이라 이 손실이
-없는 쪽이고, 게다가 median y가 0.561(거의 모든 클립이 중앙보다 아래 — 손과 책상을 보니까)이므로
-"유용한 영역이 중앙보다 체계적으로 아래인가"라는 값싼 가설도 함께 테스트합니다.
+| `gazef@R`이 이긴 이유 후보 | 끊는 비교 |
+|---|---|
+| 배경이 빠지고 대상이 커져서 (자르기) | `gazef@R` vs `center@R` |
+| 박스가 프레임마다 옮겨다녀 16프레임이 서로 다른 영역을 덮어서 (움직임) | `gazef@R` vs `_randf` |
+| 그 움직임이 하필 **시선**이라서 | 위 둘이 설명하지 못하고 남는 부분 |
+
+`_randf`가 필요한 이유는 `center@R`이 고정 박스라서입니다. 박스가 프레임마다 튀면 16프레임이 연속된
+영상처럼 보이지 않고, VLM2Vec은 연속 영상으로 학습된 모델이라 그 흔들림만으로도 임베딩이 달라집니다 —
+그 효과(해든 득이든)를 `gazef@R`과 같은 움직임 통계로 재현하는 arm이 `_randf`입니다.
 
 `center@R`은 **crop 자체의 효과**를 떼어내는 대조군입니다. 1인칭 영상은 중심 편향이 강해서 crop만으로도
 대상이 커지고 배경이 빠집니다. `center@R`이 없으면 `gazef@R > full`이 나와도 gaze 덕인지 crop 덕인지 말할
@@ -137,7 +142,7 @@ cat experiments/gaze_crop/analysis/DIGEST.md
 
 `run_stage1.sh`는 **`GAZE_TRANSFORM` 없이 부르면 transform 후보만 그려놓고 멈춥니다**(`compare_transforms.py`
 → 점수표 + `variants/*.jpg`). 라벨을 골라 다시 부르면: preflight → 풀(623) → gaze 준비(+overlay 렌더) →
-arm 임베딩(`full`, `center@R`, `gaze@R`, `gazef@R`, `pkl`, 무작위 대조군) → recall ×2 → **판정 출력**.
+arm 임베딩(`full`, `center@R`, `gazef@R`, `pkl`, `_randf` 대조군) → recall ×2 → **판정 출력**.
 마지막에 `gate.py`가 gaze 계열이 `full`을 이겼는지 찍고 다음 명령을 알려줍니다. 2단계는 직접 돌리지 않습니다.
 
 `run_stage2.sh`: preflight(1단계 결과, 조건 B의 `text_context` 120개) → 게이트 재확인 → 풀(6,223) →
@@ -156,7 +161,7 @@ arm 임베딩(`full`, `center@R`, `gaze@R`, `gazef@R`, `pkl`, 무작위 대조�
 | `FORCE=1` | – | 1단계가 실패해도 2단계 강행 |
 | `MIN_GAIN_PP` | `0.0` | 2단계로 넘어가는 데 필요한 recall 이득(%p) |
 | `SKIP_QA=1` | – | 2단계에서 임베딩·recall만, LLM 없이 |
-| `SKIP_CONTROLS=1` | – | 1단계에서 `pkl`·무작위 대조군 생략 |
+| `SKIP_CONTROLS=1` | – | 1단계에서 `pkl`·`_randf` 대조군 생략 |
 
 판정만 따로 보려면 `python experiments/gaze_crop/gate.py` (종료 코드 0=통과, 1=실패, 2=판정 불가).
 
@@ -246,8 +251,10 @@ python experiments/gaze_crop/compare_transforms.py  # GPU, ~10분
 #   -> variants/*.jpg 를 보고 transform 을 고른 뒤
 python experiments/gaze_crop/prepare_gaze.py --transform <고른 값> --dump-overlay 6
 python experiments/gaze_crop/embed_arms.py \
-    --arms full center@0.5 gaze@0.5 gazef@0.5                                       # GPU, ~25분
-python experiments/gaze_crop/recall_eval.py --query-source question
+    --arms full center@0.5 gazef@0.5                                                # GPU, ~20분
+python experiments/gaze_crop/recall_eval.py --query-source question \
+    --out experiments/gaze_crop/results/recall_stage1_question_tol0.json \
+    --markdown experiments/gaze_crop/analysis/recall_stage1_question_tol0.md
 python experiments/gaze_crop/gate.py            # 0=통과 1=실패 2=판정불가, BEST=<arm> 출력
 
 # 2단계 (위 gate 가 통과했을 때)
@@ -257,8 +264,8 @@ python experiments/gaze_crop/prepare_gaze.py --pool experiments/gaze_crop/pool_a
 python experiments/gaze_crop/embed_arms.py --pool experiments/gaze_crop/pool_all.json \
     --arms full gazef@0.5                                                           # GPU, ~2시간
 python experiments/gaze_crop/recall_eval.py --pool experiments/gaze_crop/pool_all.json \
-    --arms full gazef@0.5 --out experiments/gaze_crop/results/recall_allclips.json \
-    --markdown experiments/gaze_crop/analysis/recall_allclips.md
+    --arms full gazef@0.5 --out experiments/gaze_crop/results/recall_main_tol0.json \
+    --markdown experiments/gaze_crop/analysis/recall_main_tol0.md
 python experiments/gaze_crop/export_pkl.py --arm gazef@0.5 \
     --pool experiments/gaze_crop/pool_all.json
 python experiments/gaze_crop/export_pkl.py --arm full --pool experiments/gaze_crop/pool_all.json
@@ -316,8 +323,8 @@ depth 0.59 m에서 2.9° = 31 px, 0.3 m에서 5.7° = 61 px입니다(f=611 기�
 | 경로 | 내용 |
 |---|---|
 | `analysis/DIGEST.md` | **먼저 볼 것.** 1·2단계 숫자와 넘어야 할 기준선 한 화면 |
-| `results/recall_question.json`, `recall_keywords.json` | 1단계 recall (623클립 풀), 문항별 순위 포함 |
-| `results/recall_allclips.json` | 2단계 recall (6,223클립 = 실제 인덱스 크기) |
+| `results/recall_stage1_{question,keywords}_tol0.json` | 1단계 recall (623클립 풀), 문항별 순위 포함 |
+| `results/recall_{main,holdout,all}_tol{0,60}.json` | 6,223클립(실제 인덱스) recall. 문항집합 × tolerance 조합 |
 | `results_qa/<arm>/E_prime.json` | 2단계 정확도. 문항별 응답까지 |
 | `analysis/transform_choice.json` | transform 후보별 점수, 승자, tie 여부 |
 | `variants/*.jpg`, `overlay/*.jpg` | gaze 박스를 실제 프레임에 그린 것. transform 검증 증거 |
@@ -330,14 +337,13 @@ depth 0.59 m에서 2.9° = 31 px, 0.3 m에서 5.7° = 61 px입니다(f=611 기�
 
 | 결과 | 해석 | 다음 |
 |---|---|---|
-| `gazef@R` > `gaze@R` ≈ `center@R` | 프레임별 추종이 이득. 시선의 순간 위치가 정보다 | ratio 스윕 → 2단계 |
-| `gazef@R` < `gaze@R` ≈ `center@R` | 박스 흔들림 손해가 위치 이득보다 큼 | 고정 박스 계열로 2단계 |
-| `gaze@R` > `center@R`, 둘 다 `gazef@R`보다 높음 | 시선 추적이 아니라 "아래로 치우친 고정 crop"이 답 | 오프셋 crop을 별도 arm으로 |
+| `gazef@R` > `center@R`, `gazef@R` > `_randf` | 시선의 순간 위치가 정보다 | ratio 스윕 → 2단계 |
+| `gazef@R` ≈ `_randf` > `center@R` | 이득은 박스가 움직인 것 자체 (시선은 부수적) | 움직이는 crop을 값싸게(gaze 없이) 만드는 쪽으로 |
+| `gazef@R` ≈ `center@R` | 이득은 자르기 자체 | center crop으로 2단계, gaze는 접는다 |
 | 셋 다 ≈ `full` | 프레이밍이 병목이 아님 | 중단. `../visual_bottleneck/dpr_recall.py`의 oracle 쿼리 점검으로 |
 
-`gazef@R` 하나만 돌리면 첫 두 줄이 갈라지지 않습니다 — 졌을 때 "시선이 쓸모없다"인지 "흔들림 때문에
-졌다"인지 알 수 없습니다. 무작위 위치 대조군(`gaze_random.json`)은 그 아래를 받칩니다: `gazef@R`이 무작위
-crop도 못 이기면 위치 정보가 전혀 쓰이지 않고 있다는 뜻입니다.
+`gazef@R` 하나만 돌리면 이 네 줄이 갈라지지 않습니다 — 이겨도 왜 이겼는지 말할 수 없고, 져도 "시선이
+쓸모없다"인지 "흔들림 때문에 졌다"인지 알 수 없습니다.
 
 차이는 paired(같은 문항, 같은 쿼리 임베딩, 같은 candidate set)로 재고, 95% 부트스트랩 CI와 불일치 개수
 (`a only` / `b only`)를 함께 출력합니다. 이 표본 크기에서는 몇 문항이 뒤집힌 것도 추세처럼 보이기 때문입니다.

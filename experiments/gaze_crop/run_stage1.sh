@@ -46,7 +46,6 @@ N_DISTRACTORS="${N_DISTRACTORS:-500}"
 SKIP_CONTROLS="${SKIP_CONTROLS:-0}"
 PY="${PY:-python}"
 
-GAZE_ARM="gaze@$RATIO"        # one box per clip, at the clip's median gaze point
 GAZEF_ARM="gazef@$RATIO"      # the box follows the gaze frame by frame
 mkdir -p "$HERE/logs"
 LOG="$HERE/logs/stage1_$(date +%Y%m%d_%H%M%S).log"
@@ -114,9 +113,10 @@ if [ "$HAS_GAZE" = "1" ]; then
   "$PY" "$HERE/prepare_gaze.py" --gaze-root "$GAZE_ROOT" --video-root "$VIDEO_ROOT" \
       --transform "$GAZE_TRANSFORM" --dump-overlay 6 || exit 1
   echo ">>> overlay/*.jpg is the receipt for this transform -- keep it with the results."
-  ARMS="$ARMS $GAZE_ARM $GAZEF_ARM"
+  ARMS="$ARMS $GAZEF_ARM"
   if [ "$SKIP_CONTROLS" != "1" ]; then
-    "$PY" "$HERE/prepare_gaze.py" --pseudo random --out "$HERE/gaze_random.json"
+    "$PY" "$HERE/prepare_gaze.py" --pseudo random-frames \
+        --out "$HERE/gaze_random_frames.json"
   fi
 else
   echo "no gaze -> full vs centre crop only"
@@ -127,16 +127,23 @@ say "3. embeddings: $ARMS"
 "$PY" "$HERE/embed_arms.py" --arms $ARMS --video-root "$VIDEO_ROOT" || exit 1
 if [ "$SKIP_CONTROLS" != "1" ]; then
   "$PY" "$HERE/embed_arms.py" --arms pkl
+  # 움직이지만 시선은 아닌 박스. gazef 가 이겼을 때 "움직임 자체의 효과"를 끊어 내는 유일한 arm.
   [ "$HAS_GAZE" = "1" ] && "$PY" "$HERE/embed_arms.py" --arms "$GAZEF_ARM" \
-      --gaze "$HERE/gaze_random.json" --arm-suffix _rand --video-root "$VIDEO_ROOT"
+      --gaze "$HERE/gaze_random_frames.json" --arm-suffix _randf --video-root "$VIDEO_ROOT"
 fi
 
+# 출력 경로는 항상 명시한다 (recall_eval 의 기본값은 recall_scratch_* 로 떨어진다).
+# 이름 규칙: recall_{문항집합}_{tolerance}.{json,md}  -- 여기는 623클립 풀 + 엄격 채점.
 say "4. recall"
-"$PY" "$HERE/recall_eval.py" --query-source question || exit 1
-"$PY" "$HERE/recall_eval.py" --query-source keywords
+for SRC in question keywords; do
+  "$PY" "$HERE/recall_eval.py" --query-source "$SRC" --target-tolerance-sec 0 \
+      --out "$HERE/results/recall_stage1_${SRC}_tol0.json" \
+      --markdown "$HERE/analysis/recall_stage1_${SRC}_tol0.md" \
+      || { [ "$SRC" = "question" ] && exit 1; }
+done
 
 say "5. verdict"
-"$PY" "$HERE/gate.py" --results "$HERE/results/recall_question.json" --arms "$GAZE_ARM" "$GAZEF_ARM"
+"$PY" "$HERE/gate.py" --results "$HERE/results/recall_stage1_question_tol0.json" --arms "$GAZEF_ARM"
 VERDICT=$?
 "$PY" "$HERE/digest.py"
 say "$(date '+%F %T')  stage 1 done. log: $LOG"

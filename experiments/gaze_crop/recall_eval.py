@@ -14,7 +14,7 @@ that are evaluable in every compared arm, and the comparison is paired: same que
 embeddings, same candidate sets. Only the pixels behind the clip embeddings differ.
 
     python experiments/gaze_crop/recall_eval.py                          # all arms in emb/
-    python experiments/gaze_crop/recall_eval.py --arms full center@0.5 gaze@0.5 --ks 1 3 5 10
+    python experiments/gaze_crop/recall_eval.py --arms full center@0.5 gazef@0.5 gazef_05_randf
     python experiments/gaze_crop/recall_eval.py --query-source keywords
     python experiments/gaze_crop/recall_eval.py --self-test              # no GPU: random embeddings
 """
@@ -399,12 +399,19 @@ def main() -> None:
             miss *= num / (v - i)        # 정답을 i번째까지 계속 피할 확률
         return 1.0 - miss
 
+    # chance 는 결과 파일에도 싣는다. tolerance 가 다른 실행끼리 표를 나란히 놓는 일이 잦고
+    # (digest.py), 그때 recall 만 있으면 tolerance 가 올려준 몫과 arm 이 올린 몫이 섞인다.
+    chance_row: Optional[Dict[str, Any]] = None
     if n_vis:
         chance = [100 * float(np.mean([chance_at(t, v, k) for t, v in zip(n_tgt, n_vis)]))
                   for k in ks]
         # expected rank of the BEST of t targets under a random ranking is (v+1)/(t+1), not v/2 --
         # v/2 is the t=1 case and would flatter every tolerance above 0.
         mr_chance = float(np.median([(v + 1) / (t + 1) for t, v in zip(n_tgt, n_vis) if t > 0]))
+        chance_row = {"recall": {str(k): c / 100 for k, c in zip(ks, chance)},
+                      "median_rank": int(mr_chance),
+                      "targets_per_question_median": int(np.median(n_tgt)),
+                      "visible_pool_median": int(np.median(n_vis))}
         print(f"{'chance':>14} | " + " | ".join(f"{c:6.2f}%" for c in chance)
               + f" | {int(mr_chance):>8}")
         print(f"{'':>14}   (targets/question median {int(np.median(n_tgt))}, "
@@ -448,11 +455,16 @@ def main() -> None:
             print(f"    {v:>12} (n={row['n']:>3})  {cells}")
 
     src = args.query_source
-    out_path = args.out or os.path.join(RESULTS_DIR, f"recall_{src}.json")
-    md_path = args.markdown or os.path.join(ANALYSIS_DIR, f"recall_{src}.md")
+    # 이름 붙인 결과는 항상 --out / --markdown 으로 명시한다. 기본값이 recall_{src} 였을 때
+    # stage2 의 보조 루프가 1단계 결과 마크다운을 덮어쓴 일이 있었다.
+    # 규칙: recall_{문항집합: stage1|main|holdout|all}_{tol0|tol60}.{json,md}
+    out_path = args.out or os.path.join(RESULTS_DIR, f"recall_scratch_{src}_tol{int(tol)}.json")
+    md_path = args.markdown or os.path.join(ANALYSIS_DIR, f"recall_scratch_{src}_tol{int(tol)}.md")
     summary = {
         "pool": args.pool, "emb_dir": args.emb_dir, "query_source": src, "self_test": args.self_test,
         "n_questions": len(pool["questions"]), "n_scored": len(common), "ks": ks, "main_k": mk,
+        # tolerance 를 파일 이름에만 두면 나중에 표를 섞어 읽는다. 값과 그에 딸린 chance 를 같이 기록.
+        "target_tolerance_sec": tol, "chance": chance_row,
         "arms": {n: {"n_clips": len(arms[n]["keys"]),
                      "recall": {str(k): float(arr(n, k).mean()) for k in ks},
                      "median_rank": (lambda rs: int(np.median(rs)) if rs else None)(
@@ -473,12 +485,24 @@ def main() -> None:
     lines += [f"Pool: {pool['n_clips']} clips ({pool['n_targets']} targets + {pool['n_distractors']} "
               f"distractors, scope `{pool['distractor_scope']}`), scored on {len(common)} of "
               f"{len(pool['questions'])} questions.", "",
+              f"Target tolerance: {tol:.0f}s"
+              + (" (strict: only the 30-sec clip EgoLife tagged)." if tol == 0 else
+                 f" -- a clip counts as a hit when it lands within {tol:.0f}s of the annotated "
+                 f"moment, so recall here is NOT comparable to a strict table. The chance row is "
+                 f"what an uninformed ranker scores at this tolerance."), "",
               "| arm | " + " | ".join(f"R@{k}" for k in ks) + " | median rank |",
               "|---|" + "---|" * (len(ks) + 1)]
     for n in arm_names:
         rs = [r for r in (ranks[n].get(q) for q in common) if r]
         lines.append(f"| `{n}` | " + " | ".join(f"{100 * arr(n, k).mean():.1f}%" for k in ks) +
                      f" | {int(np.median(rs)) if rs else '-'} |")
+    if chance_row:
+        lines.append("| _chance_ | " + " | ".join(
+            f"_{100 * chance_row['recall'][str(k)]:.2f}%_" for k in ks)
+            + f" | _{chance_row['median_rank']}_ |")
+        lines += ["", f"(chance assumes a random ranking of each question's own visible pool: "
+                      f"targets/question median {chance_row['targets_per_question_median']}, "
+                      f"visible pool median {chance_row['visible_pool_median']})"]
     lines += ["", f"Paired differences at k={mk}:", "",
               "| arms | diff (pp) | a only | b only | discordant | McNemar p |",
               "|---|---|---|---|---|---|"]

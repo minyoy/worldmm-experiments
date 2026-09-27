@@ -20,10 +20,11 @@ Arms
 center@R is not optional. An egocentric frame is centre-biased, so cropping alone enlarges the
 subject and drops background; without center@R a gaze win cannot be separated from a crop win.
 
-    python experiments/gaze_crop/embed_arms.py --arms full center@0.5 gaze@0.5
+    python experiments/gaze_crop/embed_arms.py --arms full center@0.5 gazef@0.5
     python experiments/gaze_crop/embed_arms.py --arms pkl                 # laptop-friendly
-    python experiments/gaze_crop/embed_arms.py --arms gaze@0.5 --gaze gaze_random.json \
-        --arm-suffix _rand                                                # crop-anywhere control
+    python experiments/gaze_crop/embed_arms.py --arms gazef@0.5 --gaze gaze_random_frames.json \
+        --arm-suffix _randf                    # moves like gazef but not to the gaze: the control
+                                               # for "the box merely moved"
 
 Writes emb/<arm>.npz  {keys: [clip_key], emb: [n, d]}  plus emb/<arm>.meta.json.
 Re-running is incremental: existing rows are kept unless --overwrite.
@@ -62,7 +63,7 @@ def decode(path: str, nframes: int):
 
 
 def crop_frames(arr, idx, fps, mode: str, ratio: Optional[float], gaze_entry: Optional[Dict[str, Any]],
-                per_frame: bool, tol: float):
+                tol: float):
     """PIL frames for one arm. Returns None when the arm cannot be built for this clip."""
     from PIL import Image
     h, w = arr.shape[1:3]
@@ -72,25 +73,14 @@ def crop_frames(arr, idx, fps, mode: str, ratio: Optional[float], gaze_entry: Op
     if mode == "center":
         box = crop_box(w, h, 0.5, 0.5, ratio)
         return [Image.fromarray(a).crop(box) for a in arr]
-    # gaze (mode "gaze" = one box per clip; "gazef" = follow the gaze frame by frame)
+    # gazef: the box follows the gaze, frame by frame
     if not gaze_entry:
         return None
-    per_frame = per_frame or mode == "gazef"
-    fixed = None
-    if not per_frame:
-        p = gaze_at(gaze_entry, None)
+    for a, fi in zip(arr, idx):
+        p = gaze_at(gaze_entry, fi / fps, tol=tol)
         if p is None:
             return None
-        fixed = crop_box(w, h, p[0], p[1], ratio)
-    for a, fi in zip(arr, idx):
-        if fixed is not None:
-            box = fixed
-        else:
-            p = gaze_at(gaze_entry, fi / fps, tol=tol)
-            if p is None:
-                return None
-            box = crop_box(w, h, p[0], p[1], ratio)
-        out.append(Image.fromarray(a).crop(box))
+        out.append(Image.fromarray(a).crop(crop_box(w, h, p[0], p[1], ratio)))
     return out
 
 
@@ -147,16 +137,12 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--pool", default=POOL_PATH)
     ap.add_argument("--gaze", default=GAZE_PATH)
-    ap.add_argument("--arms", nargs="+", default=["full", "center@0.5", "gaze@0.5", "gazef@0.5"])
-    ap.add_argument("--arm-suffix", default="", help="appended to each output filename, e.g. _rand")
+    ap.add_argument("--arms", nargs="+", default=["full", "center@0.5", "gazef@0.5"])
+    ap.add_argument("--arm-suffix", default="", help="appended to each output filename, e.g. _randf")
     ap.add_argument("--out-dir", default=EMB_DIR)
     ap.add_argument("--video-root", default=VIDEO_ROOT)
     ap.add_argument("--nframes", type=int, default=NFRAMES)
     ap.add_argument("--max-pixels", type=int, default=MAX_PIXELS)
-    ap.add_argument("--per-frame-gaze", action="store_true",
-                    help="make every gaze@R arm follow the gaze frame by frame. Prefer the gazef@R "
-                         "arm name, which does the same for one arm only, so gaze@R (clip median) "
-                         "and gazef@R (per frame) can be compared in a single run.")
     ap.add_argument("--gaze-tol", type=float, default=0.5, help="seconds; nearest-sample tolerance")
     ap.add_argument("--pkl", default=VISUAL_EMB_PKL)
     ap.add_argument("--limit", type=int, default=None, help="first N pool clips (smoke test)")
@@ -185,13 +171,13 @@ def main() -> None:
     base_meta = {"pool": args.pool, "nframes": args.nframes, "max_pixels": args.max_pixels,
                  "video_root": args.video_root, "gaze_file": args.gaze,
                  "gaze_transform": gaze_transform,
-                 "per_frame_gaze": args.per_frame_gaze, "n_clips_requested": len(clips)}
+                 "n_clips_requested": len(clips)}
 
     # A gaze arm whose stored rows were built under a different transform is rebuilt, not resumed:
     # resuming would mix two coordinate frames inside one npz, which is invisible afterwards and
     # makes every number from that arm meaningless.
     for name, mode, _ in specs:
-        if mode not in ("gaze", "gazef"):
+        if mode != "gazef":
             continue
         prev = stores[name].prev_meta
         was = prev.get("gaze_transform") if prev else None
@@ -215,7 +201,7 @@ def main() -> None:
     todo = [r for r in clips if any(not stores[n].has(r["key"]) for n, _, _ in gpu_specs)]
     print(f"arms: {[n for n, _, _ in gpu_specs]}")
     print(f"clips to do: {len(todo)}/{len(clips)} (the rest are already in emb/)")
-    need_gaze = any(m in ("gaze", "gazef") for _, m, _ in gpu_specs)
+    need_gaze = any(m == "gazef" for _, m, _ in gpu_specs)
     if need_gaze:
         have = sum(1 for r in clips if r["key"] in gaze)
         print(f"gaze coverage: {have}/{len(clips)} clips from {args.gaze}")
@@ -224,7 +210,7 @@ def main() -> None:
         if fake:
             print(f"  !! {args.gaze} holds FABRICATED gaze ({fake}), not eye tracking. "
                   f"'pseudo:center' is the pipeline test (it must equal center@R); "
-                  f"'pseudo:random' is the crop-anywhere control. Do not report either as gaze.")
+                  f"'pseudo:random-frames' is the moving-box control. Do not report either as gaze.")
         if have == 0:
             print("  no gaze for any pool clip. Either point --gaze at a prepared file, or drop the "
                   "gaze arm and run `--arms full center@0.5`.")
@@ -254,7 +240,7 @@ def main() -> None:
             if stores[name].has(r["key"]):
                 continue
             frames = crop_frames(arr, idx, fps, mode, ratio, gaze.get(r["key"]),
-                                 args.per_frame_gaze, args.gaze_tol)
+                                 args.gaze_tol)
             if frames is None:
                 missing_gaze.append((r["key"], name))
                 continue

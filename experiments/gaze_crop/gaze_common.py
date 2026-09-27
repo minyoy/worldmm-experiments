@@ -247,22 +247,23 @@ def clip_start_sec(video_path: str) -> Optional[float]:
 
 
 # ---------------------------------------------------------------------------
-# arms.  "full" | "center@<ratio>" | "gaze@<ratio>" | "pkl"
+# arms.  "full" | "center@<ratio>" | "gazef@<ratio>" | "pkl"
 # ---------------------------------------------------------------------------
 
-# gaze@R  fixes one box per clip at the clip's median gaze point (steady, and the naive reading).
-# gazef@R follows the gaze frame by frame. On this data the per-clip median sits within a few
-# percent of the frame centre (30 s of saccades average out), so gaze@R is close to center@R by
-# construction and gazef@R is where the location information actually survives.
-ARM_RE = re.compile(r"^(full|center|gaze|gazef|pkl)(?:@([0-9.]+))?$")
+# gazef@R follows the gaze frame by frame: the experiment's arm. A fixed-box variant (one crop per
+# clip at the clip's median gaze) used to exist and was removed -- the per-clip median sits at
+# (0.515, 0.561) on this data (30 s of saccades average out), so it cropped nearly the same pixels
+# as center@R and measured nothing center@R did not. The control that is still needed is a box that
+# MOVES without being the gaze: gazef@R fed a `--pseudo random-frames` file (arm suffix _randf).
+ARM_RE = re.compile(r"^(full|center|gazef|pkl)(?:@([0-9.]+))?$")
 
 
 def parse_arm(name: str) -> Tuple[str, Optional[float]]:
     m = ARM_RE.match(name.strip())
     if not m:
-        raise ValueError(f"bad arm '{name}'. Use full | center@0.5 | gaze@0.5 | gazef@0.5 | pkl")
+        raise ValueError(f"bad arm '{name}'. Use full | center@0.5 | gazef@0.5 | pkl")
     mode, ratio = m.group(1), m.group(2)
-    if mode in ("center", "gaze", "gazef"):
+    if mode in ("center", "gazef"):
         if ratio is None:
             raise ValueError(f"arm '{name}' needs a crop ratio, e.g. {mode}@0.5")
         r = float(ratio)
@@ -305,13 +306,14 @@ def load_gaze(path: str = GAZE_PATH) -> Dict[str, Dict[str, Any]]:
     return data.get("clips", data)
 
 
-def gaze_at(entry: Dict[str, Any], t_sec: Optional[float], tol: float = 0.5) -> Optional[Tuple[float, float]]:
+def gaze_at(entry: Dict[str, Any], t_sec: float, tol: float = 0.5) -> Optional[Tuple[float, float]]:
     """Gaze point for a moment inside the clip: nearest sample within `tol`, else the clip median.
 
-    t_sec=None asks for the median outright, which is the naive (and steadier) setting: one box
-    per clip instead of a box that jumps with every saccade.
+    The median fallback is for frames whose nearest sample is further than `tol` away (a gap in the
+    eye-tracking file), not a mode of its own -- a file with no samples at all crops one fixed box
+    for the whole clip, which is what a gaze arm must never silently become.
     """
-    if t_sec is not None and entry.get("samples"):
+    if entry.get("samples"):
         best, best_d = None, None
         for s in entry["samples"]:
             d = abs(float(s[0]) - t_sec)

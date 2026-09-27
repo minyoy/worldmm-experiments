@@ -1,0 +1,21 @@
+{
+  "note": "gaze_points.json 과 results_qa/ 는 .gitignore 대상이라 git clone 한 곳에서는 digest.py 가 transform 과 2단계 정확도를 읽을 수 없다. 그래서 그 두 값을 여기에 기록해 두고, 원본 파일이 없을 때만 digest.py 가 이 파일을 쓴다(출력에 '기록본'으로 표시된다). 원본이 있는 실행 머신에서는 이 파일을 무시한다.",
+  "source": "2026-09-27 stage-2 실행 (logs/stage2_20260927_010606.log, 그 실행이 만든 analysis/DIGEST.md)",
+  "transform": {
+    "used": "flipx+flipy",
+    "chosen_by": "사람이 variants/*.jpg 를 보고 선택 (12장). 캡션 코사인 점수는 tie",
+    "caption_score_note": "점수 1위 flipy > 2위 flipx+flipy / 36클립, 1·2위 격차 95% CI -0.0090..+0.0124 (구분 안 됨)"
+  },
+  "accuracy": {
+    "condition": "E_prime",
+    "pool": "pool_all.json (6,223 clips)",
+    "n_questions": 120,
+    "question_set": "visual_bottleneck/subset.json (120문항)",
+    "arms": {
+      "full_k3": 45.0,
+      "full_k20": 46.7,
+      "gazef_05_k3": 45.0,
+      "gazef_05_k20": 45.0
+    }
+  }
+}

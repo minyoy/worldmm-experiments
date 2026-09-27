@@ -33,7 +33,8 @@ Output (gaze_points.json), normalised to [0,1], origin top-left as PIL sees the 
     python experiments/gaze_crop/prepare_gaze.py --dump-variants 3
     python experiments/gaze_crop/prepare_gaze.py --transform rot90cw --dump-overlay 6
     python experiments/gaze_crop/prepare_gaze.py --pseudo center   # pipeline test: gaze@R == center@R
-    python experiments/gaze_crop/prepare_gaze.py --pseudo random --out gaze_random.json  # control
+    python experiments/gaze_crop/prepare_gaze.py --pseudo random-frames \
+        --out gaze_random_frames.json                  # moving-box control
 """
 
 import argparse
@@ -41,13 +42,14 @@ import csv
 import math
 import os
 import random
+import statistics
 import sys
 from typing import Any, Dict, List, Optional, Tuple
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from gaze_common import (  # noqa: E402
-    GAZE_PATH, GAZE_ROOT, POOL_PATH, VIDEO_ROOT, clip_start_sec, decord_threads, load_json,
-    resolve_video_path, save_json,
+    GAZE_PATH, GAZE_ROOT, POOL_PATH, VIDEO_ROOT, clip_span, clip_start_sec, decord_threads,
+    load_json, resolve_video_path, save_json,
 )
 
 # Aria RGB at its native 1408x1408. Scaled by the decoded frame's width.
@@ -347,12 +349,38 @@ def frame_size(pool: Dict[str, Any], video_root: str) -> Optional[Tuple[int, int
     return None
 
 
-def pseudo(pool: Dict[str, Any], kind: str, seed: int) -> Dict[str, Dict[str, Any]]:
+def pseudo(pool: Dict[str, Any], kind: str, seed: int, rate_hz: float = 10.0
+           ) -> Dict[str, Dict[str, Any]]:
+    """대조군용 가짜 gaze 파일.
+
+    세 종류이고, 무엇을 반증하려는지가 서로 다르다.
+
+      center        클립마다 (0.5, 0.5) 고정. 파이프라인 점검용 -- center@R 과 같은 픽셀이 나와야 한다.
+      random-frames 프레임마다 독립적으로 무작위. **`gazef@R` 의 박스 움직임까지 흉내낸다.**
+                    "gazef 가 이긴 것은 시선 위치가 아니라 박스가 움직여 16프레임이 서로 다른 영역을
+                    덮은 탓"이라는 설명을 끊어 내는 유일한 대조군이다.
+
+    고정 무작위 박스(클립당 점 하나)는 뺐다. `samples` 가 비면 gaze_at() 이 median 으로 폴백해 박스가
+    클립 내내 고정되므로, center@R 과 "중앙이냐 아니냐"만 다른 arm 이 되어 얻는 것이 없었다.
+
+    출력 samples 는 [클립 내 초, x, y] 이고 rate_hz 간격으로 깔린다(기본 10 Hz = 실제 Aria CSV 와 같음).
+    """
     rng = random.Random(seed)
     out = {}
     for r in pool["clips"]:
-        xy = [0.5, 0.5] if kind == "center" else [rng.uniform(0.15, 0.85), rng.uniform(0.15, 0.85)]
-        out[r["key"]] = {"median": xy, "samples": [], "n": 0, "source": f"pseudo:{kind}"}
+        if kind == "center":
+            xy, samples = [0.5, 0.5], []
+        elif kind == "random-frames":
+            cs, ce = clip_span(r)
+            n = max(1, int(round(max(ce - cs, 1.0) * rate_hz)))
+            samples = [[i / rate_hz, rng.uniform(0.15, 0.85), rng.uniform(0.15, 0.85)]
+                       for i in range(n)]
+            xy = [statistics.median(s[1] for s in samples),
+                  statistics.median(s[2] for s in samples)]
+        else:
+            raise SystemExit(f"unknown --pseudo {kind}")
+        out[r["key"]] = {"median": xy, "samples": samples, "n": len(samples),
+                         "source": f"pseudo:{kind}"}
     return out
 
 
@@ -364,10 +392,14 @@ def main() -> None:
                     help=f"directory holding the per-clip gaze CSVs (default: {GAZE_ROOT})")
     ap.add_argument("--format", choices=("auto", "xy_csv", "aria_yawpitch", "per_clip_json"),
                     default="auto")
-    ap.add_argument("--pseudo", choices=("center", "random"), default=None,
+    ap.add_argument("--pseudo", choices=("center", "random-frames"), default=None,
                     help="no gaze: fabricate a point per clip. 'center' makes gaze@R identical to "
-                         "center@R (pipeline test); 'random' is the crop-anywhere control.")
+                         "center@R (pipeline test); 'random-frames' re-draws a random box every "
+                         "frame, the control for 'the box merely moved' rather than 'it moved to "
+                         "the gaze'.")
     ap.add_argument("--seed", type=int, default=0)
+    ap.add_argument("--pseudo-rate", type=float, default=10.0,
+                    help="--pseudo random-frames 의 샘플 간격(Hz). 기본 10 = 실제 gaze CSV 와 같음")
     ap.add_argument("--video-root", default=VIDEO_ROOT)
     ap.add_argument("--frame-width", type=int, default=None, help="default: read from a pool video")
     ap.add_argument("--frame-height", type=int, default=None)
@@ -407,7 +439,7 @@ def main() -> None:
     keys = {r["key"] for r in pool["clips"]}
 
     if args.pseudo:
-        clips = pseudo(pool, args.pseudo, args.seed)
+        clips = pseudo(pool, args.pseudo, args.seed, args.pseudo_rate)
         save_json({"format": f"pseudo:{args.pseudo}", "transform": "none", "clips": clips}, args.out)
         print(f"pseudo gaze ({args.pseudo}) for {len(clips)} clips -> {args.out}")
         if args.dump_overlay:
@@ -416,7 +448,7 @@ def main() -> None:
 
     if not os.path.isdir(args.gaze_root):
         ap.error(f"gaze root not found: {args.gaze_root}\n"
-                 f"Pass --gaze-root, set WORLDMM_GAZE_ROOT, or use --pseudo center / --pseudo random.")
+                 f"Pass --gaze-root, set WORLDMM_GAZE_ROOT, or use --pseudo center / --pseudo random-frames.")
     print(f"gaze root: {args.gaze_root}")
 
     w, h = args.frame_width, args.frame_height

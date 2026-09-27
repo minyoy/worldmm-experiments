@@ -9,11 +9,11 @@ left without an embedding, which VisualMemory skips at index time -- i.e. the po
 embedded over IS the retrieval index. Embed with `build_pool.py --all-clips` before running any
 accuracy comparison against the shipped pkl, or the arm is searching a much smaller haystack.
 
-    python experiments/gaze_crop/export_pkl.py --arm gaze@0.5
-    # -> emb/gaze_05.pkl, then:
+    python experiments/gaze_crop/export_pkl.py --arm gazef@0.5
+    # -> emb/gazef_05.pkl, then:
     python experiments/visual_bottleneck/eval_egolife.py --condition E_prime \
-        --visual-path experiments/gaze_crop/emb/gaze_05.pkl \
-        --results-dir experiments/gaze_crop/results_qa/gaze_05 --robust-reasoning
+        --visual-path experiments/gaze_crop/emb/gazef_05.pkl \
+        --results-dir experiments/gaze_crop/results_qa/gazef_05
 
 Condition E_prime = B's cached text context + visual top-k for the question text. The frames handed
 to the LLM are the retrieved clip's own full frames at 1 fps, exactly as before, so the only thing
@@ -34,8 +34,8 @@ from gaze_common import EMB_DIR, POOL_PATH, arm_filename, load_json  # noqa: E40
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--arm", required=True, help="arm name, e.g. full | center@0.5 | gaze@0.5")
-    ap.add_argument("--arm-suffix", default="", help="same suffix embed_arms.py was given, e.g. _rand")
+    ap.add_argument("--arm", required=True, help="arm name, e.g. full | center@0.5 | gazef@0.5")
+    ap.add_argument("--arm-suffix", default="", help="same suffix embed_arms.py was given, e.g. _randf")
     ap.add_argument("--emb-dir", default=EMB_DIR)
     ap.add_argument("--pool", default=POOL_PATH)
     ap.add_argument("--out", default=None, help="default: <emb-dir>/<arm>.pkl")
