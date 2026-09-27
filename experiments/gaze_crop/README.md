@@ -336,12 +336,21 @@ recall 이득이 실제로 있는 380문항에는 E′를 아직 돌리지 않�
 
    ```bash
    cd ~/WorldMM && source .venv/bin/activate
-   nohup bash experiments/gaze_crop/run_controls.sh > /dev/null 2>&1 &
-   tail -f experiments/gaze_crop/logs/controls_*.log
+
+   # GPU 2장 (arm 하나당 한 장, 벽시계 ~2시간)
+   GPUS=1,2 MAX_CPUS=16 nohup bash experiments/gaze_crop/run_controls.sh > /dev/null 2>&1 &
+
+   # GPU 1장이면 (~4시간)
+   CUDA_VISIBLE_DEVICES=2 nohup bash experiments/gaze_crop/run_controls.sh > /dev/null 2>&1 &
+
+   tail -f experiments/gaze_crop/logs/controls_*.log      # 병렬 모드는 arm 로그가 *_center/_randf 로 분리
    ```
 
-   죽어도 같은 명령을 다시 부르면 이어받습니다(`embed_arms.py`가 클립 키 기준). 한쪽만 돌릴 때는
-   `SKIP_CENTER=1` / `SKIP_RANDF=1`, 채점만 다시 할 때는 둘 다 1로 주면 됩니다.
+   `GPUS`를 주면 두 arm을 각 GPU에 하나씩 붙여 동시에 돌립니다(서로 다른 npz를 쓰는 독립 작업이라
+   벽시계가 그대로 절반). 한 arm을 여러 GPU로 쪼개는 방식은 npz 병합이 필요해서 arm이 2개뿐인 지금은
+   얻는 것이 없습니다. 죽어도 같은 명령을 다시 부르면 이어받고(`embed_arms.py`가 클립 키 기준),
+   `SKIP_CENTER=1` / `SKIP_RANDF=1`로 한쪽만, 둘 다 1이면 채점만, `EMBED_ONLY=1`이면 임베딩까지만
+   돌립니다.
 
    판정은 **두 쌍만** 봅니다 — `gazef − center`(자르기), `gazef − randf`(움직임). arm 4개면 pair가 6개고,
    6개를 다 본 뒤 이긴 쌍을 고르면 그게 다중비교입니다.
