@@ -13,6 +13,8 @@
 | `fixation_sweep.py` | 검출 임계값 sweep. 클립당 fixation 개수 / duration / **프레임 커버리지** |
 | `plot_long_fixations.py` | 긴 fixation 을 눈으로 확인. 진짜 fixation 인가, smooth pursuit 인가 |
 | `streamgaze/` | 외부 참고 코드(EGTEA / Ego4D / HoloAssist). `preprocess/gaze_processing.py` 의 `extract_fixation_segments` 를 이 실험이 쓴다 |
+| `embed_fix_arms.py` | fixation 프레임만 골라 임베딩. `fixsel` / `fixsel_gazef@R` / `fixsel_ctl` arm |
+| `run_recall.sh` | 위 arm 들을 `full` / `gazef@R` 와 recall 로 비교 |
 
 `gaze_points.json`, `pool.json`, `gaze_common.py` 는 **`../gaze_crop` 에 그대로 두고 읽기만 한다.**
 두 실험이 같은 클립·같은 gaze 를 말하게 하려는 것이고, 새 파일을 만들지 않는다.
@@ -135,8 +137,80 @@ crop 박스를 움직이지 못하므로 이 실험에서는 문제가 아니다
 허용한 `radius`, 파란 박스는 fixation-aware arm 이 그 구간 내내 고정할 crop 이다.
 그림을 그리기 전에 전체 분포(straightness p10/median/p90, pursuit 비율)를 먼저 출력한다.
 
+## 프레임 선택 arm: `embed_fix_arms.py`
+
+`gaze_crop` 은 16 프레임을 **어디를 crop 할지** 만 바꿨다. 여기서는 **어떤 프레임을 임베딩할지**
+를 바꾼다. fixation 밖 프레임은 saccade 한가운데라 모션 블러가 끼고 주체가 보지 않던 장면이므로,
+crop 하는 게 아니라 버린다. **fixation 프레임이 하나도 없는 클립은 임베딩하지 않는다** — 그 arm 에서
+아예 빠지고, `recall_eval.py` 가 그 클립이 정답인 문항을 `unscorable` 로 빼준다(다른 걸 슬쩍
+끼워넣지 않는다).
+
+| arm | 프레임 | crop |
+|---|---|---|
+| `full` | 균일 16 | 없음 (baseline) |
+| `gazef@R` | 균일 16 | 프레임별 gaze |
+| `fixsel` | fixation 안에 든 것만 (~12/16) | 없음 |
+| `fixsel_ctl` | `fixsel` 과 **같은 개수**, 클립 전체에 균일 | 없음 |
+| `fixsel_gazef@R` | fixation 안에 든 것만 | 그 fixation 의 **centroid** |
+
+`fixsel_ctl` 은 빼면 안 된다. 프레임을 26 % 버리는 것 자체가 인코더 입력의 변화이고(개수가
+줄고 시간적으로 촘촘해진다) VLM2Vec 은 프레임을 pooling 한다. 이게 없으면 "fixsel 이 full 을
+이겼다" 를 "16 프레임보다 12 프레임이 나았다" 와 분리할 수 없다. **`gazef@R` 에 `center@R` 이
+했던 역할이다.** 읽는 법:
+
+```
+fixsel - fixsel_ctl   프레임 선택의 효과          <- 이게 이 실험의 결과다
+fixsel - full         선택 효과 + "프레임이 줄었다" 가 섞인 값
+```
+
+crop 중심은 프레임의 최근접 gaze 샘플이 아니라 **fixation centroid** 다. fixation 안에서 샘플은
+`radius` 만큼 흩어지므로 그 평균이 "보고 있던 한 점" 의 더 좋은 추정이고, 구간 내내 박스를
+고정시킨다 — `gazef@R` 이 못 하는 일이 정확히 이것이다.
+
+`--select` 는 두 가지다. `subset`(기본)은 baseline 이 쓰는 **같은** 16 개 시각 중 fixation 밖을
+버리므로 `full` 과 삭제 하나만큼 다르다(개수가 클립마다 변한다). `refill` 은 fixation 시간의
+합집합 위에서 16 개를 균일하게 다시 뽑아 개수를 16 으로 고정한다 — 개수 교란이 없어지지만
+baseline 이 본 적 없는 시각을 보게 된다. **두 모드를 한 표에 섞지 말 것.**
+
+```bash
+# GPU 불필요: 프레임 개수 / 버려진 클립만 센다 (기본 pool.json, 623 클립)
+python embed_fix_arms.py --dry-run
+
+# 임베딩 + recall 비교. 기본이 stage 2 의 전체 풀(6,223 클립 / 500 문항)이라 ~6시간이다
+nohup bash run_recall.sh > /dev/null 2>&1 &
+tail -f logs/recall_*.log
+
+POOL=../gaze_crop/pool.json bash run_recall.sh   # stage 1 의 623 클립 (~35분, 120 문항)
+SELECT=refill bash run_recall.sh                 # 개수 고정 모드
+RADIUS=0.03 bash run_recall.sh
+SKIP_EMBED=1 bash run_recall.sh                  # emb/ 에 있는 걸로 채점만 다시
+```
+
+끊겨도 안전하다 — 50 클립마다 체크포인트하고 다시 실행하면 이어받는다. 안전하지 않은 건
+중간에 `--radius`/`--select` 를 바꾸는 것이고, 그건 arm 을 버리고 처음부터 다시 만든다(의도된
+동작이다).
+
+실측 속도 (`gaze_crop/logs/`, gpu2): 클립당 ≈ 디코드 1.05s + arm 당 0.76s.
+
+| | 623 클립 | 6,223 클립 |
+|---|---|---|
+| fixation arm 3개 | ~35분 | **~5.8시간** |
+| `full` + `gazef@0.5` (먼저 필요) | ~27분 | ~2.7시간 |
+
+`run_recall.sh` 는 `full`/`gazef@R` 를 **절대 다시 만들지 않는다.** 재실행이 기준선을 조용히
+바꾸면 안 되기 때문이다. 대신 preflight 에서 **행 개수**까지 본다 — npz 경로에는 풀 크기가
+안 적혀 있어서, stage 1 의 623클립 `full.npz` 가 6,223클립짜리가 있어야 할 자리에 그대로 앉는다.
+`recall_eval.py` 는 모든 arm 이 채점 가능한 문항만 쓰므로, 그러면 표가 stage 1 클립으로
+쪼그라든 채 맨 위에는 500 문항이라고 찍힌다. 그래서 풀의 90 % 미만이면 중단한다.
+
+임베딩은 `../gaze_crop/emb/` 에 떨어진다. 같은 디렉터리에 두어야 `recall_eval.py` 가 다섯 arm 을
+**같은 문항·같은 후보 집합**으로 한 표에서 짝지어 비교한다. `gaze_common.py` 는 건드리지 않았다 —
+`load_arms` 가 npz 파일명을 arm 이름으로 읽기 때문에 새 arm 을 등록할 곳이 없다.
+
+저장된 행이 다른 `transform` 이나 다른 검출 임계값으로 만들어졌으면 이어받지 않고 그 arm 을
+처음부터 다시 만든다. `radius=0.03` 실행이 `radius=0.05` 행 위에 얹히면 npz 안에서 영영 안 보인다.
+
 ## 다음
 
 `gap=0.2` 고정. `radius` 를 0.03 / 0.05 / 0.08 로 훑어 coverage 와 `>3s` 의 trade-off 를 본다
-(이쪽이 지배적인 파라미터다). 그 다음 `gaze_crop` 에 `gazefix@R` arm 을 추가해 `gazef@R` 와
-recall 로 직접 비교한다.
+(이쪽이 지배적인 파라미터다).

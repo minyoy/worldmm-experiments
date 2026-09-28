@@ -1,0 +1,4 @@
+# regenerable artifacts
+results/discordance/
+logs/
+__pycache__/
