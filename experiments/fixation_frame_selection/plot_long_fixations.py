@@ -70,14 +70,43 @@ def samples_in(samples, t0, t1):
     return sorted([(float(t), float(x), float(y)) for t, x, y in samples if t0 <= float(t) <= t1])
 
 
-def straightness(pts):
-    """|net displacement| / path length. 1 = a straight march, 0 = wandering in place."""
-    if len(pts) < 3:
+def smooth(pts, bin_sec=0.3):
+    """Average the samples into `bin_sec` bins. Kills tremor, keeps drift.
+
+    Without this, straightness cannot see pursuit at all: path length is dominated by
+    per-sample tracker noise while net displacement is capped by the detector's own radius,
+    so every long segment scores near zero whether it drifts or not. Simulated pure pursuit
+    through this detector scores 0.00-0.25 on the raw path -- inside the "wandering" band.
+    At 10 Hz a 0.3 s bin is 3 samples, short enough to keep a real drift intact.
+    """
+    if not pts:
+        return []
+    out, bucket, t0 = [], [], pts[0][0]
+    for p in pts:
+        if p[0] - t0 > bin_sec and bucket:
+            out.append((bucket[0][0], sum(b[1] for b in bucket) / len(bucket),
+                        sum(b[2] for b in bucket) / len(bucket)))
+            bucket, t0 = [], p[0]
+        bucket.append(p)
+    if bucket:
+        out.append((bucket[0][0], sum(b[1] for b in bucket) / len(bucket),
+                    sum(b[2] for b in bucket) / len(bucket)))
+    return out
+
+
+def straightness(pts, bin_sec=0.3):
+    """|net displacement| / path length, on the tremor-free path. 1 = a straight march.
+
+    Computed on smooth(pts), not the raw samples -- see smooth() for why the raw version
+    is blind to the pursuit it is meant to catch.
+    """
+    sm = smooth(pts, bin_sec)
+    if len(sm) < 3:
         return 0.0
-    path = sum(math.hypot(b[1] - a[1], b[2] - a[2]) for a, b in zip(pts, pts[1:]))
+    path = sum(math.hypot(b[1] - a[1], b[2] - a[2]) for a, b in zip(sm, sm[1:]))
     if path <= 1e-9:
         return 0.0
-    net = math.hypot(pts[-1][1] - pts[0][1], pts[-1][2] - pts[0][2])
+    net = math.hypot(sm[-1][1] - sm[0][1], sm[-1][2] - sm[0][2])
     return net / path
 
 
@@ -142,10 +171,13 @@ def main():
     q = lambda p: ss[min(len(ss) - 1, int(p * len(ss)))]
     print(f"\n{len(longs)} fixations > {args.min_dur_shown}s")
     print(f"  straightness  p10={q(.10):.2f}  median={q(.50):.2f}  p90={q(.90):.2f}")
-    print(f"  pursuit-like (straightness > 0.7): {sum(1 for s in ss if s > 0.7)} "
-          f"({100 * sum(1 for s in ss if s > 0.7) / len(ss):.1f}%)")
-    print(f"  wander-like  (straightness < 0.3): {sum(1 for s in ss if s < 0.3)} "
-          f"({100 * sum(1 for s in ss if s < 0.3) / len(ss):.1f}%)\n", flush=True)
+    print(f"  pursuit-like (>= 0.30): {sum(1 for s in ss if s >= 0.30)} "
+          f"({100 * sum(1 for s in ss if s >= 0.30) / len(ss):.1f}%)")
+    print(f"  fixation     (<= 0.15): {sum(1 for s in ss if s <= 0.15)} "
+          f"({100 * sum(1 for s in ss if s <= 0.15) / len(ss):.1f}%)")
+    print(f"  ambiguous            : {sum(1 for s in ss if 0.15 < s < 0.30)} "
+          f"({100 * sum(1 for s in ss if 0.15 < s < 0.30) / len(ss):.1f}%)")
+    print("  (no-drift control scores 0.05; see straightness() for the calibration)\n", flush=True)
 
     if args.sort == "duration":
         longs.sort(key=lambda f: -f["duration"])
@@ -184,12 +216,13 @@ def main():
         idx = [max(0, min(len(vr) - 1, int(round(t * fps)))) for t in times]
         arr = vr.get_batch(idx).asnumpy()
 
-        verdict = "PURSUIT?" if f["straightness"] > 0.7 else ("fixation" if f["straightness"] < 0.3 else "mixed")
+        sn = f["straightness"]
+        verdict = "PURSUIT?" if sn >= 0.30 else ("fixation" if sn <= 0.15 else "ambiguous")
         d.text((18, y + 22), f["key"], font=f_n, fill=(26, 26, 26))
         d.text((18, y + 46), f"{f['start_time']:.1f}-{f['end_time']:.1f}s  ({f['duration']:.1f}s, "
                              f"{len(f['pts'])} samples)", font=f_s, fill=(85, 85, 85))
         d.text((18, y + 72), f"straightness {f['straightness']:.2f}  ->  {verdict}", font=f_s,
-               fill=(200, 60, 40) if f["straightness"] > 0.7 else (60, 60, 60))
+               fill=(200, 60, 40) if sn >= 0.30 else (60, 60, 60))
         d.text((18, y + 94), f"net drift {f['net']:.3f} of frame", font=f_s, fill=(85, 85, 85))
 
         for ci, (a, t) in enumerate(zip(arr, times)):
