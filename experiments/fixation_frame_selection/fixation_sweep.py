@@ -21,18 +21,27 @@ Reads gaze_points.json (prepare_gaze.py's output), not the raw CSVs.
 """
 
 import argparse
+import contextlib
 import os
 import statistics
 import sys
+import time
 
 import numpy as np
 import pandas as pd
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "streamgaze"))
+HERE = os.path.dirname(os.path.abspath(__file__))
+# gaze_points.json and its loader live with the crop experiment; this one only reads them.
+GAZE_CROP = os.path.abspath(os.path.join(HERE, "..", "gaze_crop"))
+sys.path.insert(0, HERE)
+sys.path.insert(0, GAZE_CROP)
+sys.path.insert(0, os.path.join(HERE, "streamgaze"))
 
 from gaze_common import GAZE_PATH, NFRAMES, load_gaze  # noqa: E402
 from preprocess.gaze_processing import extract_fixation_segments  # noqa: E402
+
+
+_DEVNULL = open(os.devnull, "w")
 
 
 def clip_fixations(samples, **kw):
@@ -62,13 +71,18 @@ def frame_times(samples, nframes=NFRAMES):
     return [dur * i / (nframes - 1) for i in range(nframes)]
 
 
-def summarise(gaze, gap, radius, min_dur, dropout, long_sec=3.0):
+def summarise(gaze, gap, radius, min_dur, dropout, long_sec=3.0, progress=None):
     per_clip, durs, covered, total_frames, clips_with_none = [], [], 0, 0, 0
 
-    for key, entry in gaze.items():
+    for i, (key, entry) in enumerate(gaze.items(), 1):
         samples = entry.get("samples") or []
-        fixes = clip_fixations(samples, radius_thresh=radius, duration_thresh=min_dur,
-                               gap_thresh=gap, dropout_thresh=dropout)
+        # The detector prints a line per clip. Discard it here rather than buffering it --
+        # this loop runs once per gap value over every clip.
+        with contextlib.redirect_stdout(_DEVNULL):
+            fixes = clip_fixations(samples, radius_thresh=radius, duration_thresh=min_dur,
+                                   gap_thresh=gap, dropout_thresh=dropout)
+        if progress and (i % 50 == 0 or i == len(gaze)):
+            progress(i, len(gaze))
         per_clip.append(len(fixes))
         durs.extend(f["duration"] for f in fixes)
         if not fixes:
@@ -104,21 +118,29 @@ def main():
     ap.add_argument("--limit", type=int, default=0, help="only the first N clips (a quick look)")
     args = ap.parse_args()
 
+    print(f"loading {args.gaze} ...", flush=True)
     gaze = load_gaze(args.gaze)
     if not gaze:
         sys.exit(f"no clips in {args.gaze} -- run prepare_gaze.py first")
     if args.limit:
         gaze = dict(list(gaze.items())[:args.limit])
 
-    # The detector prints a line per clip; this sweep wants the table, not 1500 lines.
-    import contextlib, io
-    rows = []
-    for gap in [float(g) for g in args.gap.split(",")]:
-        with contextlib.redirect_stdout(io.StringIO()):
-            rows.append(summarise(gaze, gap, args.radius, args.min_dur, args.dropout))
+    gaps = [float(g) for g in args.gap.split(",")]
+    print(f"{len(gaze)} clips, {sum(len(e.get('samples') or []) for e in gaze.values())} samples  "
+          f"| radius={args.radius} min_dur={args.min_dur}s dropout={args.dropout}s  "
+          f"| sweeping gap={gaps}", flush=True)
 
-    print(f"clips={rows[0]['clips']}  radius={args.radius}  min_dur={args.min_dur}s  "
-          f"dropout={args.dropout}s")
+    rows = []
+    for gap in gaps:
+        t0 = time.time()
+
+        def tick(i, n, _gap=gap):
+            print(f"\r  gap={_gap}: {i}/{n} clips", end="", flush=True)
+
+        rows.append(summarise(gaze, gap, args.radius, args.min_dur, args.dropout,
+                              progress=tick))
+        print(f"\r  gap={gap}: {len(gaze)}/{len(gaze)} clips  ({time.time() - t0:.1f}s)",
+              flush=True)
     print()
     hdr = f"{'gap':>5} {'fix/clip':>9} {'median':>7} {'dur_med':>8} {'dur_p90':>8} " \
           f"{'coverage':>9} {'>3s':>7} {'no-fix clips':>13}"

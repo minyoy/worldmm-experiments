@@ -332,7 +332,7 @@ R = 0.35 / 0.25로 내리면 중앙 박스와 60% 이상 겹치는(IoU ≥ 0.6) 
 
 3.2의 진단(평균이 정보를 뭉갠다)을 직접 겨냥합니다. 16프레임을 몇 개의 sub-vector로 나누고 검색 점수를 그중 최댓값으로
 씁니다. 나누는 경계는 균등 4프레임보다 **fixation 구간 경계**가 자연스럽습니다. 이때 구간을 버리지 않고 전부 남겨야
-클립 전체를 대표합니다. `streamgaze/step1.5_filtering_fixation.py`의 병합 기준(50 px, 2초)과 **장면 일관성 검사**(HSV
+클립 전체를 대표합니다. `../fixation_frame_selection/streamgaze/step1.5_filtering_fixation.py`의 병합 기준(50 px, 2초)과 **장면 일관성 검사**(HSV
 히스토그램 상관 ≥ 0.9, 고개를 돌려 화면이 바뀐 경우를 잡음)를 참고할 수 있습니다. 다만 그쪽은 24~30 Hz gaze에 2.5초
 미만을 버리는 파이프라인이라 그대로 옮기면 안 됩니다.
 
@@ -423,6 +423,6 @@ python experiments/gaze_crop/plot_arm_examples.py   # -> analysis/arms_example.j
 | [`gate.py`](gate.py), [`digest.py`](digest.py) | 1단계 판정, 요약 생성 |
 | `run_stage1.sh`, `run_stage2.sh`, [`run_controls.sh`](run_controls.sh) | 단계별 실행 스크립트 |
 | `logs/` | 실행 로그 (clamp 비율, depth 검증 포함) |
-| `streamgaze/` | 외부 참고 코드 (fixation 필터·병합). 읽기용, 5.3 참고 |
+| `../fixation_frame_selection/` | fixation 검출 실험 (streamgaze 참고 코드 포함). 5.3 참고 |
 
 `emb/`, `overlay/`, `gaze_points.json`, `pool_all.json`, `results_qa/`는 다시 만들 수 있어서 git에 넣지 않았습니다.
