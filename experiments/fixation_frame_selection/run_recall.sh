@@ -4,8 +4,14 @@
 # Runs on the FULL 6,223-clip pool (stage 2's pool_all.json), 500 questions. Three arms to embed
 # at ~3.3 s/clip measured on gpu2 -> ~5.5-6 h. Start it detached:
 #
-#   nohup bash run_recall.sh > /dev/null 2>&1 &     # ~6 h, checkpoints every 50 clips
-#   tail -f logs/recall_*.log
+#   CUDA_VISIBLE_DEVICES=3 nohup bash run_recall.sh > /dev/null 2>&1 &   # ~6 h, checkpointed
+#   sleep 5; tail -f logs/recall_*.log               # the log does not exist for the first second
+#
+# The GPU comes from CUDA_VISIBLE_DEVICES, inherited as-is (same convention as gaze_crop's
+# run_controls.sh). Set it: on a shared box an unset value grabs every card. To stop the run,
+# kill the process GROUP -- `kill <pid>` leaves the python child holding GPU memory:
+#
+#   kill -- -<pid>   # the pid nohup printed
 #
 #   POOL=../gaze_crop/pool.json bash run_recall.sh  # stage-1's 623 clips instead (~35 min, but
 #                                                   # 120 questions: McNemar needs 6 discordant
@@ -55,6 +61,10 @@ exec > >(tee -a "$LOG") 2>&1
 echo "log  : $LOG"
 echo "pool : $POOL"
 echo "arms : ${ALL_ARMS[*]}"
+# Recorded because the s/clip numbers in this log are only comparable against another run on the
+# same card, and an unset value means "every GPU on the box" -- worth seeing in the log, not
+# discovering from nvidia-smi three hours in.
+echo "gpu  : CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-<unset: all GPUs>}"
 
 FATAL=0
 [ -f "$POOL" ] || { echo "FATAL: $POOL missing. stage 2 builds it:"; \
