@@ -321,69 +321,105 @@ def parse_egoexo_gaze(npy_path, fps=30):
     return gaze_data
 
 
-def extract_fixation_segments(df, radius_thresh=0.05, duration_thresh=0.5, gap_thresh=0.2):
+def extract_fixation_segments(df, radius_thresh=0.05, duration_thresh=0.5,
+                              gap_thresh=0.2, dropout_thresh=0.4):
     """
-    Extracts fixation segments from frame-wise gaze data,
-    allowing short interruptions (gaps) within fixations.
+    Extracts fixation segments from frame-wise gaze data (I-DT),
+    allowing short excursions outside the radius and short sample dropouts.
+
+    A fixation is a run of samples that stay within `radius_thresh` of the run's
+    running centroid for at least `duration_thresh`. Two kinds of interruption are
+    tolerated, and they are NOT the same thing:
+
+      - excursion: samples exist but sit outside the radius (a flick to something
+        else and back). Tolerated while the excursion has lasted <= `gap_thresh`.
+      - dropout: no samples at all for a while (blink, tracking loss). Tolerated
+        while the hole is <= `dropout_thresh`; blinks run longer than flicks.
 
     Args:
         df (DataFrame): Gaze data with 'px', 'py', 'time_seconds' columns
-        radius_thresh (float): Max distance from start to consider still part of fixation
-        duration_thresh (float): Minimum duration for valid fixation (in seconds)
-        gap_thresh (float): Allowable brief interruption time (e.g., eye flick) in seconds
+        radius_thresh (float): Max distance from the running centroid to stay in the fixation
+        duration_thresh (float): Minimum duration for a valid fixation (seconds)
+        gap_thresh (float): Max cumulative time outside the radius before the fixation ends
+        dropout_thresh (float): Max hole between consecutive samples before the fixation ends
 
     Returns:
         fixations (list): List of fixation segments
+
+    Note on the previous version: it compared `timestamps[i] - timestamps[i-1]`
+    (the inter-sample dt) against gap_thresh. On uniformly sampled data that dt is
+    a constant -- 0.1 s at 10 Hz -- so the test was always true and no fixation ever
+    ended: the whole recording came back as one segment. The excursion has to be
+    timed from where it started, which is what `excursion_start` below does.
     """
     if len(df) == 0:
         print("Empty dataframe, no fixations to extract")
         return []
-        
-    timestamps = df['time_seconds'].values
-    xs = df['px'].values
-    ys = df['py'].values
+
+    timestamps = np.asarray(df['time_seconds'].values, dtype=np.float64)
+    xs = np.asarray(df['px'].values, dtype=np.float64)
+    ys = np.asarray(df['py'].values, dtype=np.float64)
 
     fixations = []
+
+    # Samples confirmed inside the current fixation. The centroid is taken over these
+    # only, so an excursion that is later forgiven does not drag the centre with it.
+    inlier_idx = [0]
     start_idx = 0
-    i = 1
+    excursion_start = None   # index where the current run of out-of-radius samples began
 
-    while i < len(xs):
-        dist = np.sqrt((xs[i] - xs[start_idx])**2 + (ys[i] - ys[start_idx])**2)
+    def close(end_idx):
+        """Emit the fixation [start_idx, end_idx] if it is long enough."""
+        duration = timestamps[end_idx] - timestamps[start_idx]
+        if duration >= duration_thresh and inlier_idx:
+            fixations.append({
+                "start_time": float(timestamps[start_idx]),
+                "end_time": float(timestamps[end_idx]),
+                "center_x": float(np.mean(xs[inlier_idx])),
+                "center_y": float(np.mean(ys[inlier_idx])),
+                "duration": float(duration),
+                "n_samples": int(len(inlier_idx)),
+            })
 
-        if dist > radius_thresh:
-            gap_duration = timestamps[i] - timestamps[i - 1]
-
-            if gap_duration <= gap_thresh:
-                # Short flick — ignore and continue
-                i += 1
-                continue
-
-            # Finalize fixation if it was long enough
-            duration = timestamps[i - 1] - timestamps[start_idx]
-            if duration >= duration_thresh:
-                fixations.append({
-                    "start_time": float(timestamps[start_idx]),
-                    "end_time": float(timestamps[i - 1]),
-                    "center_x": float(np.mean(xs[start_idx:i])),
-                    "center_y": float(np.mean(ys[start_idx:i])),
-                    "duration": float(duration)
-                })
-
-            # Start new fixation
+    for i in range(1, len(xs)):
+        # (1) dropout: a hole in the samples themselves ends the fixation if it is too long.
+        if timestamps[i] - timestamps[i - 1] > dropout_thresh:
+            close(inlier_idx[-1])
+            inlier_idx = [i]
             start_idx = i
+            excursion_start = None
+            continue
 
-        i += 1
+        cx, cy = np.mean(xs[inlier_idx]), np.mean(ys[inlier_idx])
+        dist = np.hypot(xs[i] - cx, ys[i] - cy)
+
+        if dist <= radius_thresh:
+            inlier_idx.append(i)
+            excursion_start = None       # came back in time; the flick is forgiven
+            continue
+
+        # (2) excursion: outside the radius. Time it from where it started, not from the
+        # previous sample.
+        if excursion_start is None:
+            excursion_start = i
+        if timestamps[i] - timestamps[excursion_start] <= gap_thresh:
+            continue                     # still within the tolerated flick, keep looking
+
+        # Too long outside -> the fixation ended at its last inlier, and the new one
+        # starts where the excursion began.
+        close(inlier_idx[-1])
+        start_idx = excursion_start
+        inlier_idx = [start_idx]
+        excursion_start = None
+        # Re-test the current sample against the new (single-sample) centroid.
+        if np.hypot(xs[i] - xs[start_idx], ys[i] - ys[start_idx]) <= radius_thresh:
+            if i != start_idx:
+                inlier_idx.append(i)
+        else:
+            excursion_start = i
 
     # Consider the last fixation as well
-    duration = timestamps[-1] - timestamps[start_idx]
-    if duration >= duration_thresh:
-        fixations.append({
-            "start_time": float(timestamps[start_idx]),
-            "end_time": float(timestamps[-1]),
-            "center_x": float(np.mean(xs[start_idx:])),
-            "center_y": float(np.mean(ys[start_idx:])),
-            "duration": float(duration)
-        })
+    close(inlier_idx[-1])
 
     print(f"Total fixations extracted: {len(fixations)}")
     return fixations
