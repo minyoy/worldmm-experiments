@@ -278,7 +278,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
         const b = c.center_box; g.setLineDash([lw * 3, lw * 2]); g.strokeStyle = css.getPropertyValue("--center"); g.lineWidth = lw;
         g.strokeRect(b[0] * W, b[1] * H, (b[2] - b[0]) * W, (b[3] - b[1]) * H); g.setLineDash([]);
       }
-      if (st.set === "A" && f.box) {
+      if (f.box) {
         const b = f.box; g.strokeStyle = css.getPropertyValue("--gazef"); g.lineWidth = lw * 1.3;
         g.strokeRect(b[0] * W, b[1] * H, (b[2] - b[0]) * W, (b[3] - b[1]) * H);
       }
