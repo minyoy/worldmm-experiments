@@ -227,7 +227,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
         <span class="tag">${esc(c.type || "")}</span>
         ${c.need_audio ? `<span class="tag audio">🔊 오디오 필요</span>` : `<span class="tag">시각 근거</span>`}
         ${D.A.includes(id) && D.B.includes(id) ? `<span class="tag">A·B 둘 다</span>` : ""}
-        <div class="nav-btns"><button class="btn" id="prev">← 이전</button><button class="btn" id="next">다음 →</button></div>
+        <div class="nav-btns"><button class="btn" id="prev">↑ 이전 문항</button><button class="btn" id="next">다음 문항 ↓</button></div>
       </div>
       ${rankRows(c)}
       <div class="viewer ${showCrop ? "" : "single"}">
@@ -254,7 +254,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
             <button class="unsure" data-v="unsure" aria-pressed="${v.v === "unsure"}">모름</button>
           </div>
           <textarea id="note" placeholder="메모 (예: 정답 물체가 시선 쪽에 있음 / center 로도 충분)">${esc(v.note || "")}</textarea>
-          <div class="kbd"><kbd>←</kbd><kbd>→</kbd> 문항 · <kbd>,</kbd><kbd>.</kbd> 프레임 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 판정 · <kbd>c</kbd> center 박스</div>
+          <div class="kbd"><kbd>←</kbd><kbd>→</kbd> 프레임 · <kbd>↑</kbd><kbd>↓</kbd> 문항 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 판정 · <kbd>c</kbd> center 박스</div>
         </div>
       </div>`;
     drawFrame();
@@ -329,8 +329,9 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
   document.addEventListener("keydown", (e) => {
     if (e.target.tagName === "TEXTAREA" || e.target.tagName === "INPUT" || e.metaKey || e.ctrlKey) return;
     const c = D.cases[ids()[st.idx]];
-    if (e.key === "ArrowRight") go(1);
-    else if (e.key === "ArrowLeft") go(-1);
+    if ((e.key === "ArrowRight" || e.key === "ArrowLeft") && c) { e.preventDefault(); frameIdx = (frameIdx + (e.key === "ArrowRight" ? 1 : -1) + c.frames.length) % c.frames.length; drawFrame(); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); go(1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); go(-1); }
     else if ((e.key === "." || e.key === ",") && c) { frameIdx = (frameIdx + (e.key === "." ? 1 : -1) + c.frames.length) % c.frames.length; drawFrame(); }
     else if (e.key === "1") setVerdict("good");
     else if (e.key === "2") setVerdict("bad");
