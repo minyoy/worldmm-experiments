@@ -126,6 +126,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
   <div class="tabs" role="tablist">
     <button role="tab" data-set="A" id="tab-A">A. gazef 가 더 잘 찾음</button>
     <button role="tab" data-set="B" id="tab-B">B. full 이 더 잘 찾음</button>
+    <button role="tab" data-set="C" id="tab-C">C. crop 전반이 손해</button>
   </div>
   <div class="hdr-right">
     <label>그룹 <select id="f-group"><option value="">전체</option><option value="own_action">own_action</option><option value="just_before">just_before</option><option value="minutes_before">minutes_before</option><option value="long_ago">long_ago</option></select></label>
@@ -148,9 +149,11 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
   for (const c of Object.values(D.cases)) c.frames.sort((a, b) => a.t - b.t);  // 시간순 (정답 시점 프레임도 t 위치에 끼워 넣음)
   const ARM_LABEL = { full: "full", center_05: "center", gazef_05: "gazef", gazef_05_randf: "randf" };
   const DESC = {
+    C: `<b>center / randf / gazef 중 2개 이상이 full 보다 정답 순위가 2배 이상 나쁜</b> 질의 ${(D.C || []).length}개 (full 순위 30 이내, ` +
+       `tol 0/30/60 중 가장 심한 쪽). 시선과 무관하게 <b>자르는 것 자체가 손해</b>인 유형을 본다. 무엇이 잘려 나갔는지 본다.`,
     A: `tol ${D.tol_a}s 채점에서 <b>gazef 의 정답 순위가 full 보다 크게 좋은</b> 질의 ${D.A.length}개 ` +
        `(순위가 가장 많이 오른 순, 순위가 절반 이하로 줄어든 것만). center / randf 도 좋아졌다면 gaze 가 아니라 자르기 덕일 수 있다.`,
-    B: `반대로 <b>full 의 정답 순위가 gazef 보다 크게 좋은</b> 질의 ${D.B.length}개. gaze crop 이 오히려 해로운 경우를 본다.`
+    B: `<b>full 은 top-3 안에 넣었는데 gazef 는 top-3 밖이었던</b> 질의 ${D.B.length}개 (tol 0/30/60 중 하나라도). 순위가 조금 나빠진 정도가 아니라 top-3 를 놓친 진짜 손해만 본다.`
   };
   const store = {
     get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
@@ -165,15 +168,16 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
   const vkey = (id) => `${st.set}:${id}`;
 
   function ids() {
-    return D[st.set].filter((id) => !st.group || D.cases[id].group === st.group);
+    return (D[st.set] || []).filter((id) => !st.group || D.cases[id].group === st.group);
   }
   function saveUI() { store.set("egoserve-cases-ui", st); }
 
   function renderHeader() {
-    for (const s of ["A", "B"]) {
+    const TAB = { A: "A. gazef 가 더 잘 찾음", B: "B. full 이 더 잘 찾음", C: "C. crop 전반이 손해" };
+    for (const s of ["A", "B", "C"]) {
       const b = $("tab-" + s);
       b.setAttribute("aria-selected", String(st.set === s));
-      b.textContent = (s === "A" ? "A. gazef 가 더 잘 찾음" : "B. full 이 더 잘 찾음") + ` (${D[s].length})`;
+      b.textContent = TAB[s] + ` (${(D[s] || []).length})`;
     }
     $("f-group").value = st.group;
     $("f-center").checked = st.center;

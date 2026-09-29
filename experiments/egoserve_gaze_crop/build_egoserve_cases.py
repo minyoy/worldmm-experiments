@@ -3,7 +3,8 @@
 EgoServe 검색 결과를 사례별로 눈으로 확인하는 정적 웹페이지를 만든다 (gaze_crop/build_gaze_cases.py 의 EgoServe 판).
 
   A. gazef 가 full 보다 정답 순위가 크게 좋은 질의 (순위가 절반 이하로 줄어든 것, 좋아진 폭 순)
-  B. 반대로 full 이 gazef 보다 크게 좋은 질의 (gaze crop 이 해로운 경우)
+  C. crop 전반이 손해인 질의 (full 순위 30 이내, center/randf/gazef 중 2개 이상이 2배 이상 나쁨. 시선과 무관하게 자르는 것 자체가 손해인 유형)
+  B. full 이 top-3 안에 넣었는데 gazef 는 top-3 밖이었던 질의 (tol 0/30/60 중 하나라도. gaze crop 이 해로운 경우)
 
 heard_speech 그룹(근거가 대화라 화면에 답이 없을 수 있는 것)은 처음부터 뺀다.
 순위는 --tol 채점(기본 30s)으로 고르고, 페이지에는 tol 0 / 30 / 60 순위를 모두 보여 준다.
@@ -81,6 +82,7 @@ def main():
     ap.add_argument("--min-ratio", type=float, default=2.0, help="keep cases whose rank changed by at least this factor")
     ap.add_argument("--n-a", type=int, default=40)
     ap.add_argument("--n-b", type=int, default=40)
+    ap.add_argument("--n-c", type=int, default=30)
     ap.add_argument("--size", type=int, default=560)
     ap.add_argument("--out", default=os.path.join(HERE, "egoserve_cases"))
     args = ap.parse_args()
@@ -98,9 +100,33 @@ def main():
             delta[qid] = math.log(r["rank"]["full"] / r["rank"]["gazef_05"])
     thr = math.log(args.min_ratio)
     cand_a = sorted([q for q, d in delta.items() if d >= thr], key=lambda q: -delta[q])
-    cand_b = sorted([q for q, d in delta.items() if -d >= thr], key=lambda q: delta[q])
+    # B: full 이 top-3 안에 넣었는데 gazef 는 못 넣은 질의 (tol 0/30/60 중 하나라도). 순위가 2배 나빠진 것 중에는
+    # 1위 -> 2위 같은 사소한 것이 섞여서, top-3 를 놓친 경우만 "손해"로 친다. 나빠진 폭이 큰 순.
+    worst = {}
+    for qid in questions:
+        for t in TOLS:
+            r = ranks[t].get(qid)
+            if r and r["rank"]["full"] <= 3 < r["rank"]["gazef_05"]:
+                worst[qid] = max(worst.get(qid, 0.0), math.log(r["rank"]["gazef_05"] / r["rank"]["full"]))
+    cand_b = sorted(worst, key=lambda q: -worst[q])
+
+    # C: crop 전반이 손해인 질의. full 순위가 30 이내이고, gazef 를 포함해 crop 조건(center / randf / gazef) 중
+    # 2개 이상이 full 보다 2배 이상 나쁜 것 (tol 0/30/60 중 가장 심한 쪽). 시선과 무관하게 "자르는 것 자체"가
+    # 손해인 유형을 보려는 것이다. 순위 비율의 중앙값이 큰 순.
+    loss = {}
+    for qid in questions:
+        for t in TOLS:
+            r = ranks[t].get(qid)
+            if not r or r["rank"]["full"] > 30:
+                continue
+            f = r["rank"]["full"]
+            cr = {"center": r["rank"]["center_05"], "randf": r["rank"]["gazef_05_randf"], "gazef": r["rank"]["gazef_05"]}
+            if cr["gazef"] >= 2 * f and sum(v >= 2 * f for v in cr.values()) >= 2:
+                loss[qid] = max(loss.get(qid, 0.0), sorted(v / f for v in cr.values())[1])
+    cand_c = sorted(loss, key=lambda q: -loss[q])
     print(f"tol {args.tol}: {len(delta)} scored queries (heard_speech excluded); "
-          f"A candidates {len(cand_a)}, B candidates {len(cand_b)} (rank changed >= {args.min_ratio}x)")
+          f"A candidates {len(cand_a)} (gazef rank <= full rank / {args.min_ratio}), "
+          f"B candidates {len(cand_b)} (full in top-3, gazef not, at any tol)")
 
     located = {}
     for qid in delta:
@@ -109,14 +135,15 @@ def main():
             located[qid] = tc
     set_a = [q for q in cand_a if q in located][:args.n_a]
     set_b = [q for q in cand_b if q in located][:args.n_b]
-    lost = [q for q in cand_a[:args.n_a] + cand_b[:args.n_b] if q not in located]
+    set_c = [q for q in cand_c if q in located][:args.n_c]
+    lost = [q for q in cand_a[:args.n_a] + cand_b[:args.n_b] + cand_c[:args.n_c] if q not in located]
     if lost:
         print(f"  no locatable target clip / gaze for {lost}")
 
     img_dir = os.path.join(args.out, "img")
     os.makedirs(img_dir, exist_ok=True)
     cases = {}
-    todo = list(dict.fromkeys(set_a + set_b))
+    todo = list(dict.fromkeys(set_a + set_b + set_c))
     for n, qid in enumerate(todo, 1):
         q = questions[qid]
         clip, offset, _ = located[qid]
@@ -139,7 +166,7 @@ def main():
         print(f"  {n}/{len(todo)} #{qid} {q['group']} {clip['key']} @ {offset:.1f}s")
 
     data = {"tol_a": args.tol, "ratio": bgc.RATIO, "arms": ARMS, "cases": cases,
-            "A": [q for q in set_a if q in cases], "B": [q for q in set_b if q in cases],
+            "A": [q for q in set_a if q in cases], "B": [q for q in set_b if q in cases], "C": [q for q in set_c if q in cases],
             "n_candidates_a": len(cand_a)}
     with open(os.path.join(args.out, "data.js"), "w", encoding="utf-8") as f:
         f.write("window.GAZE_CASES = " + json.dumps(data, ensure_ascii=False) + ";\n")
@@ -147,7 +174,7 @@ def main():
         html = f.read()
     with open(os.path.join(args.out, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"wrote {args.out}/index.html  ({len(data['A'])} A + {len(data['B'])} B cases, "
+    print(f"wrote {args.out}/index.html  ({len(data['A'])} A + {len(data['B'])} B + {len(data['C'])} C cases, "
           f"{len(os.listdir(img_dir))} images)")
 
 
