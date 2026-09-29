@@ -412,6 +412,7 @@ python experiments/gaze_crop/plot_arm_examples.py   # -> analysis/arms_example.j
 | `analysis/recall_curves{,_dark}.svg`, [`plot_recall_curves.py`](plot_recall_curves.py) | 3.1의 recall@k 그래프 (라이트/다크), 표준 라이브러리만 사용 |
 | `analysis/gaze_heatmap{,_dark}.svg`, [`plot_gaze_heatmap.py`](plot_gaze_heatmap.py) | 3.3의 시선 히트맵과 중앙 crop 박스 (라이트/다크) |
 | `analysis/arms_example.jpg`, [`plot_arm_examples.py`](plot_arm_examples.py) | 2.1의 arm 예시 그림 (실제 프레임 위 crop 박스) |
+| [`build_gaze_cases.py`](build_gaze_cases.py), `gaze_cases_template.html` | 사례 검토 웹페이지 (`gaze_cases/index.html`, git 제외): A. `gazef`만 top-3에 넣은 문항, B. 시선이 중앙 밖인 문항. 프레임·시선·crop·문항·순위와 판정 메모 |
 | `analysis/recall_{all,main,holdout}_tol{60,0}.md` | `full`/`gazef`만의 500 / 120 / 380문항 채점 |
 | `analysis/stage2_recorded.json` | git에 없는 산출물(좌표계, 정확도)의 기록본 |
 | [`prepare_gaze.py`](prepare_gaze.py) | gaze CSV → 프레임별 픽셀 좌표 (`gaze_points.json`) |
