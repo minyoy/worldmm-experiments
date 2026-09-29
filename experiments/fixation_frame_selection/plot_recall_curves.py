@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 """
-Two figures for the README, each as a light and a dark SVG (the README picks one with <picture>):
+Three figures for the README, each as a light and a dark SVG (the README picks one with <picture>):
 
-  analysis/recall_curves{,_dark}.svg   Recall@k, 2 rows x 3 tolerances (0 | 30 | 60 s).
-                                       row A = frame selection (full / fixsel_ctl / fixsel)
-                                       row B = crop arms       (full / center / gazef / fixsel_gaze
-                                               [/ fixsel_gazef once it has been scored])
-  analysis/paired_k3{,_dark}.svg       k=3 paired differences with 95% CI, one row per contrast,
-                                       one mark per tolerance (incl. fixation arms vs gaze crop).
+  analysis/figures/recall_at_k_curves{,_dark}.svg  Recall@k (k <= 20), 3 rows x 3 tolerances (0 | 30 | 60 s).
+                                             A = frame selection   (full / fixsel_ctl / fixsel)
+                                             B = selection + crop  (full / fixsel / fixsel_gaze / fixsel_gazef)
+                                             C = gaze crop vs centre (full / center / gazef / fixsel_gazef)
+  analysis/figures/paired_diff_recall_at_3{,_dark}.svg             k=3 paired differences with 95% CI, one row per contrast,
+                                             one mark per tolerance.
+  analysis/figures/recall_at_k_fixsel_vs_gazef{,_dark}.svg  fixsel (frame selection only) vs gazef (gaze crop), with full and chance
+  analysis/figures/recall_diff_ci_fixsel_gazef{,_dark}.svg             recall@k difference of fixsel_gazef vs gazef and vs center,
+                                             with a 95% bootstrap CI over questions.
 
 Reads results/recall_pool_all_subset_r005_tol{0,30,60}.json. The tol=0 run did not score
 `center_05`; its column comes from ../gaze_crop/results/recall_arms_tol0.json, which is the same
 pool, the same embeddings and the same 487 questions -- checked below question by question on the
-two arms both files hold, and the script refuses to merge if they disagree.
-
-Same style as ../gaze_crop/plot_recall_curves.py, and the arms both experiments share keep their
-colors (gazef blue, center orange, full gray). Standard library only.
+two arms both files hold, and the script refuses to merge if they disagree. Standard library only.
 
     python experiments/fixation_frame_selection/plot_recall_curves.py
 """
@@ -23,11 +23,12 @@ colors (gazef blue, center orange, full gray). Standard library only.
 import json
 import math
 import os
+import sys
 from typing import Dict, List, Tuple
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESULTS = os.path.join(HERE, "results")
-OUT = os.path.join(HERE, "analysis")
+OUT = os.path.join(HERE, "analysis", "figures")
 GC_TOL0 = os.path.join(HERE, "..", "gaze_crop", "results", "recall_arms_tol0.json")
 
 TOLS = [0, 30, 60]
@@ -35,22 +36,23 @@ MAIN_K = 3
 FONT = "'Helvetica Neue', Helvetica, Arial, 'DejaVu Sans', sans-serif"
 
 # arm -> (legend label, light, dark, dashed, hollow marker)
-# Colors validated all-pairs per panel (row A: violet+gray, row B: blue/orange/aqua). `full` is the
-# neutral baseline: gray, hollow markers, so it never relies on hue alone. Pairs share a hue and
-# split on the dash: fixsel_ctl is fixsel's control, fixsel_gaze (centroid, one box per fixation)
-# is fixsel_gazef's fixed-box variant.
+# Every arm has its own hue so curves that overlap stay distinguishable; solid + filled = the main arm,
+# dashed + hollow = its control or variant. `full` is the neutral baseline (gray, hollow markers).
 STYLE = {
-    "full": ("full (16 frames, no crop)", "#898781", "#898781", False, True),
-    "fixsel_ctl": ("fixsel_ctl (same count, uniform)", "#4a3aa7", "#9085e9", True, True),
+    "full": ("full (16 frames, no crop)", "#6b6a64", "#a3a29a", False, True),
+    "fixsel_ctl": ("fixsel_ctl (same count, uniform)", "#d6479a", "#e879b6", True, True),
     "fixsel": ("fixsel (fixation frames)", "#4a3aa7", "#9085e9", False, False),
     "center_05": ("center (centre crop)", "#eb6834", "#d95926", False, False),
     "gazef_05": ("gazef (gaze crop)", "#2a78d6", "#3987e5", False, False),
-    "fixsel_gaze_05": ("fixsel_gaze (centroid crop)", "#1baf7a", "#199e70", True, True),
-    "fixsel_gazef_05": ("fixsel_gazef (per-frame crop)", "#1baf7a", "#199e70", False, False),
+    "fixsel_gaze_05": ("fixsel_gaze (centroid crop)", "#c98a00", "#e0a92e", True, True),
+    "fixsel_gazef_05": ("fixsel_gazef (per-frame crop)", "#1baf7a", "#2fd19a", False, False),
 }
 ROWS = [("A. frame selection", ["full", "fixsel_ctl", "fixsel"]),
-        ("B. with crop", ["full", "center_05", "gazef_05", "fixsel_gaze_05", "fixsel_gazef_05"])]
-YSCALE = {0: (30, 5), 30: (40, 10), 60: (50, 10)}   # per column, shared by both rows
+        ("B. selection + crop", ["full", "fixsel", "fixsel_gaze_05", "fixsel_gazef_05"]),
+        ("C. gaze crop vs center", ["full", "center_05", "gazef_05", "fixsel_gazef_05"])]
+# frame selection alone vs the gaze crop, one panel per tolerance
+FIXSEL_VS_GAZEF = [("fixsel vs gazef", ["full", "fixsel", "gazef_05"])]
+YSCALE = {0: (20, 5), 30: (30, 5), 60: (35, 5)}   # per column, shared by all rows (k <= 20)
 
 THEMES = {
     "light": {"surface": "#ffffff", "text": "#1a1a1a", "muted": "#555555", "tick": "#333333",
@@ -224,11 +226,12 @@ def row_legend(x: float, y: float, arms: List[str], th: Dict[str, str], mode: st
     return s
 
 
-def render_curves(data: Dict[int, dict], mode: str) -> str:
+def render_curves(data: Dict[int, dict], mode: str, rows=None) -> str:
+    rows = rows or ROWS
     th = THEMES[mode]
-    w, h = CW * len(TOLS), (CH + ROW_HEAD) * len(ROWS)
+    w, h = CW * len(TOLS), (CH + ROW_HEAD) * len(rows)
     body: List[str] = []
-    for r, (rtitle, arms) in enumerate(ROWS):
+    for r, (rtitle, arms) in enumerate(rows):
         arms = [a for a in arms if scored(data, a)]
         y0 = r * (CH + ROW_HEAD)
         body.append(f'<text x="16" y="{y0 + 24}" font-size="19" font-weight="700" fill="{th["text"]}">{rtitle}</text>')
@@ -238,11 +241,84 @@ def render_curves(data: Dict[int, dict], mode: str) -> str:
     return svg(w, h, "Recall at k by arm, rows frame selection and crop, columns tolerance 0, 30, 60 s", th, body)
 
 
+# ---------------------------------------------------------------- figure 4: recall difference with bootstrap CI
+
+CI_KS = [1, 3, 5, 10, 20]
+CI_CONTRASTS = [("fixsel_gazef_05", "gazef_05", "fixsel_gazef − gazef", "selection on top of the gaze crop"),
+                ("fixsel_gazef_05", "center_05", "fixsel_gazef − center", "selection + gaze crop vs the centre crop")]
+N_BOOT = 4000
+
+
+def boot_diff(ranks: Dict[str, Dict[str, int]], a: str, b: str, k: int, seed: int = 0):
+    """Paired difference in recall@k (pp) with a 95% percentile bootstrap CI, resampling questions."""
+    import random
+    d = [(r[a] <= k) - (r[b] <= k) for r in ranks.values()]
+    n = len(d)
+    rng = random.Random(seed)
+    means = sorted(sum(rng.choices(d, k=n)) / n for _ in range(N_BOOT))
+    return 100 * sum(d) / n, 100 * means[int(0.025 * N_BOOT)], 100 * means[int(0.975 * N_BOOT) - 1]
+
+
+def render_ci(data: Dict[int, dict], mode: str) -> str:
+    th = THEMES[mode]
+    pw, ph = 480, 330
+    ml, mr, mt, mb = 78, 24, 52, 58
+    rows = len(CI_CONTRASTS)
+    w, h = pw * len(TOLS), (ph + 40) * rows
+    body: List[str] = []
+    ylo, yhi, ystep = -4, 8, 2
+    kx = {k: i for i, k in enumerate(CI_KS)}
+    for r, (a, b, name, role) in enumerate(CI_CONTRASTS):
+        y0 = r * (ph + 40)
+        body.append(f'<text x="16" y="{y0 + 24}" font-size="19" font-weight="700" fill="{th["text"]}">{name}</text>')
+        body.append(f'<text x="{16 + 12 * len(name) + 12}" y="{y0 + 24}" font-size="14" fill="{th["muted"]}">'
+                    f'{role} · recall@k difference (pp), 95% bootstrap CI</text>')
+        for c, t in enumerate(TOLS):
+            px0, px1 = c * pw + ml, c * pw + pw - mr
+            py0, py1 = y0 + 40 + mt - 20, y0 + 40 + ph - mb
+
+            def X(k):
+                return px0 + 30 + kx[k] / (len(CI_KS) - 1) * (px1 - px0 - 60)
+
+            def Y(v):
+                return py1 - (v - ylo) / (yhi - ylo) * (py1 - py0)
+
+            body.append(f'<text x="{(px0 + px1) / 2:.1f}" y="{py0 - 14}" font-size="18" font-weight="700" '
+                        f'text-anchor="middle" fill="{th["text"]}">tol = {t} s{"  (strict)" if t == 0 else ""}</text>')
+            v = ylo
+            while v <= yhi:
+                y = Y(v)
+                if v == 0:
+                    body.append(f'<line x1="{px0}" x2="{px1}" y1="{y:.1f}" y2="{y:.1f}" stroke="{th["spine"]}" stroke-width="1.6"/>')
+                else:
+                    body.append(f'<line x1="{px0}" x2="{px1}" y1="{y:.1f}" y2="{y:.1f}" stroke="{th["grid"]}" stroke-dasharray="4 4"/>')
+                body.append(f'<text x="{px0 - 10}" y="{y + 5:.1f}" font-size="14" text-anchor="end" fill="{th["tick"]}">'
+                            f'{f"{v:+d}" if v else "0"}</text>')
+                v += ystep
+            for k in CI_KS:
+                body.append(f'<text x="{X(k):.1f}" y="{py1 + 22}" font-size="14" text-anchor="middle" fill="{th["tick"]}">{k}</text>')
+            body.append(f'<text x="{(px0 + px1) / 2:.1f}" y="{py1 + 46}" font-size="15" text-anchor="middle" fill="{th["text"]}">k</text>')
+            cy = (py0 + py1) / 2
+            body.append(f'<text x="{px0 - 46}" y="{cy:.1f}" font-size="15" text-anchor="middle" fill="{th["text"]}" '
+                        f'transform="rotate(-90 {px0 - 46} {cy:.1f})">Recall diff (pp)</text>')
+            body.append(f'<line x1="{px0}" x2="{px0}" y1="{py0}" y2="{py1}" stroke="{th["spine"]}" stroke-width="1.2"/>')
+            col = STYLE[a][1] if mode == "light" else STYLE[a][2]
+            for k in CI_KS:
+                d, lo, hi = boot_diff(data[t]["ranks"], a, b, k)
+                sig = lo > 0 or hi < 0
+                body.append(f'<line x1="{X(k):.1f}" x2="{X(k):.1f}" y1="{Y(max(lo, ylo)):.1f}" y2="{Y(min(hi, yhi)):.1f}" '
+                            f'stroke="{col}" stroke-width="3" stroke-linecap="round"/>')
+                fill = col if sig else th["surface"]
+                body.append(f'<circle cx="{X(k):.1f}" cy="{Y(d):.1f}" r="6.5" fill="{fill}" stroke="{col}" stroke-width="2.5"/>')
+    body.append(f'<text x="{w - 16}" y="24" font-size="13" text-anchor="end" fill="{th["muted"]}">'
+                f'filled = 95% CI excludes 0 · hollow = includes 0</text>')
+    return svg(w, h, "Recall difference with bootstrap 95% CI for fixsel_gazef vs gazef and vs center", th, body)
+
+
 # ---------------------------------------------------------------- figure 2: k=3 paired differences
 
 CONTRASTS = [
     ("fixsel", "full", "fixsel − full", "selection + fewer frames"),
-    ("fixsel_ctl", "full", "fixsel_ctl − full", "fewer frames alone"),
     ("fixsel", "fixsel_ctl", "fixsel − fixsel_ctl", "primary: selection effect"),
     ("fixsel", "gazef_05", "fixsel − gazef", "selection alone vs gaze crop"),
     ("fixsel_gazef_05", "gazef_05", "fixsel_gazef − gazef", "selection on top of gaze crop"),
@@ -312,14 +388,28 @@ def render_paired(data: Dict[int, dict], mode: str) -> str:
     return svg(FW, h, "Paired Recall@3 differences with 95% CI across tolerances 0, 30, 60 s", th, s)
 
 
+KMAX = 20      # curves stop at k=20: k=50 is 0.8% of the pool and far from the top-3 the system uses.
+               # The tables keep k=50, and paired_diff_recall_at_3 is a k=3 figure, so it is unaffected.
+
+
+def cut_k(data: Dict[int, dict], kmax: int = KMAX) -> Dict[int, dict]:
+    n = {t: sum(k <= kmax for k in d["ks"]) for t, d in data.items()}
+    return {t: dict(d, ks=d["ks"][:n[t]], chance=d["chance"][:n[t]],
+                    recall={a: v[:n[t]] for a, v in d["recall"].items()})
+            for t, d in data.items()}
+
+
 def main() -> None:
     os.makedirs(OUT, exist_ok=True)
     data = load_all()
+    cut = cut_k(data)
     for mode, suf in (("light", ""), ("dark", "_dark")):
-        for name, fn in (("recall_curves", render_curves), ("paired_k3", render_paired)):
+        for name, fn, d in (("recall_at_k_curves", render_curves, cut), ("paired_diff_recall_at_3", render_paired, data),
+                            ("recall_diff_ci_fixsel_gazef", render_ci, data),
+                            ("recall_at_k_fixsel_vs_gazef", lambda dd, m: render_curves(dd, m, FIXSEL_VS_GAZEF), cut)):
             path = os.path.join(OUT, f"{name}{suf}.svg")
             with open(path, "w", encoding="utf-8") as f:
-                f.write(fn(data, mode))
+                f.write(fn(d, mode))
             print("wrote", path)
 
 

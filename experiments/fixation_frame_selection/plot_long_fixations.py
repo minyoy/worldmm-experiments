@@ -146,7 +146,7 @@ def main():
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--ratio", type=float, default=0.5, help="crop ratio, to draw the box the arm would use")
     ap.add_argument("--cell", type=int, default=300)
-    ap.add_argument("--out", default=os.path.join(HERE, "analysis", "long_fixations.jpg"))
+    ap.add_argument("--out", default=os.path.join(HERE, "analysis", "figures", "long_fixations.jpg"))
     args = ap.parse_args()
 
     gaze = load_gaze(args.gaze)

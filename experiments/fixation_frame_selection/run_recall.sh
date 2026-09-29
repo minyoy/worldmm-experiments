@@ -62,7 +62,7 @@ BASE_ARMS=(full "center@$RATIO" "gazef@$RATIO")
 ALL_ARMS=("${BASE_ARMS[@]}" "${FIX_ARMS[@]}")
 TAG="$(basename "$POOL" .json)_${SELECT}_r${RADIUS/./}"
 
-mkdir -p "$HERE/analysis" "$HERE/results" "$HERE/logs"
+mkdir -p "$HERE/analysis/tables/question_query" "$HERE/results" "$HERE/logs"
 LOG="$HERE/logs/recall_${TAG}_$(date +%Y%m%d_%H%M%S).log"
 exec > >(tee -a "$LOG") 2>&1
 echo "log  : $LOG"
@@ -139,7 +139,7 @@ for T in $TOLS; do
   echo; echo "=== recall, tol ${T}s ==="
   "$PY" "$GC/recall_eval.py" --pool "$POOL" --arms "${ALL_ARMS[@]}" --target-tolerance-sec "$T" \
       --out "$HERE/results/recall_${TAG}_tol${T}.json" \
-      --markdown "$HERE/analysis/recall_${TAG}_tol${T}.md" || exit 1
+      --markdown "$HERE/analysis/tables/question_query/recall_${TAG}_tol${T}.md" || exit 1
 done
 echo; echo "figures: python $HERE/plot_recall_curves.py"
 
@@ -157,4 +157,4 @@ for K in 1 3 5 10 20 50; do
       --out "$DISC/recall_k$K.json" --markdown "$DISC/recall_k$K.md" 2>/dev/null \
       | sed -n "/paired comparisons at k=$K/,/^$/p"
 done
-echo "done. tables: $HERE/analysis/recall_${TAG}_tol{$(echo $TOLS | tr ' ' ',')}.md"
+echo "done. tables: $HERE/analysis/tables/question_query/recall_${TAG}_tol{$(echo $TOLS | tr ' ' ',')}.md"

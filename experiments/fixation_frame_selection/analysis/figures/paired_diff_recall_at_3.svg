@@ -8,7 +8,7 @@
 <text x="472" y="57" font-size="14" fill="#1a1a1a">tol 30 s</text>
 <polygon points="578.0,45.1 584.9,52.0 578.0,58.9 571.1,52.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
 <text x="592" y="57" font-size="14" fill="#1a1a1a">tol 60 s</text>
-<rect x="12" y="322" width="1256" height="110" rx="6" fill="#f3f3f1"/>
+<rect x="12" y="194" width="1256" height="110" rx="6" fill="#f3f3f1"/>
 <line x1="330.0" x2="330.0" y1="70" y2="582" stroke="#cfcfcf" stroke-dasharray="4 4"/>
 <text x="330.0" y="604" font-size="14" text-anchor="middle" fill="#333333">-6</text>
 <line x1="411.4" x2="411.4" y1="70" y2="582" stroke="#cfcfcf" stroke-dasharray="4 4"/>
@@ -38,37 +38,37 @@
 <line x1="605.4" x2="787.5" y1="155.0" y2="155.0" stroke="#104281" stroke-width="2.5" stroke-linecap="round"/>
 <polygon points="696.4,146.9 704.5,155.0 696.4,163.1 688.4,155.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
 <text x="924" y="160.0" font-size="14" fill="#1a1a1a" font-weight="700">+3.0 pp   24:9   p=0.014</text>
-<text x="20" y="246.0" font-size="16" font-weight="700" fill="#1a1a1a">fixsel_ctl − full</text>
-<text x="20" y="266.0" font-size="13" fill="#555555">fewer frames alone</text>
-<line x1="488.1" x2="627.1" y1="215.0" y2="215.0" stroke="#9ec5f4" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="557.6" cy="215.0" r="7" fill="#9ec5f4" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="220.0" font-size="14" fill="#1a1a1a">-0.4 pp   8:10   p=0.815</text>
-<line x1="518.9" x2="678.5" y1="249.0" y2="249.0" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round"/>
-<rect x="592.8" y="243.1" width="11.9" height="11.9" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="254.0" font-size="14" fill="#1a1a1a">+0.6 pp   14:11   p=0.690</text>
-<line x1="441.1" x2="609.8" y1="283.0" y2="283.0" stroke="#104281" stroke-width="2.5" stroke-linecap="round"/>
-<polygon points="525.4,274.9 533.5,283.0 525.4,291.1 517.4,283.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="288.0" font-size="14" fill="#1a1a1a">-1.2 pp   11:17   p=0.345</text>
-<text x="20" y="374.0" font-size="16" font-weight="700" fill="#1a1a1a">fixsel − fixsel_ctl</text>
-<text x="20" y="394.0" font-size="13" fill="#555555">primary: selection effect</text>
-<line x1="557.8" x2="724.5" y1="343.0" y2="343.0" stroke="#9ec5f4" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="641.2" cy="343.0" r="7" fill="#9ec5f4" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="348.0" font-size="14" fill="#1a1a1a">+1.6 pp   17:9   p=0.169</text>
-<line x1="582.1" x2="761.9" y1="377.0" y2="377.0" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round"/>
-<rect x="666.0" y="371.1" width="11.9" height="11.9" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="382.0" font-size="14" fill="#1a1a1a">+2.4 pp   22:10   p=0.050</text>
-<line x1="646.7" x2="843.8" y1="411.0" y2="411.0" stroke="#104281" stroke-width="2.5" stroke-linecap="round"/>
-<polygon points="745.3,402.9 753.3,411.0 745.3,419.1 737.2,411.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="416.0" font-size="14" fill="#1a1a1a" font-weight="700">+4.2 pp   30:9   p=0.001</text>
-<text x="20" y="502.0" font-size="16" font-weight="700" fill="#1a1a1a">fixsel − gazef</text>
-<text x="20" y="522.0" font-size="13" fill="#555555">selection alone vs gaze crop</text>
-<line x1="454.2" x2="627.5" y1="471.0" y2="471.0" stroke="#9ec5f4" stroke-width="2.5" stroke-linecap="round"/>
-<circle cx="540.8" cy="471.0" r="7" fill="#9ec5f4" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="476.0" font-size="14" fill="#1a1a1a">-0.8 pp   12:16   p=0.572</text>
-<line x1="452.2" x2="680.1" y1="505.0" y2="505.0" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round"/>
-<rect x="560.2" y="499.1" width="11.9" height="11.9" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="510.0" font-size="14" fill="#1a1a1a">-0.2 pp   25:26   p=1.000</text>
-<line x1="401.9" x2="649.0" y1="539.0" y2="539.0" stroke="#104281" stroke-width="2.5" stroke-linecap="round"/>
-<polygon points="525.4,531.0 533.5,539.0 525.4,547.0 517.4,539.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
-<text x="924" y="544.0" font-size="14" fill="#1a1a1a">-1.2 pp   27:33   p=0.519</text>
+<text x="20" y="246.0" font-size="16" font-weight="700" fill="#1a1a1a">fixsel − fixsel_ctl</text>
+<text x="20" y="266.0" font-size="13" fill="#555555">primary: selection effect</text>
+<line x1="557.8" x2="724.5" y1="215.0" y2="215.0" stroke="#9ec5f4" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="641.2" cy="215.0" r="7" fill="#9ec5f4" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="220.0" font-size="14" fill="#1a1a1a">+1.6 pp   17:9   p=0.169</text>
+<line x1="582.1" x2="761.9" y1="249.0" y2="249.0" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="666.0" y="243.1" width="11.9" height="11.9" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="254.0" font-size="14" fill="#1a1a1a">+2.4 pp   22:10   p=0.050</text>
+<line x1="646.7" x2="843.8" y1="283.0" y2="283.0" stroke="#104281" stroke-width="2.5" stroke-linecap="round"/>
+<polygon points="745.3,274.9 753.3,283.0 745.3,291.1 737.2,283.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="288.0" font-size="14" fill="#1a1a1a" font-weight="700">+4.2 pp   30:9   p=0.001</text>
+<text x="20" y="374.0" font-size="16" font-weight="700" fill="#1a1a1a">fixsel − gazef</text>
+<text x="20" y="394.0" font-size="13" fill="#555555">selection alone vs gaze crop</text>
+<line x1="454.2" x2="627.5" y1="343.0" y2="343.0" stroke="#9ec5f4" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="540.8" cy="343.0" r="7" fill="#9ec5f4" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="348.0" font-size="14" fill="#1a1a1a">-0.8 pp   12:16   p=0.572</text>
+<line x1="452.2" x2="680.1" y1="377.0" y2="377.0" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="560.2" y="371.1" width="11.9" height="11.9" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="382.0" font-size="14" fill="#1a1a1a">-0.2 pp   25:26   p=1.000</text>
+<line x1="401.9" x2="649.0" y1="411.0" y2="411.0" stroke="#104281" stroke-width="2.5" stroke-linecap="round"/>
+<polygon points="525.4,402.9 533.5,411.0 525.4,419.1 517.4,411.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="416.0" font-size="14" fill="#1a1a1a">-1.2 pp   27:33   p=0.519</text>
+<text x="20" y="502.0" font-size="16" font-weight="700" fill="#1a1a1a">fixsel_gazef − gazef</text>
+<text x="20" y="522.0" font-size="13" fill="#555555">selection on top of gaze crop</text>
+<line x1="544.3" x2="704.6" y1="471.0" y2="471.0" stroke="#9ec5f4" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="624.4" cy="471.0" r="7" fill="#9ec5f4" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="476.0" font-size="14" fill="#1a1a1a">+1.2 pp   15:9   p=0.307</text>
+<line x1="530.2" x2="716.1" y1="505.0" y2="505.0" stroke="#2a78d6" stroke-width="2.5" stroke-linecap="round"/>
+<rect x="617.2" y="499.1" width="11.9" height="11.9" fill="#2a78d6" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="510.0" font-size="14" fill="#1a1a1a">+1.2 pp   20:14   p=0.392</text>
+<line x1="491.7" x2="705.8" y1="539.0" y2="539.0" stroke="#104281" stroke-width="2.5" stroke-linecap="round"/>
+<polygon points="598.7,531.0 606.8,539.0 598.7,547.0 590.7,539.0" fill="#104281" stroke="#ffffff" stroke-width="1.5"/>
+<text x="924" y="544.0" font-size="14" fill="#1a1a1a">+0.6 pp   24:21   p=0.766</text>
 </svg>

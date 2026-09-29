@@ -14,6 +14,7 @@ all-pairs in both modes) for the crop arms, neutral gray for the `full` baseline
 import json
 import math
 import os
+import sys
 from typing import Dict, List, Tuple
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -134,8 +135,13 @@ def render(mode: str) -> str:
 
 
 def main() -> None:
+    # --kw: same figure from results/recall_arms_kw_tol{60,0}.json (recall_eval --query-source keywords)
+    kw = "--kw" in sys.argv
+    if kw:
+        PANELS[:] = [(f.replace("arms_", "arms_kw_"), t + "  [keywords]", y, st) for f, t, y, st in PANELS]
+    sfx = "_kw" if kw else ""
     os.makedirs(OUT, exist_ok=True)
-    for mode, name in (("light", "recall_curves.svg"), ("dark", "recall_curves_dark.svg")):
+    for mode, name in (("light", f"recall_curves{sfx}.svg"), ("dark", f"recall_curves{sfx}_dark.svg")):
         path = os.path.join(OUT, name)
         with open(path, "w", encoding="utf-8") as f:
             f.write(render(mode))
