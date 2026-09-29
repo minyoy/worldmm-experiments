@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # Frame selection vs. gaze crop vs. both, scored on retrieval recall.
 #
-# Runs on the FULL 6,223-clip pool (stage 2's pool_all.json), 500 questions. Three arms to embed
-# at ~3.3 s/clip measured on gpu2 -> ~5.5-6 h. Start it detached:
+# Runs on the FULL 6,223-clip pool (stage 2's pool_all.json), 500 questions. Four fixation arms,
+# ~1.05 s decode + ~0.76 s per arm per clip on gpu2: ~7 h from scratch, ~3 h when only
+# fixsel_gazef is new (the others resume from emb/). Start it detached:
 #
-#   CUDA_VISIBLE_DEVICES=3 nohup bash run_recall.sh > /dev/null 2>&1 &   # ~6 h, checkpointed
+#   CUDA_VISIBLE_DEVICES=3 nohup bash run_recall.sh > /dev/null 2>&1 &   # checkpointed
 #   sleep 5; tail -f logs/recall_*.log               # the log does not exist for the first second
 #
 # The GPU comes from CUDA_VISIBLE_DEVICES, inherited as-is (same convention as gaze_crop's
@@ -25,18 +26,22 @@
 # stopped. What is NOT safe is changing --radius/--select mid-way; that discards the arm and
 # starts over (by design -- see embed_fix_arms.py).
 #
-# The comparison is four arms, and every one of them answers a question the others cannot:
+# Every arm answers a question the others cannot:
 #
 #   full             baseline: 16 uniform frames, whole frame
+#   center@R         centre crop: the gaze_crop experiment's crop-without-gaze control
 #   gazef@R          crop follows the gaze  (the gaze_crop experiment's arm)
 #   fixsel           frame SELECTION alone: the fixation-covered subset of full's own frames
 #   fixsel_ctl       count-matched control: as many frames as fixsel, uniformly spaced,
 #                    fixations ignored.  fixsel - fixsel_ctl is the selection effect;
 #                    fixsel - full mixes it with "fewer frames"
-#   fixsel_gazef@R   selection + crop: the arm this experiment is for
+#   fixsel_gaze@R    selection + crop on each fixation's CENTROID (one box per fixation, like
+#                    gaze_crop's gaze@R holds one per clip). Called fixsel_gazef before 2026-09-29.
+#   fixsel_gazef@R   selection + gazef's own per-frame crop (nearest gaze sample).
+#                    fixsel_gazef - gazef is the selection effect on top of the gaze crop
 #
 # recall_eval.py scores a question only when EVERY loaded arm can, so a clip dropped for having
-# no fixation frame is dropped from all five columns and the table stays paired. Its
+# no fixation frame is dropped from every column and the table stays paired. Its
 # "unscorable" line is how many questions that cost -- read it before the recall numbers.
 set -uo pipefail
 
@@ -49,10 +54,12 @@ RATIO="${RATIO:-0.5}"
 SELECT="${SELECT:-subset}"
 RADIUS="${RADIUS:-0.05}"
 SKIP_EMBED="${SKIP_EMBED:-0}"
+TOLS="${TOLS:-0 30 60}"     # tol 0 is the pre-registered result; 30/60 are robustness checks
 PY="${PY:-python}"
 
-FIX_ARMS=(fixsel "fixsel_gazef@$RATIO" fixsel_ctl)
-ALL_ARMS=(full "gazef@$RATIO" "${FIX_ARMS[@]}")
+FIX_ARMS=(fixsel "fixsel_gaze@$RATIO" "fixsel_gazef@$RATIO" fixsel_ctl)
+BASE_ARMS=(full "center@$RATIO" "gazef@$RATIO")
+ALL_ARMS=("${BASE_ARMS[@]}" "${FIX_ARMS[@]}")
 TAG="$(basename "$POOL" .json)_${SELECT}_r${RADIUS/./}"
 
 mkdir -p "$HERE/analysis" "$HERE/results" "$HERE/logs"
@@ -83,11 +90,11 @@ FATAL=0
 if [ "$FATAL" = "0" ]; then
   N_POOL=$("$PY" -c "import json,sys; print(json.load(open('$POOL'))['n_clips'])") || exit 1
   echo "pool clips: $N_POOL"
-  for A in full "gazef@$RATIO"; do
+  for A in "${BASE_ARMS[@]}"; do
     F="$GC/emb/$(echo "$A" | tr -d '.' | tr '@' '_').npz"
     if [ ! -f "$F" ]; then
       echo "FATAL: $F missing. Build the baseline arms in gaze_crop first (~2.7 h for $N_POOL clips):"
-      echo "  python $GC/embed_arms.py --pool $POOL --arms full gazef@$RATIO --video-root $VIDEO_ROOT"
+      echo "  python $GC/embed_arms.py --pool $POOL --arms $A --video-root $VIDEO_ROOT"
       FATAL=1
       continue
     fi
@@ -105,6 +112,19 @@ print(len(np.load('$F', allow_pickle=False)['keys']))") || exit 1
     fi
   done
 fi
+# The centroid arm was renamed fixsel_gazef -> fixsel_gaze. Its old npz, if still under the old name,
+# is not silently reused as the new per-frame fixsel_gazef (embed_fix_arms.py would detect it from
+# the meta and rebuild), but that throws ~1.3 h of centroid embeddings away. Move it first.
+R_TAG="$(echo "$RATIO" | tr -d '.')"
+OLD="$GC/emb/fixsel_gazef_$R_TAG.npz"
+NEW="$GC/emb/fixsel_gaze_$R_TAG.npz"
+if [ -f "$OLD" ] && [ ! -f "$NEW" ] && ! grep -q crop_centre "${OLD%.npz}.meta.json" 2>/dev/null; then
+  echo "FATAL: $OLD holds centroid crops from before the rename (no crop_centre in its meta)."
+  echo "       It is fixsel_gaze@$RATIO now. Move it, then rerun:"
+  echo "  mv $OLD $NEW"
+  echo "  mv ${OLD%.npz}.meta.json ${NEW%.npz}.meta.json"
+  FATAL=1
+fi
 [ "$FATAL" = "1" ] && { echo; echo "aborting before spending GPU time"; exit 1; }
 
 if [ "$SKIP_EMBED" != "1" ]; then
@@ -113,10 +133,15 @@ if [ "$SKIP_EMBED" != "1" ]; then
       --arms "${FIX_ARMS[@]}" --select "$SELECT" --radius "$RADIUS" || exit 1
 fi
 
-echo; echo "=== recall ==="
-"$PY" "$GC/recall_eval.py" --pool "$POOL" --arms "${ALL_ARMS[@]}" --target-tolerance-sec 0 \
-    --out "$HERE/results/recall_${TAG}_tol0.json" \
-    --markdown "$HERE/analysis/recall_${TAG}_tol0.md" || exit 1
+# One table per tolerance. Recall across tolerances is not comparable (more target clips lift
+# every arm); each table carries its own chance row.
+for T in $TOLS; do
+  echo; echo "=== recall, tol ${T}s ==="
+  "$PY" "$GC/recall_eval.py" --pool "$POOL" --arms "${ALL_ARMS[@]}" --target-tolerance-sec "$T" \
+      --out "$HERE/results/recall_${TAG}_tol${T}.json" \
+      --markdown "$HERE/analysis/recall_${TAG}_tol${T}.md" || exit 1
+done
+echo; echo "figures: python $HERE/plot_recall_curves.py"
 
 # The pairwise table above is at k=3 only. The arms can tie on recall and still disagree about
 # which questions they got; the discordant counts at each k bound how big any real difference
@@ -132,4 +157,4 @@ for K in 1 3 5 10 20 50; do
       --out "$DISC/recall_k$K.json" --markdown "$DISC/recall_k$K.md" 2>/dev/null \
       | sed -n "/paired comparisons at k=$K/,/^$/p"
 done
-echo "done. table: $HERE/analysis/recall_${TAG}_tol0.md"
+echo "done. tables: $HERE/analysis/recall_${TAG}_tol{$(echo $TOLS | tr ' ' ',')}.md"
