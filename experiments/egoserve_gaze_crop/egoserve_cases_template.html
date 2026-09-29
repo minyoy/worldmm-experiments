@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gaze Case Review</title>
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --surface-2: #f0f0ed; --border: #e2e1dc;
+  --text: #1a1a19; --muted: #5f5e58; --faint: #8a8982;
+  --accent: #2a78d6; --gaze: #ffd600; --gazef: #2a78d6; --center: #eb6834;
+  --good: #1f8a4c; --bad: #c43d3d; --unsure: #9a7b00;
+  --hit-bg: #dff3e6; --hit-fg: #17613a; --miss-bg: #f0f0ed; --miss-fg: #5f5e58;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413; --surface: #1c1c1b; --surface-2: #262624; --border: #33332f;
+    --text: #f2f2ef; --muted: #b5b4ad; --faint: #85847d;
+    --accent: #5a9cf0; --gazef: #3987e5; --center: #e07040;
+    --good: #45b673; --bad: #e06666; --unsure: #d1ad2c;
+    --hit-bg: #1d3a28; --hit-fg: #8fdcaa; --miss-bg: #262624; --miss-fg: #b5b4ad;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413; --surface: #1c1c1b; --surface-2: #262624; --border: #33332f;
+  --text: #f2f2ef; --muted: #b5b4ad; --faint: #85847d;
+  --accent: #5a9cf0; --gazef: #3987e5; --center: #e07040;
+  --good: #45b673; --bad: #e06666; --unsure: #d1ad2c;
+  --hit-bg: #1d3a28; --hit-fg: #8fdcaa; --miss-bg: #262624; --miss-fg: #b5b4ad;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif; }
+button { font: inherit; color: inherit; cursor: pointer; }
+header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 10px 16px; }
+header h1 { font-size: 16px; margin: 0 8px 0 0; }
+.tabs { display: flex; gap: 4px; background: var(--surface-2); padding: 3px; border-radius: 8px; }
+.tabs button { border: 0; background: transparent; padding: 5px 12px; border-radius: 6px; color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.hdr-right { margin-left: auto; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+.hdr-right label { display: flex; gap: 5px; align-items: center; cursor: pointer; }
+.btn { border: 1px solid var(--border); background: var(--surface); padding: 5px 10px; border-radius: 6px; font-size: 13px; }
+.btn:hover { background: var(--surface-2); }
+.layout { display: grid; grid-template-columns: 230px 1fr; min-height: calc(100vh - 54px); }
+nav { border-right: 1px solid var(--border); background: var(--surface); overflow-y: auto; max-height: calc(100vh - 54px);
+  position: sticky; top: 54px; }
+nav .desc { padding: 10px 14px; font-size: 12.5px; color: var(--muted); border-bottom: 1px solid var(--border); }
+nav ol { list-style: none; margin: 0; padding: 4px 0; }
+nav li button { width: 100%; text-align: left; border: 0; background: transparent; padding: 6px 14px;
+  display: flex; gap: 8px; align-items: center; font-size: 13.5px; }
+nav li button:hover { background: var(--surface-2); }
+nav li button[aria-current="true"] { background: var(--surface-2); font-weight: 600; box-shadow: inset 3px 0 var(--accent); }
+.dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--faint); flex: none; }
+.dot.good { background: var(--good); border-color: var(--good); }
+.dot.bad { background: var(--bad); border-color: var(--bad); }
+.dot.unsure { background: var(--unsure); border-color: var(--unsure); }
+nav .sub { color: var(--faint); font-size: 12px; margin-left: auto; }
+main { padding: 18px 22px 60px; max-width: 1180px; }
+.case-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin-bottom: 10px; }
+.case-head h2 { margin: 0; font-size: 20px; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--surface-2); color: var(--muted); }
+.tag.audio { background: #fbeee0; color: #8a4b12; }
+:root[data-theme="dark"] .tag.audio { background: #3a2a18; color: #f0b777; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tag.audio { background: #3a2a18; color: #f0b777; } }
+.nav-btns { margin-left: auto; display: flex; gap: 6px; }
+.ranks { display: grid; grid-template-columns: auto repeat(4, minmax(78px, auto)); gap: 4px 6px; align-items: center;
+  font-size: 13px; margin: 6px 0 16px; width: max-content; max-width: 100%; }
+.ranks .h { color: var(--faint); font-size: 12px; }
+.rk { text-align: center; padding: 3px 8px; border-radius: 6px; background: var(--miss-bg); color: var(--miss-fg);
+  font-variant-numeric: tabular-nums; }
+.rk.hit { background: var(--hit-bg); color: var(--hit-fg); font-weight: 600; }
+.viewer { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.viewer.single { grid-template-columns: minmax(0, 620px); }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
+.panel h3 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; display: flex; gap: 8px; }
+.panel canvas { width: 100%; height: auto; display: block; border-radius: 6px; background: #000; }
+.legend { display: flex; flex-wrap: wrap; gap: 12px; font-size: 12.5px; color: var(--muted); margin: 8px 2px 0; }
+.legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; margin-right: 5px; vertical-align: -2px; border-radius: 2px; }
+.lg-gaze::before { background: var(--gaze); border-radius: 50% !important; border: 1.5px solid #000; }
+.lg-gazef::before { border: 2.5px solid var(--gazef); }
+.lg-center::before { border: 2.5px dashed var(--center); }
+.strip { display: flex; gap: 6px; overflow-x: auto; padding: 10px 2px 6px; }
+.thumb { position: relative; flex: none; width: 84px; border: 2px solid transparent; border-radius: 6px; padding: 0; background: none; }
+.thumb img { width: 100%; display: block; border-radius: 4px; }
+.thumb .gd { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--gaze); border: 1px solid #000; }
+.thumb .lbl { display: block; font-size: 11px; color: var(--muted); text-align: center; }
+.thumb.off .lbl { color: var(--center); font-weight: 600; }
+.thumb[aria-pressed="true"] { border-color: var(--accent); }
+.thumb.target .lbl { color: var(--text); font-weight: 700; }
+.qa { margin-top: 16px; display: grid; grid-template-columns: 1fr 300px; gap: 14px; align-items: start; }
+.qa .q { font-size: 17px; font-weight: 600; margin: 0 0 10px; }
+.choices { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.choices li { padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.choices li.ans { border-color: var(--good); box-shadow: inset 3px 0 var(--good); }
+.choices b { margin-right: 6px; }
+.reason { margin-top: 10px; color: var(--muted); font-size: 14px; }
+.reason b { color: var(--text); }
+details { margin-top: 10px; color: var(--muted); font-size: 14px; }
+.meta { font-size: 12.5px; color: var(--faint); margin-top: 8px; }
+.verdict .btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+.verdict button { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 7px 4px; font-size: 13px; }
+.verdict button[aria-pressed="true"].good { background: var(--good); border-color: var(--good); color: #fff; }
+.verdict button[aria-pressed="true"].bad { background: var(--bad); border-color: var(--bad); color: #fff; }
+.verdict button[aria-pressed="true"].unsure { background: var(--unsure); border-color: var(--unsure); color: #fff; }
+.verdict textarea { width: 100%; min-height: 90px; resize: vertical; font: inherit; font-size: 13.5px; padding: 8px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+.kbd { font-size: 12px; color: var(--faint); margin-top: 6px; }
+kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
+.empty { color: var(--muted); padding: 40px 0; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  nav { position: static; max-height: 180px; border-right: 0; border-bottom: 1px solid var(--border); }
+  .viewer, .qa { grid-template-columns: 1fr; }
+  main { padding: 14px 16px 60px; }
+  .nav-btns { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>EgoServe gaze 사례 보기</h1>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-set="A" id="tab-A">A. gazef 가 더 잘 찾음</button>
+    <button role="tab" data-set="B" id="tab-B">B. full 이 더 잘 찾음</button>
+  </div>
+  <div class="hdr-right">
+    <label>그룹 <select id="f-group"><option value="">전체</option><option value="own_action">own_action</option><option value="just_before">just_before</option><option value="minutes_before">minutes_before</option><option value="long_ago">long_ago</option></select></label>
+    <label><input type="checkbox" id="f-center"> center 박스</label>
+    <span id="progress"></span>
+    <button class="btn" id="export">판정 내보내기 (JSON)</button>
+  </div>
+</header>
+<div class="layout">
+  <nav>
+    <div class="desc" id="set-desc"></div>
+    <ol id="list"></ol>
+  </nav>
+  <main id="main"></main>
+</div>
+<script src="data.js"></script>
+<script>
+(function () {
+  const D = window.GAZE_CASES;
+  for (const c of Object.values(D.cases)) c.frames.sort((a, b) => a.t - b.t);  // 시간순 (정답 시점 프레임도 t 위치에 끼워 넣음)
+  const ARM_LABEL = { full: "full", center_05: "center", gazef_05: "gazef", gazef_05_randf: "randf" };
+  const DESC = {
+    A: `tol ${D.tol_a}s 채점에서 <b>gazef 의 정답 순위가 full 보다 크게 좋은</b> 질의 ${D.A.length}개 ` +
+       `(순위가 가장 많이 오른 순, 순위가 절반 이하로 줄어든 것만). center / randf 도 좋아졌다면 gaze 가 아니라 자르기 덕일 수 있다.`,
+    B: `반대로 <b>full 의 정답 순위가 gazef 보다 크게 좋은</b> 질의 ${D.B.length}개. gaze crop 이 오히려 해로운 경우를 본다.`
+  };
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  let verdicts = store.get("egoserve-cases-verdicts", {});
+  const st = Object.assign({ set: "A", idx: 0, group: "", center: false }, store.get("egoserve-cases-ui", {}));
+  let frameIdx = 0;
+
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const vkey = (id) => `${st.set}:${id}`;
+
+  function ids() {
+    return D[st.set].filter((id) => !st.group || D.cases[id].group === st.group);
+  }
+  function saveUI() { store.set("egoserve-cases-ui", st); }
+
+  function renderHeader() {
+    for (const s of ["A", "B"]) {
+      const b = $("tab-" + s);
+      b.setAttribute("aria-selected", String(st.set === s));
+      b.textContent = (s === "A" ? "A. gazef 가 더 잘 찾음" : "B. full 이 더 잘 찾음") + ` (${D[s].length})`;
+    }
+    $("f-group").value = st.group;
+    $("f-center").checked = st.center;
+    $("set-desc").innerHTML = DESC[st.set];
+    const list = ids();
+    const done = list.filter((id) => verdicts[vkey(id)] && verdicts[vkey(id)].v).length;
+    $("progress").textContent = `판정 ${done}/${list.length}`;
+  }
+
+  function renderList() {
+    const list = ids();
+    $("list").innerHTML = list.map((id, i) => {
+      const c = D.cases[id], v = (verdicts[vkey(id)] || {}).v || "";
+      return `<li><button data-i="${i}" aria-current="${i === st.idx}">` +
+        `<span class="dot ${v}"></span>#${esc(id)}<span class="sub">${esc(c.group)}</span></button></li>`;
+    }).join("");
+  }
+
+  function rankRows(c) {
+    let h = `<span class="h"></span>` + D.arms.map((a) => `<span class="h" style="text-align:center">${ARM_LABEL[a]}</span>`).join("");
+    for (const t of ["0", "30", "60"]) {
+      const r = c.ranks[t];
+      h += `<span class="h">tol ${t}s 순위</span>`;
+      h += D.arms.map((a) => {
+        if (!r) return `<span class="rk" title="정답 클립이 질의 시각 이전에 없어 채점 제외">–</span>`;
+        const hit = r.hit[a];
+        return `<span class="rk ${hit ? "hit" : ""}" title="${hit ? "top-3 안" : "top-3 밖"}">${r.rank[a]}</span>`;
+      }).join("");
+    }
+    return `<div class="ranks">${h}</div>`;
+  }
+
+  function renderCase() {
+    const list = ids();
+    if (!list.length) { $("main").innerHTML = `<p class="empty">이 조건에 맞는 문항이 없습니다.</p>`; return; }
+    st.idx = Math.min(Math.max(st.idx, 0), list.length - 1);
+    const id = list[st.idx], c = D.cases[id], showCrop = true;
+    const v = verdicts[vkey(id)] || {};
+    const thumbs = c.frames.map((f, i) => {
+      const dot = f.gx != null ? `<span class="gd" style="left:${f.gx * 100}%;top:${f.gy * 100}%"></span>` : "";
+      const lbl = f.target ? "★ 정답 시점" : `${f.t.toFixed(1)}s`;
+      const cls = ["thumb", f.target ? "target" : "", f.in_center === false ? "off" : ""].join(" ");
+      return `<button class="${cls}" data-f="${i}" aria-pressed="${i === frameIdx}" title="${f.target ? "주석된 정답 시점" : "임베딩에 쓰인 16 프레임 중 하나"}${f.in_center === false ? " · 시선이 center 박스 밖" : ""}">` +
+        `<span style="position:relative;display:block"><img src="${f.src}" alt="">${dot}</span><span class="lbl">${lbl}</span></button>`;
+    }).join("");
+    const offLine = c.off_centre_frac ? ` · 16 프레임 중 시선이 중앙 밖 ${Math.round(c.off_centre_frac * 100)}%` : "";
+    const gapTxt = c.gap_sec < 120 ? `${Math.round(c.gap_sec)}초 전` : c.gap_sec < 7200 ? `${Math.round(c.gap_sec / 60)}분 전` : c.gap_sec < 172800 ? `${(c.gap_sec / 3600).toFixed(1)}시간 전` : `${Math.round(c.gap_sec / 86400)}일 전`;
+
+    $("main").innerHTML = `
+      <div class="case-head">
+        <h2>#${esc(id)}</h2>
+        <span class="tag">${esc(c.group)}</span>
+        <span class="tag">${esc(c.type || "")}</span>
+        <span class="tag">과거 장면 ${esc(gapTxt)}</span>
+        <div class="nav-btns"><button class="btn" id="prev">↑ 이전 문항</button><button class="btn" id="next">다음 문항 ↓</button></div>
+      </div>
+      ${rankRows(c)}
+      <div class="viewer ${showCrop ? "" : "single"}">
+        <div class="panel"><h3>전체 프레임 (full)<span id="ftime" style="margin-left:auto;font-weight:400"></span></h3>
+          <canvas id="cv-full"></canvas>
+          <div class="legend"><span class="lg-gaze">시선</span>${showCrop ? `<span class="lg-gazef">gazef crop (${D.ratio})</span>` : ""}${st.center ? `<span class="lg-center">center crop</span>` : ""}</div>
+        </div>
+        ${showCrop ? `<div class="panel"><h3>gazef 가 임베딩한 영역</h3><canvas id="cv-crop"></canvas>
+          <div class="legend"><span class="lg-gaze">시선</span></div></div>` : ""}
+      </div>
+      <div class="strip" id="strip">${thumbs}</div>
+      <div class="qa">
+        <div>
+          <p class="q">검색 질의 (정답 장면 묘사): ${esc(c.question)}</p>
+          <div class="reason"><b>지금 장면 (${esc(c.current_window)})</b> ${esc(c.current_observation)} ${esc(c.current_local_context)}</div>
+          <div class="reason"><b>어시스턴트가 한 말</b> ${esc(c.assistant_utterance)}</div>
+          ${c.now_src ? `<div class="reason"><b>질의 시점의 프레임</b><br><img src="${c.now_src}" alt="지금 장면" style="max-width:260px;border-radius:6px;margin-top:4px"></div>` : ""}
+          <div class="meta">정답 클립 ${esc(c.clip)} · 정답 장면 ${esc(c.past_window)} · 정답 시점 ${c.target_offset}s${offLine}</div>
+        </div>
+        <div class="panel verdict">
+          <h3>gaze 가 도움이 될 것 같은가?</h3>
+          <div class="btns">
+            <button class="good" data-v="good" aria-pressed="${v.v === "good"}">도움 됨</button>
+            <button class="bad" data-v="bad" aria-pressed="${v.v === "bad"}">아님</button>
+            <button class="unsure" data-v="unsure" aria-pressed="${v.v === "unsure"}">모름</button>
+          </div>
+          <textarea id="note" placeholder="메모 (예: 정답 물체가 시선 쪽에 있음 / center 로도 충분)">${esc(v.note || "")}</textarea>
+          <div class="kbd"><kbd>←</kbd><kbd>→</kbd> 프레임 · <kbd>↑</kbd><kbd>↓</kbd> 문항 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 판정 · <kbd>c</kbd> center 박스</div>
+        </div>
+      </div>`;
+    drawFrame();
+  }
+
+  function drawFrame() {
+    const list = ids(); if (!list.length) return;
+    const c = D.cases[list[st.idx]], f = c.frames[frameIdx];
+    const img = new Image();
+    img.onload = () => {
+      const W = img.naturalWidth, H = img.naturalHeight, cv = $("cv-full");
+      if (!cv) return;
+      cv.width = W; cv.height = H;
+      const g = cv.getContext("2d");
+      g.drawImage(img, 0, 0);
+      const css = getComputedStyle(document.documentElement);
+      const lw = Math.max(2, W / 180);
+      if (st.center) {
+        const b = c.center_box; g.setLineDash([lw * 3, lw * 2]); g.strokeStyle = css.getPropertyValue("--center"); g.lineWidth = lw;
+        g.strokeRect(b[0] * W, b[1] * H, (b[2] - b[0]) * W, (b[3] - b[1]) * H); g.setLineDash([]);
+      }
+      if (st.set === "A" && f.box) {
+        const b = f.box; g.strokeStyle = css.getPropertyValue("--gazef"); g.lineWidth = lw * 1.3;
+        g.strokeRect(b[0] * W, b[1] * H, (b[2] - b[0]) * W, (b[3] - b[1]) * H);
+      }
+      if (f.gx != null) dot(g, f.gx * W, f.gy * H, Math.max(6, W / 55));
+      const cc = $("cv-crop");
+      if (cc && f.box) {
+        const b = f.box, sx = b[0] * W, sy = b[1] * H, sw = (b[2] - b[0]) * W, sh = (b[3] - b[1]) * H;
+        cc.width = Math.round(sw); cc.height = Math.round(sh);
+        const h2 = cc.getContext("2d"); h2.drawImage(img, sx, sy, sw, sh, 0, 0, cc.width, cc.height);
+        if (f.gx != null) dot(h2, f.gx * W - sx, f.gy * H - sy, Math.max(6, cc.width / 30));
+      } else if (cc) { cc.width = 10; cc.height = 10; }
+      $("ftime").textContent = (f.target ? "★ 정답 시점 · " : "") + `t = ${f.t.toFixed(1)}s` +
+        (f.in_center === false ? " · 시선이 중앙 밖" : "");
+    };
+    img.src = f.src;
+    document.querySelectorAll(".thumb").forEach((b) => b.setAttribute("aria-pressed", String(+b.dataset.f === frameIdx)));
+  }
+  function dot(g, x, y, r) {
+    g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2);
+    g.fillStyle = "#ffd600"; g.fill(); g.lineWidth = Math.max(1.5, r / 4); g.strokeStyle = "#000"; g.stroke();
+  }
+
+  function render() { renderHeader(); renderList(); renderCase(); saveUI(); }
+  function go(d) { const n = ids().length; if (!n) return; st.idx = (st.idx + d + n) % n; frameIdx = 0; render(); }
+  function setVerdict(v) {
+    const id = ids()[st.idx]; if (!id) return;
+    const cur = verdicts[vkey(id)] || {};
+    cur.v = cur.v === v ? "" : v; verdicts[vkey(id)] = cur; store.set("egoserve-cases-verdicts", verdicts);
+    renderHeader(); renderList();
+    document.querySelectorAll(".verdict [data-v]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === cur.v)));
+  }
+
+  document.querySelector(".tabs").addEventListener("click", (e) => {
+    const s = e.target.dataset.set; if (s && s !== st.set) { st.set = s; st.idx = 0; frameIdx = 0; render(); }
+  });
+  $("f-group").addEventListener("change", (e) => { st.group = e.target.value; st.idx = 0; frameIdx = 0; render(); });
+  $("f-center").addEventListener("change", (e) => { st.center = e.target.checked; saveUI(); renderCase(); });
+  $("list").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { st.idx = +b.dataset.i; frameIdx = 0; render(); } });
+  $("main").addEventListener("click", (e) => {
+    if (e.target.closest("#prev")) return go(-1);
+    if (e.target.closest("#next")) return go(1);
+    const t = e.target.closest(".thumb"); if (t) { frameIdx = +t.dataset.f; drawFrame(); return; }
+    const v = e.target.closest("[data-v]"); if (v) setVerdict(v.dataset.v);
+  });
+  $("main").addEventListener("input", (e) => {
+    if (e.target.id !== "note") return;
+    const id = ids()[st.idx], cur = verdicts[vkey(id)] || {};
+    cur.note = e.target.value; verdicts[vkey(id)] = cur; store.set("egoserve-cases-verdicts", verdicts);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "TEXTAREA" || e.target.tagName === "INPUT" || e.metaKey || e.ctrlKey) return;
+    const c = D.cases[ids()[st.idx]];
+    if ((e.key === "ArrowRight" || e.key === "ArrowLeft") && c) { e.preventDefault(); frameIdx = (frameIdx + (e.key === "ArrowRight" ? 1 : -1) + c.frames.length) % c.frames.length; drawFrame(); }
+    else if (e.key === "ArrowDown") { e.preventDefault(); go(1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); go(-1); }
+    else if ((e.key === "." || e.key === ",") && c) { frameIdx = (frameIdx + (e.key === "." ? 1 : -1) + c.frames.length) % c.frames.length; drawFrame(); }
+    else if (e.key === "1") setVerdict("good");
+    else if (e.key === "2") setVerdict("bad");
+    else if (e.key === "3") setVerdict("unsure");
+    else if (e.key === "c") { st.center = !st.center; saveUI(); renderHeader(); renderCase(); }
+  });
+  $("export").addEventListener("click", () => {
+    const out = { exported: new Date().toISOString(), tol_a: D.tol_a, verdicts: {} };
+    for (const [k, v] of Object.entries(verdicts)) {
+      if (!v.v && !v.note) continue;
+      const [set, id] = k.split(":"); const c = D.cases[id] || {};
+      out.verdicts[k] = { set, id, verdict: v.v || null, note: v.note || "", type: c.type, group: c.group, question: c.question, clip: c.clip };
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" }));
+    a.download = "egoserve_case_verdicts.json"; a.click(); URL.revokeObjectURL(a.href);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

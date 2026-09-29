@@ -176,3 +176,6 @@ cython_debug/
 .pypirc
 # gaze case review site: EgoLife frames, built on the server by build_gaze_cases.py
 experiments/gaze_crop/gaze_cases/img/
+
+# EgoServe case review site: EgoLife frames, built on the server by build_egoserve_cases.py
+experiments/egoserve_gaze_crop/egoserve_cases/img/

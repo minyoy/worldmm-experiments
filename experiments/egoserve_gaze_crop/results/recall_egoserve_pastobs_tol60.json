@@ -1,0 +1,2346 @@
+{
+  "pool": "/home/minyoy/WorldMM/experiments/egoserve_gaze_crop/pool_egoserve.json",
+  "emb_dir": "/home/minyoy/WorldMM/experiments/gaze_crop/emb",
+  "query_source": "question",
+  "self_test": false,
+  "n_questions": 88,
+  "n_scored": 88,
+  "ks": [
+    1,
+    3,
+    5,
+    10,
+    20,
+    50
+  ],
+  "main_k": 3,
+  "target_tolerance_sec": 60.0,
+  "chance": {
+    "recall": {
+      "1": 0.003583118449102528,
+      "3": 0.010687829559974694,
+      "5": 0.017711602085861467,
+      "10": 0.03492539054947614,
+      "20": 0.06793765002212822,
+      "50": 0.1569246435912635
+    },
+    "median_rank": 364,
+    "targets_per_question_median": 5,
+    "visible_pool_median": 2208
+  },
+  "arms": {
+    "full": {
+      "n_clips": 6223,
+      "recall": {
+        "1": 0.03409090909090909,
+        "3": 0.06818181818181818,
+        "5": 0.10227272727272728,
+        "10": 0.1590909090909091,
+        "20": 0.26136363636363635,
+        "50": 0.3522727272727273
+      },
+      "median_rank": 130,
+      "unscorable": []
+    },
+    "center_05": {
+      "n_clips": 6223,
+      "recall": {
+        "1": 0.03409090909090909,
+        "3": 0.10227272727272728,
+        "5": 0.1590909090909091,
+        "10": 0.22727272727272727,
+        "20": 0.26136363636363635,
+        "50": 0.4090909090909091
+      },
+      "median_rank": 115,
+      "unscorable": []
+    },
+    "gazef_05_randf": {
+      "n_clips": 6223,
+      "recall": {
+        "1": 0.045454545454545456,
+        "3": 0.06818181818181818,
+        "5": 0.10227272727272728,
+        "10": 0.125,
+        "20": 0.23863636363636365,
+        "50": 0.32954545454545453
+      },
+      "median_rank": 110,
+      "unscorable": []
+    },
+    "gazef_05": {
+      "n_clips": 6222,
+      "recall": {
+        "1": 0.022727272727272728,
+        "3": 0.10227272727272728,
+        "5": 0.1590909090909091,
+        "10": 0.26136363636363635,
+        "20": 0.3068181818181818,
+        "50": 0.4318181818181818
+      },
+      "median_rank": 84,
+      "unscorable": []
+    }
+  },
+  "pairs": [
+    {
+      "a": "full",
+      "b": "center_05",
+      "k": 3,
+      "diff_pp": -3.40909090909091,
+      "a_only": 3,
+      "b_only": 6,
+      "mcnemar_p": 0.5078125,
+      "n_discordant": 9
+    },
+    {
+      "a": "full",
+      "b": "gazef_05_randf",
+      "k": 3,
+      "diff_pp": 0.0,
+      "a_only": 3,
+      "b_only": 3,
+      "mcnemar_p": 1.0,
+      "n_discordant": 6
+    },
+    {
+      "a": "full",
+      "b": "gazef_05",
+      "k": 3,
+      "diff_pp": -3.40909090909091,
+      "a_only": 3,
+      "b_only": 6,
+      "mcnemar_p": 0.5078125,
+      "n_discordant": 9
+    },
+    {
+      "a": "center_05",
+      "b": "gazef_05_randf",
+      "k": 3,
+      "diff_pp": 3.40909090909091,
+      "a_only": 6,
+      "b_only": 3,
+      "mcnemar_p": 0.5078125,
+      "n_discordant": 9
+    },
+    {
+      "a": "center_05",
+      "b": "gazef_05",
+      "k": 3,
+      "diff_pp": 0.0,
+      "a_only": 5,
+      "b_only": 5,
+      "mcnemar_p": 1.0,
+      "n_discordant": 10
+    },
+    {
+      "a": "gazef_05_randf",
+      "b": "gazef_05",
+      "k": 3,
+      "diff_pp": -3.40909090909091,
+      "a_only": 3,
+      "b_only": 6,
+      "mcnemar_p": 0.5078125,
+      "n_discordant": 9
+    }
+  ],
+  "breakdowns": {
+    "need_audio": {
+      "False": {
+        "n": 66,
+        "full": 6.0606060606060606,
+        "center_05": 9.090909090909092,
+        "gazef_05_randf": 6.0606060606060606,
+        "gazef_05": 7.575757575757576
+      },
+      "True": {
+        "n": 22,
+        "full": 9.090909090909092,
+        "center_05": 13.636363636363635,
+        "gazef_05_randf": 9.090909090909092,
+        "gazef_05": 18.181818181818183
+      }
+    },
+    "type": {
+      "check_status": {
+        "n": 6,
+        "full": 0.0,
+        "center_05": 0.0,
+        "gazef_05_randf": 0.0,
+        "gazef_05": 0.0
+      },
+      "context_cue": {
+        "n": 1,
+        "full": 0.0,
+        "center_05": 0.0,
+        "gazef_05_randf": 0.0,
+        "gazef_05": 0.0
+      },
+      "forgotten_item": {
+        "n": 8,
+        "full": 12.5,
+        "center_05": 12.5,
+        "gazef_05_randf": 12.5,
+        "gazef_05": 12.5
+      },
+      "long_term_link": {
+        "n": 32,
+        "full": 3.125,
+        "center_05": 9.375,
+        "gazef_05_randf": 6.25,
+        "gazef_05": 3.125
+      },
+      "task_reminder": {
+        "n": 37,
+        "full": 10.81081081081081,
+        "center_05": 13.513513513513514,
+        "gazef_05_randf": 8.108108108108109,
+        "gazef_05": 16.216216216216218
+      },
+      "unfinished_plan": {
+        "n": 4,
+        "full": 0.0,
+        "center_05": 0.0,
+        "gazef_05_randf": 0.0,
+        "gazef_05": 25.0
+      }
+    },
+    "gap_bin": {
+      "0": {
+        "n": 68,
+        "full": 7.352941176470589,
+        "center_05": 10.294117647058822,
+        "gazef_05_randf": 7.352941176470589,
+        "gazef_05": 11.76470588235294
+      },
+      "1": {
+        "n": 11,
+        "full": 9.090909090909092,
+        "center_05": 18.181818181818183,
+        "gazef_05_randf": 9.090909090909092,
+        "gazef_05": 9.090909090909092
+      },
+      "2+": {
+        "n": 9,
+        "full": 0.0,
+        "center_05": 0.0,
+        "gazef_05_randf": 0.0,
+        "gazef_05": 0.0
+      }
+    }
+  },
+  "per_question": [
+    {
+      "ID": "1",
+      "queries": [
+        "Jake asked the fruit counter staff to cut a selected pineapple."
+      ],
+      "pool_size": {
+        "full": 500,
+        "center_05": 500,
+        "gazef_05_randf": 500,
+        "gazef_05": 500
+      },
+      "rank": {
+        "full": 1,
+        "center_05": 1,
+        "gazef_05_randf": 1,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 1,
+        "center_05": 1,
+        "gazef_05_randf": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "2",
+      "queries": [
+        "I continue watching the screen to see when the transfer is finished"
+      ],
+      "pool_size": {
+        "full": 786,
+        "center_05": 786,
+        "gazef_05_randf": 786,
+        "gazef_05": 786
+      },
+      "rank": {
+        "full": 31,
+        "center_05": 133,
+        "gazef_05_randf": 91,
+        "gazef_05": 137
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "3",
+      "queries": [
+        "It just prompted me about the Bluetooth issue... needs updating"
+      ],
+      "pool_size": {
+        "full": 807,
+        "center_05": 807,
+        "gazef_05_randf": 807,
+        "gazef_05": 807
+      },
+      "rank": {
+        "full": 196,
+        "center_05": 91,
+        "gazef_05_randf": 326,
+        "gazef_05": 226
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "4",
+      "queries": [
+        "I agree with my colleagues ('Okay, okay') when they mention needing two more chairs for lunch."
+      ],
+      "pool_size": {
+        "full": 1082,
+        "center_05": 1082,
+        "gazef_05_randf": 1082,
+        "gazef_05": 1082
+      },
+      "rank": {
+        "full": 14,
+        "center_05": 65,
+        "gazef_05_randf": 14,
+        "gazef_05": 35
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "5",
+      "queries": [
+        "I put the power bank down in the second-floor living room before heading downstairs."
+      ],
+      "pool_size": {
+        "full": 1249,
+        "center_05": 1249,
+        "gazef_05_randf": 1249,
+        "gazef_05": 1249
+      },
+      "rank": {
+        "full": 43,
+        "center_05": 33,
+        "gazef_05_randf": 113,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "6",
+      "queries": [
+        "I watch my laptop, waiting for a file transfer"
+      ],
+      "pool_size": {
+        "full": 1396,
+        "center_05": 1396,
+        "gazef_05_randf": 1396,
+        "gazef_05": 1396
+      },
+      "rank": {
+        "full": 152,
+        "center_05": 161,
+        "gazef_05_randf": 160,
+        "gazef_05": 168
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "7",
+      "queries": [
+        "Lucia asked me to notify her before scanning her room so she could remove two pieces of hanging clothing."
+      ],
+      "pool_size": {
+        "full": 1614,
+        "center_05": 1614,
+        "gazef_05_randf": 1614,
+        "gazef_05": 1614
+      },
+      "rank": {
+        "full": 241,
+        "center_05": 136,
+        "gazef_05_randf": 104,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "8",
+      "queries": [
+        "I told the group that we would exchange gifts in the morning."
+      ],
+      "pool_size": {
+        "full": 1658,
+        "center_05": 1658,
+        "gazef_05_randf": 1658,
+        "gazef_05": 1658
+      },
+      "rank": {
+        "full": 107,
+        "center_05": 141,
+        "gazef_05_randf": 108,
+        "gazef_05": 97
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "9",
+      "queries": [
+        "I took a photo of the mineral water bottles on the table because I couldn't remember the order myself."
+      ],
+      "pool_size": {
+        "full": 1726,
+        "center_05": 1726,
+        "gazef_05_randf": 1726,
+        "gazef_05": 1726
+      },
+      "rank": {
+        "full": 8,
+        "center_05": 7,
+        "gazef_05_randf": 5,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "10",
+      "queries": [
+        "I mentioned the plan to start the activity at 7."
+      ],
+      "pool_size": {
+        "full": 2192,
+        "center_05": 2192,
+        "gazef_05_randf": 2192,
+        "gazef_05": 2192
+      },
+      "rank": {
+        "full": 558,
+        "center_05": 275,
+        "gazef_05_randf": 577,
+        "gazef_05": 1048
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "11",
+      "queries": [
+        "I started a data transfer on the computer."
+      ],
+      "pool_size": {
+        "full": 2176,
+        "center_05": 2176,
+        "gazef_05_randf": 2176,
+        "gazef_05": 2176
+      },
+      "rank": {
+        "full": 151,
+        "center_05": 90,
+        "gazef_05_randf": 186,
+        "gazef_05": 173
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "12",
+      "queries": [
+        "I use chopsticks to pick up another piece of mochi"
+      ],
+      "pool_size": {
+        "full": 3421,
+        "center_05": 3421,
+        "gazef_05_randf": 3421,
+        "gazef_05": 3420
+      },
+      "rank": {
+        "full": 47,
+        "center_05": 99,
+        "gazef_05_randf": 96,
+        "gazef_05": 121
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "13",
+      "queries": [
+        "I placed the white power bank on the chair behind Tasha."
+      ],
+      "pool_size": {
+        "full": 3756,
+        "center_05": 3756,
+        "gazef_05_randf": 3756,
+        "gazef_05": 3755
+      },
+      "rank": {
+        "full": 627,
+        "center_05": 481,
+        "gazef_05_randf": 44,
+        "gazef_05": 385
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "14",
+      "queries": [
+        "I mentioned ordering braised pork."
+      ],
+      "pool_size": {
+        "full": 3617,
+        "center_05": 3617,
+        "gazef_05_randf": 3617,
+        "gazef_05": 3616
+      },
+      "rank": {
+        "full": 2810,
+        "center_05": 2153,
+        "gazef_05_randf": 2107,
+        "gazef_05": 1633
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "15",
+      "queries": [
+        "I try to hang the backpack on the blackboard, find a spot, and hang it up"
+      ],
+      "pool_size": {
+        "full": 4056,
+        "center_05": 4056,
+        "gazef_05_randf": 4056,
+        "gazef_05": 4055
+      },
+      "rank": {
+        "full": 421,
+        "center_05": 41,
+        "gazef_05_randf": 20,
+        "gazef_05": 98
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "16",
+      "queries": [
+        "The user took off their coat and put it in the bedroom."
+      ],
+      "pool_size": {
+        "full": 4204,
+        "center_05": 4204,
+        "gazef_05_randf": 4204,
+        "gazef_05": 4203
+      },
+      "rank": {
+        "full": 631,
+        "center_05": 557,
+        "gazef_05_randf": 202,
+        "gazef_05": 575
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "17",
+      "queries": [
+        "The user put melted ice cream into the refrigerator to re-freeze."
+      ],
+      "pool_size": {
+        "full": 4249,
+        "center_05": 4249,
+        "gazef_05_randf": 4249,
+        "gazef_05": 4248
+      },
+      "rank": {
+        "full": 158,
+        "center_05": 135,
+        "gazef_05_randf": 161,
+        "gazef_05": 422
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "18",
+      "queries": [
+        "I place the delivery box on the sofa."
+      ],
+      "pool_size": {
+        "full": 4363,
+        "center_05": 4363,
+        "gazef_05_randf": 4363,
+        "gazef_05": 4362
+      },
+      "rank": {
+        "full": 763,
+        "center_05": 725,
+        "gazef_05_randf": 808,
+        "gazef_05": 722
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "19",
+      "queries": [
+        "I place the scissors on the floor."
+      ],
+      "pool_size": {
+        "full": 4392,
+        "center_05": 4392,
+        "gazef_05_randf": 4392,
+        "gazef_05": 4391
+      },
+      "rank": {
+        "full": 290,
+        "center_05": 428,
+        "gazef_05_randf": 143,
+        "gazef_05": 1522
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "20",
+      "queries": [
+        "User stated \"Let's unbox some packages... unbox for a while and come back\" and left the puzzle area to handle them."
+      ],
+      "pool_size": {
+        "full": 198,
+        "center_05": 198,
+        "gazef_05_randf": 198,
+        "gazef_05": 198
+      },
+      "rank": {
+        "full": 15,
+        "center_05": 24,
+        "gazef_05_randf": 22,
+        "gazef_05": 23
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "21",
+      "queries": [
+        "The user took a charger out of their pocket and held it along with their phone, indicating an intention to charge the device."
+      ],
+      "pool_size": {
+        "full": 322,
+        "center_05": 322,
+        "gazef_05_randf": 322,
+        "gazef_05": 322
+      },
+      "rank": {
+        "full": 16,
+        "center_05": 10,
+        "gazef_05_randf": 12,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "22",
+      "queries": [
+        "The user spoke with the fruit counter employee, presumably leaving the pineapple to be cut after saying 'Cut it, thank you', and then walked away to continue shopping."
+      ],
+      "pool_size": {
+        "full": 496,
+        "center_05": 496,
+        "gazef_05_randf": 496,
+        "gazef_05": 496
+      },
+      "rank": {
+        "full": 1,
+        "center_05": 1,
+        "gazef_05_randf": 1,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 1,
+        "center_05": 1,
+        "gazef_05_randf": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "23",
+      "queries": [
+        "I continue looking at other takeout options on my phone"
+      ],
+      "pool_size": {
+        "full": 589,
+        "center_05": 589,
+        "gazef_05_randf": 589,
+        "gazef_05": 589
+      },
+      "rank": {
+        "full": 2,
+        "center_05": 4,
+        "gazef_05_randf": 5,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 1,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "24",
+      "queries": [
+        "I state a decision on the dish ('Let's go with that'), implying the order is ready to be finalized."
+      ],
+      "pool_size": {
+        "full": 618,
+        "center_05": 618,
+        "gazef_05_randf": 618,
+        "gazef_05": 618
+      },
+      "rank": {
+        "full": 14,
+        "center_05": 135,
+        "gazef_05_randf": 18,
+        "gazef_05": 76
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "25",
+      "queries": [
+        "I discussed the shopping list with Katrina, who explicitly instructed me to 'place the order' for the 34G items and the clock."
+      ],
+      "pool_size": {
+        "full": 777,
+        "center_05": 777,
+        "gazef_05_randf": 777,
+        "gazef_05": 777
+      },
+      "rank": {
+        "full": 73,
+        "center_05": 436,
+        "gazef_05_randf": 245,
+        "gazef_05": 491
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "26",
+      "queries": [
+        "The user tried repeatedly and with effort to open a package/box but failed to get it open."
+      ],
+      "pool_size": {
+        "full": 974,
+        "center_05": 974,
+        "gazef_05_randf": 974,
+        "gazef_05": 974
+      },
+      "rank": {
+        "full": 288,
+        "center_05": 348,
+        "gazef_05_randf": 87,
+        "gazef_05": 306
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "27",
+      "queries": [
+        "The user explicitly stated 'Let's order some takeout' and prepared to pick up the phone, but then put it down immediately."
+      ],
+      "pool_size": {
+        "full": 975,
+        "center_05": 975,
+        "gazef_05_randf": 975,
+        "gazef_05": 975
+      },
+      "rank": {
+        "full": 72,
+        "center_05": 41,
+        "gazef_05_randf": 35,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "28",
+      "queries": [
+        "I pick up a pen from the table after searching for one."
+      ],
+      "pool_size": {
+        "full": 1002,
+        "center_05": 1002,
+        "gazef_05_randf": 1002,
+        "gazef_05": 1002
+      },
+      "rank": {
+        "full": 80,
+        "center_05": 89,
+        "gazef_05_randf": 191,
+        "gazef_05": 11
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "29",
+      "queries": [
+        "I stick a label on a box as part of a batch organizing task."
+      ],
+      "pool_size": {
+        "full": 1016,
+        "center_05": 1016,
+        "gazef_05_randf": 1016,
+        "gazef_05": 1016
+      },
+      "rank": {
+        "full": 1,
+        "center_05": 5,
+        "gazef_05_randf": 19,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 1,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "30",
+      "queries": [
+        "The user explicitly agreed that picking flowers is part of their activity and planned to join the group downstairs."
+      ],
+      "pool_size": {
+        "full": 1169,
+        "center_05": 1169,
+        "gazef_05_randf": 1169,
+        "gazef_05": 1169
+      },
+      "rank": {
+        "full": 70,
+        "center_05": 3,
+        "gazef_05_randf": 210,
+        "gazef_05": 3
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 1,
+        "gazef_05_randf": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "31",
+      "queries": [
+        "The user was operating a computer placed on the floor of the living room."
+      ],
+      "pool_size": {
+        "full": 1348,
+        "center_05": 1348,
+        "gazef_05_randf": 1348,
+        "gazef_05": 1348
+      },
+      "rank": {
+        "full": 5,
+        "center_05": 46,
+        "gazef_05_randf": 55,
+        "gazef_05": 19
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "32",
+      "queries": [
+        "I watch my laptop, waiting for a file transfer"
+      ],
+      "pool_size": {
+        "full": 1388,
+        "center_05": 1388,
+        "gazef_05_randf": 1388,
+        "gazef_05": 1388
+      },
+      "rank": {
+        "full": 152,
+        "center_05": 160,
+        "gazef_05_randf": 159,
+        "gazef_05": 168
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "33",
+      "queries": [
+        "I type a few words and write a document"
+      ],
+      "pool_size": {
+        "full": 1445,
+        "center_05": 1445,
+        "gazef_05_randf": 1445,
+        "gazef_05": 1445
+      },
+      "rank": {
+        "full": 53,
+        "center_05": 45,
+        "gazef_05_randf": 192,
+        "gazef_05": 44
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "34",
+      "queries": [
+        "The user was washing dishes but stopped to wash his hands, stating 'I'll go wash my hands first,' while leaving a plate in the sink."
+      ],
+      "pool_size": {
+        "full": 1506,
+        "center_05": 1506,
+        "gazef_05_randf": 1506,
+        "gazef_05": 1506
+      },
+      "rank": {
+        "full": 12,
+        "center_05": 8,
+        "gazef_05_randf": 1,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 1,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "35",
+      "queries": [
+        "I picked up the broom but immediately put it down, remarking that plugging it in was inconvenient."
+      ],
+      "pool_size": {
+        "full": 1621,
+        "center_05": 1621,
+        "gazef_05_randf": 1621,
+        "gazef_05": 1621
+      },
+      "rank": {
+        "full": 17,
+        "center_05": 120,
+        "gazef_05_randf": 14,
+        "gazef_05": 76
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "36",
+      "queries": [
+        "Jake discusses the need to export data and outlines the plan to bring the equipment to the first floor."
+      ],
+      "pool_size": {
+        "full": 1821,
+        "center_05": 1821,
+        "gazef_05_randf": 1821,
+        "gazef_05": 1821
+      },
+      "rank": {
+        "full": 791,
+        "center_05": 341,
+        "gazef_05_randf": 944,
+        "gazef_05": 638
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "37",
+      "queries": [
+        "Shure explicitly states 'We need more ketchup,' and the group was also looking for bread moments earlier."
+      ],
+      "pool_size": {
+        "full": 2097,
+        "center_05": 2097,
+        "gazef_05_randf": 2097,
+        "gazef_05": 2097
+      },
+      "rank": {
+        "full": 171,
+        "center_05": 35,
+        "gazef_05_randf": 284,
+        "gazef_05": 231
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "38",
+      "queries": [
+        "I took a cable and power bank out of my bag and placed them on the bed, but I haven't plugged them in or organized them yet."
+      ],
+      "pool_size": {
+        "full": 2167,
+        "center_05": 2167,
+        "gazef_05_randf": 2167,
+        "gazef_05": 2167
+      },
+      "rank": {
+        "full": 47,
+        "center_05": 114,
+        "gazef_05_randf": 86,
+        "gazef_05": 64
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "39",
+      "queries": [
+        "The user explicitly suggested, 'How about we go down and put on the glasses first' to prepare for a recording."
+      ],
+      "pool_size": {
+        "full": 2221,
+        "center_05": 2221,
+        "gazef_05_randf": 2221,
+        "gazef_05": 2221
+      },
+      "rank": {
+        "full": 47,
+        "center_05": 371,
+        "gazef_05_randf": 341,
+        "gazef_05": 347
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "40",
+      "queries": [
+        "The user was holding the mango container and discussing how to prepare it ('The mango is here. How should I prepare it?')."
+      ],
+      "pool_size": {
+        "full": 2338,
+        "center_05": 2338,
+        "gazef_05_randf": 2338,
+        "gazef_05": 2338
+      },
+      "rank": {
+        "full": 3,
+        "center_05": 3,
+        "gazef_05_randf": 168,
+        "gazef_05": 27
+      },
+      "hit@3": {
+        "full": 1,
+        "center_05": 1,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "41",
+      "queries": [
+        "The user found the scissors and a knife in the cabinet, which were needed for the grilling outside."
+      ],
+      "pool_size": {
+        "full": 2403,
+        "center_05": 2403,
+        "gazef_05_randf": 2403,
+        "gazef_05": 2403
+      },
+      "rank": {
+        "full": 121,
+        "center_05": 1,
+        "gazef_05_randf": 73,
+        "gazef_05": 2
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 1,
+        "gazef_05_randf": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "42",
+      "queries": [
+        "The user washed a whole box of mangoes intended for the cake but has not cut them yet."
+      ],
+      "pool_size": {
+        "full": 2419,
+        "center_05": 2419,
+        "gazef_05_randf": 2419,
+        "gazef_05": 2419
+      },
+      "rank": {
+        "full": 36,
+        "center_05": 41,
+        "gazef_05_randf": 89,
+        "gazef_05": 25
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "43",
+      "queries": [
+        "The user filled a bowl with water to soak it after agreeing that it was too oily to scrub immediately."
+      ],
+      "pool_size": {
+        "full": 2703,
+        "center_05": 2703,
+        "gazef_05_randf": 2703,
+        "gazef_05": 2703
+      },
+      "rank": {
+        "full": 67,
+        "center_05": 139,
+        "gazef_05_randf": 140,
+        "gazef_05": 39
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "44",
+      "queries": [
+        "Jake and Tasha discuss the petri dish, with Jake explicitly stating urgency: 'If we don't plant it, we won't make it in time.'"
+      ],
+      "pool_size": {
+        "full": 2826,
+        "center_05": 2826,
+        "gazef_05_randf": 2826,
+        "gazef_05": 2826
+      },
+      "rank": {
+        "full": 466,
+        "center_05": 203,
+        "gazef_05_randf": 121,
+        "gazef_05": 777
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "45",
+      "queries": [
+        "I walk to the kitchen... hold a pot... place pot in sink... wash dishes... rinse a knife... pick up dish soap."
+      ],
+      "pool_size": {
+        "full": 3159,
+        "center_05": 3159,
+        "gazef_05_randf": 3159,
+        "gazef_05": 3158
+      },
+      "rank": {
+        "full": 6,
+        "center_05": 3,
+        "gazef_05_randf": 2,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 1,
+        "gazef_05_randf": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "46",
+      "queries": [
+        "I stir the flour with chopsticks."
+      ],
+      "pool_size": {
+        "full": 3191,
+        "center_05": 3191,
+        "gazef_05_randf": 3191,
+        "gazef_05": 3190
+      },
+      "rank": {
+        "full": 8,
+        "center_05": 4,
+        "gazef_05_randf": 39,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "47",
+      "queries": [
+        "I mix the food in the bowl with my gloved hands."
+      ],
+      "pool_size": {
+        "full": 3275,
+        "center_05": 3275,
+        "gazef_05_randf": 3275,
+        "gazef_05": 3274
+      },
+      "rank": {
+        "full": 210,
+        "center_05": 14,
+        "gazef_05_randf": 1017,
+        "gazef_05": 32
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "48",
+      "queries": [
+        "The user brought meal boxes upstairs, realized chopsticks were missing, walked to the kitchenette to check a cabinet, but turned away empty-handed."
+      ],
+      "pool_size": {
+        "full": 3423,
+        "center_05": 3423,
+        "gazef_05_randf": 3423,
+        "gazef_05": 3422
+      },
+      "rank": {
+        "full": 7,
+        "center_05": 6,
+        "gazef_05_randf": 58,
+        "gazef_05": 93
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "49",
+      "queries": [
+        "I explicitly suggested putting the pressed flowers back in the bedrooms 'first' to declutter the living room."
+      ],
+      "pool_size": {
+        "full": 3617,
+        "center_05": 3617,
+        "gazef_05_randf": 3617,
+        "gazef_05": 3616
+      },
+      "rank": {
+        "full": 280,
+        "center_05": 512,
+        "gazef_05_randf": 1016,
+        "gazef_05": 380
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "50",
+      "queries": [
+        "Shure agreed to go buy alcohol immediately ('Okay, I'll buy it now') after noting there was none, just moments before checking out."
+      ],
+      "pool_size": {
+        "full": 3907,
+        "center_05": 3907,
+        "gazef_05_randf": 3907,
+        "gazef_05": 3906
+      },
+      "rank": {
+        "full": 4,
+        "center_05": 33,
+        "gazef_05_randf": 83,
+        "gazef_05": 14
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "51",
+      "queries": [
+        "Shure stated 'We need to order some takeout', and the group had previously decided on McDonald's."
+      ],
+      "pool_size": {
+        "full": 3919,
+        "center_05": 3919,
+        "gazef_05_randf": 3919,
+        "gazef_05": 3918
+      },
+      "rank": {
+        "full": 397,
+        "center_05": 14,
+        "gazef_05_randf": 436,
+        "gazef_05": 383
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "52",
+      "queries": [
+        "I open a kitchen cabinet"
+      ],
+      "pool_size": {
+        "full": 4018,
+        "center_05": 4018,
+        "gazef_05_randf": 4018,
+        "gazef_05": 4017
+      },
+      "rank": {
+        "full": 117,
+        "center_05": 118,
+        "gazef_05_randf": 133,
+        "gazef_05": 62
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "53",
+      "queries": [
+        "I unzip the backpack on the table"
+      ],
+      "pool_size": {
+        "full": 4049,
+        "center_05": 4049,
+        "gazef_05_randf": 4049,
+        "gazef_05": 4048
+      },
+      "rank": {
+        "full": 609,
+        "center_05": 158,
+        "gazef_05_randf": 643,
+        "gazef_05": 249
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "54",
+      "queries": [
+        "Tasha explicitly asked the user to 'Bring all the plates from outside' while clearing the table."
+      ],
+      "pool_size": {
+        "full": 4207,
+        "center_05": 4207,
+        "gazef_05_randf": 4207,
+        "gazef_05": 4206
+      },
+      "rank": {
+        "full": 389,
+        "center_05": 152,
+        "gazef_05_randf": 16,
+        "gazef_05": 191
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "55",
+      "queries": [
+        "I hold a tool and continue trying to open the delivery box."
+      ],
+      "pool_size": {
+        "full": 4341,
+        "center_05": 4341,
+        "gazef_05_randf": 4341,
+        "gazef_05": 4340
+      },
+      "rank": {
+        "full": 2479,
+        "center_05": 922,
+        "gazef_05_randf": 1660,
+        "gazef_05": 1759
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "56",
+      "queries": [
+        "I pick up and straighten another data cable and place it on the bed (for the second power bank)."
+      ],
+      "pool_size": {
+        "full": 4416,
+        "center_05": 4416,
+        "gazef_05_randf": 4416,
+        "gazef_05": 4415
+      },
+      "rank": {
+        "full": 89,
+        "center_05": 191,
+        "gazef_05_randf": 86,
+        "gazef_05": 212
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "57",
+      "queries": [
+        "Plan to bake a cake on the 22nd with specific ingredients"
+      ],
+      "pool_size": {
+        "full": 759,
+        "center_05": 759,
+        "gazef_05_randf": 759,
+        "gazef_05": 759
+      },
+      "rank": {
+        "full": 251,
+        "center_05": 116,
+        "gazef_05_randf": 165,
+        "gazef_05": 116
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "58",
+      "queries": [
+        "Charge power banks in bedroom for future availability"
+      ],
+      "pool_size": {
+        "full": 775,
+        "center_05": 775,
+        "gazef_05_randf": 775,
+        "gazef_05": 775
+      },
+      "rank": {
+        "full": 5,
+        "center_05": 3,
+        "gazef_05_randf": 9,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 1,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "59",
+      "queries": [
+        "Charge smart glasses and import data on bedroom computer"
+      ],
+      "pool_size": {
+        "full": 786,
+        "center_05": 786,
+        "gazef_05_randf": 786,
+        "gazef_05": 786
+      },
+      "rank": {
+        "full": 20,
+        "center_05": 10,
+        "gazef_05_randf": 2,
+        "gazef_05": 5
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "60",
+      "queries": [
+        "Compile shopping list for afternoon trip (salt, sugar, disposable tableware)"
+      ],
+      "pool_size": {
+        "full": 879,
+        "center_05": 879,
+        "gazef_05_randf": 879,
+        "gazef_05": 879
+      },
+      "rank": {
+        "full": 39,
+        "center_05": 3,
+        "gazef_05_randf": 40,
+        "gazef_05": 4
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 1,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "61",
+      "queries": [
+        "Charge power banks in bedroom for future availability"
+      ],
+      "pool_size": {
+        "full": 986,
+        "center_05": 986,
+        "gazef_05_randf": 986,
+        "gazef_05": 986
+      },
+      "rank": {
+        "full": 6,
+        "center_05": 5,
+        "gazef_05_randf": 12,
+        "gazef_05": 6
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "62",
+      "queries": [
+        "Set up the second floor as the event venue"
+      ],
+      "pool_size": {
+        "full": 1083,
+        "center_05": 1083,
+        "gazef_05_randf": 1083,
+        "gazef_05": 1083
+      },
+      "rank": {
+        "full": 141,
+        "center_05": 37,
+        "gazef_05_randf": 64,
+        "gazef_05": 1
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 1
+      }
+    },
+    {
+      "ID": "63",
+      "queries": [
+        "Plan afternoon activities: Mahjong and Dance Rehearsal"
+      ],
+      "pool_size": {
+        "full": 1130,
+        "center_05": 1130,
+        "gazef_05_randf": 1130,
+        "gazef_05": 1130
+      },
+      "rank": {
+        "full": 725,
+        "center_05": 658,
+        "gazef_05_randf": 751,
+        "gazef_05": 525
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "64",
+      "queries": [
+        "Set up the second floor as the event venue"
+      ],
+      "pool_size": {
+        "full": 1363,
+        "center_05": 1363,
+        "gazef_05_randf": 1363,
+        "gazef_05": 1363
+      },
+      "rank": {
+        "full": 265,
+        "center_05": 68,
+        "gazef_05_randf": 114,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "65",
+      "queries": [
+        "Set up the second floor as the event venue"
+      ],
+      "pool_size": {
+        "full": 1370,
+        "center_05": 1370,
+        "gazef_05_randf": 1370,
+        "gazef_05": 1370
+      },
+      "rank": {
+        "full": 270,
+        "center_05": 69,
+        "gazef_05_randf": 116,
+        "gazef_05": 7
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "66",
+      "queries": [
+        "Keep bedroom computer on to complete data transfer"
+      ],
+      "pool_size": {
+        "full": 1381,
+        "center_05": 1381,
+        "gazef_05_randf": 1381,
+        "gazef_05": 1381
+      },
+      "rank": {
+        "full": 244,
+        "center_05": 415,
+        "gazef_05_randf": 395,
+        "gazef_05": 222
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "67",
+      "queries": [
+        "Plan to have sukiyaki or hotpot for dinner tonight"
+      ],
+      "pool_size": {
+        "full": 1450,
+        "center_05": 1450,
+        "gazef_05_randf": 1450,
+        "gazef_05": 1450
+      },
+      "rank": {
+        "full": 118,
+        "center_05": 168,
+        "gazef_05_randf": 208,
+        "gazef_05": 177
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "68",
+      "queries": [
+        "Take specific photos (dancing/looking back) for the final day PPT"
+      ],
+      "pool_size": {
+        "full": 2129,
+        "center_05": 2129,
+        "gazef_05_randf": 2129,
+        "gazef_05": 2129
+      },
+      "rank": {
+        "full": 410,
+        "center_05": 155,
+        "gazef_05_randf": 87,
+        "gazef_05": 333
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "69",
+      "queries": [
+        "Process footage/data immediately upon returning home"
+      ],
+      "pool_size": {
+        "full": 2173,
+        "center_05": 2173,
+        "gazef_05_randf": 2173,
+        "gazef_05": 2173
+      },
+      "rank": {
+        "full": 1748,
+        "center_05": 1579,
+        "gazef_05_randf": 1299,
+        "gazef_05": 1394
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "70",
+      "queries": [
+        "Charge power banks in bedroom for future availability"
+      ],
+      "pool_size": {
+        "full": 2195,
+        "center_05": 2195,
+        "gazef_05_randf": 2195,
+        "gazef_05": 2195
+      },
+      "rank": {
+        "full": 13,
+        "center_05": 225,
+        "gazef_05_randf": 13,
+        "gazef_05": 180
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "71",
+      "queries": [
+        "Plan BBQ dinner and party tonight with sparkling wine"
+      ],
+      "pool_size": {
+        "full": 2265,
+        "center_05": 2265,
+        "gazef_05_randf": 2265,
+        "gazef_05": 2265
+      },
+      "rank": {
+        "full": 1104,
+        "center_05": 560,
+        "gazef_05_randf": 462,
+        "gazef_05": 492
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "72",
+      "queries": [
+        "Plan to bake a cake on the 22nd with specific ingredients"
+      ],
+      "pool_size": {
+        "full": 2280,
+        "center_05": 2280,
+        "gazef_05_randf": 2280,
+        "gazef_05": 2280
+      },
+      "rank": {
+        "full": 627,
+        "center_05": 216,
+        "gazef_05_randf": 362,
+        "gazef_05": 205
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "73",
+      "queries": [
+        "Plan BBQ dinner and party tonight with sparkling wine"
+      ],
+      "pool_size": {
+        "full": 2388,
+        "center_05": 2388,
+        "gazef_05_randf": 2388,
+        "gazef_05": 2388
+      },
+      "rank": {
+        "full": 1186,
+        "center_05": 600,
+        "gazef_05_randf": 497,
+        "gazef_05": 524
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "74",
+      "queries": [
+        "Plan to bake a cake on the 22nd with specific ingredients"
+      ],
+      "pool_size": {
+        "full": 2404,
+        "center_05": 2404,
+        "gazef_05_randf": 2404,
+        "gazef_05": 2404
+      },
+      "rank": {
+        "full": 686,
+        "center_05": 257,
+        "gazef_05_randf": 422,
+        "gazef_05": 253
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "75",
+      "queries": [
+        "Compile shopping list for afternoon trip (salt, sugar, disposable tableware)"
+      ],
+      "pool_size": {
+        "full": 2513,
+        "center_05": 2513,
+        "gazef_05_randf": 2513,
+        "gazef_05": 2513
+      },
+      "rank": {
+        "full": 85,
+        "center_05": 4,
+        "gazef_05_randf": 81,
+        "gazef_05": 9
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "76",
+      "queries": [
+        "Charge power banks in bedroom for future availability"
+      ],
+      "pool_size": {
+        "full": 2669,
+        "center_05": 2669,
+        "gazef_05_randf": 2669,
+        "gazef_05": 2669
+      },
+      "rank": {
+        "full": 14,
+        "center_05": 249,
+        "gazef_05_randf": 14,
+        "gazef_05": 204
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "77",
+      "queries": [
+        "Place portable lighting stand at the outdoor grill area"
+      ],
+      "pool_size": {
+        "full": 2859,
+        "center_05": 2859,
+        "gazef_05_randf": 2859,
+        "gazef_05": 2859
+      },
+      "rank": {
+        "full": 95,
+        "center_05": 44,
+        "gazef_05_randf": 8,
+        "gazef_05": 73
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "78",
+      "queries": [
+        "Set up the second floor as the event venue"
+      ],
+      "pool_size": {
+        "full": 2859,
+        "center_05": 2859,
+        "gazef_05_randf": 2859,
+        "gazef_05": 2859
+      },
+      "rank": {
+        "full": 444,
+        "center_05": 140,
+        "gazef_05_randf": 201,
+        "gazef_05": 10
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "79",
+      "queries": [
+        "Assemble small desktop organizer/shelf for accessories"
+      ],
+      "pool_size": {
+        "full": 3153,
+        "center_05": 3153,
+        "gazef_05_randf": 3153,
+        "gazef_05": 3152
+      },
+      "rank": {
+        "full": 139,
+        "center_05": 293,
+        "gazef_05_randf": 473,
+        "gazef_05": 76
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "80",
+      "queries": [
+        "Plan to make Mochi and Meat Floss Cake"
+      ],
+      "pool_size": {
+        "full": 3340,
+        "center_05": 3340,
+        "gazef_05_randf": 3340,
+        "gazef_05": 3339
+      },
+      "rank": {
+        "full": 885,
+        "center_05": 1125,
+        "gazef_05_randf": 1493,
+        "gazef_05": 541
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "81",
+      "queries": [
+        "Store extra chopsticks in the upstairs kitchen cabinet"
+      ],
+      "pool_size": {
+        "full": 3423,
+        "center_05": 3423,
+        "gazef_05_randf": 3423,
+        "gazef_05": 3422
+      },
+      "rank": {
+        "full": 2,
+        "center_05": 18,
+        "gazef_05_randf": 1,
+        "gazef_05": 21
+      },
+      "hit@3": {
+        "full": 1,
+        "center_05": 0,
+        "gazef_05_randf": 1,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "82",
+      "queries": [
+        "Plan to make mango seed pets ('mango dogs') tomorrow"
+      ],
+      "pool_size": {
+        "full": 3620,
+        "center_05": 3620,
+        "gazef_05_randf": 3620,
+        "gazef_05": 3619
+      },
+      "rank": {
+        "full": 271,
+        "center_05": 42,
+        "gazef_05_randf": 41,
+        "gazef_05": 144
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "83",
+      "queries": [
+        "Plan to bake a cake on the 22nd with specific ingredients"
+      ],
+      "pool_size": {
+        "full": 4027,
+        "center_05": 4027,
+        "gazef_05_randf": 4027,
+        "gazef_05": 4026
+      },
+      "rank": {
+        "full": 1238,
+        "center_05": 492,
+        "gazef_05_randf": 763,
+        "gazef_05": 484
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "84",
+      "queries": [
+        "Verify GPT responses in the Event Q&A PPT"
+      ],
+      "pool_size": {
+        "full": 4343,
+        "center_05": 4343,
+        "gazef_05_randf": 4343,
+        "gazef_05": 4342
+      },
+      "rank": {
+        "full": 768,
+        "center_05": 486,
+        "gazef_05_randf": 918,
+        "gazef_05": 142
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "85",
+      "queries": [
+        "Final Day Event Schedule: Coin Hunt, Auction, Pizza, Singing"
+      ],
+      "pool_size": {
+        "full": 4343,
+        "center_05": 4343,
+        "gazef_05_randf": 4343,
+        "gazef_05": 4342
+      },
+      "rank": {
+        "full": 353,
+        "center_05": 2,
+        "gazef_05_randf": 42,
+        "gazef_05": 38
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 1,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "86",
+      "queries": [
+        "Label and swap SD cards systematically (numbers 9-15) for data transfer"
+      ],
+      "pool_size": {
+        "full": 4405,
+        "center_05": 4405,
+        "gazef_05_randf": 4405,
+        "gazef_05": 4404
+      },
+      "rank": {
+        "full": 361,
+        "center_05": 9,
+        "gazef_05_randf": 41,
+        "gazef_05": 40
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "87",
+      "queries": [
+        "Charge power banks in bedroom for future availability"
+      ],
+      "pool_size": {
+        "full": 4415,
+        "center_05": 4415,
+        "gazef_05_randf": 4415,
+        "gazef_05": 4414
+      },
+      "rank": {
+        "full": 31,
+        "center_05": 41,
+        "gazef_05_randf": 119,
+        "gazef_05": 19
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    },
+    {
+      "ID": "88",
+      "queries": [
+        "Charge smart glasses and import data on bedroom computer"
+      ],
+      "pool_size": {
+        "full": 4449,
+        "center_05": 4449,
+        "gazef_05_randf": 4449,
+        "gazef_05": 4448
+      },
+      "rank": {
+        "full": 191,
+        "center_05": 137,
+        "gazef_05_randf": 4,
+        "gazef_05": 26
+      },
+      "hit@3": {
+        "full": 0,
+        "center_05": 0,
+        "gazef_05_randf": 0,
+        "gazef_05": 0
+      }
+    }
+  ]
+}
