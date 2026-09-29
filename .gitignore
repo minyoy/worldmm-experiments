@@ -175,4 +175,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 # gaze case review site: EgoLife frames, built on the server by build_gaze_cases.py
-experiments/gaze_crop/gaze_cases/
+experiments/gaze_crop/gaze_cases/img/
