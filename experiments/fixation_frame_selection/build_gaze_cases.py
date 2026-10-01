@@ -190,7 +190,7 @@ def main() -> None:
         cases[qid] = r
         print(f"  {n}/{len(todo)} Q{qid} {clip['key']} @ {offset:.1f}s  kept {r['n_kept']}/{NFRAMES}")
 
-    data = {"tol": args.tol, "ratio": RATIO, "arms": ARMS, "cases": cases, "crop_sets": list(CROP_SETS),
+    data = {"tol": args.tol, "ratio": RATIO, "fix_radius": FIX_DEFAULTS["radius"], "arms": ARMS, "cases": cases, "crop_sets": list(CROP_SETS),
             "sets": {k: {"arm": a, "base": b, "dir": d, "ids": [q for q in sets[k] if q in cases],
                          "n_candidates": n_cand[k]} for k, (a, b, d) in SETS.items()}}
     with open(os.path.join(args.out, "data.js"), "w", encoding="utf-8") as f:

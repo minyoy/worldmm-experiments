@@ -123,6 +123,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
 .thumb.drop .lbl { color: var(--faint); text-decoration: line-through; }
 .thumb.kept .lbl { color: var(--accent); font-weight: 600; }
 .thumb .fx { position: absolute; width: 8px; height: 8px; margin: -4px 0 0 -4px; background: var(--fixc); border: 1px solid #000; transform: rotate(45deg); }
+.lg-circ::before { border: 2px dashed var(--fixc); border-radius: 50% !important; }
 .lg-fix::before { background: var(--fixc); transform: rotate(45deg); }
 .ranks.six { grid-template-columns: auto repeat(6, minmax(70px, auto)); }
 .rk.arm { outline: 2px solid var(--accent); }
@@ -253,7 +254,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
       <div class="viewer ${showCrop ? "" : "single"}">
         <div class="panel"><h3>전체 프레임<span id="ftime" style="margin-left:auto;font-weight:400"></span></h3>
           <canvas id="cv-full"></canvas>
-          <div class="legend"><span class="lg-gaze">시선</span>${st.fix ? `<span class="lg-fix">fixation 중심</span>` : ""}${showCrop ? `<span class="lg-gazef">gazef crop (${D.ratio})</span>` : ""}</div>
+          <div class="legend"><span class="lg-gaze">시선</span>${st.fix ? `<span class="lg-fix">fixation 중심</span><span class="lg-circ">fixation 판정 반경 (${D.fix_radius})</span>` : ""}${showCrop ? `<span class="lg-gazef">gazef crop (${D.ratio})</span>` : ""}</div>
         </div>
         ${showCrop ? `<div class="panel"><h3>fixsel_gazef 가 임베딩한 영역</h3><canvas id="cv-crop"></canvas>
           <div class="legend"><span class="lg-gaze">시선</span></div></div>` : ""}
@@ -296,6 +297,10 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
       if (cropOn() && f.box) {
         const b = f.box; g.strokeStyle = css.getPropertyValue("--gazef"); g.lineWidth = lw * 1.3;
         g.strokeRect(b[0] * W, b[1] * H, (b[2] - b[0]) * W, (b[3] - b[1]) * H);
+      }
+      if (st.fix && f.cx != null) {   // 판정 경계: 중심에서 반지름 fix_radius(정규화 좌표) 이내면 fixation 샘플
+        g.beginPath(); g.arc(f.cx * W, f.cy * H, D.fix_radius * W, 0, Math.PI * 2);
+        g.setLineDash([lw * 3, lw * 2]); g.lineWidth = lw * 1.2; g.strokeStyle = "#c43dc4"; g.stroke(); g.setLineDash([]);
       }
       if (st.fix && f.cx != null) diamond(g, f.cx * W, f.cy * H, Math.max(7, W / 50));
       if (f.gx != null) dot(g, f.gx * W, f.gy * H, Math.max(6, W / 55));
