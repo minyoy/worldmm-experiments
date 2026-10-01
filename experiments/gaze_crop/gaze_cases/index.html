@@ -126,6 +126,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
   <div class="tabs" role="tablist">
     <button role="tab" data-set="A" id="tab-A">A. gaze만 맞춤</button>
     <button role="tab" data-set="B" id="tab-B">B. 시선이 중앙 밖</button>
+    <button role="tab" data-set="C" id="tab-C">C. gaze 때문에 놓침</button>
   </div>
   <div class="hdr-right">
     <label><input type="checkbox" id="f-visual"> 시각 근거 문항만</label>
@@ -150,6 +151,9 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
   const DESC = {
     A: `tol ${D.tol_a}s 채점에서 <b>gazef 는 top-3 안에 넣고 full 은 못 넣은</b> 문항 ${D.A.length}개 ` +
        `(후보 ${D.n_candidates_a}개 중 순위가 가장 많이 오른 순). center 도 맞혔다면 gaze 가 아니라 자르기 덕일 수 있다.`,
+    C: `tol ${D.tol_a}s 채점에서 <b>full 은 top-3 안에 넣었는데 gazef 는 못 넣은</b> 문항 ${D.C.length}개 ` +
+       `(후보 ${D.n_candidates_c}개 중 순위가 가장 많이 떨어진 순). center 도 놓쳤다면 gaze 가 아니라 자르기 탓일 수 있다. ` +
+       `정답 물체가 crop 박스 밖에 있는지 확인.`,
     B: `정답 클립에서 임베딩에 쓴 16 프레임 중 <b>시선이 center 박스 밖에 있는 비율</b>이 높은 문항 ${D.B.length}개. ` +
        `주황 라벨의 썸네일이 시선이 중앙 밖인 프레임.`
   };
@@ -166,15 +170,16 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
   const vkey = (id) => `${st.set}:${id}`;
 
   function ids() {
-    return D[st.set].filter((id) => !st.visual || !D.cases[id].need_audio);
+    return (D[st.set] || []).filter((id) => !st.visual || !D.cases[id].need_audio);
   }
   function saveUI() { store.set("gaze-cases-ui", st); }
 
   function renderHeader() {
-    for (const s of ["A", "B"]) {
+    const TAB = { A: "A. gaze만 맞춤", B: "B. 시선이 중앙 밖", C: "C. gaze 때문에 놓침" };
+    for (const s of ["A", "B", "C"]) {
       const b = $("tab-" + s);
       b.setAttribute("aria-selected", String(st.set === s));
-      b.textContent = (s === "A" ? "A. gaze만 맞춤" : "B. 시선이 중앙 밖") + ` (${D[s].length})`;
+      b.textContent = TAB[s] + ` (${(D[s] || []).length})`;
     }
     $("f-visual").checked = st.visual;
     $("f-center").checked = st.center;
@@ -211,7 +216,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
     const list = ids();
     if (!list.length) { $("main").innerHTML = `<p class="empty">이 조건에 맞는 문항이 없습니다.</p>`; return; }
     st.idx = Math.min(Math.max(st.idx, 0), list.length - 1);
-    const id = list[st.idx], c = D.cases[id], showCrop = st.set === "A";
+    const id = list[st.idx], c = D.cases[id], showCrop = st.set === "A" || st.set === "C";
     const v = verdicts[vkey(id)] || {};
     const choices = Object.entries(c.choices).map(([k, t]) =>
       `<li class="${k === c.answer ? "ans" : ""}"><b>${esc(k)}</b>${esc(t)}${k === c.answer ? " ✓" : ""}</li>`).join("");
@@ -229,7 +234,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
         <h2>Q${esc(id)}</h2>
         <span class="tag">${esc(c.type || "")}</span>
         ${c.need_audio ? `<span class="tag audio">🔊 오디오 필요</span>` : `<span class="tag">시각 근거</span>`}
-        ${D.A.includes(id) && D.B.includes(id) ? `<span class="tag">A·B 둘 다</span>` : ""}
+        ${["A", "B", "C"].filter((s) => D[s].includes(id)).length > 1 ? `<span class="tag">${["A", "B", "C"].filter((s) => D[s].includes(id)).join("·")} 둘 이상에 속함</span>` : ""}
         <div class="nav-btns"><button class="btn" id="prev">↑ 이전 문항</button><button class="btn" id="next">다음 문항 ↓</button></div>
       </div>
       ${rankRows(c)}
@@ -263,6 +268,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
     drawFrame();
   }
 
+  function showCropSet() { return st.set === "A" || st.set === "C"; }
   function drawFrame() {
     const list = ids(); if (!list.length) return;
     const c = D.cases[list[st.idx]], f = c.frames[frameIdx];
@@ -279,7 +285,7 @@ kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); borde
         const b = c.center_box; g.setLineDash([lw * 3, lw * 2]); g.strokeStyle = css.getPropertyValue("--center"); g.lineWidth = lw;
         g.strokeRect(b[0] * W, b[1] * H, (b[2] - b[0]) * W, (b[3] - b[1]) * H); g.setLineDash([]);
       }
-      if (st.set === "A" && f.box) {
+      if (showCropSet() && f.box) {
         const b = f.box; g.strokeStyle = css.getPropertyValue("--gazef"); g.lineWidth = lw * 1.3;
         g.strokeRect(b[0] * W, b[1] * H, (b[2] - b[0]) * W, (b[3] - b[1]) * H);
       }

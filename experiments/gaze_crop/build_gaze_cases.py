@@ -9,6 +9,10 @@ A small static website for eyeballing questions, one case at a time:
   B. off-centre gaze -- questions whose target clip has the gaze furthest outside the centre crop
      box across the 16 embedded frames. Shown with the frame, the gaze point, question and choices.
 
+  C. gaze-hurt misses -- the mirror of A: questions where the whole frame put the answer clip in the
+     top 3 and the gaze crop did not (hit@3 full=1, gazef=0). Same view as A, ordered by the biggest
+     rank loss. If center also missed, the crop itself (not the gaze) is what lost the clip.
+
 Each case shows the frame at the annotated target moment plus the 16 frames the embedding actually
 used (click to switch). Frame times, gaze lookup and crop boxes are embed_arms.py's own
 (frame_indices_uniform, gaze_at, crop_box), so the boxes are what gazef embedded.
@@ -141,6 +145,7 @@ def main() -> None:
                     help="which scoring picks set A (tol 0: 19 questions, tol 60: 38)")
     ap.add_argument("--n-a", type=int, default=30)
     ap.add_argument("--n-b", type=int, default=30)
+    ap.add_argument("--n-c", type=int, default=30)
     ap.add_argument("--size", type=int, default=560, help="longest side of saved frames, px")
     ap.add_argument("--out", default=os.path.join(HERE, "gaze_cases"))
     args = ap.parse_args()
@@ -155,6 +160,12 @@ def main() -> None:
     cand_a.sort(key=lambda qid: -math.log(ranks[args.tol][qid]["rank"]["full"] /
                                           ranks[args.tol][qid]["rank"]["gazef_05"]))
     print(f"set A: {len(cand_a)} gazef-only hits at tol {args.tol}, keeping {min(len(cand_a), args.n_a)}")
+
+    # C: full hit@3, gazef missed. Order: biggest rank loss first.
+    cand_c = [qid for qid, r in ranks[args.tol].items() if r["hit"]["full"] and not r["hit"]["gazef_05"]]
+    cand_c.sort(key=lambda qid: -math.log(ranks[args.tol][qid]["rank"]["gazef_05"] /
+                                          ranks[args.tol][qid]["rank"]["full"]))
+    print(f"set C: {len(cand_c)} gaze-hurt misses at tol {args.tol}, keeping {min(len(cand_c), args.n_c)}")
 
     # B: every question, by how far off-centre its target clip's gaze sits
     located: Dict[str, Tuple[Dict[str, Any], float, int]] = {}
@@ -172,6 +183,7 @@ def main() -> None:
           f"fraction {scored_b[0][0]:.2f} .. #{len(set_b)} {scored_b[len(set_b) - 1][0]:.2f}")
 
     set_a = [qid for qid in cand_a if qid in located][:args.n_a]
+    set_c = [qid for qid in cand_c if qid in located][:args.n_c]
     skipped = [qid for qid in cand_a[:args.n_a] if qid not in located]
     if skipped:
         print(f"  A: no locatable target clip / gaze for {skipped}")
@@ -180,7 +192,7 @@ def main() -> None:
     os.makedirs(img_dir, exist_ok=True)
     offc = {qid: (f, o) for f, o, qid in scored_b}
     cases = {}
-    todo = list(dict.fromkeys(set_a + set_b))
+    todo = list(dict.fromkeys(set_a + set_b + set_c))
     for n, qid in enumerate(todo, 1):
         q = questions[qid]
         clip, offset, n_moments = located[qid]
@@ -200,14 +212,15 @@ def main() -> None:
 
     data = {"tol_a": args.tol, "ratio": RATIO, "arms": ARMS, "cases": cases,
             "A": [q for q in set_a if q in cases], "B": [q for q in set_b if q in cases],
-            "n_candidates_a": len(cand_a)}
+            "C": [q for q in set_c if q in cases],
+            "n_candidates_a": len(cand_a), "n_candidates_c": len(cand_c)}
     with open(os.path.join(args.out, "data.js"), "w", encoding="utf-8") as f:
         f.write("window.GAZE_CASES = " + json.dumps(data, ensure_ascii=False) + ";\n")
     with open(os.path.join(HERE, "gaze_cases_template.html"), encoding="utf-8") as f:
         html = f.read()
     with open(os.path.join(args.out, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"wrote {args.out}/index.html  ({len(data['A'])} A + {len(data['B'])} B cases, "
+    print(f"wrote {args.out}/index.html  ({len(data['A'])} A + {len(data['B'])} B + {len(data['C'])} C cases, "
           f"{len(os.listdir(img_dir))} frames)")
 
 
