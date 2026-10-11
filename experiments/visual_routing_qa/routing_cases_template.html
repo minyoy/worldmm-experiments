@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Routing Case Review</title>
+<style>
+:root {
+  --bg: #f7f7f5; --surface: #ffffff; --surface-2: #f0f0ed; --border: #e2e1dc;
+  --text: #1a1a19; --muted: #5f5e58; --faint: #8a8982;
+  --accent: #2a78d6; --good: #1f8a4c; --bad: #c43d3d; --unsure: #9a7b00;
+  --hit-bg: #dff3e6; --hit-fg: #17613a; --miss-bg: #f0f0ed; --miss-fg: #5f5e58;
+  --wrong-bg: #f8e1e1; --wrong-fg: #8c2a2a; --full: #eb6834; --gaze: #2a78d6;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141413; --surface: #1c1c1b; --surface-2: #262624; --border: #33332f;
+    --text: #f2f2ef; --muted: #b5b4ad; --faint: #85847d; --accent: #5a9cf0;
+    --good: #45b673; --bad: #e06666; --unsure: #d1ad2c;
+    --hit-bg: #1d3a28; --hit-fg: #8fdcaa; --miss-bg: #262624; --miss-fg: #b5b4ad;
+    --wrong-bg: #3d2020; --wrong-fg: #f0a0a0; --full: #e07040; --gaze: #3987e5;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141413; --surface: #1c1c1b; --surface-2: #262624; --border: #33332f;
+  --text: #f2f2ef; --muted: #b5b4ad; --faint: #85847d; --accent: #5a9cf0;
+  --good: #45b673; --bad: #e06666; --unsure: #d1ad2c;
+  --hit-bg: #1d3a28; --hit-fg: #8fdcaa; --miss-bg: #262624; --miss-fg: #b5b4ad;
+  --wrong-bg: #3d2020; --wrong-fg: #f0a0a0; --full: #e07040; --gaze: #3987e5;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", sans-serif; }
+button { font: inherit; color: inherit; cursor: pointer; }
+header { position: sticky; top: 0; z-index: 5; background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; padding: 10px 16px; }
+header h1 { font-size: 16px; margin: 0 8px 0 0; }
+.tabs { display: flex; gap: 4px; background: var(--surface-2); padding: 3px; border-radius: 8px; flex-wrap: wrap; }
+.tabs button { border: 0; background: transparent; padding: 5px 12px; border-radius: 6px; color: var(--muted); }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,.12); }
+.hdr-right { margin-left: auto; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: 13px; }
+.hdr-right label { display: flex; gap: 5px; align-items: center; cursor: pointer; }
+.btn { border: 1px solid var(--border); background: var(--surface); padding: 5px 10px; border-radius: 6px; font-size: 13px; }
+.btn:hover { background: var(--surface-2); }
+.layout { display: grid; grid-template-columns: 230px 1fr; min-height: calc(100vh - 54px); }
+nav { border-right: 1px solid var(--border); background: var(--surface); overflow-y: auto; max-height: calc(100vh - 54px);
+  position: sticky; top: 54px; }
+nav .desc { padding: 10px 14px; font-size: 12.5px; color: var(--muted); border-bottom: 1px solid var(--border); }
+nav ol { list-style: none; margin: 0; padding: 4px 0; }
+nav li button { width: 100%; text-align: left; border: 0; background: transparent; padding: 6px 14px;
+  display: flex; gap: 8px; align-items: center; font-size: 13.5px; }
+nav li button:hover { background: var(--surface-2); }
+nav li button[aria-current="true"] { background: var(--surface-2); font-weight: 600; box-shadow: inset 3px 0 var(--accent); }
+.dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--faint); flex: none; }
+.dot.good { background: var(--good); border-color: var(--good); }
+.dot.bad { background: var(--bad); border-color: var(--bad); }
+.dot.unsure { background: var(--unsure); border-color: var(--unsure); }
+nav .sub { color: var(--faint); font-size: 12px; margin-left: auto; }
+main { padding: 18px 22px 60px; max-width: 1180px; }
+.case-head { display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: baseline; margin-bottom: 10px; }
+.case-head h2 { margin: 0; font-size: 20px; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 99px; background: var(--surface-2); color: var(--muted); }
+.tag.audio { background: #fbeee0; color: #8a4b12; }
+.nav-btns { margin-left: auto; display: flex; gap: 6px; }
+.qa { display: grid; grid-template-columns: 1fr 300px; gap: 14px; align-items: start; margin: 8px 0 18px; }
+.qa .q { font-size: 17px; font-weight: 600; margin: 0 0 10px; }
+.choices { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.choices li { padding: 7px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); }
+.choices li.ans { border-color: var(--good); box-shadow: inset 3px 0 var(--good); }
+.choices b { margin-right: 6px; }
+.reason { margin-top: 10px; color: var(--muted); font-size: 14px; }
+.reason b { color: var(--text); }
+.panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px; }
+.panel h3 { margin: 0 0 8px; font-size: 13px; color: var(--muted); font-weight: 600; }
+.arms { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.arm h3 { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 14px; color: var(--text); }
+.arm.full { border-top: 3px solid var(--full); } .arm.gaze { border-top: 3px solid var(--gaze); }
+.pill { font-size: 12px; padding: 2px 8px; border-radius: 99px; font-weight: 600; }
+.pill.ok { background: var(--hit-bg); color: var(--hit-fg); }
+.pill.no { background: var(--wrong-bg); color: var(--wrong-fg); }
+.clip { margin-top: 10px; }
+.clip .ch { display: flex; gap: 8px; align-items: center; font-size: 12.5px; color: var(--muted); margin-bottom: 4px; flex-wrap: wrap; }
+.clip .ch .pill { font-size: 11px; padding: 1px 6px; }
+.shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.shots img { width: 100%; display: block; border-radius: 4px; background: #000; }
+.shots .sh { position: relative; }
+.bx { position: absolute; border: 2px dashed #ffd600; box-shadow: 0 0 0 1px rgba(0,0,0,.55); pointer-events: none; }
+.gd { position: absolute; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: #ffd600; border: 1px solid #000; pointer-events: none; }
+.target { margin: 14px 0; display: flex; gap: 14px; align-items: flex-start; flex-wrap: wrap; }
+.target .tw { position: relative; width: 320px; max-width: 100%; }
+.target img { width: 100%; display: block; border-radius: 6px; }
+.target .gd { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: #ffd600; border: 1px solid #000; }
+.route { font-size: 13.5px; color: var(--muted); }
+.route b { color: var(--text); }
+.meta { font-size: 12.5px; color: var(--faint); margin-top: 8px; }
+.verdict .btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+.verdict button { border: 1px solid var(--border); background: var(--surface); border-radius: 8px; padding: 7px 4px; font-size: 13px; }
+.verdict button[aria-pressed="true"].good { background: var(--good); border-color: var(--good); color: #fff; }
+.verdict button[aria-pressed="true"].bad { background: var(--bad); border-color: var(--bad); color: #fff; }
+.verdict button[aria-pressed="true"].unsure { background: var(--unsure); border-color: var(--unsure); color: #fff; }
+.verdict textarea { width: 100%; min-height: 90px; resize: vertical; font: inherit; font-size: 13.5px; padding: 8px;
+  border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+.kbd { font-size: 12px; color: var(--faint); margin-top: 6px; }
+kbd { font: 11px ui-monospace, monospace; border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px; padding: 0 4px; }
+table { border-collapse: collapse; width: 100%; font-size: 13.5px; background: var(--surface); }
+th, td { border: 1px solid var(--border); padding: 6px 9px; text-align: right; font-variant-numeric: tabular-nums; }
+th:first-child, td:first-child { text-align: left; }
+th { background: var(--surface-2); color: var(--muted); font-weight: 600; font-size: 12.5px; }
+td.pos { color: var(--gaze); font-weight: 600; } td.neg { color: var(--full); font-weight: 600; }
+.note { color: var(--muted); font-size: 13.5px; margin: 10px 0; }
+.empty { color: var(--muted); padding: 40px 0; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  nav { position: static; max-height: 180px; border-right: 0; border-bottom: 1px solid var(--border); }
+  .arms, .qa { grid-template-columns: 1fr; }
+  main { padding: 14px 16px 60px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Routing 사례 보기</h1>
+  <div class="tabs" role="tablist">
+    <button role="tab" data-set="S" id="tab-S">요약 (유형별)</button>
+    <button role="tab" data-set="A" id="tab-A">A. gaze만 맞춤</button>
+    <button role="tab" data-set="B" id="tab-B">B. full만 맞춤</button>
+    <button role="tab" data-set="C" id="tab-C">C. 라우터가 놓침</button>
+  </div>
+  <div class="hdr-right">
+    <label><input type="checkbox" id="f-visual"> 시각 근거 문항만</label>
+    <label><input type="checkbox" id="f-box"> 점선으로 gaze crop 위치 보기 (끄면 crop 이미지)</label>
+    <span id="progress"></span>
+    <button class="btn" id="export">판정 내보내기 (JSON)</button>
+  </div>
+</header>
+<div class="layout">
+  <nav><div class="desc" id="set-desc"></div><ol id="list"></ol></nav>
+  <main id="main"></main>
+</div>
+<script src="data.js"></script>
+<script>
+(function () {
+  const D = window.ROUTING_CASES;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  let verdicts = store.get("routing-cases-verdicts", {});
+  const st = Object.assign({ set: "S", idx: 0, visual: false, box: true, boxv: 2 }, store.get("routing-cases-ui2", {}));
+  const $ = (id) => document.getElementById(id);
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const vkey = (id) => `${st.set}:${id}`;
+  const TAB = { S: "요약 (유형별)", A: "A. gaze만 맞춤", B: "B. full만 맞춤", C: "C. 라우터가 놓침" };
+  const DESC = {
+    S: `전체 ${D.n_total}문항을 질문 유형·오디오 필요 여부로 나눈 표. "시선 근처 물체는 gaze, 장면·위치·구도는 full" 가설은 유형별로 gaze−full 부호가 갈릴 때만 성립한다.`,
+    A: `<b>gaze 로 맞히고 full 로는 틀린</b> 문항 (후보 ${D.n_candidates.A}개 중 ${(D.sets.A || []).length}개). 정답 근거가 시선 주변 물체·인물인지 본다.`,
+    B: `<b>full 로 맞히고 gaze 로는 틀린</b> 문항 (후보 ${D.n_candidates.B}개 중 ${(D.sets.B || []).length}개). 장면 전체·위치·구도가 필요했는지 본다.`,
+    C: `full/gaze 중 한쪽만 맞았는데 <b>라우터가 틀린 쪽을 고른</b> 문항 (후보 ${D.n_candidates.C}개 중 ${(D.sets.C || []).length}개).`
+  };
+  const ids = () => st.set === "S" ? [] : (D.sets[st.set] || []).filter((id) => !st.visual || !D.cases[id].need_audio);
+  const saveUI = () => store.set("routing-cases-ui2", st);
+  const pct = (a, n) => n ? (100 * a / n).toFixed(1) + "%" : "–";
+
+  function renderHeader() {
+    for (const s of Object.keys(TAB)) {
+      const b = $("tab-" + s);
+      b.setAttribute("aria-selected", String(st.set === s));
+      b.textContent = TAB[s] + (s === "S" ? "" : ` (${(D.sets[s] || []).length})`);
+    }
+    $("f-visual").checked = st.visual; $("f-box").checked = st.box;
+    $("set-desc").innerHTML = DESC[st.set];
+    const list = ids();
+    $("progress").textContent = st.set === "S" ? "" :
+      `판정 ${list.filter((id) => verdicts[vkey(id)] && verdicts[vkey(id)].v).length}/${list.length}`;
+  }
+  function renderList() {
+    $("list").innerHTML = ids().map((id, i) => {
+      const c = D.cases[id], v = (verdicts[vkey(id)] || {}).v || "";
+      return `<li><button data-i="${i}" aria-current="${i === st.idx}"><span class="dot ${v}"></span>Q${esc(id)}` +
+        `<span class="sub">${esc(c.type || "")}${c.need_audio ? " · 🔊" : ""}</span></button></li>`;
+    }).join("");
+  }
+
+  function renderSummary() {
+    const rows = D.summary.map((r) => {
+      const d = r.gaze - r.full, cls = d > 0 ? "pos" : d < 0 ? "neg" : "";
+      const disc = r.gaze_only + r.full_only;
+      return `<tr><td>${esc(r.label)}</td><td>${r.n}</td><td>${pct(r.full, r.n)}</td><td>${pct(r.gaze, r.n)}</td>` +
+        `<td class="${cls}">${d > 0 ? "+" : ""}${(100 * d / r.n).toFixed(1)}</td><td>${r.gaze_only}</td><td>${r.full_only}</td>` +
+        `<td>${pct(r.hit60_full, r.n)}</td><td>${pct(r.hit60_gaze, r.n)}</td>` +
+        `<td>${pct(r.route_gaze, r.n)}</td><td>${disc ? `${r.route_ok}/${disc} (${pct(r.route_ok, disc)})` : "–"}</td></tr>`;
+    }).join("");
+    $("main").innerHTML = `
+      <h2 style="margin-top:0">유형별 full vs gaze</h2>
+      <table><thead><tr><th>유형 · 오디오</th><th>N</th><th>full 정확도</th><th>gaze 정확도</th><th>gaze−full (%p)</th>
+        <th>gaze만 맞춤</th><th>full만 맞춤</th><th>Hit@3 full (60s)</th><th>Hit@3 gaze (60s)</th>
+        <th>라우터 GAZE 선택률</th><th>갈린 문항에서 라우터 적중</th></tr></thead><tbody>${rows}</tbody></table>
+      <h2>검색 성공(Hit@3) × QA 정답</h2>
+      <table><thead><tr><th>기준 · arm</th><th>N</th><th>Hit O · QA O</th><th>Hit O · QA X</th><th>Hit X · QA O</th><th>Hit X · QA X</th>
+        <th>Hit O 일 때 QA 정확도</th><th>Hit X 일 때 QA 정확도</th></tr></thead><tbody>${D.hit_qa.map((r) => {
+          const h = r.hit_ok + r.hit_wrong, m = r.miss_ok + r.miss_wrong;
+          return `<tr><td>${esc(r.tol)} · ${esc(r.arm)}</td><td>${r.n}</td><td>${r.hit_ok}</td><td>${r.hit_wrong}</td><td>${r.miss_ok}</td><td>${r.miss_wrong}</td>` +
+            `<td>${pct(r.hit_ok, h)} (${r.hit_ok}/${h})</td><td>${pct(r.miss_ok, m)} (${r.miss_ok}/${m})</td></tr>`; }).join("")}</tbody></table>
+      <p class="note"><b>Hit X · QA O</b> 는 Top-3 에 정답 클립이 없는데도 맞힌 경우(텍스트 메모리·찍기), <b>Hit O · QA X</b> 는 정답 클립을 찾아왔는데도 틀린 경우다.
+      Hit O 와 Hit X 의 QA 정확도 차이가 작으면 시각 검색이 답에 거의 기여하지 못한다는 뜻이다.</p>
+      <p class="note">파란색(+)은 gaze 가 앞서고 주황색(−)은 full 이 앞선다. 한 칸의 N 이 작으면 ±몇 문항 차이가 큰 %p 로 보이므로, "gaze만 맞춤 / full만 맞춤" 개수와 함께 읽는다.
+      라우팅이 이득이려면 ① 유형별로 부호가 갈리고 ② 라우터 적중이 50% 를 넘어야 한다.</p>`;
+  }
+
+  function armPanel(id, arm) {
+    const c = D.cases[id], a = c.arms[arm];
+    const hit = a.hit["60"], label = arm === "full" ? "A · full (원본 프레임)" : "B · gaze (시선 crop)";
+    const clips = a.clips.map((cl) => {
+      const isT = c.target && c.target.clip === cl.key;
+      return `<div class="clip"><div class="ch"><b>Top ${cl.rank}</b> ${esc(cl.key)} · ${cl.score}` +
+        (isT ? ` <span class="pill ok">정답 클립</span>` : "") + `</div>` +
+        `<div class="shots">${cl.frames.map((f) => {
+          if (arm === "gaze" && st.box && f.full)
+            return `<span class="sh"><img src="${f.full}" title="${f.t}s · 점선 = gaze crop" alt=""><span class="bx" style="left:${f.box[0] * 100}%;top:${f.box[1] * 100}%;width:${(f.box[2] - f.box[0]) * 100}%;height:${(f.box[3] - f.box[1]) * 100}%"></span><span class="gd" style="left:${f.gx * 100}%;top:${f.gy * 100}%"></span></span>`;
+          return `<img src="${f.src}" title="${f.t}s" alt="">`; }).join("")}</div></div>`;
+    }).join("");
+    return `<div class="panel arm ${arm}"><h3>${label}
+      <span class="pill ${a.correct ? "ok" : "no"}">답 ${esc(a.response)} ${a.correct ? "정답" : "오답"}</span>
+      <span class="pill ${hit ? "ok" : "no"}">Hit@3(60s) ${hit ? "O" : "X"}</span>
+      <span class="pill ${hit && !a.correct ? "no" : !hit && a.correct ? "ok" : "ok"}" style="background:var(--surface-2);color:var(--muted)">${hit && a.correct ? "정답 클립 찾고 맞힘" : hit ? "정답 클립 찾았는데 틀림" : a.correct ? "정답 클립 없이 맞힘" : "찾지 못하고 틀림"}</span></h3>${clips}</div>`;
+  }
+
+  function renderCase() {
+    const list = ids();
+    if (!list.length) { $("main").innerHTML = `<p class="empty">이 조건에 맞는 문항이 없습니다.</p>`; return; }
+    st.idx = Math.min(Math.max(st.idx, 0), list.length - 1);
+    const id = list[st.idx], c = D.cases[id], v = verdicts[vkey(id)] || {};
+    const choices = Object.entries(c.choices).map(([k, t]) =>
+      `<li class="${k === c.answer ? "ans" : ""}"><b>${esc(k)}</b>${esc(t)}${k === c.answer ? " ✓" : ""}</li>`).join("");
+    const votes = c.route.votes.map((x) => `Set1=${x.set1} → ${x.picked || "무효(" + esc(x.raw) + ")"}`).join(" / ");
+    const t = c.target;
+    $("main").innerHTML = `
+      <div class="case-head"><h2>Q${esc(id)}</h2><span class="tag">${esc(c.type || "")}</span>
+        ${c.need_audio ? `<span class="tag audio">🔊 오디오 필요</span>` : `<span class="tag">시각 근거</span>`}
+        <div class="nav-btns"><button class="btn" id="prev">↑ 이전 문항</button><button class="btn" id="next">다음 문항 ↓</button></div></div>
+      <div class="qa"><div>
+        <p class="q">${esc(c.question)}</p><ul class="choices">${choices}</ul>
+        ${c.reason ? `<div class="reason"><b>EgoLife 근거 (reason)</b> ${esc(c.reason)}</div>` : ""}
+        <div class="route" style="margin-top:10px"><b>라우터</b>: ${c.route.decision.toUpperCase()} 선택 ·
+          ${c.route.agree ? "두 순서 일치" : "두 순서 불일치 → FULL fallback"} · ${votes}</div>
+        <div class="meta">키워드 “${esc(c.keywords || "")}”</div></div>
+        <div class="panel verdict"><h3>이 문항은 어느 표현이 유리한가?</h3>
+          <div class="btns"><button class="good" data-v="good" aria-pressed="${v.v === "good"}">gaze 유리</button>
+            <button class="bad" data-v="bad" aria-pressed="${v.v === "bad"}">full 유리</button>
+            <button class="unsure" data-v="unsure" aria-pressed="${v.v === "unsure"}">모름</button></div>
+          <textarea id="note" placeholder="메모 (예: 물체 클로즈업 / 사람 구도 필요 / 위치 질문)">${esc(v.note || "")}</textarea>
+          <div class="kbd"><kbd>↑</kbd><kbd>↓</kbd> 문항 · <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> 판정</div></div></div>
+      ${t ? `<div class="target"><div class="tw"><img src="${t.src}" alt="">${t.box ? `<span class="bx" style="left:${t.box[0] * 100}%;top:${t.box[1] * 100}%;width:${(t.box[2] - t.box[0]) * 100}%;height:${(t.box[3] - t.box[1]) * 100}%"></span>` : ""}${t.gx != null ? `<span class="gd" style="left:${t.gx * 100}%;top:${t.gy * 100}%"></span>` : ""}</div>
+        <div class="route"><b>★ 정답 시점 프레임</b> (${t.t}s, ${esc(t.clip)})<br>
+          정답 클립이 Top-3 안에: full ${t.in_top3.full ? "O" : "X"} · gaze ${t.in_top3.gaze ? "O" : "X"}<br>노란 점은 그 시점의 시선, 점선 네모는 gaze crop 영역.</div></div>` : ""}
+      <div class="arms">${armPanel(id, "full")}${armPanel(id, "gaze")}</div>`;
+  }
+
+  function render() {
+    renderHeader(); saveUI();
+    if (st.set === "S") { $("list").innerHTML = ""; renderSummary(); }
+    else { renderList(); renderCase(); }
+  }
+  function go(d) { const n = ids().length; if (!n) return; st.idx = (st.idx + d + n) % n; render(); }
+  function setVerdict(v) {
+    const id = ids()[st.idx]; if (!id) return;
+    const cur = verdicts[vkey(id)] || {};
+    cur.v = cur.v === v ? "" : v; verdicts[vkey(id)] = cur; store.set("routing-cases-verdicts", verdicts);
+    renderHeader(); renderList();
+    document.querySelectorAll(".verdict [data-v]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === cur.v)));
+  }
+  document.querySelector(".tabs").addEventListener("click", (e) => {
+    const s = e.target.dataset.set; if (s && s !== st.set) { st.set = s; st.idx = 0; render(); }
+  });
+  $("f-visual").addEventListener("change", (e) => { st.visual = e.target.checked; st.idx = 0; render(); });
+  $("f-box").addEventListener("change", (e) => { st.box = e.target.checked; saveUI(); if (st.set !== "S") renderCase(); });
+  $("list").addEventListener("click", (e) => { const b = e.target.closest("button"); if (b) { st.idx = +b.dataset.i; render(); } });
+  $("main").addEventListener("click", (e) => {
+    if (e.target.closest("#prev")) return go(-1);
+    if (e.target.closest("#next")) return go(1);
+    const v = e.target.closest("[data-v]"); if (v) setVerdict(v.dataset.v);
+  });
+  $("main").addEventListener("input", (e) => {
+    if (e.target.id !== "note") return;
+    const id = ids()[st.idx], cur = verdicts[vkey(id)] || {};
+    cur.note = e.target.value; verdicts[vkey(id)] = cur; store.set("routing-cases-verdicts", verdicts);
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "TEXTAREA" || e.target.tagName === "INPUT" || e.metaKey || e.ctrlKey) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); go(1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); go(-1); }
+    else if (e.key === "1") setVerdict("good");
+    else if (e.key === "2") setVerdict("bad");
+    else if (e.key === "3") setVerdict("unsure");
+  });
+  $("export").addEventListener("click", () => {
+    const out = { exported: new Date().toISOString(), verdicts: {} };
+    for (const [k, v] of Object.entries(verdicts)) {
+      if (!v.v && !v.note) continue;
+      const [set, id] = k.split(":"); const c = D.cases[id] || {};
+      out.verdicts[k] = { set, id, verdict: v.v === "good" ? "gaze" : v.v === "bad" ? "full" : v.v || null,
+        note: v.note || "", type: c.type, need_audio: c.need_audio };
+    }
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([JSON.stringify(out, null, 2)], { type: "application/json" }));
+    a.download = "routing_case_verdicts.json"; a.click(); URL.revokeObjectURL(a.href);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
