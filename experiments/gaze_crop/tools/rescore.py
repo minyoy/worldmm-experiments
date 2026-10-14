@@ -8,8 +8,8 @@ The two scorers live in ../visual_bottleneck/eval_egolife.py: the original `eval
 explicitly chosen / bolded letter, else the single choice quoted verbatim). They are lifted out by
 source range so this script does not import torch.
 
-    python experiments/gaze_crop/rescore.py experiments/gaze_crop/results_qa/*/E_prime.json
-    python experiments/gaze_crop/rescore.py --show 10 <file>   # list the questions that changed
+    python experiments/gaze_crop/tools/rescore.py experiments/gaze_crop/results_qa/*/E_prime.json
+    python experiments/gaze_crop/tools/rescore.py --show 10 <file>   # list the questions that changed
 
 Measured on the visual-bottleneck runs: E' 45.8% under both parsers (0 of 120 questions change), B
 40.8% -> 41.7% (1 question). Note that eval_egolife.py's --robust-reasoning also loosens the
@@ -26,7 +26,7 @@ import re
 import sys
 from typing import Any, Dict, List, Optional, Tuple  # noqa: F401  (the lifted annotations need these)
 
-VB = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "visual_bottleneck"))
+VB = os.path.abspath(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "visual_bottleneck"))
 EVAL_SRC = os.path.join(VB, "eval_egolife.py")
 WANTED = ("normalize", "extract_choice_letter", "evaluate_prediction",
           "extract_choice_letter_lenient", "evaluate_prediction_lenient")

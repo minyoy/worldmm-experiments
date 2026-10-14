@@ -12,9 +12,9 @@ For each of a handful of clips it writes variants/<clip>_variants.jpg: the same 
 candidate, labelled, with the gaze point and crop box drawn. Pick the tile whose box is on what the
 wearer was plainly looking at, and pass it on:
 
-    python experiments/gaze_crop/compare_transforms.py
+    python experiments/gaze_crop/plots/compare_transforms.py
     # look at the images, then
-    GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/run_stage1.sh
+    GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/scripts/run_stage1.sh
 
 Two things decide whether the pictures can discriminate at all.
 
@@ -28,7 +28,7 @@ hands -- so the default radial --min-offset keeps clips whose gaze sat at x ~ 0.
 x-mirrored pair crops the SAME pixels and its two tiles are indistinguishable. --axis x measures
 the offset horizontally instead, for both the filter and the frame choice:
 
-    python experiments/gaze_crop/compare_transforms.py \
+    python experiments/gaze_crop/plots/compare_transforms.py \
         --axis x --min-offset 0.08 --dump-variants 12 --transforms flipy flipx+flipy
 
 Settle one mirror per run, with the pair named in --transforms: a rotation swaps the two axes, so
@@ -49,7 +49,7 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import (  # noqa: E402
     ANALYSIS_DIR, GAZE_ROOT, NFRAMES, POOL_PATH, VIDEO_ROOT, crop_box, gaze_at, load_json,
     resolve_video_path, save_json,
@@ -228,7 +228,7 @@ def main() -> None:
     print("\nEach tile is the same frame with the gaze point and crop box drawn under one candidate,")
     print(f"labelled top-left, at the moment the gaze sat {axis_note[args.axis]}.")
     print("Pick the tile whose box is on what the wearer was plainly looking at -- then run stage 1:")
-    print(f"\n    GAZE_TRANSFORM=<그 라벨> bash experiments/gaze_crop/run_stage1.sh")
+    print(f"\n    GAZE_TRANSFORM=<그 라벨> bash experiments/gaze_crop/scripts/run_stage1.sh")
     print(f"\nNothing here ranks the candidates. Twelve images beat four: on this data four gave "
           f"the wrong answer.")
     print("-" * 74)

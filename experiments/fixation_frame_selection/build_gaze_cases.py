@@ -62,7 +62,7 @@ from embed_arms import frame_indices_uniform  # noqa: E402
 from embed_fix_arms import FIX_DEFAULTS, fixation_of, select_frames  # noqa: E402
 from fixation_sweep import clip_fixations  # noqa: E402
 
-_spec = importlib.util.spec_from_file_location("gaze_crop_cases", os.path.join(GAZE_CROP, "build_gaze_cases.py"))
+_spec = importlib.util.spec_from_file_location("gaze_crop_cases", os.path.join(GAZE_CROP, "tools", "build_gaze_cases.py"))
 _gc = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_gc)
 target_clip, POOL_ALL, RATIO = _gc.target_clip, _gc.POOL_ALL, _gc.RATIO

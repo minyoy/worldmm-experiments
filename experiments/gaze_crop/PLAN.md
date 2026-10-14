@@ -128,15 +128,15 @@ tracking_timestamp_us, left_yaw_rads_cpf, right_yaw_rads_cpf, pitch_rads_cpf, de
 
 ```bash
 # 1단계 1차 (~10분): transform 후보를 그려놓고 멈춤. 내가 보고 고른다
-bash experiments/gaze_crop/run_stage1.sh
+bash experiments/gaze_crop/scripts/run_stage1.sh
 #   -> variants/*_variants.jpg 를 열어 박스가 맞는 타일의 라벨 확인
 
 # 1단계 2차 (~30분): 고른 transform 으로 실제 측정
-nohup GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/run_stage1.sh > /dev/null 2>&1 &
+nohup GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/scripts/run_stage1.sh > /dev/null 2>&1 &
 cat experiments/gaze_crop/analysis/DIGEST.md
 
 # 2단계 (3~4시간): 전체 풀 확장 + E′ 정확도. 1단계에서 이긴 arm을 자동으로 가져감
-nohup bash experiments/gaze_crop/run_stage2.sh > /dev/null 2>&1 &
+nohup bash experiments/gaze_crop/scripts/run_stage2.sh > /dev/null 2>&1 &
 cat experiments/gaze_crop/analysis/DIGEST.md
 ```
 
@@ -163,7 +163,7 @@ arm 임베딩(`full`, `center@R`, `gazef@R`, `pkl`, `_randf` 대조군) → reca
 | `SKIP_QA=1` | – | 2단계에서 임베딩·recall만, LLM 없이 |
 | `SKIP_CONTROLS=1` | – | 1단계에서 `pkl`·`_randf` 대조군 생략 |
 
-판정만 따로 보려면 `python experiments/gaze_crop/gate.py` (종료 코드 0=통과, 1=실패, 2=판정 불가).
+판정만 따로 보려면 `python experiments/gaze_crop/tools/gate.py` (종료 코드 0=통과, 1=실패, 2=판정 불가).
 
 전 단계가 이어받기 가능합니다. **transform을 바꿔서 다시 돌리면** 해당 gaze arm은 이어받지 않고
 자동으로 처음부터 다시 만듭니다(경고 출력). 이어받으면 한 npz 안에 좌표계가 다른 임베딩이 섞이고, 그건
@@ -216,7 +216,7 @@ x-미러 쌍이 **같은 픽셀을 crop**합니다(동점이 데이터가 아니
 `--min-offset` 필터와 그릴 프레임 선택을 모두 가로 성분으로 바꿉니다:
 
 ```bash
-python experiments/gaze_crop/compare_transforms.py \
+python experiments/gaze_crop/plots/compare_transforms.py \
     --axis x --min-offset 0.08 --dump-variants 12 --transforms flipy flipx+flipy
 ```
 
@@ -230,10 +230,10 @@ python experiments/gaze_crop/compare_transforms.py \
 
 ```bash
 # 후보 비교만 (run_stage1.sh 를 GAZE_TRANSFORM 없이 불러도 같은 일을 한다)
-python experiments/gaze_crop/compare_transforms.py
+python experiments/gaze_crop/plots/compare_transforms.py
 
 # 어느 타일도 맞지 않으면 투영 자체가 틀렸을 수 있다
-python experiments/gaze_crop/compare_transforms.py \
+python experiments/gaze_crop/plots/compare_transforms.py \
     --projection pinhole                      # 또는 --focal-px 로 조정
 ```
 
@@ -245,9 +245,9 @@ python experiments/gaze_crop/compare_transforms.py \
 
 ```bash
 # 1단계
-python experiments/gaze_crop/check_gaze.py
-python experiments/gaze_crop/build_pool.py --n-distractors 500
-python experiments/gaze_crop/compare_transforms.py  # GPU, ~10분
+python experiments/gaze_crop/tools/check_gaze.py
+python experiments/gaze_crop/tools/build_pool.py --n-distractors 500
+python experiments/gaze_crop/plots/compare_transforms.py  # GPU, ~10분
 #   -> variants/*.jpg 를 보고 transform 을 고른 뒤
 python experiments/gaze_crop/prepare_gaze.py --transform <고른 값> --dump-overlay 6
 python experiments/gaze_crop/embed_arms.py \
@@ -255,10 +255,10 @@ python experiments/gaze_crop/embed_arms.py \
 python experiments/gaze_crop/recall_eval.py --query-source question \
     --out experiments/gaze_crop/results/recall_stage1_question_tol0.json \
     --markdown experiments/gaze_crop/analysis/recall_stage1_question_tol0.md
-python experiments/gaze_crop/gate.py            # 0=통과 1=실패 2=판정불가, BEST=<arm> 출력
+python experiments/gaze_crop/tools/gate.py            # 0=통과 1=실패 2=판정불가, BEST=<arm> 출력
 
 # 2단계 (위 gate 가 통과했을 때)
-python experiments/gaze_crop/build_pool.py --all-clips --out experiments/gaze_crop/pool_all.json
+python experiments/gaze_crop/tools/build_pool.py --all-clips --out experiments/gaze_crop/pool_all.json
 python experiments/gaze_crop/prepare_gaze.py --pool experiments/gaze_crop/pool_all.json \
     --transform <같은 값>
 python experiments/gaze_crop/embed_arms.py --pool experiments/gaze_crop/pool_all.json \
@@ -266,17 +266,17 @@ python experiments/gaze_crop/embed_arms.py --pool experiments/gaze_crop/pool_all
 python experiments/gaze_crop/recall_eval.py --pool experiments/gaze_crop/pool_all.json \
     --arms full gazef@0.5 --out experiments/gaze_crop/results/recall_main_tol0.json \
     --markdown experiments/gaze_crop/analysis/recall_main_tol0.md
-python experiments/gaze_crop/export_pkl.py --arm gazef@0.5 \
+python experiments/gaze_crop/tools/export_pkl.py --arm gazef@0.5 \
     --pool experiments/gaze_crop/pool_all.json
-python experiments/gaze_crop/export_pkl.py --arm full --pool experiments/gaze_crop/pool_all.json
+python experiments/gaze_crop/tools/export_pkl.py --arm full --pool experiments/gaze_crop/pool_all.json
 for ARM in full gazef_05; do                                                      # arm당 실측 34분
   python experiments/visual_bottleneck/eval_egolife.py --condition E_prime \
       --visual-path experiments/gaze_crop/emb/$ARM.pkl \
       --results-dir experiments/gaze_crop/results_qa/$ARM \
       --video-root /datasets/EgoLife --resume
 done
-python experiments/gaze_crop/rescore.py experiments/gaze_crop/results_qa/*/E_prime.json
-python experiments/gaze_crop/digest.py
+python experiments/gaze_crop/tools/rescore.py experiments/gaze_crop/results_qa/*/E_prime.json
+python experiments/gaze_crop/tools/digest.py
 ```
 
 비용: 1단계는 623 클립 × 16 프레임 × 4 arm ≈ 2,500회 forward, 디코딩 포함 GPU 1장에서 20~30분.

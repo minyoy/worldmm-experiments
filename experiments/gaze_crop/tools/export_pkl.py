@@ -9,7 +9,7 @@ left without an embedding, which VisualMemory skips at index time -- i.e. the po
 embedded over IS the retrieval index. Embed with `build_pool.py --all-clips` before running any
 accuracy comparison against the shipped pkl, or the arm is searching a much smaller haystack.
 
-    python experiments/gaze_crop/export_pkl.py --arm gazef@0.5
+    python experiments/gaze_crop/tools/export_pkl.py --arm gazef@0.5
     # -> emb/gazef_05.pkl, then:
     python experiments/visual_bottleneck/eval_egolife.py --condition E_prime \
         --visual-path experiments/gaze_crop/emb/gazef_05.pkl \
@@ -28,7 +28,7 @@ import sys
 
 import numpy as np
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import EMB_DIR, POOL_PATH, arm_filename, load_json  # noqa: E402
 
 

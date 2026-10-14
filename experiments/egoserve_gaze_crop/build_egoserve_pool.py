@@ -24,7 +24,7 @@ instant.json(70), short_term.json(121)은 과거 장면 지시가 없어 검색 
   약한 질의였다). link_reason 은 현재 상황이 섞여 있어 쓰지 않는다. current_observation /
   current_local_context 는 gaze_cases 에서 보여 주려고 항목에 남겨 둔다.
 
-pool 의 questions 원소는 gaze_crop/build_pool.py 와 같은 필드를 가진다. recall_eval.py 의
+pool 의 questions 원소는 gaze_crop/tools/build_pool.py 와 같은 필드를 가진다. recall_eval.py 의
 --query-source question 이 "question" 필드를 질의로 쓴다.
 
     python experiments/egoserve_gaze_crop/build_egoserve_pool.py

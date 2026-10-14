@@ -3,8 +3,8 @@
 Did a gaze arm beat `full` in stage 1? Prints the comparison and exits 0 if yes, 1 if no, so a
 shell script can branch on it without parsing numbers out of a log.
 
-    python experiments/gaze_crop/gate.py --arms gazef@0.5
-    python experiments/gaze_crop/gate.py --min-gain-pp 2.0 --quiet && echo "worth stage 2"
+    python experiments/gaze_crop/tools/gate.py --arms gazef@0.5
+    python experiments/gaze_crop/tools/gate.py --min-gain-pp 2.0 --quiet && echo "worth stage 2"
 
 The winning arm's name is printed as  BEST=<arm>  so run_stage2.sh can carry that one forward.
 Exit code 2 means the question could not be answered (missing file, missing arm).
@@ -14,7 +14,7 @@ import argparse
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import RESULTS_DIR, load_json  # noqa: E402
 
 

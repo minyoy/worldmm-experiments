@@ -9,7 +9,7 @@ tolerance and the same query source, and no question appears in both -- so their
 500-question run, exactly, and re-running it on a GPU would reproduce these numbers verbatim.
 Every number below comes from `per_question.rank`, which both files carry.
 
-    python experiments/gaze_crop/merge_recall.py \
+    python experiments/gaze_crop/tools/merge_recall.py \
         results/recall_main_tol0.json results/recall_holdout_tol0.json \
         --out results/recall_all_tol0.json --markdown analysis/recall_all_tol0.md \
         --pool pool_holdout.json --questions questions_500.json
@@ -30,7 +30,7 @@ import statistics
 import sys
 from typing import Any, Dict, List, Optional
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import (  # noqa: E402
     ANALYSIS_DIR, RESULTS_DIR, clip_span, exact_paired_p, load_json, save_json, target_spans,
 )

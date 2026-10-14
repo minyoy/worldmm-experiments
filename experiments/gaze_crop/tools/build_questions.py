@@ -10,7 +10,7 @@ EgoLifeQA A1_JAKE 500문항 전체를 이 실험이 쓰는 형식으로 뽑는�
 (참고로 visual_bottleneck 의 subset.json 은 120문항이다. 그쪽은 문항마다 LLM 을 돌려야 해서
 크기를 줄일 이유가 있었지만, 여기는 그 제약이 없다.)
 
-    python experiments/gaze_crop/build_questions.py
+    python experiments/gaze_crop/tools/build_questions.py
 
 쓰는 파일 questions_500.json:
     entries [{ID, type, need_audio, gap, gap_bin, query_time, question, choices, answer,
@@ -27,10 +27,10 @@ import collections
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import CAPTION_30SEC, EXP_DIR, QA_PATH, load_json, save_json  # noqa: E402
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)),
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
                                 "..", "visual_bottleneck"))
 from common import (  # noqa: E402
     build_choices, clip_display_key, gap_bin, gap_days, query_time_int, target_clips,

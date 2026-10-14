@@ -9,8 +9,8 @@ Frame times, gaze lookup and crop boxes are the ones embed_arms.py uses (16 unif
 gaze_at(), crop_box()), so the boxes are exactly what the embeddings saw. Needs decord + PIL (the
 project venv); CPU only.
 
-    python experiments/gaze_crop/plot_arm_examples.py                 # auto-pick a clip
-    python experiments/gaze_crop/plot_arm_examples.py --clip DAY3_A1_JAKE_12103000
+    python experiments/gaze_crop/plots/plot_arm_examples.py                 # auto-pick a clip
+    python experiments/gaze_crop/plots/plot_arm_examples.py --clip DAY3_A1_JAKE_12103000
 """
 
 import argparse
@@ -20,7 +20,7 @@ import os
 import sys
 from typing import List, Tuple
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HERE)
 from gaze_common import GAZE_PATH, crop_box, gaze_at  # noqa: E402
 from embed_arms import decode  # noqa: E402

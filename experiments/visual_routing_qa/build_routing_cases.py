@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Static case browser for the hypothesis "which question types favour gaze, which favour full?"
-(same idea as experiments/gaze_crop/build_gaze_cases.py, but on this experiment's QA results):
+(same idea as experiments/gaze_crop/tools/build_gaze_cases.py, but on this experiment's QA results):
 
   A. gaze-only correct -- qa_gaze=1, qa_full=0
   B. full-only correct -- qa_full=1, qa_gaze=0

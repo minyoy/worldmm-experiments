@@ -2,10 +2,10 @@
 # Stage 1: visual retrieval recall on the 623-clip pool. No LLM, no answer generation.
 # Run from the repo root, in the environment with torch + decord + the VLM2Vec weights.
 #
-#   bash experiments/gaze_crop/run_stage1.sh                  # 1st pass: renders the transform
+#   bash experiments/gaze_crop/scripts/run_stage1.sh                  # 1st pass: renders the transform
 #                                                             #   candidates and stops for your call
-#   GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/run_stage1.sh   # 2nd pass: the real run, ~30 min
-#   nohup GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/run_stage1.sh > /dev/null 2>&1 &
+#   GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/scripts/run_stage1.sh   # 2nd pass: the real run, ~30 min
+#   nohup GAZE_TRANSFORM=rot90cw bash experiments/gaze_crop/scripts/run_stage1.sh > /dev/null 2>&1 &
 #
 # Knobs: VIDEO_ROOT, GAZE_ROOT (default data/EgoLife/EyeGaze/A1_JAKE), RATIO (0.5),
 #        GAZE_TRANSFORM (required for the real run), N_DISTRACTORS (500),
@@ -36,7 +36,7 @@ if [ -n "$MAX_CPUS" ] && [ -z "${WORLDMM_CPU_PINNED:-}" ]; then
   echo "         enforces the ceiling -- libraries that ignore those vars can still use every core."
 fi
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"   # experiments/gaze_crop (this file lives in scripts/)
 REPO="$(cd "$HERE/../.." && pwd)"
 VIDEO_ROOT="${VIDEO_ROOT:-${WORLDMM_VIDEO_ROOT:-/datasets/EgoLife}}"
 GAZE_ROOT="${GAZE_ROOT:-$REPO/data/EgoLife/EyeGaze/A1_JAKE}"
@@ -64,7 +64,7 @@ echo "log       : $LOG"
 say "0. preflight"
 [ -d "$VIDEO_ROOT" ] || { echo "FATAL: video root missing: $VIDEO_ROOT"; exit 1; }
 HAS_GAZE=0
-"$PY" "$HERE/check_gaze.py" --gaze-root "$GAZE_ROOT" && HAS_GAZE=1 || true
+"$PY" "$HERE/tools/check_gaze.py" --gaze-root "$GAZE_ROOT" && HAS_GAZE=1 || true
 if [ "$HAS_GAZE" != "1" ] && [ "${NO_GAZE:-0}" != "1" ]; then
   echo
   echo "FATAL: no gaze data found, so the gaze arms cannot be built."
@@ -77,10 +77,10 @@ if [ "$HAS_GAZE" != "1" ] && [ "${NO_GAZE:-0}" != "1" ]; then
 fi
 
 say "1. questions: all 500"
-"$PY" "$HERE/build_questions.py" || exit 1
+"$PY" "$HERE/tools/build_questions.py" || exit 1
 
 say "2. pool (623 clips)"
-"$PY" "$HERE/build_pool.py" --n-distractors "$N_DISTRACTORS" || exit 1
+"$PY" "$HERE/tools/build_pool.py" --n-distractors "$N_DISTRACTORS" || exit 1
 
 say "2. gaze"
 ARMS="full center@$RATIO"
@@ -88,7 +88,7 @@ if [ "$HAS_GAZE" = "1" ] && [ -z "$GAZE_TRANSFORM" ]; then
   # The gaze CSVs hold yaw/pitch, not pixels, so the sign/rotation mapping to EgoLife's re-exported
   # video has to be settled before any embedding. It is settled by looking, not by a score: this
   # renders the candidates and stops.
-  "$PY" "$HERE/compare_transforms.py" --gaze-root "$GAZE_ROOT" --video-root "$VIDEO_ROOT" \
+  "$PY" "$HERE/plots/compare_transforms.py" --gaze-root "$GAZE_ROOT" --video-root "$VIDEO_ROOT" \
       --ratio "$RATIO" || exit 1
   cat <<'MSG'
 
@@ -98,10 +98,10 @@ Stopping here on purpose: the gaze->image transform is yours to choose.
 Open the variants/*_variants.jpg listed above. Pick the tile whose crop box is on what the wearer
 was plainly looking at, then rerun with that label:
 
-    GAZE_TRANSFORM=<label> bash experiments/gaze_crop/run_stage1.sh
+    GAZE_TRANSFORM=<label> bash experiments/gaze_crop/scripts/run_stage1.sh
 
 If no tile looks right, the projection itself may be off -- try
-    python experiments/gaze_crop/compare_transforms.py --gaze-root ... --projection pinhole
+    python experiments/gaze_crop/plots/compare_transforms.py --gaze-root ... --projection pinhole
 or a different --focal-px, and look again.
 --------------------------------------------------------------------------
 MSG
@@ -143,16 +143,16 @@ for SRC in question keywords; do
 done
 
 say "5. verdict"
-"$PY" "$HERE/gate.py" --results "$HERE/results/recall_stage1_question_tol0.json" --arms "$GAZEF_ARM"
+"$PY" "$HERE/tools/gate.py" --results "$HERE/results/recall_stage1_question_tol0.json" --arms "$GAZEF_ARM"
 VERDICT=$?
-"$PY" "$HERE/digest.py"
+"$PY" "$HERE/tools/digest.py"
 say "$(date '+%F %T')  stage 1 done. log: $LOG"
 if [ "$VERDICT" = "0" ]; then
   echo
   echo "A gaze arm beat full. Stage 2 (answer accuracy, 3-4 h) is worth running:"
-  echo "    bash experiments/gaze_crop/run_stage2.sh"
+  echo "    bash experiments/gaze_crop/scripts/run_stage2.sh"
 else
   echo
   echo "No gaze arm beat full. Read analysis/DIGEST.md before spending 4 hours on stage 2."
-  echo "Force it anyway with:  FORCE=1 bash experiments/gaze_crop/run_stage2.sh"
+  echo "Force it anyway with:  FORCE=1 bash experiments/gaze_crop/scripts/run_stage2.sh"
 fi

@@ -65,7 +65,7 @@ LLM이 필요 없는 **recall부터** 재고, 정확도는 그다음에 봅니�
 같은 클립(편의점 장면)의 세 시점에서 각 arm이 자르는 영역입니다. 노란 점이 그 순간의 시선, 박스가 임베딩에 들어가는
 영역입니다. `center`는 시선이 오른쪽 아래로 가면 놓치고(t=19.9초), `gazef`는 시선을 따라가며, `randf`는 시선과 무관한
 곳(t=11.9초에는 천장)을 자릅니다. 차이가 잘 보이도록 **시선이 중앙에서 많이 벗어나는 클립을 골랐습니다.** 대부분의
-프레임에서는 시선이 중앙 박스 안에 있습니다(3.3). 그림은 [`plot_arm_examples.py`](plot_arm_examples.py)로 만듭니다.
+프레임에서는 시선이 중앙 박스 안에 있습니다(3.3). 그림은 [`plot_arm_examples.py`](plots/plot_arm_examples.py)로 만듭니다.
 
 - crop 한 변은 짧은 변의 0.5배입니다(1408 px 영상에서 704 px).
 - 그 외는 모두 고정입니다: 임베딩 모델(VLM2Vec-V2.0), 클립당 16프레임 균등 샘플링, `max_pixels`, 질의(질문 원문,
@@ -120,7 +120,7 @@ k=3과 순위 중앙값만 숫자로 옮기면:
 | **`gazef_05`** | **13.4%** | **76** | **5.1%** | 249 |
 | _chance_ | _1.6%_ | _428_ | _0.34%_ | _1,273_ |
 
-모든 k의 값은 `analysis/recall_arms_tol{60,0}.md`에 있습니다. 그래프는 [`plot_recall_curves.py`](plot_recall_curves.py)로 다시 그립니다.
+모든 k의 값은 `analysis/recall_arms_tol{60,0}.md`에 있습니다. 그래프는 [`plot_recall_curves.py`](plots/plot_recall_curves.py)로 다시 그립니다.
 
 k=3에서 짝지은 비교 (앞 arm만 맞힘 : 뒤 arm만 맞힘):
 
@@ -145,7 +145,7 @@ k=3에서 짝지은 비교 (앞 arm만 맞힘 : 뒤 arm만 맞힘):
 ### 3.2 순위로 보면: `gazef`가 앞서지만, 쓸모없는 깊이에서다
 
 k=3 비교는 top-3 경계를 넘나든 문항(30~53개)만 씁니다. 500문항 전체의 **정답 순위가 올랐나/내렸나**를 세면
-([`rank_probe.py`](rank_probe.py), 사후 분석):
+([`rank_probe.py`](tools/rank_probe.py), 사후 분석):
 
 | 쌍 | tol=60 (↑/↓) | tol=0 (↑/↓) |
 |---|---|---|
@@ -179,7 +179,7 @@ tol=0도 같습니다(1–10에서 21:30, 201+에서 164:100). **순위 이득�
 
 **시선 지점의 98%가 지금의 중앙 crop 박스(ratio 0.5) 안에 들어갑니다.** 착용자는 대부분 화면 가운데를 보고 있어서,
 중앙만 잘라도 시선이 보던 곳은 거의 다 포함됩니다. 그림은 `gazef`가 실제로 자른 위치 그대로입니다(99,552프레임,
-[`plot_gaze_heatmap.py`](plot_gaze_heatmap.py)).
+[`plot_gaze_heatmap.py`](plots/plot_gaze_heatmap.py)).
 
 같은 프레임들에서 시선 박스와 중앙 박스가 얼마나 겹치는지(IoU)를 세면:
 
@@ -370,21 +370,21 @@ R = 0.35 / 0.25로 내리면 중앙 박스와 60% 이상 겹치는(IoU ≥ 0.6) 
 cd ~/WorldMM && source .venv/bin/activate
 
 # 1단계 (623클립). GAZE_TRANSFORM 없이 부르면 좌표계 후보 그림만 그리고 멈춘다 (variants/*.jpg 보고 고르기)
-bash experiments/gaze_crop/run_stage1.sh
-GAZE_TRANSFORM=flipx+flipy bash experiments/gaze_crop/run_stage1.sh
+bash experiments/gaze_crop/scripts/run_stage1.sh
+GAZE_TRANSFORM=flipx+flipy bash experiments/gaze_crop/scripts/run_stage1.sh
 
 # 2단계: 6,223클립 전체 임베딩 + E′ 정확도
-VISUAL_TOP_K="3 20" bash experiments/gaze_crop/run_stage2.sh
+VISUAL_TOP_K="3 20" bash experiments/gaze_crop/scripts/run_stage2.sh
 
 # 대조군(center, randf) 임베딩 + 4개 arm 채점 = 3.1. GPU 2장 ~3시간
-GPUS=1,2 MAX_CPUS=16 nohup bash experiments/gaze_crop/run_controls.sh > /dev/null 2>&1 &
+GPUS=1,2 MAX_CPUS=16 nohup bash experiments/gaze_crop/scripts/run_controls.sh > /dev/null 2>&1 &
 
 # 3.2의 순위 분석 (결과 JSON만 필요)
-cd experiments/gaze_crop && python rank_probe.py && cd ../..
+python experiments/gaze_crop/tools/rank_probe.py
 
 # 500문항 채점 (임베딩만 있으면 GPU 불필요)
-python experiments/gaze_crop/build_questions.py
-python experiments/gaze_crop/build_pool.py --all-clips --questions experiments/gaze_crop/questions_500.json \
+python experiments/gaze_crop/tools/build_questions.py
+python experiments/gaze_crop/tools/build_pool.py --all-clips --questions experiments/gaze_crop/questions_500.json \
     --out experiments/gaze_crop/pool_all.json
 python experiments/gaze_crop/recall_eval.py --pool experiments/gaze_crop/pool_all.json \
     --arms full gazef@0.5 --target-tolerance-sec 60 \
@@ -392,10 +392,10 @@ python experiments/gaze_crop/recall_eval.py --pool experiments/gaze_crop/pool_al
     --markdown experiments/gaze_crop/analysis/recall_all_tol60.md
 
 # 요약과 그림 다시 만들기
-python experiments/gaze_crop/digest.py              # -> analysis/DIGEST.md
-python experiments/gaze_crop/plot_recall_curves.py  # -> analysis/recall_curves{,_dark}.svg
-python experiments/gaze_crop/plot_gaze_heatmap.py   # -> analysis/gaze_heatmap{,_dark}.svg
-python experiments/gaze_crop/plot_arm_examples.py   # -> analysis/arms_example.jpg (영상 디코딩, venv 필요)
+python experiments/gaze_crop/tools/digest.py              # -> analysis/DIGEST.md
+python experiments/gaze_crop/plots/plot_recall_curves.py  # -> analysis/recall_curves{,_dark}.svg
+python experiments/gaze_crop/plots/plot_gaze_heatmap.py   # -> analysis/gaze_heatmap{,_dark}.svg
+python experiments/gaze_crop/plots/plot_arm_examples.py   # -> analysis/arms_example.jpg (영상 디코딩, venv 필요)
 ```
 
 ## 8. 파일
@@ -409,20 +409,20 @@ python experiments/gaze_crop/plot_arm_examples.py   # -> analysis/arms_example.j
 | [`PLAN.md`](PLAN.md) | 설계 전문 (arm 근거, 시선 기하, 좌표계 결정 기록) |
 | `analysis/DIGEST.md` | **먼저 볼 것.** 모든 recall 표와 정확도 요약 |
 | `analysis/recall_arms_tol{60,0}.md` | 3.1의 원본 (4개 arm, 500문항) |
-| `analysis/recall_curves{,_dark}.svg`, [`plot_recall_curves.py`](plot_recall_curves.py) | 3.1의 recall@k 그래프 (라이트/다크), 표준 라이브러리만 사용 |
-| `analysis/gaze_heatmap{,_dark}.svg`, [`plot_gaze_heatmap.py`](plot_gaze_heatmap.py) | 3.3의 시선 히트맵과 중앙 crop 박스 (라이트/다크) |
-| `analysis/arms_example.jpg`, [`plot_arm_examples.py`](plot_arm_examples.py) | 2.1의 arm 예시 그림 (실제 프레임 위 crop 박스) |
-| [`build_gaze_cases.py`](build_gaze_cases.py), `gaze_cases_template.html` | 사례 검토 웹페이지 (`gaze_cases/index.html`, git 제외): A. `gazef`만 top-3에 넣은 문항, B. 시선이 중앙 밖인 문항. 프레임·시선·crop·문항·순위와 판정 메모 |
+| `analysis/recall_curves{,_dark}.svg`, [`plot_recall_curves.py`](plots/plot_recall_curves.py) | 3.1의 recall@k 그래프 (라이트/다크), 표준 라이브러리만 사용 |
+| `analysis/gaze_heatmap{,_dark}.svg`, [`plot_gaze_heatmap.py`](plots/plot_gaze_heatmap.py) | 3.3의 시선 히트맵과 중앙 crop 박스 (라이트/다크) |
+| `analysis/arms_example.jpg`, [`plot_arm_examples.py`](plots/plot_arm_examples.py) | 2.1의 arm 예시 그림 (실제 프레임 위 crop 박스) |
+| [`build_gaze_cases.py`](tools/build_gaze_cases.py), `gaze_cases_template.html` | 사례 검토 웹페이지 (`gaze_cases/index.html`, git 제외): A. `gazef`만 top-3에 넣은 문항, B. 시선이 중앙 밖인 문항. 프레임·시선·crop·문항·순위와 판정 메모 |
 | `analysis/recall_{all,main,holdout}_tol{60,0}.md` | `full`/`gazef`만의 500 / 120 / 380문항 채점 |
 | `analysis/stage2_recorded.json` | git에 없는 산출물(좌표계, 정확도)의 기록본 |
 | [`prepare_gaze.py`](prepare_gaze.py) | gaze CSV → 프레임별 픽셀 좌표 (`gaze_points.json`) |
 | [`embed_arms.py`](embed_arms.py) | 클립 디코딩 → arm별 crop → 임베딩 (`emb/<arm>.npz`, 이어받기) |
-| [`recall_eval.py`](recall_eval.py), [`rank_probe.py`](rank_probe.py) | recall@k·McNemar·chance / 순위 검정과 구간 분해 |
-| [`compare_transforms.py`](compare_transforms.py) | 좌표계 후보 그림 (고르는 것은 사람) |
-| [`build_questions.py`](build_questions.py), [`build_pool.py`](build_pool.py), [`merge_recall.py`](merge_recall.py) | 500문항, 클립 풀, 채점 결과 병합 |
-| [`export_pkl.py`](export_pkl.py), [`rescore.py`](rescore.py) | arm 임베딩 → E′ 입력, 저장된 응답 재채점 |
-| [`gate.py`](gate.py), [`digest.py`](digest.py) | 1단계 판정, 요약 생성 |
-| `run_stage1.sh`, `run_stage2.sh`, [`run_controls.sh`](run_controls.sh) | 단계별 실행 스크립트 |
+| [`recall_eval.py`](recall_eval.py), [`rank_probe.py`](tools/rank_probe.py) | recall@k·McNemar·chance / 순위 검정과 구간 분해 |
+| [`compare_transforms.py`](plots/compare_transforms.py) | 좌표계 후보 그림 (고르는 것은 사람) |
+| [`build_questions.py`](tools/build_questions.py), [`build_pool.py`](tools/build_pool.py), [`merge_recall.py`](tools/merge_recall.py) | 500문항, 클립 풀, 채점 결과 병합 |
+| [`export_pkl.py`](tools/export_pkl.py), [`rescore.py`](tools/rescore.py) | arm 임베딩 → E′ 입력, 저장된 응답 재채점 |
+| [`gate.py`](tools/gate.py), [`digest.py`](tools/digest.py) | 1단계 판정, 요약 생성 |
+| `run_stage1.sh`, `run_stage2.sh`, [`run_controls.sh`](scripts/run_controls.sh) | 단계별 실행 스크립트 |
 | `logs/` | 실행 로그 (clamp 비율, depth 검증 포함) |
 | `../fixation_frame_selection/` | fixation 검출 실험 (streamgaze 참고 코드 포함). 5.3 참고 |
 

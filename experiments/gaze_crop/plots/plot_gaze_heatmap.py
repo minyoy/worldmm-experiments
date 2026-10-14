@@ -8,7 +8,7 @@ Uses the same 16 frame times per clip and the same gaze_at() lookup as embed_arm
 are exactly the ones the `gazef` arm cropped around. Writes a light and a dark SVG to analysis/.
 Standard library only (runs on the login node).
 
-    python experiments/gaze_crop/plot_gaze_heatmap.py
+    python experiments/gaze_crop/plots/plot_gaze_heatmap.py
 """
 
 import json
@@ -17,7 +17,7 @@ import os
 import sys
 from typing import Dict, List, Tuple
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HERE)
 from gaze_common import GAZE_PATH, crop_box, gaze_at  # noqa: E402
 

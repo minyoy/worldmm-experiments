@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-EgoServe 검색 결과를 사례별로 눈으로 확인하는 정적 웹페이지를 만든다 (gaze_crop/build_gaze_cases.py 의 EgoServe 판).
+EgoServe 검색 결과를 사례별로 눈으로 확인하는 정적 웹페이지를 만든다 (gaze_crop/tools/build_gaze_cases.py 의 EgoServe 판).
 
   A. gazef 가 full 보다 정답 순위가 크게 좋은 질의 (순위가 절반 이하로 줄어든 것, 좋아진 폭 순)
   C. crop 전반이 손해인 질의 (full 순위 30 이내, center/randf/gazef 중 2개 이상이 2배 이상 나쁨. 시선과 무관하게 자르는 것 자체가 손해인 유형)
@@ -26,6 +26,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 GC = os.path.join(HERE, "..", "gaze_crop")
 sys.path.insert(0, GC)
+sys.path.insert(0, os.path.join(GC, "tools"))  # build_gaze_cases.py lives in gaze_crop/tools/
 sys.path.insert(0, os.path.join(HERE, "..", "visual_bottleneck"))
 import build_gaze_cases as bgc  # noqa: E402
 from gaze_common import (  # noqa: E402

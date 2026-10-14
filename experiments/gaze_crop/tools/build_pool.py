@@ -12,8 +12,8 @@ here is only whether cropping moves the ranking at all. If gaze-cropping cannot 
 from the days the targets live on, which keeps them visually close (same flat, same people)
 instead of trivially separable.
 
-    python experiments/gaze_crop/build_pool.py [--n-distractors 500] [--seed 0]
-    python experiments/gaze_crop/build_pool.py --distractor-scope all   # any day, not just target days
+    python experiments/gaze_crop/tools/build_pool.py [--n-distractors 500] [--seed 0]
+    python experiments/gaze_crop/tools/build_pool.py --distractor-scope all   # any day, not just target days
 
 Writes pool.json:
     clips      [{key, video_path, date, start_time, end_time, ts_start, ts_end, is_target}]
@@ -26,7 +26,7 @@ import os
 import random
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import (  # noqa: E402
     CAPTION_30SEC, POOL_PATH, QUESTIONS_PATH, clip_key, load_json, load_subset, save_json, ts_int,
 )
@@ -52,7 +52,7 @@ def main() -> None:
     rng = random.Random(args.seed)
     if not os.path.exists(args.subset):
         raise SystemExit(f"문항 파일이 없다: {args.subset}\n"
-                         f"    python experiments/gaze_crop/build_questions.py")
+                         f"    python experiments/gaze_crop/tools/build_questions.py")
     subset = load_subset(args.subset)
     caps = load_json(args.captions)
     by_path = {c["video_path"]: c for c in caps}

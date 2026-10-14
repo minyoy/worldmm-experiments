@@ -8,7 +8,7 @@ in-panel legend box, left/bottom axes only, light dashed horizontal grid. Standa
 it runs on the login node. Colors: the reference categorical palette's first three slots (validated
 all-pairs in both modes) for the crop arms, neutral gray for the `full` baseline and chance.
 
-    python experiments/gaze_crop/plot_recall_curves.py
+    python experiments/gaze_crop/plots/plot_recall_curves.py
 """
 
 import json
@@ -17,7 +17,7 @@ import os
 import sys
 from typing import Dict, List, Tuple
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RESULTS = os.path.join(HERE, "results")
 OUT = os.path.join(HERE, "analysis")
 

@@ -4,8 +4,8 @@
 # 이 실험에 남은 단 하나의 미결 질문 -- gazef@R 이 full 을 이긴 이유가 (a) 자르기냐 (b) 박스가
 # 움직인 것이냐 (c) 그 움직임이 시선이어서냐 -- 를 가른다. (a) 는 center@R, (b) 는 _randf 가 끊는다.
 #
-#   nohup bash experiments/gaze_crop/run_controls.sh > /dev/null 2>&1 &            # GPU 1장, 직렬 ~4h
-#   GPUS=1,2 nohup bash experiments/gaze_crop/run_controls.sh > /dev/null 2>&1 &    # GPU 2장, 병렬 ~2h
+#   nohup bash experiments/gaze_crop/scripts/run_controls.sh > /dev/null 2>&1 &            # GPU 1장, 직렬 ~4h
+#   GPUS=1,2 nohup bash experiments/gaze_crop/scripts/run_controls.sh > /dev/null 2>&1 &    # GPU 2장, 병렬 ~2h
 #   tail -f experiments/gaze_crop/logs/controls_*.log
 #
 # 환경변수: GPUS(예 "1,2" — arm 하나당 GPU 하나씩 병렬. 비우면 현재 CUDA_VISIBLE_DEVICES 그대로 직렬),
@@ -38,7 +38,7 @@ if [ -n "$MAX_CPUS" ] && [ -z "${WORLDMM_CPU_PINNED:-}" ]; then
   fi
   echo "WARNING: MAX_CPUS=$MAX_CPUS but taskset is missing; only thread counts are capped."
 fi
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"   # experiments/gaze_crop (this file lives in scripts/)
 PY="${PY:-python}"
 RATIO="${RATIO:-0.5}"
 VIDEO_ROOT="${VIDEO_ROOT:-/datasets/EgoLife}"
@@ -175,7 +175,7 @@ fi
 
 if [ "${EMBED_ONLY:-0}" = "1" ]; then
   say "EMBED_ONLY=1 -> 채점 전에 멈춘다. 채점만 다시 돌리려면:"
-  echo "  SKIP_CENTER=1 SKIP_RANDF=1 bash experiments/gaze_crop/run_controls.sh"
+  echo "  SKIP_CENTER=1 SKIP_RANDF=1 bash experiments/gaze_crop/scripts/run_controls.sh"
   exit 0
 fi
 
@@ -191,7 +191,7 @@ for TOL in $TOLS; do
 done
 
 say "4. digest"
-"$PY" "$HERE/digest.py"
+"$PY" "$HERE/tools/digest.py"
 cat <<'MSG'
 
 --------------------------------------------------------------------------

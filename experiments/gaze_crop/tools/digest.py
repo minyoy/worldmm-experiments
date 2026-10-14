@@ -6,8 +6,8 @@ Collects whatever exists -- the transform choice, every recall table in results/
 -- and prints the few comparisons the experiment turns on, with the baselines it has to beat. Missing
 pieces are reported as missing rather than skipped, so a run that died at 3am is obvious.
 
-    python experiments/gaze_crop/digest.py
-    python experiments/gaze_crop/digest.py --markdown experiments/gaze_crop/analysis/DIGEST.md
+    python experiments/gaze_crop/tools/digest.py
+    python experiments/gaze_crop/tools/digest.py --markdown experiments/gaze_crop/analysis/DIGEST.md
 
 The recall blocks are listed in BLOCKS, weakest evidence first, because the ones that decide the
 experiment are the 500-question runs (run_stage{1,2}.sh only produce the 120-question ones: the 120
@@ -23,7 +23,7 @@ import os
 import sys
 from typing import Any, Dict, List, Optional
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import ANALYSIS_DIR, EXP_DIR, RESULTS_DIR, load_json  # noqa: E402
 
 # from ../visual_bottleneck: the lines a gaze arm has to clear
@@ -71,9 +71,9 @@ BLOCKS = [
      f"recall_eval.py {RECALL_ARGS} --target-tolerance-sec 60 "
      "--out results/recall_all_tol60.json --markdown analysis/recall_all_tol60.md", 60.0),
     ("recall_arms_tol0.json", "★★ 대조군 포함 4 arm, 500문항, tolerance 0s (엄격)", False,
-     "bash experiments/gaze_crop/run_controls.sh  (center@0.5 + gazef_05_randf 임베딩 후 채점)", 0.0),
+     "bash experiments/gaze_crop/scripts/run_controls.sh  (center@0.5 + gazef_05_randf 임베딩 후 채점)", 0.0),
     ("recall_arms_tol60.json", "★★ 대조군 포함 4 arm, 500문항, tolerance 60s", False,
-     "bash experiments/gaze_crop/run_controls.sh", 60.0),
+     "bash experiments/gaze_crop/scripts/run_controls.sh", 60.0),
 ]
 
 
@@ -296,7 +296,7 @@ def main() -> None:
                    "`visual_bottleneck/text_context/` 를 채워야 한다 (README 3.5, 6-4).")
         out.append("")
         if not from_record:
-            out.append("파서 확인: `python experiments/gaze_crop/rescore.py "
+            out.append("파서 확인: `python experiments/gaze_crop/tools/rescore.py "
                        f"{args.qa_dir}/*/E_prime.json`\n")
 
     md = "\n".join(out)

@@ -20,8 +20,8 @@ used (click to switch). Frame times, gaze lookup and crop boxes are embed_arms.p
 Runs where the videos and gaze live (needs decord + PIL, CPU only). Writes a folder that opens from
 disk -- no server needed:
 
-    python experiments/gaze_crop/build_gaze_cases.py                  # -> gaze_cases/index.html
-    python experiments/gaze_crop/build_gaze_cases.py --tol 0          # A from the strict scoring
+    python experiments/gaze_crop/tools/build_gaze_cases.py                  # -> gaze_cases/index.html
+    python experiments/gaze_crop/tools/build_gaze_cases.py --tol 0          # A from the strict scoring
     scp -r server:.../experiments/gaze_crop/gaze_cases .  &&  open gaze_cases/index.html
 
 The page keeps a per-question verdict (helps / doesn't / unsure) and a note in the browser, and
@@ -35,7 +35,7 @@ import os
 import sys
 from typing import Any, Dict, List, Optional, Tuple
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, HERE)
 from gaze_common import (  # noqa: E402
     GAZE_PATH, NFRAMES, QUESTIONS_PATH, RESULTS_DIR, VIDEO_ROOT, clip_span, crop_box, decord_threads,
@@ -216,7 +216,7 @@ def main() -> None:
             "n_candidates_a": len(cand_a), "n_candidates_c": len(cand_c)}
     with open(os.path.join(args.out, "data.js"), "w", encoding="utf-8") as f:
         f.write("window.GAZE_CASES = " + json.dumps(data, ensure_ascii=False) + ";\n")
-    with open(os.path.join(HERE, "gaze_cases_template.html"), encoding="utf-8") as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "gaze_cases_template.html"), encoding="utf-8") as f:
         html = f.read()
     with open(os.path.join(args.out, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)

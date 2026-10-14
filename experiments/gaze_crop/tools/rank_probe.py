@@ -5,9 +5,9 @@ k=3 McNemar 는 500문항 중 top-3 경계를 넘나든 47문항만 쓴다. 순�
 다 쓰므로 검정력이 훨씬 높고, README 3.3 이 full-gazef 에 이미 쓴 것과 같은 통계다.
 마지막 블록이 핵심: 이득이 순위 어디에서 나는지(깊은 곳이면 검색에 쓸모없다).
 
-  python rank_probe.py            # experiments/gaze_crop 에서
+  python tools/rank_probe.py      # experiments/gaze_crop 기준 경로를 스스로 찾는다
 """
-import json, math
+import json, math, os
 from statistics import median
 
 def signtest(b, w):
@@ -21,7 +21,7 @@ PAIRS = [("center_05", "gazef_05"), ("full", "gazef_05"),
 BANDS = [(1, 10), (11, 50), (51, 200), (201, 10 ** 9)]
 
 for tol in (60, 0):
-    d = json.load(open(f"results/recall_arms_tol{tol}.json"))
+    d = json.load(open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "results", f"recall_arms_tol{tol}.json")))
     pq = d["per_question"]
     print(f"=== tol {tol}s, n_scored={d['n_scored']} ===")
     for a, b in PAIRS:

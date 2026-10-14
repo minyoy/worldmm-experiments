@@ -251,4 +251,4 @@ need_audio 분해 (False 행이 실제 여유분):
 
 - ⚠ 이 정확도는 visual_bottleneck 의 120문항 subset 에서만 잰 값이다. 그 표본에서는 두 arm 의 recall@3 이 거의 0 이라(위 120문항 블록) 정확도가 달라질 재료 자체가 없다. recall 이득이 있는 문항에서 재려면 나머지 380문항에 조건 B 를 먼저 돌려 `visual_bottleneck/text_context/` 를 채워야 한다 (README 3.5, 6-4).
 
-파서 확인: `python experiments/gaze_crop/rescore.py /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/*/E_prime.json`
+파서 확인: `python experiments/gaze_crop/tools/rescore.py /home/minyoy/WorldMM/experiments/gaze_crop/results_qa/*/E_prime.json`

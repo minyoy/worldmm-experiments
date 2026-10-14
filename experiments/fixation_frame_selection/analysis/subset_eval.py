@@ -27,7 +27,7 @@ for p in (EXP, GC, os.path.join(EXP, "streamgaze")):
 from gaze_common import GAZE_PATH, QUESTIONS_PATH, exact_paired_p, load_gaze, load_json  # noqa: E402
 from embed_fix_arms import FIX_DEFAULTS, fixation_of  # noqa: E402
 from fixation_sweep import clip_fixations  # noqa: E402
-spec = importlib.util.spec_from_file_location("gcc", os.path.join(GC, "build_gaze_cases.py"))
+spec = importlib.util.spec_from_file_location("gcc", os.path.join(GC, "tools", "build_gaze_cases.py"))
 gcc = importlib.util.module_from_spec(spec); spec.loader.exec_module(gcc)
 
 ARMS = ["full", "fixsel_ctl", "fixsel", "center_05", "gazef_05", "fixsel_gazef_05"]

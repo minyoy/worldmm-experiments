@@ -2,11 +2,11 @@
 # Stage 2: answer accuracy. Extends the winning arm to all 6,223 clips, then runs condition E'
 # with that arm as the visual index. ~3-4 hours. Run stage 1 first.
 #
-#   bash experiments/gaze_crop/run_stage2.sh                  # carries stage 1's winner
-#   ARM=gazef@0.5 bash experiments/gaze_crop/run_stage2.sh    # pick the arm yourself
-#   FORCE=1 bash experiments/gaze_crop/run_stage2.sh          # run even though stage 1 said no
-#   VISUAL_TOP_K="3 20" bash experiments/gaze_crop/run_stage2.sh   # QA at both depths, one run
-#   nohup bash experiments/gaze_crop/run_stage2.sh > /dev/null 2>&1 &
+#   bash experiments/gaze_crop/scripts/run_stage2.sh                  # carries stage 1's winner
+#   ARM=gazef@0.5 bash experiments/gaze_crop/scripts/run_stage2.sh    # pick the arm yourself
+#   FORCE=1 bash experiments/gaze_crop/scripts/run_stage2.sh          # run even though stage 1 said no
+#   VISUAL_TOP_K="3 20" bash experiments/gaze_crop/scripts/run_stage2.sh   # QA at both depths, one run
+#   nohup bash experiments/gaze_crop/scripts/run_stage2.sh > /dev/null 2>&1 &
 #
 # Knobs: VIDEO_ROOT, GAZE_ROOT, ARM, FORCE, MIN_GAIN_PP (0.0), SKIP_QA=1 (embeddings + recall only),
 #        VISUAL_TOP_K (default 3; space-separated list runs step 6 once per value),
@@ -37,7 +37,7 @@ if [ -n "$MAX_CPUS" ] && [ -z "${WORLDMM_CPU_PINNED:-}" ]; then
   echo "WARNING: MAX_CPUS=$MAX_CPUS but taskset is missing; only thread counts are capped."
 fi
 
-HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"   # experiments/gaze_crop (this file lives in scripts/)
 REPO="$(cd "$HERE/../.." && pwd)"
 VB="$REPO/experiments/visual_bottleneck"
 VIDEO_ROOT="${VIDEO_ROOT:-${WORLDMM_VIDEO_ROOT:-/datasets/EgoLife}}"
@@ -81,7 +81,7 @@ if [ "$N_CTX" -lt 120 ] && [ "$SKIP_QA" != "1" ]; then
 fi
 
 # which arm goes forward, and was it actually worth it
-GATE_OUT=$("$PY" "$HERE/gate.py" --results "$HERE/results/recall_stage1_question_tol0.json" \
+GATE_OUT=$("$PY" "$HERE/tools/gate.py" --results "$HERE/results/recall_stage1_question_tol0.json" \
            --min-gain-pp "$MIN_GAIN_PP" 2>&1)
 GATE_RC=$?
 echo "$GATE_OUT"
@@ -102,10 +102,10 @@ except Exception: print('none')")
 echo "arm: $ARM   transform: $TRANSFORM"
 
 say "1. questions: all 500"
-"$PY" "$HERE/build_questions.py" || exit 1
+"$PY" "$HERE/tools/build_questions.py" || exit 1
 
 say "1b. pool: all 6,223 clips"
-"$PY" "$HERE/build_pool.py" --all-clips --out "$POOL_ALL" || exit 1
+"$PY" "$HERE/tools/build_pool.py" --all-clips --out "$POOL_ALL" || exit 1
 
 case "$ARM" in
   gaze*|gazef*)
@@ -146,13 +146,13 @@ done
 
 if [ "$SKIP_QA" = "1" ]; then
   say "SKIP_QA=1 -> stopping before the LLM"
-  "$PY" "$HERE/digest.py"
+  "$PY" "$HERE/tools/digest.py"
   exit 0
 fi
 
 say "5. export the arms as visual_embeddings.pkl"
 for A in full "$ARM"; do
-  "$PY" "$HERE/export_pkl.py" --arm "$A" --pool "$POOL_ALL" || exit 1
+  "$PY" "$HERE/tools/export_pkl.py" --arm "$A" --pool "$POOL_ALL" || exit 1
 done
 
 say "6. condition E' per index x per k (~34 min each)"
@@ -174,8 +174,8 @@ for K in $VISUAL_TOP_K; do
 done
 
 say "7. parser sanity check"
-"$PY" "$HERE/rescore.py" "$HERE"/results_qa/*/E_prime.json
+"$PY" "$HERE/tools/rescore.py" "$HERE"/results_qa/*/E_prime.json
 
 say "8. digest"
-"$PY" "$HERE/digest.py"
+"$PY" "$HERE/tools/digest.py"
 say "$(date '+%F %T')  stage 2 done. log: $LOG"

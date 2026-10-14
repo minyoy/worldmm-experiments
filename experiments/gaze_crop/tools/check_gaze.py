@@ -11,7 +11,7 @@ which gives EyeGaze/A1_JAKE/DAY{1..7}/<clip stem>.csv -- one 10 Hz Aria MPS eye-
 clip, named exactly like the clip's mp4. This walks a directory, reports what is there, prints a
 header, and says how many files line up with the clips in pool.json.
 
-    python experiments/gaze_crop/check_gaze.py            # 기본 경로: data/EgoLife/EyeGaze/<subject>
+    python experiments/gaze_crop/tools/check_gaze.py            # 기본 경로: data/EgoLife/EyeGaze/<subject>
 
 Exit status is 0 when candidate gaze files were found, 1 when none were, so run_stage1.sh can branch
 on it.
@@ -22,7 +22,7 @@ import collections
 import os
 import sys
 
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from gaze_common import GAZE_ROOT, POOL_PATH, load_json  # noqa: E402
 
 DOWNLOAD_HINT = ('    huggingface-cli download Wangtwohappy/EgoLife_EyeTracking_EyeGaze '
