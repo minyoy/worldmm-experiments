@@ -1,0 +1,11 @@
+# EgoLife frames for the case review site, built by build_cases.py
+cases/img/
+# screenshots taken while checking the case site
+cases_check/
+# smoke run and logs
+run_data_smoke/
+logs/
+# per-question raw outputs and per-timestamp gaze (regenerable with oracle_crop.py); summaries in run_data/analysis/ are kept
+run_data/results/
+run_data/frames/
+__pycache__/

@@ -1,2 +1,6 @@
 logs/
-run_data/
+# raw outputs are regenerable; keep only the summary tables under run_data/analysis/
+run_data/*
+!run_data/analysis/
+# slide helper
+keynote_tables.tsv

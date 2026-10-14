@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Oracle Crop Cases</title>
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --text: #1d1d1b; --muted: #6b6b66; --line: #e2e1dc;
+  --ok: #1f7a4d; --ok-bg: #e3f3ea; --bad: #b3261e; --bad-bg: #fbe7e5; --accent: #2f5fd0;
+  --center: #2f7fd0; --gaze: #e07b00; --chip: #efeee9;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161615; --panel: #1f1f1d; --text: #ecebe6; --muted: #9b9a93; --line: #34332f;
+    --ok: #5cc78f; --ok-bg: #1d3328; --bad: #f08a80; --bad-bg: #3a2120; --accent: #8aa9ff;
+    --center: #6fb0ff; --gaze: #ffab40; --chip: #2a2a27;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161615; --panel: #1f1f1d; --text: #ecebe6; --muted: #9b9a93; --line: #34332f;
+  --ok: #5cc78f; --ok-bg: #1d3328; --bad: #f08a80; --bad-bg: #3a2120; --accent: #8aa9ff;
+  --center: #6fb0ff; --gaze: #ffab40; --chip: #2a2a27;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+       font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; }
+header { position: sticky; top: 0; z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); padding: 12px 16px 0; }
+h1 { font-size: 17px; margin: 0 0 4px; }
+.sub { color: var(--muted); font-size: 12.5px; margin-bottom: 10px; }
+.tabs { display: flex; gap: 4px; }
+.tab { border: 1px solid var(--line); border-bottom: none; background: var(--chip); color: var(--text);
+       padding: 7px 14px; border-radius: 8px 8px 0 0; cursor: pointer; font: inherit; }
+.tab[aria-selected="true"] { background: var(--panel); font-weight: 600; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 16px;
+           background: var(--panel); border-bottom: 1px solid var(--line); }
+.filters select, .filters input { font: inherit; padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px;
+           background: var(--bg); color: var(--text); }
+.count { color: var(--muted); margin-left: auto; }
+main { max-width: 1280px; margin: 0 auto; padding: 16px; }
+.legend { color: var(--muted); font-size: 12.5px; margin-bottom: 12px; }
+.sw { display: inline-block; width: 10px; height: 10px; border: 2px solid; vertical-align: -1px; margin: 0 3px 0 8px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; margin-bottom: 16px; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 12.5px; color: var(--muted); }
+.pill { background: var(--chip); border-radius: 999px; padding: 1px 8px; }
+.pill.g-center { background: var(--ok-bg); color: var(--ok); font-weight: 600; }
+.pill.g-full { background: var(--bad-bg); color: var(--bad); font-weight: 600; }
+.q { font-size: 15px; font-weight: 600; margin: 8px 0 6px; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+@media (max-width: 760px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.tw { overflow-x: auto; }
+.choices div { padding: 2px 0; }
+.choices .gold { color: var(--ok); font-weight: 600; }
+.who { margin-left: 6px; }
+.choices { overflow-wrap: anywhere; }
+.who span { display: inline-block; font-size: 11px; background: var(--chip); border-radius: 4px; padding: 0 4px; margin-right: 3px; color: var(--muted); }
+.reason { color: var(--muted); font-size: 13px; margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+td, th { padding: 3px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+th { color: var(--muted); font-weight: 500; }
+.o { color: var(--ok); font-weight: 700; } .x { color: var(--bad); font-weight: 700; }
+tr.okrow td:first-child { box-shadow: inset 3px 0 var(--ok); } tr.badrow td:first-child { box-shadow: inset 3px 0 var(--bad); }
+.resp { color: var(--muted); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.frames { display: flex; gap: 12px; overflow-x: auto; padding: 10px 0 4px; margin-top: 10px; border-top: 1px solid var(--line); }
+.fr { flex: 0 0 auto; width: 300px; }
+.fr .full { position: relative; width: 300px; height: 300px; background: #000; border-radius: 6px; overflow: hidden; }
+.fr .full img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.box { position: absolute; border: 2px dashed; pointer-events: none; }
+.box.center { border-color: var(--center); } .box.gaze { border-color: var(--gaze); border-style: solid; }
+.dot { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%;
+       background: #ff2d2d; border: 2px solid #fff; pointer-events: none; }
+.crops { display: flex; gap: 4px; margin-top: 4px; }
+.crops figure { margin: 0; width: 148px; }
+.crops img { width: 148px; height: 148px; object-fit: cover; border-radius: 4px; display: block; border: 2px solid; }
+.crops .c img { border-color: var(--center); } .crops .g img { border-color: var(--gaze); }
+figcaption, .flabel { font-size: 11.5px; color: var(--muted); }
+.flabel b { color: var(--text); }
+.tag { font-size: 11px; border-radius: 4px; padding: 0 4px; margin-left: 4px; }
+.tag.t { background: var(--ok-bg); color: var(--ok); } .tag.off { background: var(--chip); color: var(--gaze); }
+details { margin-top: 8px; } summary { cursor: pointer; color: var(--accent); font-size: 13px; }
+.text { white-space: pre-wrap; font-size: 12.5px; max-height: 360px; overflow: auto; background: var(--bg);
+        border: 1px solid var(--line); border-radius: 6px; padding: 8px; margin-top: 6px; }
+.empty { color: var(--muted); padding: 40px; text-align: center; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Oracle crop QA — 조건에 따라 결과가 바뀐 문항</h1>
+  <div class="sub" id="sub"></div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" data-tab="correct"></button>
+    <button class="tab" role="tab" data-tab="letter"></button>
+  </div>
+</header>
+<div class="filters">
+  <label>묶음 <select id="f-group">
+    <option value="">전체</option><option value="center">center O · full X</option>
+    <option value="full">full O · center X</option><option value="other">그 외</option></select></label>
+  <label>유형 <select id="f-type"><option value="">전체</option></select></label>
+  <label>근거 <select id="f-audio"><option value="">전체</option><option value="0">시각 근거</option><option value="1">대화 근거</option></select></label>
+  <label>ID <input id="f-id" size="6" placeholder="예: 301"></label>
+  <span class="count" id="count"></span>
+</div>
+<main>
+  <div class="legend">full 프레임 위:
+    <span class="sw" style="border-color:var(--center);border-style:dashed"></span>center crop 영역
+    <span class="sw" style="border-color:var(--gaze)"></span>gaze crop 영역
+    <span class="sw" style="border-color:#fff;background:#ff2d2d;border-radius:50%"></span>시선.
+    박스와 점은 이 페이지에서만 그린 것으로, 모델 입력에는 없다.
+    <span class="tag t">target</span> 주석된 정답 시각에 가장 가까운 프레임,
+    <span class="tag off">off</span> off-center(dual_offcenter에서 crop이 붙은) 프레임.
+  </div>
+  <div id="list"></div>
+</main>
+<script src="data.js"></script>
+<script>
+const D = window.DATA;
+const LABEL = {correct: "정답 여부 변화", letter: "보기(A~D) 변화"};
+const GROUP = {center: "center O · full X", full: "full O · center X", other: "그 외"};
+let tab = "correct";
+try { tab = localStorage.getItem("ocq-tab") || "correct"; } catch (e) {}
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[c]));
+const pct = v => (100 * v).toFixed(1) + "%";
+
+document.getElementById("sub").textContent =
+  `487문항 × 7조건. 탭 1: 정답 여부가 조건에 따라 다른 ${D.counts.correct}문항, 탭 2: 고른 보기가 조건에 따라 다른 ${D.counts.letter}문항 ` +
+  `(항상 오답이지만 보기만 바뀐 문항 포함). off-center 기준: 중심에서 거리 ≥ ${D.offcenter_dist.toFixed(3)}.`;
+document.querySelectorAll(".tab").forEach(b => {
+  const t = b.dataset.tab;
+  b.textContent = `${LABEL[t]} (${D.counts[t]})`;
+  b.onclick = () => { tab = t; try { localStorage.setItem("ocq-tab", t); } catch (e) {} render(); };
+});
+const types = [...new Set(D.cases.map(c => c.type))].sort();
+const fType = document.getElementById("f-type");
+types.forEach(t => fType.insertAdjacentHTML("beforeend", `<option>${esc(t)}</option>`));
+["f-group", "f-type", "f-audio", "f-id"].forEach(id => document.getElementById(id).addEventListener("input", render));
+
+function frameHTML(f) {
+  const box = (v) => { const [x, y, w, h] = f.boxes[v];
+    return `<div class="box ${v}" style="left:${x * 100}%;top:${y * 100}%;width:${w * 100}%;height:${h * 100}%"></div>`; };
+  return `<div class="fr">
+    <div class="full"><img loading="lazy" src="${f.img.full}" alt="full frame">
+      ${box("center")}${box("gaze")}<div class="dot" style="left:${f.gaze[0] * 100}%;top:${f.gaze[1] * 100}%"></div></div>
+    <div class="flabel"><b>t=${f.t.toFixed(0)}s</b> · 시선 (${f.gaze[0].toFixed(2)}, ${f.gaze[1].toFixed(2)}) · 거리 ${f.dist.toFixed(2)}
+      ${f.target ? '<span class="tag t">target</span>' : ""}${f.off ? '<span class="tag off">off</span>' : ""}</div>
+    <div class="crops">
+      <figure class="c"><img loading="lazy" src="${f.img.center}" alt="center crop"><figcaption>center crop</figcaption></figure>
+      <figure class="g"><img loading="lazy" src="${f.img.gaze}" alt="gaze crop"><figcaption>gaze crop</figcaption></figure>
+    </div></div>`;
+}
+
+function cardHTML(c) {
+  const chosenBy = {};
+  D.conds.forEach(k => (chosenBy[c.conds[k].letter] ??= []).push(k));
+  const choices = Object.entries(c.choices).map(([k, v]) =>
+    `<div class="${k === c.answer ? "gold" : ""}">(${k}) ${esc(v)}${k === c.answer ? " ✓" : ""}
+      <span class="who">${(chosenBy[k] || []).map(x => `<span>${x}</span>`).join(" ")}</span></div>`).join("");
+  const rows = D.conds.map(k => { const r = c.conds[k];
+    return `<tr class="${r.correct ? "okrow" : "badrow"}"><td>${k}</td><td>${esc(r.letter)}</td>
+      <td class="${r.correct ? "o" : "x"}">${r.correct ? "O" : "X"}</td><td>${r.n_img}</td>
+      <td class="resp" title="${esc(r.response)}">${esc(r.response)}</td></tr>`; }).join("");
+  return `<article class="card">
+    <div class="meta"><b style="color:var(--text)">#${c.id}</b>
+      <span class="pill g-${c.group}">${GROUP[c.group]}</span><span class="pill">${esc(c.type)}</span>
+      <span class="pill">${c.need_audio ? "대화 근거" : "시각 근거"}</span>
+      <span class="pill">정답 클립 ${c.n_clips}</span><span class="pill">off-center ${c.n_off}/${c.n_ts}</span>
+      <span class="pill">7조건 중 정답 ${D.conds.filter(k => c.conds[k].correct).length}</span></div>
+    <div class="q">${esc(c.question)}</div>
+    <div class="grid">
+      <div><div class="choices">${choices}</div>
+        <div class="reason"><b>정답 근거(주석):</b> ${esc(c.reason)}${c.keywords ? ` · <b>키워드:</b> ${esc(c.keywords)}` : ""}</div></div>
+      <div class="tw"><table><thead><tr><th>조건</th><th>답</th><th>정오</th><th>이미지</th><th>원문 응답</th></tr></thead><tbody>${rows}</tbody></table></div>
+    </div>
+    <div class="frames">${c.frames.map(frameHTML).join("")}</div>
+    <details><summary>텍스트 메모리 (${c.text.length}개, 모든 조건 동일)</summary>
+      <div class="text">${c.text.map(esc).join("\n\n────────\n\n")}</div></details>
+  </article>`;
+}
+
+function render() {
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.dataset.tab === tab));
+  const g = document.getElementById("f-group").value, t = fType.value,
+        a = document.getElementById("f-audio").value, id = document.getElementById("f-id").value.trim();
+  const order = {center: 0, full: 1, other: 2};
+  const list = D.cases.filter(c => c.tabs.includes(tab) && (!g || c.group === g) && (!t || c.type === t) &&
+      (!a || String(+c.need_audio) === a) && (!id || c.id === id))
+    .sort((x, y) => order[x.group] - order[y.group] || (+x.id) - (+y.id));
+  document.getElementById("count").textContent =
+    `${list.length}문항 · ` + Object.keys(GROUP).map(k => `${GROUP[k]} ${list.filter(c => c.group === k).length}`).join(" · ");
+  document.getElementById("list").innerHTML = list.length ? list.map(cardHTML).join("") : '<div class="empty">조건에 맞는 문항이 없습니다.</div>';
+}
+render();
+</script>
+</body>
+</html>
