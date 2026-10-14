@@ -1,0 +1,140 @@
+diff --git a/gazeqwen/eval.py b/gazeqwen/eval.py
+index cf5aba2..9edcb5f 100644
+--- a/gazeqwen/eval.py
++++ b/gazeqwen/eval.py
+@@ -30,6 +30,27 @@ from gazeqwen.lora import apply_lora, load_lora_state_dict
+ 
+ logger = logging.getLogger(__name__)
+ 
++
++def placebo_scanpath(scanpath: torch.Tensor, key: tuple, seed: int, min_dist: float = 0.25) -> torch.Tensor:
++    """Keep fixation times/durations, move each center to a random point >= min_dist from the real one.
++
++    Deterministic per sample (seeded from the sample key), so resumed runs see the same placebo.
++    """
++    import hashlib
++    import random
++
++    h = int(hashlib.md5(repr((seed,) + tuple(key)).encode()).hexdigest()[:8], 16)
++    rng = random.Random(h)
++    out = scanpath.clone()
++    for i in range(out.shape[0]):
++        x, y = float(out[i, 0]), float(out[i, 1])
++        while True:
++            nx, ny = rng.random(), rng.random()
++            if (nx - x) ** 2 + (ny - y) ** 2 >= min_dist ** 2:
++                break
++        out[i, 0], out[i, 1] = nx, ny
++    return out
++
+ SUPPORTED_MODES = ("no_gaze", "gazelens", "gazeqwen", "vjepa_coordpe_perlayer_lora")
+ 
+ 
+@@ -277,6 +298,7 @@ def run_eval(
+     save_every: int = 10,
+     max_frames: int = 8,
+     vjepa_extractor=None,
++    placebo_seed: Optional[int] = None,
+ ) -> dict:
+     """Evaluate model over all samples. Returns dict with mode, accuracy, n_samples, results."""
+     loader = DataLoader(
+@@ -328,6 +350,8 @@ def run_eval(
+ 
+         sp_len = int(batch["scanpath_lengths"][0])
+         scanpath = batch["scanpaths"][0, :sp_len]   # (N, 4), possibly (0, 4)
++        if placebo_seed is not None:
++            scanpath = placebo_scanpath(scanpath, (video_path, task_type, question_text), placebo_seed)
+         answer_idx = int(batch["answer_idxs"][0])
+         correct_letter = batch["answers"][0]
+ 
+@@ -432,6 +456,10 @@ def _parse_args(argv=None):
+         "--resume", action="store_true",
+         help="Resume an interrupted eval run from --output_file.",
+     )
++    p.add_argument(
++        "--placebo_seed", type=int, default=None,
++        help="Placebo control: keep fixation timing, move each center to a random point >= 0.25 away.",
++    )
+     p.add_argument(
+         "--save_every", type=int, default=10,
+         help="Write partial results every this many newly processed samples (default: 10).",
+@@ -571,6 +599,7 @@ def main(argv=None):
+         save_every=getattr(args, "save_every", 10),
+         max_frames=getattr(args, "max_frames", 8),
+         vjepa_extractor=vjepa_extractor,
++        placebo_seed=getattr(args, "placebo_seed", None),
+     )
+ 
+     # ---- Save final results ----
+diff --git a/gazeqwen/hooks.py b/gazeqwen/hooks.py
+index 10b64f5..2593b2a 100644
+--- a/gazeqwen/hooks.py
++++ b/gazeqwen/hooks.py
+@@ -200,6 +200,18 @@ def _make_llm_layer_hook(layer_index: int, ctx: GazeLensContext):
+     return _hook
+ 
+ 
++
++def _llm_layers(model):
++    """Decoder layers; transformers >= 4.52 moved them under model.model.language_model."""
++    inner = model.model
++    return inner.layers if hasattr(inner, "layers") else inner.language_model.layers
++
++
++def _visual(model):
++    """Vision tower; transformers >= 4.52 keeps it at model.model.visual (kept as model.visual on older ones)."""
++    return model.visual if hasattr(model, "visual") else model.model.visual
++
++
+ # ---------------------------------------------------------------------------
+ # Hook registration / removal
+ # ---------------------------------------------------------------------------
+@@ -217,7 +229,7 @@ def register_gazelens_hooks(model, ctx: GazeLensContext) -> None:
+         model: Qwen2_5_VLForConditionalGeneration instance
+         ctx:   GazeLensContext (shared mutable state)
+     """
+-    visual = model.visual
++    visual = _visual(model)
+ 
+     # --- Outer pre-hook: capture grid_thw and compute window_index ---
+     def _outer_pre_hook(module, args, kwargs=None):
+@@ -286,7 +298,7 @@ def register_gazelens_hooks(model, ctx: GazeLensContext) -> None:
+     model._gazelens_hooks.append(full_model_hook_handle)
+ 
+     # --- Register LLM layer forward hooks ---
+-    llm_layers = model.model.layers
++    llm_layers = _llm_layers(model)
+     if not hasattr(model.model, "_gazelens_layer_hooks"):
+         model.model._gazelens_layer_hooks = []
+     for layer_index in LLM_ACTIVE_LAYERS:
+@@ -300,7 +312,7 @@ def remove_gazelens_hooks(model) -> None:
+     """
+     Remove all GazeLens hooks from the model.
+     """
+-    visual = model.visual
++    visual = _visual(model)
+ 
+     # Remove ViT outer pre-hook
+     if hasattr(visual, "_gazelens_hooks"):
+diff --git a/gazeqwen/lora.py b/gazeqwen/lora.py
+index c237193..ba10498 100644
+--- a/gazeqwen/lora.py
++++ b/gazeqwen/lora.py
+@@ -144,9 +144,17 @@ def load_lora_state_dict(model: nn.Module, state_dict: dict) -> None:
+     The model must already have LoRA layers applied (via apply_lora).
+     """
+     model_params = dict(model.named_parameters())
++    loaded = 0
+     for name, tensor in state_dict.items():
++        if name not in model_params:
++            # transformers >= 4.52 nests the decoder under model.language_model; the checkpoint predates that.
++            name = name.replace("model.layers.", "model.language_model.layers.", 1)
+         if name in model_params:
+             model_params[name].data.copy_(tensor)
++            loaded += 1
++    if loaded != len(state_dict):
++        raise RuntimeError(f"LoRA load matched {loaded}/{len(state_dict)} tensors; parameter names do not line up")
++    return loaded
+ 
+ 
+ def get_lora_params(model: nn.Module) -> list:

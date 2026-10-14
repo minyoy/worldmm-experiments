@@ -152,8 +152,8 @@ eager 안에서의 짝지은 비교(N=483):
 EgoLife의 null 결과가 이식 문제인지 가르기 위해, GazeQwen 저장소의 평가 코드(`gazeqwen/eval.py`)를 **수정 없이** StreamGaze test에서 돌리고 EgoLife와 같은 placebo 대조를 붙였다.
 
 ### 4.1 설정
-- **문항.** 저장소의 split(`splits/gazelens_split.json`)의 test 44개 영상 중 **EGTEA 14 + EgoExoLearn 24 = 38개**(`~/gazeqwen/splits/test_egtea_egoexo.json`). HoloAssist 6개는 뺐다. README 결과표의 task별 퍼센트가 HoloAssist를 뺀 문항 수에서만 나올 수 있는 값이고(예: NFI 36.9%는 n=102에서 불가능, n=84에서 가능), MODEL_CARD의 "EgoExo+EGTEA, 249 videos"도 split의 두 데이터셋 영상 수 합(129+44+27+11+24+14)과 같다. 10개 task, **2,140샘플**(proactive는 확인 시점마다 Yes/No 샘플 하나로 펼쳐짐).
-- **fixation.** StreamGaze 공개 데이터에는 fixation 좌표가 없다(`metadata/*.csv`에는 물체가 붙은 구간과 fixation id만 있음). StreamGaze 파이프라인 step 1을 원본 gaze(EGTEA `gaze_data.zip`, EgoExoLearn `gazes_30fps_npy`)로 다시 돌리고, 출력을 GazeQwen 형식으로 바꿨다(`~/gazeqwen/scripts/make_fixations.py`).
+- **문항.** 저장소의 split(`splits/gazelens_split.json`)의 test 44개 영상 중 **EGTEA 14 + EgoExoLearn 24 = 38개**([`external/gazeqwen/splits/test_egtea_egoexo.json`](../../external/gazeqwen/splits/test_egtea_egoexo.json)). HoloAssist 6개는 뺐다. README 결과표의 task별 퍼센트가 HoloAssist를 뺀 문항 수에서만 나올 수 있는 값이고(예: NFI 36.9%는 n=102에서 불가능, n=84에서 가능), MODEL_CARD의 "EgoExo+EGTEA, 249 videos"도 split의 두 데이터셋 영상 수 합(129+44+27+11+24+14)과 같다. 10개 task, **2,140샘플**(proactive는 확인 시점마다 Yes/No 샘플 하나로 펼쳐짐).
+- **fixation.** StreamGaze 공개 데이터에는 fixation 좌표가 없다(`metadata/*.csv`에는 물체가 붙은 구간과 fixation id만 있음). StreamGaze 파이프라인 step 1을 원본 gaze(EGTEA `gaze_data.zip`, EgoExoLearn `gazes_30fps_npy`)로 다시 돌리고, 출력을 GazeQwen 형식으로 바꿨다([`external/gazeqwen/scripts/make_fixations.py`](../../external/gazeqwen/scripts/make_fixations.py)).
   - GazeQwen이 쓰는 파일은 이름(`_fixation_filtered.csv`)과 달리 **step 1 출력 전체**다. 저장소 데모 CSV(OP03-R01-PastaSalad)는 step 1 출력과 35개 fixation이 1e-7 이내로 일치하고, step 1.5 출력(18개)과는 다르다.
   - 검증: 38개 영상 모두 StreamGaze 공개 metadata의 fixation id·구간 시각과 불일치 0건(EGTEA 14개 영상, EgoExoLearn 202개 구간).
   - GazeQwen 로더는 `duration` 컬럼만 읽으므로(`duration_seconds`만 있으면 오류 없이 0이 됨) 변환이 필요하다.
@@ -245,7 +245,7 @@ K = self.k_projs[m][i](XL) + self.g_projs[m][i](GP)           # key에 bias로 �
 
 - **수치 확인.** 같은 V-JEPA 특징에서 응시점만 바꾼 GazeLens residual의 상대 차이는 1.5×10⁻⁷(634번 샘플, layer 13)이다. 무작위 특징으로 확인해도 응시점 (0.2, 0.3) vs (0.8, 0.7)의 residual 차이는 0.0002/687(약 3×10⁻⁷)이다. 4.2에서 2,140샘플 중 답이 4개만 바뀐 것은 이 미세한 차이로 거의 동점인 문항의 1등이 뒤집힌 것으로 보인다.
 - **응시점을 반영하려면** bias가 칸마다 달라야 한다. 예를 들어 칸 중심과 응시점의 거리로 가우시안 가중치를 주거나(`G_i = w_i · pe`), 각 칸에 자기 위치의 PE를 주고 응시점 PE와 내적하는 방식이다(sinusoidal PE의 내적은 두 좌표가 가까울수록 커서 응시 칸에서 최대가 된다; 634번 샘플에서 확인).
-- **왜 이렇게 됐는지는 문서에 없다.** 코드와 MODEL_CARD는 이 모듈을 "Voila Perceiver"라 부르고 주석에 "G3 Coord-PE gaze input"이라고 적어, 선행 연구 Voila-A의 gaze 주입 구조에 좌표 인코딩을 넣은 변형으로 보인다(Voila-A가 패치별 gaze 히트맵을 쓴다는 점은 이 문서에서 확인하지 않았다). 그림은 `~/gazeqwen/scripts/plot_gaze_bias_grid.py`, `plot_score_decomposition.py`로 다시 그릴 수 있다(`--index N`).
+- **왜 이렇게 됐는지는 문서에 없다.** 코드와 MODEL_CARD는 이 모듈을 "Voila Perceiver"라 부르고 주석에 "G3 Coord-PE gaze input"이라고 적어, 선행 연구 Voila-A의 gaze 주입 구조에 좌표 인코딩을 넣은 변형으로 보인다(Voila-A가 패치별 gaze 히트맵을 쓴다는 점은 이 문서에서 확인하지 않았다). 그림은 [`external/gazeqwen/scripts/`](../../external/gazeqwen/README.md)의 `plot_gaze_bias_grid.py`, `plot_score_decomposition.py`로 다시 그릴 수 있다(`--index N`).
 
 ### 4.6 EgoLife 실험에 대한 함의
 - 공개 GazeQwen 체크포인트는 **원 벤치마크에서도 gaze 위치를 쓰지 않으며, 구조상 쓸 수도 없다(4.5).** EgoLife의 null 결과(3.2)는 이식 오류가 아니라 이 모델의 성질이다.
@@ -290,7 +290,7 @@ K = self.k_projs[m][i](XL) + self.g_projs[m][i](GP)           # key에 bias로 �
 
 ## 8. 재현
 
-`gpu2`(A6000, sdpa)와 `gpu5`(A100 80 GB, eager)에서 `gazeqwen` conda 환경으로 실행했다. 체크포인트는 `~/gazeqwen/checkpoints/`.
+`gpu2`(A6000, sdpa)와 `gpu5`(A100 80 GB, eager)에서 `gazeqwen` conda 환경으로 실행했다. `~/gazeqwen`은 원본 GazeQwen을 clone하고 [`external/gazeqwen/`](../../external/gazeqwen/README.md)의 패치와 스크립트를 얹은 것이다. 체크포인트는 `~/gazeqwen/checkpoints/`.
 
 ```bash
 # gpu2 GPU 3: sdpa, 487문항 x 5조건 (끊겨도 이어서 실행)
@@ -317,9 +317,9 @@ cd ~/gazeqwen && python scripts/make_fixations.py --out_dir dataset/fixations \
 
 # 평가: gpu5 GPU 3, 조건당 약 3.5시간 (두 조건을 한 GPU에 동시에 올려도 속도 거의 동일, 합계 35 GB)
 # run_eval.sh = eval.py + 38개 영상 split + 오프라인 모델 경로 + 체크포인트 + --resume
-GPU=3 ~/gq_logs/fix/run_eval.sh gazeqwen gazeqwen                          # results/gazeqwen_test38.json
-GPU=3 ~/gq_logs/fix/run_eval.sh gazeqwen placebo --placebo_seed 0          # results/placebo_test38.json
-GPU=3 ~/gq_logs/fix/run_eval.sh no_gaze lora_only                          # results/lora_only_test38.json
+GPU=3 scripts/run_eval.sh gazeqwen gazeqwen                          # results/gazeqwen_test38.json
+GPU=3 scripts/run_eval.sh gazeqwen placebo --placebo_seed 0          # results/placebo_test38.json
+GPU=3 scripts/run_eval.sh no_gaze lora_only                          # results/lora_only_test38.json
 ```
 
 결과 JSON의 문항 키(영상, task, 질문 문장)는 중복이 많다(같은 질문 문장이 반복됨). 조건 간 비교는 **결과 순서로** 짝짓는다(세 파일 모두 같은 순서임을 확인함).
@@ -332,15 +332,15 @@ GPU=3 ~/gq_logs/fix/run_eval.sh no_gaze lora_only                          # res
 | [oracle_gazeqwen.py](oracle_gazeqwen.py) | GazeQwen 실험(조건 5개, 설정 A) |
 | [analyze_gazeqwen.py](analyze_gazeqwen.py) | GazeQwen 집계(표준 라이브러리만 사용): 요약 표와 문항별 CSV |
 | [gq_smoke.py](gq_smoke.py) | 한 클립 스모크 테스트(hook, 조건 사다리, fixation 변환) |
-| `~/gazeqwen/gazeqwen/hooks.py`, `lora.py` | transformers 4.57 호환 수정(레이어 경로, LoRA 키 매핑 + 불일치 시 오류) |
+| [`external/gazeqwen/patches/`](../../external/gazeqwen/README.md) | `hooks.py`, `lora.py`의 transformers 4.57 호환 수정(레이어 경로, LoRA 키 매핑 + 불일치 시 오류) |
 | `run_data/results/oracle_gq_{cond}_{sdpa,eager}/` | 조건별 문항 결과 JSON(확률, 응답, 정오, 토큰 수, fixation 수, 시간) |
 | `run_data/analysis/gazeqwen_summary.md`, `gazeqwen_per_question.csv` | 모든 표, 문항별 5조건 × 2구현 응답과 정오 |
 | `run_data/eager_subset_ids.json`, `eager_probe10_ids.json` | eager 확인용으로 뽑았던 문항 목록(시드 기록) |
-| `~/gazeqwen/scripts/make_fixations.py` | StreamGaze step 1 출력 → GazeQwen fixation CSV 변환(EGTEA/EgoExoLearn 컬럼 차이, `duration` 컬럼 처리) |
-| `~/gazeqwen/gazeqwen/eval.py` | `--placebo_seed` 추가(시각·지속시간 유지, 중심만 ≥ 0.25 떨어진 무작위 위치, 샘플별 고정 시드) |
-| `~/gazeqwen/splits/test_egtea_egoexo.json` | HoloAssist를 뺀 test 38개 영상 |
-| `~/gazeqwen/dataset/fixations/` | 38개 영상 fixation CSV |
-| `~/gazeqwen/results/{gazeqwen,placebo,lora_only}_test38.json` | StreamGaze 조건별 샘플 결과 |
-| `~/gq_logs/fix/` | fixation 생성·평가 로그, `run_eval.sh` |
-| `figs/gazeqwen_sample634_*.png` | 4.5의 그림(gaze 항 격자, 점수 분해). 원본은 `~/gazeqwen/results/figs/` |
-| `~/gazeqwen/scripts/plot_gaze_bias_grid.py`, `plot_score_decomposition.py`, `plot_gaze_vs_placebo.py` | 4.5 그림 스크립트(`--index N`, test38 결과 순서 기준 샘플 번호) |
+| `external/gazeqwen/scripts/make_fixations.py` | StreamGaze step 1 출력 → GazeQwen fixation CSV 변환(EGTEA/EgoExoLearn 컬럼 차이, `duration` 컬럼 처리) |
+| `external/gazeqwen/patches/` | `eval.py`에 `--placebo_seed` 추가(시각·지속시간 유지, 중심만 ≥ 0.25 떨어진 무작위 위치, 샘플별 고정 시드) |
+| `external/gazeqwen/splits/test_egtea_egoexo.json` | HoloAssist를 뺀 test 38개 영상 |
+| `~/gazeqwen/dataset/fixations/` | 38개 영상 fixation CSV (깃에 없음, `make_fixations.py`로 생성) |
+| `external/gazeqwen/results/{gazeqwen,placebo,lora_only}_test38.json` | StreamGaze 조건별 샘플 결과 |
+| `external/gazeqwen/scripts/run_eval.sh` | StreamGaze 평가 래퍼 (로그는 깃에 없음) |
+| `figs/gazeqwen_sample634_*.png` | 4.5의 그림(gaze 항 격자, 점수 분해). 원본은 `~/gazeqwen/results/figs/` (깃에 없음) |
+| `external/gazeqwen/scripts/plot_gaze_bias_grid.py`, `plot_score_decomposition.py`, `plot_gaze_vs_placebo.py` | 4.5 그림 스크립트(`--index N`, test38 결과 순서 기준 샘플 번호) |

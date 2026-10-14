@@ -1,3 +1,8 @@
+> **이 저장소 (worldmm-experiments).** [WorldMM](https://github.com/wgcyeo/WorldMM) fork 위에 시각 메모리·gaze 실험을 얹은 저장소입니다.
+> - WorldMM 원본 코드: `src/`, `eval/`, `preprocess/`, `script/` (아래 원본 README)
+> - 실험: [`experiments/`](experiments/SUMMARY.md). 전체 흐름과 결론은 [`experiments/SUMMARY.md`](experiments/SUMMARY.md)
+> - 외부 모델 수정분: [`external/gazeqwen/`](external/gazeqwen/README.md) (GazeQwen 재현·placebo 대조용 패치와 스크립트)
+
 # 🌏 WorldMM: Dynamic Multimodal Memory Agent for Long Video Reasoning
 
 <a href="https://arxiv.org/abs/2512.02425"><img src="https://img.shields.io/badge/arXiv-2512.02425-b31b1b.svg?logo=arxiv&logoColor=white" alt="arXiv"></a>
