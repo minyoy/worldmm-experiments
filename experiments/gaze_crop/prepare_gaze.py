@@ -424,9 +424,10 @@ def main() -> None:
                          "through projectaria_tools' get_gaze_vector_reprojection -- the exact "
                          "fisheye624 model and the real CPF->camera extrinsic -- instead of this "
                          "script's single-focal approximation. EgoLife's gaze release has no VRS.")
-    ap.add_argument("--transform", default="none",
+    ap.add_argument("--transform", default="flipx+flipy",
                     help=f"fix a coordinate-frame mismatch: {OPS} joined by '+', e.g. rot90cw+flipy. "
-                         f"Pick it with --dump-variants.")
+                         f"Default flipx+flipy is the one picked for EgoLife (overlay/, variants/); "
+                         f"for new data pick it again with --dump-variants.")
     ap.add_argument("--dump-variants", type=int, default=0, metavar="N",
                     help="render N clips' middle frame under every rotation/flip, as a labelled "
                          "grid, so --transform can be chosen by eye")
